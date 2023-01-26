@@ -26,7 +26,7 @@
       <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="421" column="9" selection-start="11319" selection-end="11319" vertical-scroll-proportion="0.41013825" vertical-offset="8064" max-vertical-offset="9500">
+            <state line="413" column="0" selection-start="10978" selection-end="10978" vertical-scroll-proportion="0.22580644" vertical-offset="8064" max-vertical-offset="9500">
               <folding>
                 <element signature="e#6#407#0" expanded="true" />
                 <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
@@ -207,7 +207,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -601,7 +601,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="421" column="9" selection-start="11319" selection-end="11319" vertical-scroll-proportion="0.41013825" vertical-offset="8064" max-vertical-offset="9500">
+        <state line="413" column="0" selection-start="10978" selection-end="10978" vertical-scroll-proportion="0.22580644" vertical-offset="8064" max-vertical-offset="9500">
           <folding>
             <element signature="e#6#407#0" expanded="true" />
             <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
