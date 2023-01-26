@@ -80,7 +80,7 @@ $httpStatusCodes = array(
     599 => 'Server Error: Network connect timeout error',
 );
 $pluginStatus = array("1" => "Active", "2" => "Passive");
-$postStatus = array("Publish", "Edit", "Trash");
+$postStatus = array("publish", "edit", "trash");
 $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
 $options['post_status'] = is_array($options['post_status']) ? $options['post_status'] : array("publish" => "1", "edit" => "1");
 
@@ -176,7 +176,7 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
                         </tr>
 
                         <?php
-                        if(count($jsonFiles)>0) { ?>
+                        if(is_array($jsonFiles)) { ?>
 
                        <?php foreach($jsonFiles as $key => $item) {?>
                         <tr class="trBorder">

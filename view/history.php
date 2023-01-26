@@ -9,6 +9,7 @@
             <th>Title</th>
             <th>Date</th>
             <th>Send Status</th>
+            <th>Post</th>
         </tr>
         </thead>
         <tbody class="the-list">
