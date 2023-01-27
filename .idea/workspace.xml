@@ -26,12 +26,84 @@
       <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="413" column="0" selection-start="10978" selection-end="10978" vertical-scroll-proportion="0.22580644" vertical-offset="8064" max-vertical-offset="9500">
+            <state line="321" column="0" selection-start="8629" selection-end="8629" vertical-scroll-proportion="0.14988814" vertical-offset="926" max-vertical-offset="1820">
               <folding>
-                <element signature="e#6#407#0" expanded="true" />
-                <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-                <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-                <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+                <element signature="e#410#468#0" expanded="false" />
+                <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#1755#1911#0" expanded="false" />
+                <element signature="e#1851#1911#0" expanded="false" />
+                <element signature="e#1929#2060#0" expanded="false" />
+                <element signature="e#2134#2209#0" expanded="false" />
+                <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#2379#2689#0" expanded="false" />
+                <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#3211#3422#0" expanded="false" />
+                <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#4131#4212#0" expanded="false" />
+                <element signature="e#4273#4332#0" expanded="false" />
+                <element signature="e#4406#4570#0" expanded="false" />
+                <element signature="e#4470#4560#0" expanded="false" />
+                <element signature="e#4580#4675#0" expanded="false" />
+                <element signature="e#5083#5271#0" expanded="false" />
+                <element signature="e#5115#5261#1" expanded="false" />
+                <element signature="e#5153#5247#0" expanded="false" />
+                <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#5621#5777#0" expanded="false" />
+                <element signature="e#5649#5767#1" expanded="false" />
+                <element signature="e#5687#5753#0" expanded="false" />
+                <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#6443#6570#0" expanded="false" />
+                <element signature="e#6581#6737#0" expanded="false" />
+                <element signature="e#6889#6966#0" expanded="false" />
+                <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#7059#7104#0" expanded="false" />
+                <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#7260#7305#0" expanded="false" />
+                <element signature="e#7476#8145#0" expanded="false" />
+                <element signature="e#7739#7888#0" expanded="false" />
+                <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#8294#8620#0" expanded="false" />
+                <element signature="e#8348#8610#0" expanded="false" />
+                <element signature="e#8383#8521#1" expanded="false" />
+                <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#8739#10122#0" expanded="false" />
+                <element signature="e#8875#10111#0" expanded="false" />
+                <element signature="e#8936#10097#0" expanded="false" />
+                <element signature="e#8985#9090#0" expanded="false" />
+                <element signature="e#9120#9437#0" expanded="false" />
+                <element signature="e#9537#10078#0" expanded="false" />
+                <element signature="e#9768#10055#0" expanded="false" />
+                <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#10201#10377#0" expanded="false" />
+                <element signature="e#10253#10367#1" expanded="false" />
+                <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#10464#10625#0" expanded="false" />
+                <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#10684#10759#0" expanded="false" />
+                <element signature="e#10833#11027#0" expanded="false" />
+                <element signature="e#10911#10987#0" expanded="false" />
+                <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#11119#11380#0" expanded="false" />
+                <element signature="e#11154#11277#0" expanded="false" />
+                <element signature="e#11317#11380#0" expanded="false" />
+                <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#11428#11722#0" expanded="false" />
+                <element signature="e#11732#11856#0" expanded="false" />
+                <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#11960#12055#0" expanded="false" />
+                <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#12178#12312#0" expanded="false" />
+                <element signature="e#12213#12301#0" expanded="false" />
+                <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+                <element signature="e#12388#12793#0" expanded="false" />
+                <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+                <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+                <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+                <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
               </folding>
             </state>
           </provider>
@@ -49,11 +121,8 @@
       <file leaf-file-name="settings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/settings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="21" selection-start="404" selection-end="404" vertical-scroll-proportion="-10.344828" vertical-offset="0" max-vertical-offset="7120">
-              <folding>
-                <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="89" column="2" selection-start="3001" selection-end="3001" vertical-scroll-proportion="-9.379311" vertical-offset="1508" max-vertical-offset="6040">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,7 +130,7 @@
       <file leaf-file-name="history.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/history.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="18" selection-start="1185" selection-end="1185" vertical-scroll-proportion="-20.689655" vertical-offset="0" max-vertical-offset="1660">
+            <state line="24" column="0" selection-start="897" selection-end="897" vertical-scroll-proportion="-16.551723" vertical-offset="0" max-vertical-offset="1280">
               <folding />
             </state>
           </provider>
@@ -77,9 +146,11 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/view/history.php" />
         <option value="$PROJECT_DIR$/helpers/indexingApi.php" />
+        <option value="$PROJECT_DIR$/assets/message-deactivate.js" />
+        <option value="$PROJECT_DIR$/assets/fi-css.css" />
         <option value="$PROJECT_DIR$/view/settings.php" />
+        <option value="$PROJECT_DIR$/view/history.php" />
         <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
@@ -136,34 +207,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fast-index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fast-index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fast-index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fast-index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -207,15 +250,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -223,11 +266,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -249,12 +292,189 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="260" max-vertical-offset="9500">
+          <folding>
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/helpers/indexingApi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="21" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="7120">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/history.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="18" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="1660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="348" column="5" selection-start="9301" selection-end="9301" vertical-scroll-proportion="0.0" vertical-offset="3840" max-vertical-offset="3840">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -269,10 +489,7 @@
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="124" column="63" selection-start="4426" selection-end="4435" vertical-scroll-proportion="0.0" vertical-offset="2195" max-vertical-offset="7120">
-          <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -287,10 +504,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="348" column="5" selection-start="9301" selection-end="9301" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3660">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -305,10 +594,7 @@
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="124" column="63" selection-start="4426" selection-end="4435" vertical-scroll-proportion="0.0" vertical-offset="2195" max-vertical-offset="7120">
-          <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -323,10 +609,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="395" column="0" selection-start="10144" selection-end="10144" vertical-scroll-proportion="0.0" vertical-offset="6715" max-vertical-offset="7327">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -341,10 +699,7 @@
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="250" column="57" selection-start="9867" selection-end="9867" vertical-scroll-proportion="0.0" vertical-offset="3715" max-vertical-offset="5661">
-          <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -359,10 +714,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="395" column="0" selection-start="10144" selection-end="10144" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7327">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -377,10 +804,7 @@
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="250" column="57" selection-start="9867" selection-end="9867" vertical-scroll-proportion="0.0" vertical-offset="3715" max-vertical-offset="5661">
-          <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -395,10 +819,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="235" column="36" selection-start="5922" selection-end="5922" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7463">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -413,10 +909,7 @@
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="83" column="102" selection-start="2940" selection-end="2947" vertical-scroll-proportion="0.0" vertical-offset="1411" max-vertical-offset="5423">
-          <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -431,10 +924,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -457,10 +1022,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -483,10 +1120,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -514,10 +1223,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="189" column="55" selection-start="4321" selection-end="4321" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="4964">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -538,10 +1319,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="82" column="35" selection-start="1699" selection-end="1699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4369">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -562,10 +1415,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="0" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2533">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -573,6 +1498,20 @@
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="63" column="0" selection-start="2267" selection-end="2267" vertical-scroll-proportion="0.0" vertical-offset="589" max-vertical-offset="1836" />
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1170" column="7" selection-start="17599" selection-end="17599" vertical-scroll-proportion="0.33261105" vertical-offset="23093" max-vertical-offset="76260">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/message-deactivate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="54" selection-start="346" selection-end="346" vertical-scroll-proportion="0.08667389" vertical-offset="0" max-vertical-offset="923">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/helpers/indexingApi.php">
@@ -584,29 +1523,105 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="21" selection-start="404" selection-end="404" vertical-scroll-proportion="-10.344828" vertical-offset="0" max-vertical-offset="7120">
-          <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="89" column="2" selection-start="3001" selection-end="3001" vertical-scroll-proportion="-9.379311" vertical-offset="1508" max-vertical-offset="6040">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/history.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="18" selection-start="1185" selection-end="1185" vertical-scroll-proportion="-20.689655" vertical-offset="0" max-vertical-offset="1660">
+        <state line="24" column="0" selection-start="897" selection-end="897" vertical-scroll-proportion="-16.551723" vertical-offset="0" max-vertical-offset="1280">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/fi-css.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="9" selection-start="871" selection-end="873" vertical-scroll-proportion="0.65330446" vertical-offset="277" max-vertical-offset="1200">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="413" column="0" selection-start="10978" selection-end="10978" vertical-scroll-proportion="0.22580644" vertical-offset="8064" max-vertical-offset="9500">
+        <state line="321" column="0" selection-start="8629" selection-end="8629" vertical-scroll-proportion="0.14988814" vertical-offset="926" max-vertical-offset="1820">
           <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <marker date="1674770866934" expanded="true" signature="4445:4744" placeholder="SELECT p.*, ..." />
-            <marker date="1674770866934" expanded="true" signature="4466:4487" placeholder="select count..." />
-            <marker date="1674770866934" expanded="true" signature="5190:5291" placeholder="select count..." />
+            <element signature="e#410#468#0" expanded="false" />
+            <element signature="n#__construct#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getLogs#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#1755#1911#0" expanded="false" />
+            <element signature="e#1851#1911#0" expanded="false" />
+            <element signature="e#1929#2060#0" expanded="false" />
+            <element signature="e#2134#2209#0" expanded="false" />
+            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#2379#2689#0" expanded="false" />
+            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#3211#3422#0" expanded="false" />
+            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#4131#4212#0" expanded="false" />
+            <element signature="e#4273#4332#0" expanded="false" />
+            <element signature="e#4406#4570#0" expanded="false" />
+            <element signature="e#4470#4560#0" expanded="false" />
+            <element signature="e#4580#4675#0" expanded="false" />
+            <element signature="e#5083#5271#0" expanded="false" />
+            <element signature="e#5115#5261#1" expanded="false" />
+            <element signature="e#5153#5247#0" expanded="false" />
+            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#5621#5777#0" expanded="false" />
+            <element signature="e#5649#5767#1" expanded="false" />
+            <element signature="e#5687#5753#0" expanded="false" />
+            <element signature="n#sendRequest#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#6443#6570#0" expanded="false" />
+            <element signature="e#6581#6737#0" expanded="false" />
+            <element signature="e#6889#6966#0" expanded="false" />
+            <element signature="n#historyPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7059#7104#0" expanded="false" />
+            <element signature="n#settingsPage#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#7260#7305#0" expanded="false" />
+            <element signature="e#7476#8145#0" expanded="false" />
+            <element signature="e#7739#7888#0" expanded="false" />
+            <element signature="n#fiPostType#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8294#8620#0" expanded="false" />
+            <element signature="e#8348#8610#0" expanded="false" />
+            <element signature="e#8383#8521#1" expanded="false" />
+            <element signature="n#jsonUploader#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#8739#10122#0" expanded="false" />
+            <element signature="e#8875#10111#0" expanded="false" />
+            <element signature="e#8936#10097#0" expanded="false" />
+            <element signature="e#8985#9090#0" expanded="false" />
+            <element signature="e#9120#9437#0" expanded="false" />
+            <element signature="e#9537#10078#0" expanded="false" />
+            <element signature="e#9768#10055#0" expanded="false" />
+            <element signature="n#uploadFilter#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10201#10377#0" expanded="false" />
+            <element signature="e#10253#10367#1" expanded="false" />
+            <element signature="n#registerSettings#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10464#10625#0" expanded="false" />
+            <element signature="n#postTypes#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#10684#10759#0" expanded="false" />
+            <element signature="e#10833#11027#0" expanded="false" />
+            <element signature="e#10911#10987#0" expanded="false" />
+            <element signature="n#fastIndexOptionsValidate#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11119#11380#0" expanded="false" />
+            <element signature="e#11154#11277#0" expanded="false" />
+            <element signature="e#11317#11380#0" expanded="false" />
+            <element signature="n#adminInit#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11428#11722#0" expanded="false" />
+            <element signature="e#11732#11856#0" expanded="false" />
+            <element signature="n#cronSchedule#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#11960#12055#0" expanded="false" />
+            <element signature="n#fiDailyCron#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12178#12312#0" expanded="false" />
+            <element signature="e#12213#12301#0" expanded="false" />
+            <element signature="n#fiDeleteAlert#0;n#FastIndex#0;n#!!top" expanded="false" />
+            <element signature="e#12388#12793#0" expanded="false" />
+            <marker date="1674843276665" expanded="false" signature="4752:5051" placeholder="SELECT p.*, ..." />
+            <marker date="1674843276665" expanded="false" signature="4773:4794" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="5497:5598" placeholder="select count..." />
+            <marker date="1674843276665" expanded="false" signature="12519:12566" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>

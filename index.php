@@ -45,10 +45,16 @@ class FastIndex
         add_action('init', array($this, 'fiPostType'));
         add_action('post_updated', array($this, 'sendRequest'));
         add_filter('cron_schedules', array($this, 'cronSchedule'));
+        add_action('admin_head', array($this,'pluginAssets'));
 
     }
 
     /* ASSETS */
+
+    function pluginAssets() {
+        wp_enqueue_style('fi_css', plugin_dir_url(__FILE__).'assets/fi-css.css', array());
+        wp_enqueue_script('fi_deletion_message', plugin_dir_url(__FILE__).'assets/message-deactivate.js', array());
+    }
 
     private function getLogs()
     {
@@ -270,6 +276,7 @@ class FastIndex
         }
 
         $options = get_option('fast_index_options');
+        if(is_array($options) ==false) { $options = array(); }
         $jsonFiles = $options['json_file'];
 
         if (count($_POST) > 1 and isset($_POST['submit'])) {
@@ -375,8 +382,10 @@ class FastIndex
 
     function registerSettings()
     {
+        /* sanitize the data */
         if (current_user_can('manage_options')) {
             register_setting('fast_index', 'fast_index_options', array(&$this, 'fastIndexOptionsValidate'));
+
         }
     }
 
@@ -427,6 +436,7 @@ class FastIndex
 
     }
 
+
     /* CRON */
 
     function cronSchedule($schedules)
@@ -454,17 +464,31 @@ class FastIndex
 
     }
 
+    function fiDeleteAlert()
+    {
+
+        global $wpdb;
+
+        if($_GET['fi_delete'] =="true") {
+
+            $wpPostsTable = $wpdb->prefix . "posts";
+            $wpdb->get_var($wpdb->prepare("delete from {$wpPostsTable} where post_type= %s",array($this->customPostType)));
+            update_option('fast_index_options', array());
+            unregister_post_type($this->customPostType);
+            unregister_setting('fast_index', 'fast_index_options');
+
+        }
+
+    }
 
 }
 
 
 $fastIndex = new FastIndex();
 
-
 add_action('admin_menu', array(&$fastIndex, 'adminInit'), 99999999);
 add_action('admin_init', array(&$fastIndex, 'registerSettings'), 99999999);
 add_action('fiDailyCronHook', array(&$fastIndex, 'fiDailyCron'));
-
-
+register_deactivation_hook(__FILE__, array(&$fastIndex, 'fiDeleteAlert'));
 
 ?>

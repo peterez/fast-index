@@ -79,13 +79,16 @@ $httpStatusCodes = array(
     598 => 'Server Error: Network read timeout error',
     599 => 'Server Error: Network connect timeout error',
 );
+
+
+
 $pluginStatus = array("1" => "Active", "2" => "Passive");
 $postStatus = array("publish", "edit", "trash");
 $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
 $options['post_status'] = is_array($options['post_status']) ? $options['post_status'] : array("publish" => "1", "edit" => "1");
 
 ?>
-<div class="content-area">
+<div id="fi" class="content-area">
 
     <div class="pc">
 
@@ -291,60 +294,3 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
 </div>
 
 
-<style>
-    .content-area {
-        padding: 15px;
-        background: #f9f9f9;
-        border-radius: 5px;
-        border: 1px solid #cfcfcf;
-        margin-top: 20px;
-        margin-right: 20px;
-    }
-
-    .content-area h1.title {
-        border-bottom: 1px solid #cfcfcf;
-        font-size: 1.5em;
-        line-height: 1.8em;
-        max-width: 90%;
-    }
-
-    .pw50 {
-        width: 50%;
-        float: left;
-    }
-
-    .fiClear {
-        clear: both;
-    }
-
-    td.insideTd {
-        padding: 5px 10px !important;
-    }
-
-    .insideTd table td {
-        padding: 0px !important;
-    }
-
-    .subTable td {
-        display:table-cell !important;
-    }
-
-    .trBorder {
-        border-bottom:1px solid #eee;
-    }
-
-    @media screen and (max-width: 769px) {
-
-        .form-table td {
-            padding: 15px 10px !important;
-        }
-
-        .pw50 {
-            width: 100%;
-            float: none;
-        }
-
-    }
-
-
-</style>

@@ -1,0 +1,53 @@
+<style>
+* { font-family: arial; font-size: 14px; }
+h3 { font-size: 19px; }
+h1 { font-size: 24px; }
+</style>
+<div class="pw50">
+
+            <h1 class="title">Guideline</h1>
+
+            <div>
+
+                <h3>1- What means 200, 429 and 401 codes?</h3>
+                <p><b>Code 200</b>; It's means working and ready<br>
+                   <b>Code 429</b>; Too many requests are thrown and when it's 24 hours it starts again <br>
+                   <b>Code 401</b>; It means that the service account you have installed is not authorized or authorized as "owner" in your webmaster tools account</p>
+                <p><b>Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, check your webmaster tools owners </b></p>
+                <hr>
+                <br>
+                <h3>2- Settings</h3>
+                <p>
+                    <b>Plugin Status</b>: If you don't use set as passive <br>
+                    <b>Post Types</b>: Define the when you make post action which one post types will send to google. If you add new post type or added from plugin it will be shown in here
+                    <br>
+                    <b>Daily Old Content Post</b>: If you wanna sent to google your old posts type the your daily limit. Every service account has daily 200 limit and you have to split your limits daily new post and old posts <br>
+                    <b>Post Status</b>: It's means which post status trigger the this plugin
+                </p>
+                <hr>
+                <br>
+                <h3>3- Is it legal?</h3>
+                <p>Totally is legal. It's google service and working with google API. If you upload too much service account it's can be defined a spam. Just watch out for this</p>
+                <hr>
+                <br>
+                <h3>4- How work wordpress Cron Job ( Daily Old Content Post )?</h3>
+                <p>The task list is triggered when someone logs into the site at or after the specified hours. These tasks will never be triggered if no one accesses your site. If no one visits your site during the day, log in to your site for once and the task list will be triggered automatically.</p>
+                <hr>
+                <br>
+                <h3>4- Mass Service Account creating and upload</h3>
+                <p>
+                    <b>Not</b>: 1 Google account can create minimum 12 google cloud projects. Every google cloud project can enable Indexing API Service and every services has 200 daily limit. It's means you can send 2400 url to google. If you do same steps with your another google account you will get more 2400 limit and you 4800 url to google daily.
+                </p>
+                <p>
+                    <b>Step 1</b>: Go Link <a target="_blank" href="https://console.cloud.google.com/">https://console.cloud.google.com/</a> <br>
+                    <b>Step 2</b> : Create Project and Select<br>
+                    <b>Step 3</b> : Create Service Account and make authorized you created email on service account<br>
+                    <b>Step 4</b> : Add as owner on your webmaster tools<br>
+                    <b>Step 5</b> : Go your wordpress admin dashboard and open Fast Index settings page and upload your service account JSON<br>
+                </p>
+                <p>Watch Video : <a target="_blank" href="https://youtu.be/RsJA66b5884">https://youtu.be/RsJA66b5884</a></p>
+                <p><iframe width="560" height="315" src="https://www.youtube.com/embed/RsJA66b5884" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></p>
+
+            </div>
+
+        </div>

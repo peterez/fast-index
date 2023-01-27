@@ -1,4 +1,4 @@
-<div class="content-area">
+<div id="fi" class="content-area">
 
     <h1 class="title">History</h1>
 
@@ -22,7 +22,6 @@
                             ><?php echo $item['post_title'] ?></a></strong>
 
                 </td>
-
                 <td class="date column-date" data-colname="Date">Sended<br><?php echo $item['post_date'] ?></td>
                 <td>OK</td>
                 <td><a class="row-title" href="<?php echo $item['post_content'] ?>" target="_blank">GO POST</a></td>
@@ -57,21 +56,3 @@
 
 </div>
 
-
-<style>
-    .content-area {
-        padding: 15px;
-        background: #f9f9f9;
-        border-radius: 5px;
-        border: 1px solid #cfcfcf;
-        margin-top: 20px;
-        margin-right: 20px;
-    }
-
-    .content-area h1.title {
-        border-bottom: 1px solid #cfcfcf;
-        font-size: 1.8em;
-        line-height: 1.8em;
-    }
-
-</style>
