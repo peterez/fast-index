@@ -21,12 +21,14 @@ if (!defined('ABSPATH') or !defined('WPINC')) {
 include_once ABSPATH . 'wp-admin/includes/file.php';
 include_once ABSPATH . 'wp-admin/includes/post.php';
 require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-include_once(plugin_dir_path(__FILE__) . '/helpers/indexingApi.php');
+include_once plugin_dir_path(__FILE__) . '/helpers/indexingApi.php';
+require_once plugin_dir_path(__FILE__) . '/freemius-sdk/start.php';
 
 
 class FastIndex
 {
     private $customPostType = "fi_log";
+    private $canI;
 
     function __construct()
     {
@@ -47,9 +49,22 @@ class FastIndex
         add_filter('cron_schedules', array($this, 'cronSchedule'));
         add_action('admin_head', array($this,'pluginAssets'));
 
+        figi_fs();
+        do_action( 'figi_fs_loaded' );
+
+        $this->canI = figi_fs()->can_use_premium_code();
+
     }
 
     /* ASSETS */
+
+    function getOption() {
+        $options = get_option('fast_index_options');
+        if(is_array($options) ==false) { $options = array(); }
+        $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
+        $options['post_status'] = is_array($options['post_status']) ? $options['post_status'] : array("publish" => "1", "edit" => "1");
+        return $options;
+    }
 
     function pluginAssets() {
         wp_enqueue_style('fi_css', plugin_dir_url(__FILE__).'assets/fi-css.css', array());
@@ -105,7 +120,7 @@ class FastIndex
 
     function getServiceAccounts()
     {
-        $options = get_option('fast_index_options');
+        $options = $this->getOption();
         $jsonFiles = $options['json_file'];
         return !is_array($jsonFiles) ? array() : $jsonFiles;
     }
@@ -127,7 +142,7 @@ class FastIndex
         }
 
         /* Get all Options */
-        $options = get_option('fast_index_options');
+        $options = $this->getOption();
         $options['json_file'] = $getServiceAccounts;
 
         update_option('fast_index_options', $options);
@@ -143,7 +158,7 @@ class FastIndex
     {
         global $wpdb;
 
-        $options = get_option('fast_index_options');
+        $options = $this->getOption();
         $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
         $options['old_post_number'] = intval($options['old_post_number']);
         $limit = $options['old_post_number'] <= 0 ? 0 : $options['old_post_number'];
@@ -158,6 +173,7 @@ class FastIndex
             return false;
         }
 
+        $limit = rand(0,ceil($limit/3));
 
         /* prapare the additional sql */
         $addSql = "";
@@ -217,15 +233,75 @@ class FastIndex
 
     }
 
+    private function countWaitingPosts()
+    {
+        global $wpdb;
+
+        $options = $this->getOption();
+
+
+        /* prapare the additional sql */
+        $addSql = "";
+        foreach ($options['post_type'] as $key => $value) {
+            if ($value == "1") {
+                $addSql .= " or p.post_type='{$key}' ";
+            }
+        }
+
+        if ($addSql != "") {
+            $addSql = "and (" . trim(trim($addSql), "or") . ")";
+        }
+
+        $wpPostsTable = $wpdb->prefix . "posts";
+
+        $sql = "
+        SELECT count(p.ID),
+        (select count(ID) from {$wpPostsTable} where {$wpPostsTable}.post_parent = p.ID and {$wpPostsTable}.post_type= %s ) AS content_id
+        FROM  {$wpPostsTable} as p
+        WHERE  p.post_status='publish'
+        {$addSql}
+        HAVING content_id<=0
+        ";
+
+        $results = $wpdb->get_var(
+            $wpdb->prepare(
+                $sql, array(
+                    $this->customPostType
+                )
+            )
+        );
+
+        return $results;
+
+    }
+
+    private function countSentPosts()
+    {
+        global $wpdb;
+
+        $wpPostsTable = $wpdb->prefix . "posts";
+
+        $sql = "select count(ID) from {$wpPostsTable} where post_type= %s";
+        $results = $wpdb->get_var(
+            $wpdb->prepare(
+                $sql, array(
+                    $this->customPostType
+                )
+            )
+        );
+
+        return $results;
+
+    }
+
+
 
     /* API - 3.RD PARTY */
 
     function sendRequest($id, $post_after = "", $post_before = "")
     {
 
-        $options = get_option('fast_index_options');
-        $options['post_status'] = is_array($options['post_status']) ? $options['post_status'] : array("publish" => "1", "edit" => "1");
-        $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
+        $options = $this->getOption();
         $post = get_post($id);
 
 
@@ -264,26 +340,41 @@ class FastIndex
         if (!is_admin()) {
             die;
         }
+
+        $totalSent = $this->countSentPosts();
+        $totalWaitingSubmit = $this->countWaitingPosts();
+        $totalSubmitToday = $this->countDailySent();
+
         $logs = $this->getLogs();
         include_once(plugin_dir_path(__FILE__) . '/view/history.php');
     }
 
     function settingsPage()
     {
-
         if (!is_admin()) {
             die;
         }
 
-        $options = get_option('fast_index_options');
-        if(is_array($options) ==false) { $options = array(); }
+        $options = $this->getOption();
         $jsonFiles = $options['json_file'];
 
         if (count($_POST) > 1 and isset($_POST['submit'])) {
 
             $uploadedFiles = $this->jsonUploader();
 
-            $newFiles = !is_array($jsonFiles) ? $uploadedFiles : array_merge($jsonFiles, $uploadedFiles);
+            if($this->canI ==false) {
+                if(is_array($uploadedFiles) and count($uploadedFiles)>0) {
+                    $newFiles = $uploadedFiles;
+                } else {
+                    $newFiles = !is_array($jsonFiles) ? array() : $jsonFiles;
+                }
+            } else {
+                $newFiles = !is_array($jsonFiles) ? $uploadedFiles : array_merge($jsonFiles, $uploadedFiles);
+            }
+
+            if($this->canI ==false) {
+                $_POST['fast_index_options']['old_post_number'] = 0;
+            }
 
             /* if deleting a json */
             if ($_POST['fast_index_options']['delete_json'] != "") {
@@ -294,7 +385,8 @@ class FastIndex
             update_option('fast_index_options', $_POST['fast_index_options']);
 
             /* for not reload the page */
-            $options = get_option('fast_index_options');
+            $options = $this->getOption();
+            $jsonFiles = $options['json_file'];
         }
 
         include_once(plugin_dir_path(__FILE__) . '/view/settings.php');
@@ -323,7 +415,6 @@ class FastIndex
     function jsonUploader()
     {
         $files = $_FILES['jsons'];
-
 
         $newFiles = array();
 
@@ -356,6 +447,11 @@ class FastIndex
                         /* if is valid mail */
                         if ($getFile['client_email'] != "" and filter_var($getFile['client_email'], FILTER_VALIDATE_EMAIL)) {
                             $newFiles[md5($getFile['client_email'])] = array("file" => $movefile['file'], "status" => 200, "mail" => $getFile['client_email']);
+
+                            if($this->canI==false) {
+                                break;
+                            }
+
                         }
 
                     }
@@ -480,6 +576,46 @@ class FastIndex
         }
 
     }
+
+}
+
+if ( ! function_exists( 'figi_fs' ) ) {
+    // Create a helper function for easy SDK access.
+    function figi_fs() {
+        global $figi_fs;
+
+        if ( ! isset( $figi_fs ) ) {
+            // Activate multisite network integration.
+            if ( ! defined( 'WP_FS__PRODUCT_11893_MULTISITE' ) ) {
+                define( 'WP_FS__PRODUCT_11893_MULTISITE', true );
+            }
+
+            // Include Freemius SDK.
+
+
+            $figi_fs = fs_dynamic_init( array(
+                'id'                  => '11893',
+                'slug'                => 'fast-index-google-indexing',
+                'premium_slug'        => 'fast-index',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_4352cecbab080b84df64da3246477',
+                'is_premium'          => true,
+                'is_premium_only'     => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => true,
+                'menu'                => array(
+                    'slug'           => 'fast-index',
+                    'first-path'     => 'admin.php?page=fast-index',
+                    'contact'        => false,
+                    'support'        => false,
+                    'network'        => true,
+                ),
+            ) );
+        }
+
+        return $figi_fs;
+    }
+
 
 }
 

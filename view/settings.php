@@ -84,8 +84,7 @@ $httpStatusCodes = array(
 
 $pluginStatus = array("1" => "Active", "2" => "Passive");
 $postStatus = array("publish", "edit", "trash");
-$options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
-$options['post_status'] = is_array($options['post_status']) ? $options['post_status'] : array("publish" => "1", "edit" => "1");
+
 
 ?>
 <div id="fi" class="content-area">
@@ -125,9 +124,19 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
                                 <small>Select minimum one option</small>
                             </td>
                             <td>
-                                <?php foreach ($this->postTypes() as $value) { ?>
+                                <?php foreach ($this->postTypes() as $value) {
+
+                                    $canSelectable = true;
+                                    if($this->canI ==false) {
+                                    if($value['name'] =="post") {
+                                        $canSelectable = true;
+                                    } else {
+                                        $canSelectable = false;
+                                    }
+                                    }
+                                    ?>
                                     <label style="margin-right: 25px; margin-bottom: 15px;">
-                                        <input
+                                        <input <?php echo $canSelectable==false?'readonly="true"':""?>
                                             name="fast_index_options[post_type][<?php echo $value['name'] ?>]" <?php echo $options['post_type'][$value['name']] == "1" ? "checked" : "" ?>
                                             type="checkbox" value="1"/> <?php echo $value['label'] ?>
                                     </label>
@@ -142,7 +151,7 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
                                 <small>How many old contents should be sent per day?</small>
                             </td>
                             <td>
-                                <input class="regular-text" name="fast_index_options[old_post_number]" type="text"
+                                <input <?php echo $this->canI ==false?'readonly="true" disabled':""?> class="regular-text" name="<?php echo $this->canI ==false?"":"fast_index_options[old_post_number]"?>" type="text"
                                        value="<?php echo intval($options['old_post_number']) ?>"/>
                             </td>
                         </tr>
@@ -154,9 +163,20 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
                                 <small>Which status happen should content be sent?</small>
                             </td>
                             <td>
-                                <?php foreach ($postStatus as $value) { ?>
+                                <?php foreach ($postStatus as $value) {
+
+                                    $canSelectable = true;
+                                    if($this->canI ==false) {
+                                        if($value =="publish") {
+                                            $canSelectable = true;
+                                        } else {
+                                            $canSelectable = false;
+                                        }
+                                    }
+
+                                    ?>
                                     <label style="margin-right: 25px; margin-bottom: 15px;">
-                                        <input
+                                        <input <?php echo $canSelectable==false?'readonly="true"':""?>
                                             name="fast_index_options[post_status][<?php echo $value ?>]" <?php echo $options['post_status'][$value] == "1" ? "checked" : "" ?>
                                             type="checkbox" value="1"/> <?php echo $value ?>
                                     </label>
@@ -197,7 +217,6 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
                         <?php }?>
 
                             <tr>
-
                                 <td colspan="2">
                                     &nbsp;
                                 </td>
@@ -205,13 +224,18 @@ $options['post_status'] = is_array($options['post_status']) ? $options['post_sta
 
                         <?php }?>
 
-
-
                         <tr>
                             <td scope="row"><b>Choose Json File/s</b></td>
                             <td>
-                                <input class="jsonFileUpload" accept=".json" type="file" name="jsons[]" multiple
+                                <input class="jsonFileUpload" accept=".json" type="file" name="jsons[]"  <?php echo $this->canI ==false?"":"multiple"?>
                                        value="Choose Json File/s"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td scope="row">&nbsp; </td>
+                            <td>
+                                <?php echo $this->canI ==false?"If you wanna upload multiple and more service account<br><b>please upgrade to premium</b>":""?>
                             </td>
                         </tr>
 

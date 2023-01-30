@@ -9,3 +9,17 @@
                 }
             })
         }
+
+
+        window.onload = function(){
+            document.querySelector('input[readonly="true"]').addEventListener('click', function(event){
+                event.preventDefault();
+                this.checked = false;
+                if (confirm('Please upgrade to premium')) {
+                    window.location.href = "admin.php?page=fast-index-pricing";
+                }
+
+            })
+        }
+
+

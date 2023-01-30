@@ -1,6 +1,31 @@
 <div id="fi" class="content-area">
 
+    <h1 class="title">Simple Report</h1>
+
+    <table class="table table-striped wp-list-table widefat fixed striped table-view-list posts"
+           style="width:100%">
+        <thead>
+        <tr>
+            <th>Total Sent</th>
+            <th>Total Waiting</th>
+            <th>Sent Today</th>
+        </tr>
+        </thead>
+        <tbody class="the-list">
+        <tr>
+            <td><?php echo $totalSent;?></td>
+            <td><?php echo $totalWaitingSubmit;?></td>
+            <td><?php echo $totalSubmitToday;?></td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <br>
     <h1 class="title">History</h1>
+    <br>
 
     <table class="table table-striped wp-list-table widefat fixed striped table-view-list posts"
            style="width:100%">
@@ -15,7 +40,7 @@
         <tbody class="the-list">
         <?php foreach ($logs as $item) {
             ?>
-            <tr class="iedit author-self level-0 type-post status-publish format-standard hentry">
+            <tr >
                 <td class="title column-title has-row-actions column-primary page-title">
                     <strong><a class="row-title"
                                href="post.php?post=<?php echo $item['post_parent'] ?>&action=edit"
