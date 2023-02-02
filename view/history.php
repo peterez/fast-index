@@ -13,9 +13,9 @@
         </thead>
         <tbody class="the-list">
         <tr>
-            <td><?php echo $totalSent;?></td>
-            <td><?php echo $totalWaitingSubmit;?></td>
-            <td><?php echo $totalSubmitToday;?></td>
+            <td><?php echo esc_attr($totalSent);?></td>
+            <td><?php echo esc_attr($totalWaitingSubmit);?></td>
+            <td><?php echo esc_attr($totalSubmitToday);?></td>
         </tr>
 
         </tbody>
@@ -59,13 +59,16 @@
 
 
     <?php
-    $pureUrl = "admin.php?page=" . $_REQUEST['page'];
-    $oldPn = $_REQUEST['pn'] - 1;
-    $newPn = $_REQUEST['pn'] + 1;
+    $page = intval(sanitize_text_field($_REQUEST['page']));
+    $pn = intval(sanitize_text_field($_REQUEST['pn']));
+
+    $pureUrl = "admin.php?page=" . $page;
+    $oldPn = $pn - 1;
+    $newPn = $pn + 1;
     ?>
     <nav aria-label="<?php echo _("Pagination") ?>">
         <ul class="pagination mt-3">
-            <?php if ($_REQUEST['pn'] >= 1) { ?>
+            <?php if ($pn >= 1) { ?>
                 <li class="page-item"><a class="page-link"
                                          href="<?php echo $pureUrl . "&pn=" . $oldPn ?>"><?php _e("Previous") ?></a>
                 </li>

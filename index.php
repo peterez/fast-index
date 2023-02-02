@@ -74,12 +74,13 @@ class FastIndex
     private function getLogs()
     {
 
-        $_REQUEST['pn'] = intval($_REQUEST['pn']);
-        if ($_REQUEST['pn'] <= 0) {
-            $_REQUEST['pn'] = 0;
+        $pn = intval(sanitize_text_field($_REQUEST['pn']));
+
+        if ($pn <= 0) {
+            $pn = 0;
             $offset = 0;
         } else {
-            $offset = $_REQUEST['pn'] * 20;
+            $offset = $pn * 20;
         }
 
         $args = array(
@@ -224,7 +225,7 @@ class FastIndex
         $results = $wpdb->get_var(
             $wpdb->prepare(
                 $sql, array(
-                    $this->customPostType
+                    sanitize_text_field(strip_tags($this->customPostType))
                 )
             )
         );
@@ -244,7 +245,7 @@ class FastIndex
         $addSql = "";
         foreach ($options['post_type'] as $key => $value) {
             if ($value == "1") {
-                $addSql .= " or p.post_type='{$key}' ";
+                $addSql .= " or p.post_type='".sanitize_text_field(strip_tags($key))."}' ";
             }
         }
 
@@ -266,7 +267,7 @@ class FastIndex
         $results = $wpdb->get_var(
             $wpdb->prepare(
                 $sql, array(
-                    $this->customPostType
+                    sanitize_text_field(strip_tags($this->customPostType))
                 )
             )
         );
@@ -285,7 +286,7 @@ class FastIndex
         $results = $wpdb->get_var(
             $wpdb->prepare(
                 $sql, array(
-                    $this->customPostType
+                        sanitize_text_field(strip_tags($this->customPostType))
                 )
             )
         );
@@ -304,13 +305,13 @@ class FastIndex
         $options = $this->getOption();
         $post = get_post($id);
 
+        $ref = strip_tags(sanitize_text_field($_SERVER['HTTP_REFERER']));
+        $ref = $ref ==""?"none":$ref;
 
         $postStatus = $post->post_status;
         $postType = $post->post_type;
 
-        $_SERVER['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'] == "" ? "none" : $_SERVER['HTTP_REFERER'];
-
-        if (strstr($_SERVER['HTTP_REFERER'], 'action=edit') and $postStatus == "publish") {
+        if (strstr($ref, 'action=edit') and $postStatus == "publish") {
             $postStatus = "edit";
         }
 
@@ -341,9 +342,9 @@ class FastIndex
             die;
         }
 
-        $totalSent = $this->countSentPosts();
-        $totalWaitingSubmit = $this->countWaitingPosts();
-        $totalSubmitToday = $this->countDailySent();
+        $totalSent = esc_attr($this->countSentPosts());
+        $totalWaitingSubmit = esc_attr($this->countWaitingPosts());
+        $totalSubmitToday = esc_attr($this->countDailySent());
 
         $logs = $this->getLogs();
         include_once(plugin_dir_path(__FILE__) . '/view/history.php');
@@ -354,6 +355,9 @@ class FastIndex
         if (!is_admin()) {
             die;
         }
+
+        $_POST = $this->fastIndexOptionsValidate($_POST);
+        $_FILES = $this->fastIndexOptionsValidate($_FILES);
 
         $options = $this->getOption();
         $jsonFiles = $options['json_file'];
@@ -514,10 +518,24 @@ class FastIndex
             }
             return $newData;
         } else {
-            return sanitize_text_field($data);
+            return sanitize_text_field(strip_tags($data));
         }
 
     }
+
+    function fastIndexOptionsEscape($data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $newData[$key] = $this->fastIndexOptionsEscape($value);
+            }
+            return $newData;
+        }  else {
+            return esc_attr(strip_tags($data));
+        }
+
+    }
+
 
     function adminInit()
     {
