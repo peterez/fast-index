@@ -33,17 +33,6 @@ class FastIndex
     function __construct()
     {
 
-        set_time_limit(0);
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit', '-1');
-
-        ini_set('upload_max_size', '1000M');
-        ini_set('upload_max_filesize', '1000M');
-        ini_set('post_max_size', '1000M');
-        ini_set('max_input_vars', '100000');
-        ini_set('max_file_uploads', '1000');
-
-
         add_action('init', array($this, 'fiPostType'));
         add_action('post_updated', array($this, 'sendRequest'));
         add_filter('cron_schedules', array($this, 'cronSchedule'));
@@ -321,7 +310,7 @@ class FastIndex
         }
 
         $permalink = get_permalink($id);
-        $indexingApi = new IndexingApi();
+        $indexingApi = new FastIndex_IndexingApi();
 
         $status = $indexingApi->sendRequest($permalink);
 

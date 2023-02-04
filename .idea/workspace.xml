@@ -26,46 +26,28 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="344" column="30" selection-start="9026" selection-end="9035" vertical-scroll-proportion="-6.0666666" vertical-offset="3199" max-vertical-offset="9870">
-              <folding>
-                <element signature="e#6#407#0" expanded="true" />
-                <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-                <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-                <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-                <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-                <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-                <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-                <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-                <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-              </folding>
+            <state line="348" column="30" selection-start="9223" selection-end="9223" vertical-scroll-proportion="0.0" vertical-offset="6960" max-vertical-offset="13060">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="README.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="17" selection-start="157" selection-end="157" vertical-scroll-proportion="-5.04" vertical-offset="0" max-vertical-offset="987">
-              <folding />
-            </state>
-          </provider>
           <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
             <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="15" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0" vertical-offset="100" max-vertical-offset="940">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="message-deactivate.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/message-deactivate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="651">
+            <state line="15" column="13" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="620">
               <folding />
             </state>
           </provider>
@@ -74,7 +56,7 @@
       <file leaf-file-name="indexingApi.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/helpers/indexingApi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="139" selection-end="139" vertical-scroll-proportion="-0.0" vertical-offset="168" max-vertical-offset="2604">
+            <state line="8" column="0" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0" vertical-offset="160" max-vertical-offset="2480">
               <folding />
             </state>
           </provider>
@@ -83,7 +65,7 @@
       <file leaf-file-name="settings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/settings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="160" column="44" selection-start="6101" selection-end="6101" vertical-scroll-proportion="-2.1607144" vertical-offset="3239" max-vertical-offset="6846">
+            <state line="160" column="44" selection-start="6101" selection-end="6101" vertical-scroll-proportion="0.0" vertical-offset="3200" max-vertical-offset="6520">
               <folding />
             </state>
           </provider>
@@ -92,7 +74,7 @@
       <file leaf-file-name="history.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/history.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="16" selection-start="1754" selection-end="1754" vertical-scroll-proportion="0.45734596" vertical-offset="790" max-vertical-offset="1932">
+            <state line="59" column="0" selection-start="1769" selection-end="1769" vertical-scroll-proportion="0.26174498" vertical-offset="946" max-vertical-offset="1840">
               <folding />
             </state>
           </provider>
@@ -227,15 +209,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15761448" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15729167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -279,25 +261,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="260" max-vertical-offset="9500">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -325,25 +289,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="348" column="5" selection-start="9301" selection-end="9301" vertical-scroll-proportion="0.0" vertical-offset="3840" max-vertical-offset="3840">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -371,25 +317,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="348" column="5" selection-start="9301" selection-end="9301" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3660">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -417,25 +345,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="395" column="0" selection-start="10144" selection-end="10144" vertical-scroll-proportion="0.0" vertical-offset="6715" max-vertical-offset="7327">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -463,25 +373,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="395" column="0" selection-start="10144" selection-end="10144" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7327">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -509,25 +401,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="235" column="36" selection-start="5922" selection-end="5922" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7463">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -555,25 +429,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -594,25 +450,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -633,25 +471,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -677,25 +497,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="189" column="55" selection-start="4321" selection-end="4321" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="4964">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -714,25 +516,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="82" column="35" selection-start="1699" selection-end="1699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4369">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -751,25 +535,7 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="0" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2533">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -796,13 +562,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="17" selection-start="157" selection-end="157" vertical-scroll-proportion="-5.04" vertical-offset="0" max-vertical-offset="987">
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="15" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0" vertical-offset="100" max-vertical-offset="940">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/helpers/indexingApi.php">
@@ -814,39 +580,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="44" selection-start="6101" selection-end="6101" vertical-scroll-proportion="-2.1607144" vertical-offset="3239" max-vertical-offset="6846">
+        <state line="160" column="44" selection-start="6101" selection-end="6101" vertical-scroll-proportion="0.0" vertical-offset="3200" max-vertical-offset="6520">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="344" column="30" selection-start="9026" selection-end="9035" vertical-scroll-proportion="-6.0666666" vertical-offset="3199" max-vertical-offset="9870">
-          <folding>
-            <element signature="e#6#407#0" expanded="true" />
-            <element signature="n#pluginAssets#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#interLog#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccounts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#setServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getServiceAccountStatus#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#getWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countDailySent#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countWaitingPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <element signature="n#countSentPosts#0;n#FastIndex#0;n#!!top" expanded="false" />
-            <marker date="1675344071521" expanded="true" signature="5351:5650" placeholder="SELECT p.*, ..." />
-            <marker date="1675344071521" expanded="true" signature="5372:5393" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="6096:6197" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7009:7287" placeholder="SELECT count..." />
-            <marker date="1675344071521" expanded="true" signature="7038:7059" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="7677:7734" placeholder="select count..." />
-            <marker date="1675344071521" expanded="true" signature="15588:15635" placeholder="delete from ..." />
-          </folding>
+        <state line="348" column="30" selection-start="9223" selection-end="9223" vertical-scroll-proportion="0.0" vertical-offset="6960" max-vertical-offset="13060">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/history.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="16" selection-start="1754" selection-end="1754" vertical-scroll-proportion="0.45734596" vertical-offset="790" max-vertical-offset="1932">
+        <state line="59" column="0" selection-start="1769" selection-end="1769" vertical-scroll-proportion="0.26174498" vertical-offset="946" max-vertical-offset="1840">
           <folding />
         </state>
       </provider>

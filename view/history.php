@@ -43,13 +43,13 @@
             <tr >
                 <td class="title column-title has-row-actions column-primary page-title">
                     <strong><a class="row-title"
-                               href="post.php?post=<?php echo $item['post_parent'] ?>&action=edit"
-                            ><?php echo $item['post_title'] ?></a></strong>
+                               href="post.php?post=<?php echo esc_attr($item['post_parent']) ?>&action=edit"
+                            ><?php echo esc_attr($item['post_title']) ?></a></strong>
 
                 </td>
-                <td class="date column-date" data-colname="Date">Sended<br><?php echo $item['post_date'] ?></td>
+                <td class="date column-date" data-colname="Date">Sended<br><?php echo esc_attr($item['post_date']) ?></td>
                 <td>OK</td>
-                <td><a class="row-title" href="<?php echo $item['post_content'] ?>" target="_blank">GO POST</a></td>
+                <td><a class="row-title" href="<?php echo esc_attr($item['post_content']) ?>" target="_blank">GO POST</a></td>
             </tr>
 
         <?php } ?>

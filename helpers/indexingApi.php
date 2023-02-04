@@ -1,7 +1,7 @@
 <?php
 require_once 'indexingApi/vendor/autoload.php';
 
-class IndexingApi
+class FastIndex_IndexingApi
 {
 
     public $serviceAccounts = array();
