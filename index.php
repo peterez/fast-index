@@ -345,13 +345,13 @@ class FastIndex
             die;
         }
 
-        $_POST = $this->fastIndexOptionsValidate($_POST);
-        $_FILES = $this->fastIndexOptionsValidate($_FILES);
+        $_POST = $this->fastIndexArraySanitizingRecursively($_POST);
+        $_FILES = $this->fastIndexArraySanitizingRecursively($_FILES);
 
         $options = $this->getOption();
         $jsonFiles = $options['json_file'];
 
-        if (count($_POST) > 1 and isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
 
             $uploadedFiles = $this->jsonUploader();
 
@@ -371,11 +371,18 @@ class FastIndex
 
             /* if deleting a json */
             if ($_POST['fast_index_options']['delete_json'] != "") {
-                unset($newFiles[$_POST['fast_index_options']['delete_json']]);
+                unset($newFiles[sanitize_text_field($_POST['fast_index_options']['delete_json'])]);
             }
 
             $_POST['fast_index_options']['json_file'] = $newFiles;
-            update_option('fast_index_options', $_POST['fast_index_options']);
+
+            $theData = array();
+            $theData['status'] = sanitize_text_field($_POST['fast_index_options']['status']);
+            $theData['post_type'] = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['post_type']);
+            $theData['old_post_number'] = sanitize_text_field($_POST['fast_index_options']['old_post_number']);
+            $theData['post_status'] = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['post_status']);
+
+            update_option('fast_index_options', $theData);
 
             /* for not reload the page */
             $options = $this->getOption();
@@ -473,7 +480,7 @@ class FastIndex
     {
         /* sanitize the data */
         if (current_user_can('manage_options')) {
-            register_setting('fast_index', 'fast_index_options', array(&$this, 'fastIndexOptionsValidate'));
+            register_setting('fast_index', 'fast_index_options', array(&$this, 'fastIndexArraySanitizingRecursively'));
 
         }
     }
@@ -499,11 +506,11 @@ class FastIndex
 
     }
 
-    function fastIndexOptionsValidate($data)
+    function fastIndexArraySanitizingRecursively($data)
     {
         if (is_array($data)) {
             foreach ($data as $key => $value) {
-                $newData[$key] = $this->fastIndexOptionsValidate($value);
+                $newData[$key] = $this->fastIndexArraySanitizingRecursively($value);
             }
             return $newData;
         } else {
