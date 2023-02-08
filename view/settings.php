@@ -111,7 +111,7 @@ $postStatus = array("publish", "edit", "trash");
                             <td>
                                 <select name="fast_index_options[status]">
                                     <?php foreach ($pluginStatus as $key => $value) { ?>
-                                        <option <?php echo $key==$options['status']?"selected":""?> value="<?php echo $key?>"><?php echo $value?></option>
+                                        <option <?php echo esc_attr($key)==esc_attr($options['status'])?"selected":""?> value="<?php echo esc_attr($key)?>"><?php echo esc_attr($value)?></option>
                                     <?}?>
                                 </select>
 
@@ -128,7 +128,7 @@ $postStatus = array("publish", "edit", "trash");
 
                                     $canSelectable = true;
                                     if($this->canI ==false) {
-                                    if($value['name'] =="post") {
+                                    if(esc_attr($value['name']) =="post") {
                                         $canSelectable = true;
                                     } else {
                                         $canSelectable = false;
@@ -137,8 +137,8 @@ $postStatus = array("publish", "edit", "trash");
                                     ?>
                                     <label style="margin-right: 25px; margin-bottom: 15px;">
                                         <input <?php echo $canSelectable==false?'readonly="true"':""?>
-                                            name="fast_index_options[post_type][<?php echo $value['name'] ?>]" <?php echo $options['post_type'][$value['name']] == "1" ? "checked" : "" ?>
-                                            type="checkbox" value="1"/> <?php echo $value['label'] ?>
+                                            name="fast_index_options[post_type][<?php echo esc_attr($value['name']) ?>]" <?php echo esc_attr($options['post_type'][esc_attr($value['name'])]) == "1" ? "checked" : "" ?>
+                                            type="checkbox" value="1"/> <?php echo esc_attr($value['label']) ?>
                                     </label>
                                 <?php } ?>
                             </td>
@@ -152,7 +152,7 @@ $postStatus = array("publish", "edit", "trash");
                             </td>
                             <td>
                                 <input <?php echo $this->canI ==false?'readonly="true" disabled':""?> class="regular-text" name="<?php echo $this->canI ==false?"":"fast_index_options[old_post_number]"?>" type="text"
-                                       value="<?php echo intval($options['old_post_number']) ?>"/>
+                                       value="<?php echo intval(esc_attr($options['old_post_number'])) ?>"/>
                             </td>
                         </tr>
 
@@ -164,10 +164,11 @@ $postStatus = array("publish", "edit", "trash");
                             </td>
                             <td>
                                 <?php foreach ($postStatus as $value) {
+                                    $value = esc_attr($value);
 
                                     $canSelectable = true;
                                     if($this->canI ==false) {
-                                        if($value =="publish") {
+                                        if(esc_attr($value) =="publish") {
                                             $canSelectable = true;
                                         } else {
                                             $canSelectable = false;
@@ -177,8 +178,8 @@ $postStatus = array("publish", "edit", "trash");
                                     ?>
                                     <label style="margin-right: 25px; margin-bottom: 15px;">
                                         <input <?php echo $canSelectable==false?'readonly="true"':""?>
-                                            name="fast_index_options[post_status][<?php echo $value ?>]" <?php echo $options['post_status'][$value] == "1" ? "checked" : "" ?>
-                                            type="checkbox" value="1"/> <?php echo $value ?>
+                                            name="fast_index_options[post_status][<?php echo esc_attr($value) ?>]" <?php echo esc_attr($options['post_status'][esc_attr($value)]) == "1" ? "checked" : "" ?>
+                                            type="checkbox" value="1"/> <?php echo esc_attr($value) ?>
                                     </label>
                                 <?php } ?>
                             </td>
@@ -204,12 +205,12 @@ $postStatus = array("publish", "edit", "trash");
                        <?php foreach($jsonFiles as $key => $item) {?>
                         <tr class="trBorder">
                             <td scope="row" class="insideTd">
-                                <small><b><a target="_blank" href="<?php echo $item['file'];?>"><?php echo $item['mail'];?></a></b></small>
+                                <small><b><a target="_blank" href="<?php echo esc_attr($item['file']);?>"><?php echo esc_attr($item['mail']);?></a></b></small>
                             </td>
                             <td class="insideTd">
                                 <table width="100%" class="subTable">
-                                    <td class="insideTd" width="60%"><?php echo $item['status']." : ".$httpStatusCodes[$item['status']];?></td>
-                                    <td class="insideTd" width="40%"><a href="#" onclick=" jQuery('.deleteJson').val('<?php echo $key;?>'); jQuery('.settingsSubmitButton').click(); return false;">Delete</a></td>
+                                    <td class="insideTd" width="60%"><?php echo esc_attr($item['status'])." : ".esc_attr($httpStatusCodes[esc_attr(esc_attr($item['status']))]);?></td>
+                                    <td class="insideTd" width="40%"><a href="#" onclick=" jQuery('.deleteJson').val('<?php echo esc_attr($key);?>'); jQuery('.settingsSubmitButton').click(); return false;">Delete</a></td>
                                 </table>
 
                             </td>
