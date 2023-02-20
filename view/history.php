@@ -1,14 +1,14 @@
 <div id="fi" class="content-area">
 
-    <h1 class="title">Simple Report</h1>
+    <h1 class="title"><?php esc_attr_e('Simple Report',"fast-index"); ?></h1>
 
     <table class="table table-striped wp-list-table widefat fixed striped table-view-list posts"
            style="width:100%">
         <thead>
         <tr>
-            <th>Total Sent</th>
-            <th>Total Waiting</th>
-            <th>Sent Today</th>
+            <th><?php esc_attr_e('Total Sent',"fast-index"); ?></th>
+            <th><?php esc_attr_e('Total Waiting',"fast-index"); ?></th>
+            <th><?php esc_attr_e('Sent Today',"fast-index"); ?></th>
         </tr>
         </thead>
         <tbody class="the-list">
@@ -24,17 +24,17 @@
 
 
     <br>
-    <h1 class="title">History</h1>
+    <h1 class="title"><?php esc_attr_e('History',"fast-index"); ?></h1>
     <br>
 
     <table class="table table-striped wp-list-table widefat fixed striped table-view-list posts"
            style="width:100%">
         <thead>
         <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Send Status</th>
-            <th>Post</th>
+            <th><?php esc_attr_e('Title',"fast-index"); ?></th>
+            <th><?php esc_attr_e('Date',"fast-index"); ?></th>
+            <th><?php esc_attr_e('Send Status',"fast-index"); ?></th>
+            <th><?php esc_attr_e('Post',"fast-index"); ?></th>
         </tr>
         </thead>
         <tbody class="the-list">
@@ -48,8 +48,8 @@
 
                 </td>
                 <td class="date column-date" data-colname="Date">Sended<br><?php echo esc_attr($item['post_date']) ?></td>
-                <td>OK</td>
-                <td><a class="row-title" href="<?php echo esc_attr($item['post_content']) ?>" target="_blank">GO POST</a></td>
+                <td><?php esc_attr_e('OK',"fast-index"); ?></td>
+                <td><a class="row-title" href="<?php echo esc_attr($item['post_content']) ?>" target="_blank"><?php esc_attr_e('GO POST',"fast-index"); ?></a></td>
             </tr>
 
         <?php } ?>

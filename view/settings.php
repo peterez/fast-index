@@ -80,11 +80,8 @@ $httpStatusCodes = array(
     599 => 'Server Error: Network connect timeout error',
 );
 
-
-
 $pluginStatus = array("1" => "Active", "2" => "Passive");
 $postStatus = array("publish", "edit", "trash");
-
 
 ?>
 <div id="fi" class="content-area">
@@ -93,25 +90,24 @@ $postStatus = array("publish", "edit", "trash");
 
         <div class="pw50">
 
-            <h1 class="title">Plugin Settings</h1>
+            <h1 class="title"><?php echo esc_attr_e("Settings","fast-index")?></h1>
 
             <div class="form">
 
                 <form method="post" class="settingsForm" enctype="multipart/form-data">
-
 
                     <table class="form-table" role="presentation">
                         <tbody>
 
                         <tr>
                             <td scope="row">
-                                <b>Plugin Status</b> <br>
-                                <small>Important choice for the plugin work</small>
+                                <b><?php echo esc_attr_e("Status","fast-index")?></b> <br>
+                                <small><?php echo esc_attr_e("Important choice for the plugin work","fast-index")?></small>
                             </td>
                             <td>
                                 <select name="fast_index_options[status]">
                                     <?php foreach ($pluginStatus as $key => $value) { ?>
-                                        <option <?php echo esc_attr($key)==esc_attr($options['status'])?"selected":""?> value="<?php echo esc_attr($key)?>"><?php echo esc_attr($value)?></option>
+                                        <option <?php echo esc_attr($key)==esc_attr($options['status'])?"selected":""?> value="<?php echo esc_attr($key)?>"><?php echo esc_attr_e($value)?></option>
                                     <?}?>
                                 </select>
 
@@ -120,8 +116,8 @@ $postStatus = array("publish", "edit", "trash");
 
                         <tr>
                             <td scope="row">
-                                <b>Post Types</b> <br>
-                                <small>Select minimum one option</small>
+                                <b><?php echo esc_attr_e("Post Types","fast-index")?></b> <br>
+                                <small><?php echo esc_attr_e("Select minimum one option","fast-index")?></small>
                             </td>
                             <td>
                                 <?php foreach ($this->postTypes() as $value) {
@@ -147,8 +143,8 @@ $postStatus = array("publish", "edit", "trash");
 
                         <tr>
                             <td scope="row">
-                                <b>Daily Old Content Post?</b> <br>
-                                <small>How many old contents should be sent per day?</small>
+                                <b><?php echo esc_attr_e("Daily Old Content Post?","fast-index")?></b> <br>
+                                <small><?php echo esc_attr_e("How many old contents should be sent per day?","fast-index")?></small>
                             </td>
                             <td>
                                 <input <?php echo $this->canI ==false?'readonly="true" disabled':""?> class="regular-text" name="<?php echo $this->canI ==false?"":"fast_index_options[old_post_number]"?>" type="text"
@@ -159,8 +155,8 @@ $postStatus = array("publish", "edit", "trash");
 
                         <tr>
                             <td scope="row">
-                                <b>Post Status</b> <br>
-                                <small>Which status happen should content be sent?</small>
+                                <b><?php echo esc_attr_e("Post Status","fast-index")?></b> <br>
+                                <small><?php echo esc_attr_e("Which status happen should content be sent?","fast-index")?></small>
                             </td>
                             <td>
                                 <?php foreach ($postStatus as $value) {
@@ -195,7 +191,7 @@ $postStatus = array("publish", "edit", "trash");
 
                         <tr>
                             <td colspan="2">
-                                <h1 class="title">Upload Google Service Account Json</h1>
+                                <h1 class="title"><?php echo esc_attr_e("Upload Google Service Account Json","fast-index")?></h1>
                             </td>
                         </tr>
 
@@ -210,7 +206,7 @@ $postStatus = array("publish", "edit", "trash");
                             <td class="insideTd">
                                 <table width="100%" class="subTable">
                                     <td class="insideTd" width="60%"><?php echo esc_attr($item['status'])." : ".esc_attr($httpStatusCodes[esc_attr(esc_attr($item['status']))]);?></td>
-                                    <td class="insideTd" width="40%"><a href="#" onclick=" jQuery('.deleteJson').val('<?php echo esc_attr($key);?>'); jQuery('.settingsSubmitButton').click(); return false;">Delete</a></td>
+                                    <td class="insideTd" width="40%"><a href="#" onclick=" jQuery('.deleteJson').val('<?php echo esc_attr($key);?>'); jQuery('.settingsSubmitButton').click(); return false;"><?php echo esc_attr_e("Delete","fast-index")?></a></td>
                                 </table>
 
                             </td>
@@ -226,17 +222,21 @@ $postStatus = array("publish", "edit", "trash");
                         <?php }?>
 
                         <tr>
-                            <td scope="row"><b>Choose Json File/s</b></td>
+                            <td scope="row"><b><?php echo esc_attr_e("Choose Json File/s","fast-index")?></b></td>
                             <td>
                                 <input class="jsonFileUpload" accept=".json" type="file" name="jsons[]"  <?php echo $this->canI ==false?"":"multiple"?>
-                                       value="Choose Json File/s"/>
+                                       value="<?php echo esc_attr_e("Choose Json File/s","fast-index")?>"/>
                             </td>
                         </tr>
 
                         <tr>
                             <td scope="row">&nbsp; </td>
                             <td>
-                                <?php echo $this->canI ==false?"If you wanna upload multiple and more service account<br><b>please upgrade to premium</b>":""?>
+                                <?php if($this->canI ==false) {
+                                   echo esc_attr_e("If you wanna upload multiple and more service account","fast-index");
+                                   echo "<br>";
+                                    echo "<b>";echo esc_attr_e("Please upgrade to premium","fast-index");echo "</b>";
+                                }?>
                             </td>
                         </tr>
 
@@ -245,7 +245,7 @@ $postStatus = array("publish", "edit", "trash");
                             <td scope="row">&nbsp;</td>
                             <td>
                                 <input name="submit" class="button button-primary settingsSubmitButton" type="submit"
-                                       value="<?php esc_attr_e('Save'); ?>"/>
+                                       value="<?php esc_attr_e('Save',"fast-index"); ?>"/>
                             </td>
                         </tr>
 
@@ -265,47 +265,47 @@ $postStatus = array("publish", "edit", "trash");
 
         <div class="pw50">
 
-            <h1 class="title">Guideline</h1>
+            <h1 class="title"><?php echo esc_attr_e("Guideline","fast-index")?></h1>
 
             <div>
 
-                <h3>1- What means 200, 429 and 401 codes?</h3>
-                <p><b>Code 200</b>; It's means working and ready<br/>
-                   <b>Code 429</b>; Too many requests are thrown and when it's 24 hours it starts again <br/>
-                   <b>Code 401</b>; It means that the service account you have installed is not authorized or authorized as "owner" in your webmaster tools account</p>
-                <p><b>Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, check your webmaster tools owners </b></p>
+                <h3>1- <?php echo esc_attr_e("What means 200, 429 and 401 codes?","fast-index")?></h3>
+                <p><b>Code 200</b>; <?php echo esc_attr_e("It's means working and ready","fast-index")?><br/>
+                   <b>Code 429</b>; <?php echo esc_attr_e("Too many requests are thrown and when it's 24 hours it starts again","fast-index")?> <br/>
+                   <b>Code 401</b>; <?php echo esc_attr_e("It means that the service account you have installed is not authorized or authorized as 'owner' in your webmaster tools account","fast-index")?></p>
+                <p><b><?php echo esc_attr_e("Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, check your webmaster tools owners","fast-index")?> </b></p>
                 <hr/>
                 <br/>
-                <h3>2- Settings</h3>
+                <h3>2- <?php echo esc_attr_e("Settings","fast-index")?></h3>
                 <p>
-                    <b>Plugin Status</b>: If you don't use set as passive <br/>
-                    <b>Post Types</b>: Define the when you make post action which one post types will send to google. If you add new post type or added from plugin it will be shown in here
+                    <b><?php echo esc_attr_e("Status","fast-index")?></b>: <?php echo esc_attr_e("If you don't use set as passive","fast-index")?> <br/>
+                    <b><?php echo esc_attr_e("Post Types","fast-index")?></b>: <?php echo esc_attr_e("Define the when you make post action which one post types will send to google. If you add new post type or added from plugin it will be shown in here","fast-index")?>
                     <br/>
-                    <b>Daily Old Content Post</b>: If you wanna sent to google your old posts type the your daily limit. Every service account has daily 200 limit and you have to split your limits daily new post and old posts <br>
-                    <b>Post Status</b>: It's means which post status trigger the this plugin
+                    <b><?php echo esc_attr_e("Daily Old Content Post","fast-index")?></b>: <?php echo esc_attr_e("If you wanna sent to google your old posts type the your daily limit. Every service account has daily 200 limit and you have to split your limits daily new post and old posts","fast-index")?> <br>
+                    <b><?php echo esc_attr_e("Post Status","fast-index")?></b>: <?php echo esc_attr_e("It's means which post status trigger the this plugin","fast-index")?>
                 </p>
                 <hr/>
                 <br>
-                <h3>3- Is it legal?</h3>
-                <p>Totally is legal. It's google service and working with google API. If you upload too much service account it's can be defined a spam. Just watch out for this</p>
+                <h3>3- <?php echo esc_attr_e("Is it legal?","fast-index")?></h3>
+                <p><?php echo esc_attr_e("Totally is legal. It's google service and working with google API. If you upload too much service account it's can be defined a spam. Just watch out for this","fast-index")?></p>
                 <hr/>
                 <br/>
-                <h3>4- How work wordpress Cron Job ( Daily Old Content Post )?</h3>
-                <p>The task list is triggered when someone logs into the site at or after the specified hours. These tasks will never be triggered if no one accesses your site. If no one visits your site during the day, log in to your site for once and the task list will be triggered automatically.</p>
+                <h3>4- <?php echo esc_attr_e("How work wordpress Cron Job ( Daily Old Content Post )?","fast-index")?></h3>
+                <p><?php echo esc_attr_e("The task list is triggered when someone logs into the site at or after the specified hours. These tasks will never be triggered if no one accesses your site. If no one visits your site during the day, log in to your site for once and the task list will be triggered automatically","fast-index")?></p>
                 <hr/>
                 <br/>
-                <h3>4- Mass Service Account creating and upload</h3>
+                <h3>4- <?php echo esc_attr_e("Mass Service Account creating and upload","fast-index")?></h3>
                 <p>
-                    <b>Not</b>: 1 Google account can create minimum 12 google cloud projects. Every google cloud project can enable Indexing API Service and every services has 200 daily limit. It's means you can send 2400 url to google. If you do same steps with your another google account you will get more 2400 limit and you 4800 url to google daily.
+                    <b>Not</b>: <?php echo esc_attr_e("1 Google account can create minimum 12 google cloud projects. Every google cloud project can enable Indexing API Service and every services has 200 daily limit. It's means you can send 2400 url to google. If you do same steps with your another google account you will get more 2400 limit and you 4800 url to google daily","fast-index")?>
                 </p>
                 <p>
-                    <b>Step 1</b>: Go Link <a target="_blank" href="https://console.cloud.google.com/">https://console.cloud.google.com/</a> <br>
-                    <b>Step 2</b> : Create Project and Select<br>
-                    <b>Step 3</b> : Create Service Account and make authorized you created email on service account<br>
-                    <b>Step 4</b> : Add as owner on your webmaster tools<br>
-                    <b>Step 5</b> : Go your wordpress admin dashboard and open Fast Index settings page and upload your service account JSON<br>
+                    <b>Step 1</b>: <?php echo esc_attr_e("Go Link","fast-index")?>  <a target="_blank" href="https://console.cloud.google.com/">https://console.cloud.google.com/</a> <br>
+                    <b>Step 2</b> : <?php echo esc_attr_e("Create Project and Select","fast-index")?><br>
+                    <b>Step 3</b> : <?php echo esc_attr_e("Create Service Account and make authorized you created email on service account","fast-index")?><br>
+                    <b>Step 4</b> : <?php echo esc_attr_e("Add as owner on your webmaster tools","fast-index")?><br>
+                    <b>Step 5</b> : <?php echo esc_attr_e("Go your wordpress admin dashboard and open Fast Index settings page and upload your service account JSON","fast-index")?><br>
                 </p>
-                <p>Watch Video : <a target="_blank" href="https://youtu.be/RsJA66b5884">https://youtu.be/RsJA66b5884</a></p>
+                <p><?php echo esc_attr_e("Watch Video","fast-index")?> : <a target="_blank" href="https://youtu.be/RsJA66b5884">https://youtu.be/RsJA66b5884</a></p>
                 <p><iframe width="560" height="315" src="https://www.youtube.com/embed/RsJA66b5884" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
 
             </div>

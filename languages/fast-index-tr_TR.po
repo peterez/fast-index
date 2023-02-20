@@ -1,0 +1,279 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Fast Index\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-20 13:02+0000\n"
+"PO-Revision-Date: 2023-02-20 13:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: Türkçe\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
+"X-Domain: fast-index"
+
+#: view/settings.php:295
+msgid ""
+"1 Google account can create minimum 12 google cloud projects. Every google "
+"cloud project can enable Indexing API Service and every services has 200 "
+"daily limit. It's means you can send 2400 url to google. If you do same "
+"steps with your another google account you will get more 2400 limit and you "
+"4800 url to google daily"
+msgstr ""
+"1 Google hesabı en az 12 google cloud projesi oluşturabilir. Her google "
+"cloud projesi, Indexing API Hizmetini etkinleştirebilir ve her hizmetin "
+"günlük 200 sınırı vardır. Bu, google'a 2400 url gönderebileceğiniz anlamına "
+"gelir. Aynı adımları başka bir google hesabınızla yaparsanız daha fazla "
+"gönderim hakkı kazanırsınız."
+
+#. Description of the plugin
+msgid "<strong>Fast Index</strong> on google"
+msgstr "Google'da <strong>Hızlı İndex</strong> al"
+
+#: view/settings.php:301
+msgid "Add as owner on your webmaster tools"
+msgstr "Web yöneticisi araçlarınıza SAHİP olarak ekleyin"
+
+#: view/settings.php:225 view/settings.php:228
+msgid "Choose Json File/s"
+msgstr "Json Dosya/larını Seç"
+
+#: view/settings.php:299
+msgid "Create Project and Select"
+msgstr "Proje Oluştur ve Seç"
+
+#: view/settings.php:300
+msgid ""
+"Create Service Account and make authorized you created email on service "
+"account"
+msgstr ""
+"Hizmet Hesabı oluşturun ve oluşturduğunuz e-postayı hizmet hesabında "
+"yetkilendirin"
+
+#: view/settings.php:280
+msgid "Daily Old Content Post"
+msgstr "Günlük Eski İçerik Gönderisi"
+
+#: view/settings.php:146
+msgid "Daily Old Content Post?"
+msgstr "Günlük Eski İçerik Gönderisi?"
+
+#: view/history.php:35
+msgid "Date"
+msgstr "Tarih"
+
+#: view/settings.php:278
+msgid ""
+"Define the when you make post action which one post types will send to "
+"google. If you add new post type or added from plugin it will be shown in "
+"here"
+msgstr ""
+"Gönderi işlemini yaptığınızda hangi gönderi türlerinin google'a "
+"gönderileceğini tanımlayın. Yeni gönderi türü eklerseniz veya eklentiden "
+"eklerseniz, burada gösterilecektir."
+
+#: view/settings.php:209
+msgid "Delete"
+msgstr "Sil"
+
+#. Name of the plugin
+msgid "Fast Index"
+msgstr "Hızlı İndex"
+
+#: view/settings.php:298
+msgid "Go Link"
+msgstr "Linke Git"
+
+#: view/history.php:52
+msgid "GO POST"
+msgstr "İçeriğe Git"
+
+#: view/settings.php:302
+msgid ""
+"Go your wordpress admin dashboard and open Fast Index settings page and "
+"upload your service account JSON"
+msgstr ""
+"WordPress yönetici kontrol panelinize gidin ve Hızlı Dizin ayarları "
+"sayfasını açın ve hizmet hesabınızı JSON yükleyin"
+
+#: view/settings.php:264
+msgid "Guideline"
+msgstr "Yönerge"
+
+#: view/history.php:27
+msgid "History"
+msgstr "Geçmiş"
+
+#: view/settings.php:147
+msgid "How many old contents should be sent per day?"
+msgstr "Günde kaç tane eski içerik gönderilmeli?"
+
+#: view/settings.php:289
+msgid "How work wordpress Cron Job ( Daily Old Content Post )?"
+msgstr "Wordpress Cron Job (Günlük Eski İçerik Gönderisi) nasıl çalışır?"
+
+#. Author URI of the plugin
+msgid "https://www.linkedin.com/in/samet-akin/"
+msgstr "https://www.linkedin.com/in/samet-akin/"
+
+#: view/settings.php:277
+msgid "If you don't use set as passive"
+msgstr "Pasif olarak tanımlarsanız eklentiyi kullanamazsınız"
+
+#: view/settings.php:280
+msgid ""
+"If you wanna sent to google your old posts type the your daily limit. Every "
+"service account has daily 200 limit and you have to split your limits daily "
+"new post and old posts"
+msgstr ""
+"Eski gönderilerinizi google'a göndermek istiyorsanız günlük limitinizi yazın."
+" Her hizmet hesabının günlük 200 limiti vardır ve limitlerinizi günlük yeni "
+"gönderi ve eski gönderiler olarak bölmeniz gerekir."
+
+#: view/settings.php:105
+msgid "Important choice for the plugin work"
+msgstr "Eklentinin çalışması için önemli bir ayar"
+
+#: view/settings.php:285
+msgid "Is it legal?"
+msgstr "Yasal mı?"
+
+#: view/settings.php:271
+msgid ""
+"It means that the service account you have installed is not authorized or "
+"authorized as 'owner' in your webmaster tools account"
+msgstr ""
+"Bu, yüklediğiniz hizmet hesabının web yöneticisi araçları hesabınızda "
+"'sahip' olarak yetkilendirilmediği veya yetkilendirilmediği anlamına gelir."
+
+#: view/settings.php:281
+msgid "It's means which post status trigger the this plugin"
+msgstr "Bu, hangi gönderi durumunun bu eklentiyi tetiklediği anlamına gelir"
+
+#: view/settings.php:269
+msgid "It's means working and ready"
+msgstr "Çalışıyor ve hazır demektir."
+
+#: view/settings.php:293
+msgid "Mass Service Account creating and upload"
+msgstr "Toplu Hizmet Hesabı oluşturma ve yükleme"
+
+#: view/settings.php:272
+msgid ""
+"Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, "
+"check your webmaster tools owners"
+msgstr ""
+"Not : 200 veya 429 görürseniz hiçbir şey yapmayın. 401 veya 4xx kodları "
+"görürseniz, web yöneticisi araçlarınızın sahiplerini kontrol edin"
+
+#: view/history.php:51
+msgid "OK"
+msgstr "Tamam"
+
+#: view/history.php:37
+msgid "Post"
+msgstr "İçerik"
+
+#: view/settings.php:158 view/settings.php:281
+msgid "Post Status"
+msgstr "İçerik Durumu"
+
+#: view/settings.php:119 view/settings.php:278
+msgid "Post Types"
+msgstr "İçerik Tipi"
+
+#. Author of the plugin
+msgid "Samet AKIN"
+msgstr "Samet AKIN"
+
+#: view/settings.php:244
+msgid "Save"
+msgstr "Kaydet"
+
+#: view/settings.php:120
+msgid "Select minimum one option"
+msgstr "En az bir seçenek seçin"
+
+#: view/history.php:36
+msgid "Send Status"
+msgstr "Gönderi Durumu"
+
+#: view/history.php:11
+msgid "Sent Today"
+msgstr "Bugün Gönderilen"
+
+#: view/settings.php:93 view/settings.php:275
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: view/history.php:3
+msgid "Simple Report"
+msgstr "Basit Rapor"
+
+#: view/settings.php:104 view/settings.php:277
+msgid "Status"
+msgstr "Durum"
+
+#: view/settings.php:290
+msgid ""
+"The task list is triggered when someone logs into the site at or after the "
+"specified hours. These tasks will never be triggered if no one accesses your "
+"site. If no one visits your site during the day, log in to your site for "
+"once and the task list will be triggered automatically"
+msgstr ""
+"Görev listesi, birisi belirtilen saatlerde veya sonrasında siteye giriş "
+"yaptığında tetiklenir. Sitenize kimse erişmezse bu görevler asla tetiklenmez."
+" Gün içinde kimse sitenizi ziyaret etmezse, sitenize bir kez giriş yapın, "
+"görev listesi otomatik olarak tetiklenecektir."
+
+#: view/history.php:34
+msgid "Title"
+msgstr "Başlık"
+
+#: view/settings.php:270
+msgid "Too many requests are thrown and when it's 24 hours it starts again"
+msgstr "Çok fazla istek atılıyor ve 24 saat olduğunda tekrar başlıyor"
+
+#: view/history.php:9
+msgid "Total Sent"
+msgstr "Toplam Gönderilen"
+
+#: view/history.php:10
+msgid "Total Waiting"
+msgstr "Toplam Bekleyen"
+
+#: view/settings.php:286
+msgid ""
+"Totally is legal. It's google service and working with google API. If you "
+"upload too much service account it's can be defined a spam. Just watch out "
+"for this"
+msgstr ""
+"Tamamen yasaldır. Google hizmetidir ve google API ile çalışır. Çok fazla "
+"hizmet hesabı yüklerseniz spam olarak tanımlanabilir. Sadece buna dikkat et"
+
+#: view/settings.php:194
+msgid "Upload Google Service Account Json"
+msgstr "Google Hizmet Hesabı Json'u yükleyin"
+
+#: view/settings.php:304
+msgid "Watch Video"
+msgstr "Videoyu İzle"
+
+#: view/settings.php:268
+msgid "What means 200, 429 and 401 codes?"
+msgstr "200, 429 ve 401 kodları ne anlama geliyor?"
+
+#: view/settings.php:159
+msgid "Which status happen should content be sent?"
+msgstr "İçerik hangi durumda gönderilmelidir?"
+
+#: view/settings.php:236
+msgid "If you wanna upload multiple and more service account"
+msgstr "Birden çok ve daha fazla hizmet hesabı yüklemek istiyorsanız"
+
+#: view/settings.php:238
+msgid "Please upgrade to premium"
+msgstr "Lütfen premium sürüme yükseltin"

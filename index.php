@@ -3,10 +3,11 @@
 Plugin Name: Fast Index
 Plugin URI:
 Description: <strong>Fast Index</strong> on google
-Version: 1.0
+Version: 1.1
 Author: Samet AKIN
 Author URI: https://www.linkedin.com/in/samet-akin/
 Contact me at https://www.linkedin.com/in/samet-akin/
+Text Domain: fast-index
 
 Note : Hi dear users, this plugin build with wordpress structure and i don't like it because i make this plugin in one day. i will upgrade plugin when used much people.
 
@@ -42,6 +43,8 @@ class FastIndex
         do_action( 'figi_fs_loaded' );
 
         $this->canI = figi_fs()->can_use_premium_code();
+
+        load_plugin_textdomain( 'fast-index', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
     }
 
