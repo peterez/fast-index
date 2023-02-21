@@ -131,7 +131,7 @@ $postStatus = array("publish", "edit", "trash");
                                     }
                                     }
                                     ?>
-                                    <label style="margin-right: 25px; margin-bottom: 15px;">
+                                    <label <?php echo $canSelectable==false?'class="licenceAlert"':""?> style="margin-right: 25px; margin-bottom: 15px;">
                                         <input <?php echo $canSelectable==false?'readonly="true"':""?>
                                             name="fast_index_options[post_type][<?php echo esc_attr($value['name']) ?>]" <?php echo esc_attr($options['post_type'][esc_attr($value['name'])]) == "1" ? "checked" : "" ?>
                                             type="checkbox" value="1"/> <?php echo esc_attr($value['label']) ?>
@@ -147,7 +147,7 @@ $postStatus = array("publish", "edit", "trash");
                                 <small><?php echo esc_attr_e("How many old contents should be sent per day?","fast-index")?></small>
                             </td>
                             <td>
-                                <input <?php echo $this->canI ==false?'readonly="true" disabled':""?> class="regular-text" name="<?php echo $this->canI ==false?"":"fast_index_options[old_post_number]"?>" type="text"
+                                <input <?php echo $this->canI ==false?'readonly="true"':""?> class="regular-text <?php echo $this->canI ==false?'licenceAlert" disabled':""?>" name="<?php echo $this->canI ==false?"":"fast_index_options[old_post_number]"?>" type="text"
                                        value="<?php echo intval(esc_attr($options['old_post_number'])) ?>"/>
                             </td>
                         </tr>
@@ -172,8 +172,8 @@ $postStatus = array("publish", "edit", "trash");
                                     }
 
                                     ?>
-                                    <label style="margin-right: 25px; margin-bottom: 15px;">
-                                        <input <?php echo $canSelectable==false?'readonly="true"':""?>
+                                    <label <?php echo $canSelectable==false?'class="licenceAlert"':""?> style="margin-right: 25px; margin-bottom: 15px;">
+                                        <input <?php echo $canSelectable==false?'readonly class="licenceAlert"':""?>
                                             name="fast_index_options[post_status][<?php echo esc_attr($value) ?>]" <?php echo esc_attr($options['post_status'][esc_attr($value)]) == "1" ? "checked" : "" ?>
                                             type="checkbox" value="1"/> <?php echo esc_attr($value) ?>
                                     </label>
@@ -232,11 +232,13 @@ $postStatus = array("publish", "edit", "trash");
                         <tr>
                             <td scope="row">&nbsp; </td>
                             <td>
+							<div class="licenceAlert laBg">
                                 <?php if($this->canI ==false) {
                                    echo esc_attr_e("If you wanna upload multiple and more service account","fast-index");
                                    echo "<br>";
                                     echo "<b>";echo esc_attr_e("Please upgrade to premium","fast-index");echo "</b>";
                                 }?>
+								</div>
                             </td>
                         </tr>
 

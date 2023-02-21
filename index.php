@@ -541,6 +541,7 @@ class FastIndex
         if (current_user_can('manage_options')) {
             add_menu_page('Fast Index', 'Fast Index', 'manage_options', 'fast-index', array(&$this, 'settingsPage'));
             add_submenu_page('fast-index', 'History', 'History', 'manage_options', 'history', array(&$this, 'historyPage'));
+            add_submenu_page('fast-index', 'Pricing', '<b style="color:#45e545">&raquo; Pricing</b>', 'manage_options', 'fast-index-pricing');
         }
 
         if (!wp_next_scheduled('fiDailyCronHook')) {
@@ -612,20 +613,21 @@ if ( ! function_exists( 'figi_fs' ) ) {
 
             $figi_fs = fs_dynamic_init( array(
                 'id'                  => '11893',
-                'slug'                => 'fast-index-google-indexing',
+                'slug'                => 'fast-index',
                 'premium_slug'        => 'fast-index',
                 'type'                => 'plugin',
                 'public_key'          => 'pk_4352cecbab080b84df64da3246477',
                 'is_premium'          => true,
                 'is_premium_only'     => false,
                 'has_addons'          => false,
-                'has_paid_plans'      => true,
+                'has_paid_plans'      => false,
                 'menu'                => array(
                     'slug'           => 'fast-index',
                     'first-path'     => 'admin.php?page=fast-index',
                     'contact'        => false,
-                    'support'        => false,
+                    'support'        => true,
                     'network'        => true,
+					
                 ),
             ) );
         }
