@@ -3,7 +3,7 @@
 Plugin Name: Fast Index
 Plugin URI:
 Description: <strong>Fast Index</strong> on google
-Version: 1.1
+Version: 1.2
 Author: Samet AKIN
 Author URI: https://www.linkedin.com/in/samet-akin/
 Contact me at https://www.linkedin.com/in/samet-akin/

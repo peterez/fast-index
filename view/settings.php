@@ -126,8 +126,10 @@ $postStatus = array("publish", "edit", "trash");
                                     if($this->canI ==false) {
                                     if(esc_attr($value['name']) =="post") {
                                         $canSelectable = true;
+										$options['post_type'][esc_attr($value['name'])] = "1";
                                     } else {
                                         $canSelectable = false;
+										$options['post_type'][esc_attr($value['name'])] = "";
                                     }
                                     }
                                     ?>
@@ -159,15 +161,19 @@ $postStatus = array("publish", "edit", "trash");
                                 <small><?php echo esc_attr_e("Which status happen should content be sent?","fast-index")?></small>
                             </td>
                             <td>
-                                <?php foreach ($postStatus as $value) {
+                                <?php 
+
+								foreach ($postStatus as $value) {
                                     $value = esc_attr($value);
 
                                     $canSelectable = true;
                                     if($this->canI ==false) {
                                         if(esc_attr($value) =="publish") {
                                             $canSelectable = true;
+											$options['post_status'][esc_attr($value)] = "1";
                                         } else {
                                             $canSelectable = false;
+											$options['post_status'][esc_attr($value)] = "";
                                         }
                                     }
 
