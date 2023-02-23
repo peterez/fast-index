@@ -277,3 +277,11 @@ msgstr "Birden çok ve daha fazla hizmet hesabı yüklemek istiyorsanız"
 #: view/settings.php:238
 msgid "Please upgrade to premium"
 msgstr "Lütfen premium sürüme yükseltin"
+
+#: view/settings.php:238
+msgid "Exclude Categories"
+msgstr "Kategorileri Hariç Tut"
+
+#: view/settings.php:238
+msgid "Select which you want to exclude"
+msgstr "Hariç tutmak istediğiniz kategorileri seçiniz"

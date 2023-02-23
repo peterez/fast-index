@@ -189,6 +189,38 @@ $postStatus = array("publish", "edit", "trash");
 
 
                         <tr>
+                            <td scope="row" colspan="2">
+                                <b><?php echo esc_attr_e("Exclude Categories","fast-index")?></b> <br>
+                                <small><?php echo esc_attr_e("Select which you want to exclude","fast-index")?></small>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <?php
+                                foreach ($categories as $value) {
+                                    $termId = $value->term_id;
+                                    $label = $value->name;
+
+                                    if($this->canI ==false) {
+                                        $canSelectable = false;
+                                    } else {
+                                        $canSelectable = true;
+                                    }
+
+                                    ?>
+                                    <label <?php echo $canSelectable==false?'class="licenceAlert"':""?> style="margin-right: 25px; margin-bottom: 15px;">
+                                        <input <?php echo $canSelectable==false?'readonly class="licenceAlert"':""?>
+                                            name="fast_index_options[exclude_category][<?php echo esc_attr($termId) ?>]" <?php echo esc_attr($options['exclude_category'][esc_attr($termId)]) != "" ? "checked" : "" ?>
+                                            type="checkbox" value="<?=$termId?>"/> <?php echo esc_attr($label) ?>
+                                    </label>
+                                <?php } ?>
+                            </td>
+                        </tr>
+
+
+                        <tr>
 
                             <td colspan="2">
                                 &nbsp;
@@ -235,18 +267,20 @@ $postStatus = array("publish", "edit", "trash");
                             </td>
                         </tr>
 
+                        <?php if($this->canI ==false) {?>
                         <tr>
                             <td scope="row">&nbsp; </td>
                             <td>
 							<div class="licenceAlert laBg">
-                                <?php if($this->canI ==false) {
+                               <?php
                                    echo esc_attr_e("If you wanna upload multiple and more service account","fast-index");
                                    echo "<br>";
                                     echo "<b>";echo esc_attr_e("Please upgrade to premium","fast-index");echo "</b>";
-                                }?>
+                                ?>
 								</div>
                             </td>
                         </tr>
+                        <?php }?>
 
 
                         <tr>
