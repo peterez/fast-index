@@ -1,10 +1,10 @@
 === Fast Index ===
 Contributors: cultdevops
 Tags: Fast Index, Instant Index Google, Seo index, Google Index, Seo Problem
-Requires at least: 5.4
+Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 1.4
-Requires PHP: 7.0
+Stable tag: 1.6
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,12 @@ FastIndex – 9 Results:
 
 
 == Changelog ==
+
+= 1.6 =
+* Php8 google API problem solved
+
+= 1.5 =
+* Php Tags bugs fixed
 
 = 1.4 =
 * Added "Exclude Categories"

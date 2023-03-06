@@ -108,7 +108,7 @@ $postStatus = array("publish", "edit", "trash");
                                 <select name="fast_index_options[status]">
                                     <?php foreach ($pluginStatus as $key => $value) { ?>
                                         <option <?php echo esc_attr($key)==esc_attr($options['status'])?"selected":""?> value="<?php echo esc_attr($key)?>"><?php echo esc_attr_e($value)?></option>
-                                    <?}?>
+                                    <?php }?>
                                 </select>
 
                             </td>

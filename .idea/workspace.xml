@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/index.php" line="360" mnemonic="8" />
+    <bookmark url="file://$PROJECT_DIR$/index.php" line="380" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5506633-4e98-4e50-b204-c33aca36c66d" name="Default" comment="" />
@@ -26,25 +26,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="7" selection-start="815" selection-end="818" vertical-scroll-proportion="-4.946429" vertical-offset="311" max-vertical-offset="13104">
+            <state line="564" column="5" selection-start="18149" selection-end="18149" vertical-scroll-proportion="0.31932774" vertical-offset="11578" max-vertical-offset="13461">
               <folding>
                 <element signature="e#6#431#0" expanded="true" />
-                <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-                <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-                <marker date="1677154201850" expanded="true" signature="6014:6585" placeholder="SELECT p.*, ..." />
-                <marker date="1677154201850" expanded="true" signature="6036:6057" placeholder="select count..." />
-                <marker date="1677154201850" expanded="true" signature="6175:6203" placeholder="select count..." />
-                <marker date="1677154201850" expanded="true" signature="6916:7017" placeholder="select count..." />
-                <marker date="1677154201850" expanded="true" signature="8367:8910" placeholder="SELECT p.ID,..." />
-                <marker date="1677154201850" expanded="true" signature="8390:8411" placeholder="select count..." />
-                <marker date="1677154201850" expanded="true" signature="8529:8557" placeholder="select count..." />
-                <marker date="1677154201850" expanded="true" signature="9219:9276" placeholder="select count..." />
-                <marker date="1677154201850" expanded="true" signature="17239:17252" placeholder="..." />
-                <marker date="1677154201850" expanded="true" signature="18076:18123" placeholder="delete from ..." />
+                <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+                <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+                <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+                <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+                <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+                <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+                <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+                <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Uri.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/helpers/indexingApi/vendor/guzzlehttp/psr7/src/Uri.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="29" selection-start="229" selection-end="229" vertical-scroll-proportion="-9.1" vertical-offset="0" max-vertical-offset="17136">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,25 +76,31 @@
       <file leaf-file-name="settings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/settings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="176" column="41" selection-start="7688" selection-end="7688" vertical-scroll-proportion="-8.966666" vertical-offset="3427" max-vertical-offset="7749">
+            <state line="261" column="28" selection-start="12120" selection-end="12120" vertical-scroll-proportion="0.0" vertical-offset="4994" max-vertical-offset="7749">
               <folding>
-                <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#td#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1677145308620" expanded="true" signature="14927:15075" placeholder="..." />
-                <marker date="1677145308620" expanded="true" signature="16909:17303" placeholder="..." />
+                <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+                <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.txt" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.txt">
+      <file leaf-file-name="readme.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/readme.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="15" selection-start="177" selection-end="177" vertical-scroll-proportion="-4.2" vertical-offset="0" max-vertical-offset="1428">
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
             <state />
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indexingApi.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/helpers/indexingApi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="0" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.68213457" vertical-offset="0" max-vertical-offset="1302">
+            <state line="15" column="0" selection-start="353" selection-end="353" vertical-scroll-proportion="-6.3" vertical-offset="126" max-vertical-offset="2604">
               <folding />
             </state>
           </provider>
@@ -105,10 +126,11 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/view/history.php" />
-        <option value="$PROJECT_DIR$/view/settings.php" />
         <option value="$PROJECT_DIR$/languages/fast-index-tr_TR.po" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/README.txt" />
+        <option value="$PROJECT_DIR$/view/settings.php" />
+        <option value="$PROJECT_DIR$/readme.txt" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -145,6 +167,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -173,13 +196,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="languages" />
+              <option name="myItemId" value="helpers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -201,7 +223,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -209,7 +231,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17199148" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17678382" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -217,11 +239,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -243,46 +265,178 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="2" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="13692">
+        <state line="350" column="0" selection-start="11115" selection-end="11115" vertical-scroll-proportion="0.0" vertical-offset="7350" max-vertical-offset="12852">
           <folding>
             <element signature="e#6#431#0" expanded="true" />
-            <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6014:6585" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6036:6057" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="6175:6203" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="6916:7017" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="8367:8910" placeholder="SELECT p.ID,..." />
-            <marker date="1677154201850" expanded="true" signature="8390:8411" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="8529:8557" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="9219:9276" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="17239:17252" placeholder="..." />
-            <marker date="1677154201850" expanded="true" signature="18076:18123" placeholder="delete from ..." />
+            <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+            <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+            <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+            <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/languages/fast-index-tr_TR.po">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="279" column="0" selection-start="8228" selection-end="8228" vertical-scroll-proportion="0.0" vertical-offset="4980" max-vertical-offset="6132">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="241" column="0" selection-start="10972" selection-end="10972" vertical-scroll-proportion="0.0" vertical-offset="5061" max-vertical-offset="6867">
+        <state line="261" column="28" selection-start="12120" selection-end="12120" vertical-scroll-proportion="0.0" vertical-offset="4994" max-vertical-offset="7749">
           <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1677145308620" expanded="true" signature="14927:15075" placeholder="..." />
-            <marker date="1677145308620" expanded="true" signature="16909:17303" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.txt">
+    <entry file="file://$PROJECT_DIR$/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="18" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0" vertical-offset="417" max-vertical-offset="1302">
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/history.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="1071">
+        <state line="12" column="16" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0" vertical-offset="26" max-vertical-offset="1932">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="7" selection-start="815" selection-end="818" vertical-scroll-proportion="0.0" vertical-offset="311" max-vertical-offset="13104">
+          <folding>
+            <element signature="e#6#431#0" expanded="true" />
+            <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+            <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+            <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+            <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/languages/fast-index-tr_TR.po">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="279" column="0" selection-start="8228" selection-end="8228" vertical-scroll-proportion="0.0" vertical-offset="4980" max-vertical-offset="6132">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="41" selection-start="7688" selection-end="7688" vertical-scroll-proportion="0.0" vertical-offset="3427" max-vertical-offset="7749">
+          <folding>
+            <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="1187" selection-end="1187" vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="1302">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/history.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="16" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0" vertical-offset="26" max-vertical-offset="1932">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="7" selection-start="815" selection-end="818" vertical-scroll-proportion="0.0" vertical-offset="311" max-vertical-offset="13104">
+          <folding>
+            <element signature="e#6#431#0" expanded="true" />
+            <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+            <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+            <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+            <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/languages/fast-index-tr_TR.po">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="279" column="0" selection-start="8228" selection-end="8228" vertical-scroll-proportion="0.0" vertical-offset="4980" max-vertical-offset="6132">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="41" selection-start="7688" selection-end="7688" vertical-scroll-proportion="0.0" vertical-offset="3427" max-vertical-offset="7749">
+          <folding>
+            <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.0" vertical-offset="588" max-vertical-offset="1302">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/history.php">
@@ -297,18 +451,24 @@
         <state line="13" column="2" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="13692">
           <folding>
             <element signature="e#6#431#0" expanded="true" />
-            <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6014:6585" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6036:6057" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="6175:6203" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="6916:7017" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="8367:8910" placeholder="SELECT p.ID,..." />
-            <marker date="1677154201850" expanded="true" signature="8390:8411" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="8529:8557" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="9219:9276" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="17239:17252" placeholder="..." />
-            <marker date="1677154201850" expanded="true" signature="18076:18123" placeholder="delete from ..." />
+            <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+            <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+            <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+            <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
           </folding>
         </state>
       </provider>
@@ -317,23 +477,74 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="241" column="0" selection-start="10972" selection-end="10972" vertical-scroll-proportion="0.0" vertical-offset="5061" max-vertical-offset="6867">
           <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1677145308620" expanded="true" signature="14927:15075" placeholder="..." />
-            <marker date="1677145308620" expanded="true" signature="16909:17303" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.txt">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="1071">
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/history.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="16" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0" vertical-offset="26" max-vertical-offset="1932">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="2" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="13692">
+          <folding>
+            <element signature="e#6#431#0" expanded="true" />
+            <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+            <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+            <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+            <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="0" selection-start="10972" selection-end="10972" vertical-scroll-proportion="0.0" vertical-offset="5061" max-vertical-offset="6867">
+          <folding>
+            <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="1071">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/history.php">
@@ -362,47 +573,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="7" selection-start="815" selection-end="818" vertical-scroll-proportion="-4.946429" vertical-offset="311" max-vertical-offset="13104">
-          <folding>
-            <element signature="e#6#431#0" expanded="true" />
-            <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6014:6557" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6014:6585" placeholder="SELECT p.*, ..." />
-            <marker date="1677154201850" expanded="true" signature="6036:6057" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="6175:6203" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="6916:7017" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="8367:8910" placeholder="SELECT p.ID,..." />
-            <marker date="1677154201850" expanded="true" signature="8390:8411" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="8529:8557" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="9219:9276" placeholder="select count..." />
-            <marker date="1677154201850" expanded="true" signature="17239:17252" placeholder="..." />
-            <marker date="1677154201850" expanded="true" signature="18076:18123" placeholder="delete from ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="41" selection-start="7688" selection-end="7688" vertical-scroll-proportion="-8.966666" vertical-offset="3427" max-vertical-offset="7749">
+        <state line="261" column="28" selection-start="12120" selection-end="12120" vertical-scroll-proportion="0.0" vertical-offset="4994" max-vertical-offset="7749">
           <folding>
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#td#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1677145308620" expanded="true" signature="14927:15075" placeholder="..." />
-            <marker date="1677145308620" expanded="true" signature="16909:17303" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="14931:15079" placeholder="..." />
+            <marker date="1678104808060" expanded="true" signature="16913:17307" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.txt">
+    <entry file="file://$PROJECT_DIR$/helpers/indexingApi/vendor/guzzlehttp/psr7/src/Uri.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="29" selection-start="229" selection-end="229" vertical-scroll-proportion="-9.1" vertical-offset="0" max-vertical-offset="17136">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="15" selection-start="177" selection-end="177" vertical-scroll-proportion="-4.2" vertical-offset="0" max-vertical-offset="1428">
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/helpers/indexingApi.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.68213457" vertical-offset="0" max-vertical-offset="1302">
+        <state line="15" column="0" selection-start="353" selection-end="353" vertical-scroll-proportion="-6.3" vertical-offset="126" max-vertical-offset="2604">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="564" column="5" selection-start="18149" selection-end="18149" vertical-scroll-proportion="0.31932774" vertical-offset="11578" max-vertical-offset="13461">
+          <folding>
+            <element signature="e#6#431#0" expanded="true" />
+            <marker date="1678110926269" expanded="true" signature="6528:7100" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="6551:6572" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6690:6718" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="6982:7311" placeholder="SELECT p.*, ..." />
+            <marker date="1678110926269" expanded="true" signature="7015:7036" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7037:7065" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7431:7532" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="7705:7806" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9045:9588" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9068:9089" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9207:9235" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9428:9758" placeholder="SELECT p.ID,..." />
+            <marker date="1678110926269" expanded="true" signature="9461:9482" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9500:9528" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="9897:9954" placeholder="select count..." />
+            <marker date="1678110926269" expanded="true" signature="10124:10181" placeholder="select count..." />
+            <marker date="1678110926269" expanded="false" signature="17922:17935" placeholder="..." />
+            <marker date="1678110926269" expanded="true" signature="18759:18806" placeholder="delete from ..." />
+          </folding>
         </state>
       </provider>
     </entry>

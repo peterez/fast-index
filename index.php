@@ -3,7 +3,7 @@
 Plugin Name: Fast Index
 Plugin URI:
 Description: <strong>Fast Index</strong> on google
-Version: 1.4
+Version: 1.5
 Author: Samet AKIN
 Author URI: https://www.linkedin.com/in/samet-akin/
 Contact me at https://www.linkedin.com/in/samet-akin/
@@ -56,6 +56,16 @@ class FastIndex
         $options['post_type']        = is_array($options['post_type'])? $options['post_type'] : array("post" => "1");
         $options['post_status']      = is_array($options['post_status'])? $options['post_status'] : array("publish" => "1", "edit" => "1");
         $options['exclude_category'] = is_array($options['exclude_category'])? $options['exclude_category'] : array();
+
+        $newJsons = array();
+        if(is_array($options['json_file'])) {
+            foreach($options['json_file'] as $key => $value) {
+                if($key !="" and strlen($key)>10 and $value['mail'] !="") {
+                    $newJsons[$key] = $value;
+                }
+            }
+            $options['json_file'] = $newJsons;
+        }
 
         return $options;
     }
@@ -181,11 +191,14 @@ class FastIndex
         if ($addExclude != ""){
             $addExclude = "and (" . trim(trim($addExclude), "and") . ")";
             $addExcludeOr = "and (" . trim(trim($addExcludeOr), "or") . ")";
+        } else {
+            $addExclude = "and ( trr.term_taxonomy_id !='0')";
+            $addExcludeOr = "and ( {$wpRelationshipsTable}.term_taxonomy_id ='0')";
         }
 
 
         $sql = "
-        SELECT  p.*,
+        SELECT  p.ID,
         (select count(ID) from {$wpPostsTable} where {$wpPostsTable}.post_parent = p.ID and {$wpPostsTable}.post_type= %s ) AS content_id,
         (select count(object_id) from {$wpRelationshipsTable} where {$wpRelationshipsTable}.object_id = p.ID {$addExcludeOr} ) AS count_2
         FROM  {$wpPostsTable} as p
@@ -250,8 +263,10 @@ class FastIndex
         if ($addExclude != ""){
             $addExclude = "and (" . trim(trim($addExclude), "and") . ")";
             $addExcludeOr = "and (" . trim(trim($addExcludeOr), "or") . ")";
+        } else {
+            $addExclude = "and ( trr.term_taxonomy_id !='0')";
+            $addExcludeOr = "and ( {$wpRelationshipsTable}.term_taxonomy_id ='0')";
         }
-
 
         $sql = "
         SELECT  p.ID,
@@ -339,9 +354,12 @@ class FastIndex
             die;
         }
 
+
+
         $totalSent          = esc_attr($this->countSentPosts());
         $totalWaitingSubmit = esc_attr($this->countWaitingPosts());
         $totalSubmitToday   = esc_attr($this->countDailySent());
+
 
         $logs = $this->getLogs();
         include_once(plugin_dir_path(__FILE__) . '/view/history.php');
@@ -352,6 +370,8 @@ class FastIndex
         if (!is_admin()){
             die;
         }
+
+
 
         $categories = get_categories(array('hide_empty' => false,));
 
@@ -586,18 +606,15 @@ class FastIndex
 }
 
 if (!function_exists('figi_fs')){
-    // Create a helper function for easy SDK access.
+
     function figi_fs() {
 
         global $figi_fs;
 
         if (!isset($figi_fs)){
-            // Activate multisite network integration.
             if (!defined('WP_FS__PRODUCT_11893_MULTISITE')){
                 define('WP_FS__PRODUCT_11893_MULTISITE', true);
             }
-
-            // Include Freemius SDK.
 
             $figi_fs = fs_dynamic_init(array('id' => '11893', 'slug' => 'fast-index', 'premium_slug' => 'fast-index', 'type' => 'plugin', 'public_key' => 'pk_4352cecbab080b84df64da3246477', 'is_premium' => true, 'is_premium_only' => false, 'has_addons' => false, 'has_paid_plans' => false, 'menu' => array('slug' => 'fast-index', 'first-path' => 'admin.php?page=fast-index', 'contact' => false, 'support' => true, 'network' => true,
 
