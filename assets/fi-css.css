@@ -9,15 +9,24 @@
     }
 
     #fi.content-area h1.title {
-        border-bottom: 1px solid #cfcfcf;
-        font-size: 1.5em;
-        line-height: 1.8em;
-        max-width: 90%;
+		border-bottom: 1px solid #cfcfcf;
+		font-size: 1.5em;
+		line-height: 1.8em;
+		max-width: 90%;
+		background: rgb(0 108 205 / 30%);
+		padding: 5px 10px;
+		color: #225da2;
+		border-radius: 3px;
     }
+	
+	#fi h2, #fi h3 {
+		color: #106eac;
+	}
 
     #fi.content-area .pw50 {
-        width: 50%;
+        width: 48%;
         float: left;
+		margin: 0px 1%;
     }
 
     #fi.content-area .fiClear {
@@ -56,3 +65,13 @@
     #fi .laBg {
       padding: 10px; background:#d3ffd4; margin-right: 20px; cursor:pointer;
     }
+	
+	#fi .form-table td {
+	border-bottom: 1px dotted #aca9a9;
+	}
+
+	#fi .form-table td[colspan="2"] {
+	border-bottom: 0px dotted #aca9a9;
+	}
+
+	

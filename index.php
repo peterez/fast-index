@@ -3,7 +3,7 @@
 Plugin Name: Fast Index
 Plugin URI:
 Description: <strong>Fast Index</strong> on google
-Version: 1.5
+Version: 2.1
 Author: Samet AKIN
 Author URI: https://www.linkedin.com/in/samet-akin/
 Contact me at https://www.linkedin.com/in/samet-akin/
@@ -13,7 +13,7 @@ Note : Hi dear users, this plugin build with wordpress structure and i don't lik
 
 */
 
-if (!defined('ABSPATH') or !defined('WPINC')){
+if (!defined('ABSPATH') or !defined('WPINC')) {
     die;
 }
 
@@ -29,7 +29,8 @@ class FastIndex
     private $customPostType = "fi_log";
     private $canI;
 
-    function __construct() {
+    function __construct()
+    {
 
         add_action('init', array($this, 'fiPostType'));
         add_action('wp_after_insert_post', array($this, 'sendRequest'));
@@ -47,20 +48,21 @@ class FastIndex
 
     /* ASSETS */
 
-    function getOption() {
+    function getOption()
+    {
 
         $options = get_option('fast_index_options');
-        if (is_array($options) == false){
+        if (is_array($options) == false) {
             $options = array();
         }
-        $options['post_type']        = is_array($options['post_type'])? $options['post_type'] : array("post" => "1");
-        $options['post_status']      = is_array($options['post_status'])? $options['post_status'] : array("publish" => "1", "edit" => "1");
-        $options['exclude_category'] = is_array($options['exclude_category'])? $options['exclude_category'] : array();
+        $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
+        $options['post_status'] = is_array($options['post_status']) ? $options['post_status'] : array("publish" => "1", "edit" => "1");
+        $options['exclude_category'] = is_array($options['exclude_category']) ? $options['exclude_category'] : array();
 
         $newJsons = array();
-        if(is_array($options['json_file'])) {
-            foreach($options['json_file'] as $key => $value) {
-                if($key !="" and strlen($key)>10 and $value['mail'] !="") {
+        if (is_array($options['json_file'])) {
+            foreach ($options['json_file'] as $key => $value) {
+                if ($key != "" and strlen($key) > 10 and $value['mail'] != "") {
                     $newJsons[$key] = $value;
                 }
             }
@@ -70,21 +72,23 @@ class FastIndex
         return $options;
     }
 
-    function pluginAssets() {
+    function pluginAssets()
+    {
 
         wp_enqueue_style('fi_css', plugin_dir_url(__FILE__) . 'assets/fi-css.css', array());
         wp_enqueue_script('fi_deletion_message', plugin_dir_url(__FILE__) . 'assets/message-deactivate.js', array());
     }
 
-    private function getLogs() {
+    private function getLogs()
+    {
 
         $pn = intval(sanitize_text_field($_REQUEST['pn']));
 
-        if ($pn<=0){
-            $pn     = 0;
+        if ($pn <= 0) {
+            $pn = 0;
             $offset = 0;
         } else {
-            $offset = $pn*20;
+            $offset = $pn * 20;
         }
 
         $args = array("offset" => $offset, 'numberposts' => 20, "post_type" => $this->customPostType);
@@ -99,87 +103,93 @@ class FastIndex
         return $return;
     }
 
-    private function interLog($id, $url = "") {
+    private function interLog($id, $url = "")
+    {
 
         $title = get_the_title($id);
-        $md5   = md5($title);
+        $md5 = md5($title);
 
         $myPost = array('post_title' => $title, 'post_name' => $md5, 'post_content' => $url, 'post_status' => 'publish', 'post_author' => 1, 'post_category' => 0, 'post_type' => $this->customPostType, "post_parent" => $id);
 
         (wp_insert_post($myPost, true));
     }
 
-    function getServiceAccounts() {
+    function getServiceAccounts()
+    {
 
-        $options   = $this->getOption();
+        $options = $this->getOption();
         $jsonFiles = $options['json_file'];
 
-        return !is_array($jsonFiles)? array() : $jsonFiles;
+        return !is_array($jsonFiles) ? array() : $jsonFiles;
     }
 
-    function setServiceAccountStatus($account, $status) {
+    function setServiceAccountStatus($account, $status)
+    {
 
         /* 60 seconds * 60 * 6 => 6 hours */
         set_site_transient("fi_" . $account, $status, 21600);
 
         /* Change Status */
         $getServiceAccounts = $this->getServiceAccounts();
-        if (count($getServiceAccounts)>0){
+        if (count($getServiceAccounts) > 0) {
 
-            $currentData                  = $getServiceAccounts[$account];
-            $currentData['status']        = $status;
+            $currentData = $getServiceAccounts[$account];
+            $currentData['status'] = $status;
             $getServiceAccounts[$account] = $currentData;
 
         }
 
         /* Get all Options */
-        $options              = $this->getOption();
+        $options = $this->getOption();
         $options['json_file'] = $getServiceAccounts;
 
         update_option('fast_index_options', $options);
 
     }
 
-    function getServiceAccountStatus($account) {
+    function getServiceAccountStatus($account)
+    {
 
         return get_site_transient("fi_" . $account);
     }
 
-    function getWaitingPosts() {
+    function getWaitingPosts()
+    {
 
         global $wpdb;
         $wpPostsTable = $wpdb->prefix . "posts";
         $wpRelationshipsTable = $wpdb->prefix . "term_relationships";
 
-        $options                     = $this->getOption();
-        $options['post_type']        = is_array($options['post_type'])? $options['post_type'] : array("post" => "1");
-        $options['exclude_category'] = is_array($options['exclude_category'])? $options['exclude_category'] : array();
-        $options['old_post_number']  = intval($options['old_post_number']);
-        $limit                       = $options['old_post_number']<=0? 0 : $options['old_post_number'];
+        $options = $this->getOption();
+        $options['post_type'] = is_array($options['post_type']) ? $options['post_type'] : array("post" => "1");
+        $options['exclude_category'] = is_array($options['exclude_category']) ? $options['exclude_category'] : array();
+        $options['old_post_number'] = intval($options['old_post_number']);
+        $limit = $options['old_post_number'] <= 0 ? 0 : $options['old_post_number'];
 
-        if ($limit<=0 or $options['status'] == 2){
+        if ($limit <= 0 or $options['status'] == 2) {
             return false;
         }
 
         $count = intval($this->countDailySent());
 
-        if ($count>=$limit){
+        if ($count >= $limit) {
             return false;
         }
 
-        $limit = rand(0, ceil($limit/3));
+        $limit = rand(0, ceil($limit / 3));
 
         /* prapare the additional sql */
         $addSql = "";
         $addExclude = "";
         $addExcludeOr = "";
         foreach ($options['post_type'] as $key => $value) {
-            if ($value == "1"){
+            if ($value == "1") {
                 $addSql .= " or p.post_type='{$key}' ";
             }
         }
 
-        if ($addSql != ""){
+
+        if ($addSql != "") {
             $addSql = "and (" . trim(trim($addSql), "or") . ")";
         }
 
@@ -188,11 +198,12 @@ class FastIndex
             $addExcludeOr .= " or {$wpRelationshipsTable}.term_taxonomy_id ='" . sanitize_text_field(strip_tags($key)) . "' ";
         }
 
-        if ($addExclude != ""){
+        if ($addExclude != "") {
             $addExclude = "and (" . trim(trim($addExclude), "and") . ")";
             $addExcludeOr = "and (" . trim(trim($addExcludeOr), "or") . ")";
         } else {
-            $addExclude = "and ( trr.term_taxonomy_id !='0')";
+            /* $addExclude = "and ( trr.term_taxonomy_id !='0')"; */
+            $addExclude = "";
             $addExcludeOr = "and ( {$wpRelationshipsTable}.term_taxonomy_id ='0')";
         }
 
@@ -216,13 +227,14 @@ class FastIndex
 
     }
 
-    private function countDailySent() {
+    private function countDailySent()
+    {
 
         global $wpdb;
 
         $wpPostsTable = $wpdb->prefix . "posts";
 
-        $theDate = date("Y-m-d H:i:s", time()-86400);
+        $theDate = date("Y-m-d H:i:s", time() - 86400);
 
         $sql = "select count(ID) from {$wpPostsTable} where  {$wpPostsTable}.post_type=%s and post_date>='{$theDate}'";
 
@@ -232,7 +244,8 @@ class FastIndex
 
     }
 
-    private function countWaitingPosts() {
+    private function countWaitingPosts()
+    {
 
         global $wpdb;
         $wpPostsTable = $wpdb->prefix . "posts";
@@ -245,12 +258,12 @@ class FastIndex
         $addExclude = "";
         $addExcludeOr = "";
         foreach ($options['post_type'] as $key => $value) {
-            if ($value == "1"){
+            if ($value == "1") {
                 $addSql .= " or p.post_type='" . sanitize_text_field(strip_tags($key)) . "' ";
             }
         }
 
-        if ($addSql != ""){
+        if ($addSql != "") {
             $addSql = "and (" . trim(trim($addSql), "or") . ")";
         }
 
@@ -260,7 +273,7 @@ class FastIndex
             $addExcludeOr .= " or {$wpRelationshipsTable}.term_taxonomy_id ='" . sanitize_text_field(strip_tags($key)) . "' ";
         }
 
-        if ($addExclude != ""){
+        if ($addExclude != "") {
             $addExclude = "and (" . trim(trim($addExclude), "and") . ")";
             $addExcludeOr = "and (" . trim(trim($addExcludeOr), "or") . ")";
         } else {
@@ -287,13 +300,14 @@ class FastIndex
 
     }
 
-    private function countSentPosts() {
+    private function countSentPosts()
+    {
 
         global $wpdb;
 
         $wpPostsTable = $wpdb->prefix . "posts";
 
-        $sql     = "select count(ID) from {$wpPostsTable} where post_type= %s";
+        $sql = "select count(ID) from {$wpPostsTable} where post_type= %s";
         $results = $wpdb->get_var($wpdb->prepare($sql, array(sanitize_text_field(strip_tags($this->customPostType)))));
 
         return $results;
@@ -303,42 +317,45 @@ class FastIndex
 
     /* API - 3.RD PARTY */
 
-    function sendRequest($id, $post_after = "", $post_before = "", $newPost = null) {
+    function sendRequest($id, $post_after = "", $post_before = "", $newPost = null)
+    {
 
         $canSend = true;
         $options = $this->getOption();
-        $post    = get_post($id);
+        $post = get_post($id);
 
         $ref = strip_tags(sanitize_text_field($_SERVER['HTTP_REFERER']));
-        $ref = $ref == ""? "none" : $ref;
+        $ref = $ref == "" ? "none" : $ref;
 
         $postStatus = $post->post_status;
-        $postType   = $post->post_type;
+        $postType = $post->post_type;
 
-        if (strstr($ref, 'action=edit') and $postStatus == "publish"){
+        if (strstr($ref, 'action=edit') and $postStatus == "publish") {
             $postStatus = "edit";
         }
 
-        if ($options['status'] == 2 or $options['post_status'][$postStatus] != "1" or $options['post_type'][$postType] != "1"){
+
+        if ($options['status'] == 2 or $options['post_status'][$postStatus] != "1" or $options['post_type'][$postType] != "1") {
             return false;
         }
 
         $categories = get_the_category($id);
         foreach ($categories as $item) {
-            if ($options['exclude_category'][$item->term_id] != ""){
+            if ($options['exclude_category'][$item->term_id] != "") {
                 $canSend = false;
             }
         }
 
-        if ($canSend){
-            $permalink   = get_permalink($id);
+        if ($canSend) {
+            $permalink = get_permalink($id);
             $indexingApi = new FastIndex_IndexingApi();
 
             $status = $indexingApi->sendRequest($permalink);
 
-            if ($status == 200){
+            if ($status == 200) {
                 $this->interLog($id, $permalink);
             }
+
         }
 
         return $status;
@@ -348,75 +365,75 @@ class FastIndex
 
     /* PAGES */
 
-    function historyPage() {
+    function historyPage()
+    {
 
-        if (!is_admin()){
+        if (!is_admin()) {
             die;
         }
 
 
-
-        $totalSent          = esc_attr($this->countSentPosts());
+        $totalSent = esc_attr($this->countSentPosts());
         $totalWaitingSubmit = esc_attr($this->countWaitingPosts());
-        $totalSubmitToday   = esc_attr($this->countDailySent());
+        $totalSubmitToday = esc_attr($this->countDailySent());
 
 
         $logs = $this->getLogs();
         include_once(plugin_dir_path(__FILE__) . '/view/history.php');
     }
 
-    function settingsPage() {
+    function settingsPage()
+    {
 
-        if (!is_admin()){
+        if (!is_admin()) {
             die;
         }
 
 
-
         $categories = get_categories(array('hide_empty' => false,));
 
-        $_POST  = $this->fastIndexArraySanitizingRecursively($_POST);
+        $_POST = $this->fastIndexArraySanitizingRecursively($_POST);
         $_FILES = $this->fastIndexArraySanitizingRecursively($_FILES);
 
-        $options   = $this->getOption();
+        $options = $this->getOption();
         $jsonFiles = $options['json_file'];
 
-        if (isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
 
             $uploadedFiles = $this->jsonUploader();
 
-            if ($this->canI == false){
-                $_POST['fast_index_options']['old_post_number']  = 0;
+            if ($this->canI == false) {
+                $_POST['fast_index_options']['old_post_number'] = 0;
                 $_POST['fast_index_options']['exclude_category'] = array();
 
-                if (is_array($uploadedFiles) and count($uploadedFiles)>0){
+                if (is_array($uploadedFiles) and count($uploadedFiles) > 0) {
                     $newFiles = $uploadedFiles;
                 } else {
-                    $newFiles = !is_array($jsonFiles)? array() : $jsonFiles;
+                    $newFiles = !is_array($jsonFiles) ? array() : $jsonFiles;
                 }
             } else {
-                $newFiles = !is_array($jsonFiles)? $uploadedFiles : array_merge($jsonFiles, $uploadedFiles);
+                $newFiles = !is_array($jsonFiles) ? $uploadedFiles : array_merge($jsonFiles, $uploadedFiles);
             }
 
             /* if deleting a json */
-            if ($_POST['fast_index_options']['delete_json'] != ""){
+            if ($_POST['fast_index_options']['delete_json'] != "") {
                 unset($newFiles[sanitize_text_field($_POST['fast_index_options']['delete_json'])]);
             }
 
             $_POST['fast_index_options']['json_file'] = $newFiles;
 
-            $theData                     = array();
-            $theData['status']           = sanitize_text_field($_POST['fast_index_options']['status']);
-            $theData['post_type']        = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['post_type']);
-            $theData['old_post_number']  = sanitize_text_field($_POST['fast_index_options']['old_post_number']);
-            $theData['post_status']      = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['post_status']);
+            $theData = array();
+            $theData['status'] = sanitize_text_field($_POST['fast_index_options']['status']);
+            $theData['post_type'] = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['post_type']);
+            $theData['old_post_number'] = sanitize_text_field($_POST['fast_index_options']['old_post_number']);
+            $theData['post_status'] = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['post_status']);
             $theData['exclude_category'] = $this->fastIndexArraySanitizingRecursively($_POST['fast_index_options']['exclude_category']);
-            $theData['json_file']        = $newFiles;
+            $theData['json_file'] = $newFiles;
 
             update_option('fast_index_options', $theData);
 
             /* for not reload the page */
-            $options   = $this->getOption();
+            $options = $this->getOption();
             $jsonFiles = $options['json_file'];
         }
 
@@ -424,18 +441,56 @@ class FastIndex
 
     }
 
+    function triggerCronManuel()
+    {
+
+        $posts = $this->getWaitingPosts();
+        echo '<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts">';
+        if ($posts != false) {
+
+            foreach ($posts as $item) {
+                $result = $this->sendRequest($item->ID);
+                if ($result == 200) {
+                    $result = "OK";
+                } else {
+                    if (!is_numeric($result)) {
+                        $result = "FAIL";
+                    }
+                }
+
+                $permalink = get_permalink($item->ID);
+
+                echo '<tr>';
+                echo '<td><a href="' . $permalink . '">' . $permalink . '</a></td>';
+                echo '<td>' . $result . '</td>';
+                echo '</tr>';
+
+            }
+
+        } else {
+            echo '<tr>';
+            echo '<td>There is no posts for today. Check your settigns.</td>';
+            echo '</tr>';
+        }
+
+        echo '</table>';
+
+    }
+
 
     /* FIXED METHODS */
 
-    function fiPostType() {
+    function fiPostType()
+    {
 
         register_post_type($this->customPostType, array('labels' => array('name' => __('Fast Index Logs'), 'singular_name' => __('Fast Index Logs')), 'public' => false, 'has_archive' => true,));
 
     }
 
-    function jsonUploader() {
+    function jsonUploader()
+    {
 
-        if (defined('ALLOW_UNFILTERED_UPLOADS') == false){
+        if (defined('ALLOW_UNFILTERED_UPLOADS') == false) {
             define('ALLOW_UNFILTERED_UPLOADS', true);
         }
 
@@ -443,16 +498,16 @@ class FastIndex
 
         $newFiles = array();
 
-        if (count($files)>0){
+        if (count($files) > 0) {
 
             $this->uploadFilter();
 
             $upload_overrides = array('test_form' => false);
 
             foreach ($files['name'] as $key => $value) {
-                if ($files['name'][$key]){
+                if ($files['name'][$key]) {
 
-                    if ($files['type'][$key] != "application/json"){
+                    if ($files['type'][$key] != "application/json") {
                         continue;
                     }
 
@@ -460,14 +515,14 @@ class FastIndex
 
                     $movefile = wp_handle_upload($file, $upload_overrides);
 
-                    if ($movefile['file'] != "" and strlen($movefile['file'])>10){
+                    if ($movefile['file'] != "" and strlen($movefile['file']) > 10) {
                         $getFile = (array)json_decode(file_get_contents($movefile['file']));
 
                         /* if is valid mail */
-                        if ($getFile['client_email'] != "" and filter_var($getFile['client_email'], FILTER_VALIDATE_EMAIL)){
+                        if ($getFile['client_email'] != "" and filter_var($getFile['client_email'], FILTER_VALIDATE_EMAIL)) {
                             $newFiles[md5($getFile['client_email'])] = array("file" => $movefile['file'], "status" => 200, "mail" => $getFile['client_email']);
 
-                            if ($this->canI == false){
+                            if ($this->canI == false) {
                                 break;
                             }
 
@@ -484,7 +539,8 @@ class FastIndex
 
     }
 
-    function uploadFilter() {
+    function uploadFilter()
+    {
 
         add_filter('upload_mimes', function ($types) {
 
@@ -492,26 +548,28 @@ class FastIndex
         });
     }
 
-    function registerSettings() {
+    function registerSettings()
+    {
 
         /* sanitize the data */
-        if (current_user_can('manage_options')){
+        if (current_user_can('manage_options')) {
             register_setting('fast_index', 'fast_index_options', array(&$this, 'fastIndexArraySanitizingRecursively'));
 
         }
     }
 
-    function postTypes($query = "") {
+    function postTypes($query = "")
+    {
 
-        if ($query == ""){
+        if ($query == "") {
             $query = array('public' => true);
         }
-
+        $query = array();
         $postTypes = (array)get_post_types($query, 'objects');
 
         foreach ($postTypes as $item) {
             $item = (array)$item;
-            if ($item['name'] == "attachment"){
+            if ($item['name'] == "attachment") {
                 continue;
             }
             $types[] = $item;
@@ -521,9 +579,10 @@ class FastIndex
 
     }
 
-    function fastIndexArraySanitizingRecursively($data) {
+    function fastIndexArraySanitizingRecursively($data)
+    {
 
-        if (is_array($data)){
+        if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $newData[$key] = $this->fastIndexArraySanitizingRecursively($value);
             }
@@ -535,9 +594,10 @@ class FastIndex
 
     }
 
-    function fastIndexOptionsEscape($data) {
+    function fastIndexOptionsEscape($data)
+    {
 
-        if (is_array($data)){
+        if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $newData[$key] = $this->fastIndexOptionsEscape($value);
             }
@@ -550,15 +610,17 @@ class FastIndex
     }
 
 
-    function adminInit() {
+    function adminInit()
+    {
 
-        if (current_user_can('manage_options')){
+        if (current_user_can('manage_options')) {
             add_menu_page('Fast Index', 'Fast Index', 'manage_options', 'fast-index', array(&$this, 'settingsPage'));
             add_submenu_page('fast-index', 'History', 'History', 'manage_options', 'history', array(&$this, 'historyPage'));
-            add_submenu_page('fast-index', 'Pricing', '<b style="color:#45e545">&raquo; Pricing</b>', 'manage_options', 'fast-index-pricing');
+            add_submenu_page('fast-index', 'Trigger Cron Manuel', 'Trigger Cron Manuel', 'manage_options', 'triggerCronManuel', array(&$this, 'triggerCronManuel'));
+            /*  add_submenu_page('fast-index', 'Pricing', '<b style="color:#45e545">&raquo; Pricing</b>', 'manage_options', 'fast-index-pricing'); */
         }
 
-        if (!wp_next_scheduled('fiDailyCronHook')){
+        if (!wp_next_scheduled('fiDailyCronHook')) {
             wp_schedule_event(time(), 'daily_fi', 'fiDailyCronHook');
         }
 
@@ -567,31 +629,34 @@ class FastIndex
 
     /* CRON */
 
-    function cronSchedule($schedules) {
+    function cronSchedule($schedules)
+    {
 
         $schedules['daily_fi'] = array('interval' => 600, 'display' => __('Every 1 minutes'),);
 
         return $schedules;
     }
 
-    function fiDailyCron() {
+    function fiDailyCron()
+    {
 
         $posts = $this->getWaitingPosts();
 
-        if ($posts != false){
+        if ($posts != false) {
             foreach ($posts as $item) {
-                $this->sendRequest($item->ID);
+                $status = $this->sendRequest($item->ID);
             }
 
         }
 
     }
 
-    function fiDeleteAlert() {
+    function fiDeleteAlert()
+    {
 
         global $wpdb;
 
-        if ($_GET['fi_delete'] == "true"){
+        if ($_GET['fi_delete'] == "true") {
 
             $wpPostsTable = $wpdb->prefix . "posts";
             $wpdb->get_var($wpdb->prepare("delete from {$wpPostsTable} where post_type= %s", array($this->customPostType)));
@@ -605,20 +670,23 @@ class FastIndex
 
 }
 
-if (!function_exists('figi_fs')){
+if (!function_exists('figi_fs')) {
 
-    function figi_fs() {
+    function figi_fs()
+    {
 
         global $figi_fs;
 
-        if (!isset($figi_fs)){
-            if (!defined('WP_FS__PRODUCT_11893_MULTISITE')){
+        if (!isset($figi_fs)) {
+            if (!defined('WP_FS__PRODUCT_11893_MULTISITE')) {
                 define('WP_FS__PRODUCT_11893_MULTISITE', true);
             }
 
-            $figi_fs = fs_dynamic_init(array('id' => '11893', 'slug' => 'fast-index', 'premium_slug' => 'fast-index', 'type' => 'plugin', 'public_key' => 'pk_4352cecbab080b84df64da3246477', 'is_premium' => true, 'is_premium_only' => false, 'has_addons' => false, 'has_paid_plans' => false, 'menu' => array('slug' => 'fast-index', 'first-path' => 'admin.php?page=fast-index', 'contact' => false, 'support' => true, 'network' => true,
+            $figi_fs = fs_dynamic_init(array('id' => '11893', 'slug' => 'fast-index', 'premium_slug' => 'fast-index', 'type' => 'plugin', 'public_key' => 'pk_4352cecbab080b84df64da3246477', 'is_premium' => true, 'is_premium_only' => false, 'has_addons' => false, 'has_paid_plans' => true,
+                'menu' => array(
+                    'slug' => 'fast-index', 'first-path' => 'admin.php?page=fast-index', 'contact' => false, 'support' => true, 'account' => true, 'network' => true,
 
-            ),));
+                ),));
         }
 
         return $figi_fs;

@@ -20,7 +20,6 @@ class FastIndex_IndexingApi
 
         foreach ($this->serviceAccounts as $key => $value) {
             $lastStatus = $this->fastIndex->getServiceAccountStatus($key);
-
             if($lastStatus ==200) { continue; }
             if ($lastStatus != "") {
                unset($this->serviceAccounts[$key]);
@@ -77,7 +76,8 @@ class FastIndex_IndexingApi
             $guzzleClient = new \GuzzleHttp\Client(array('curl' =>
                 array(
                     CURLOPT_SSL_VERIFYPEER => false,
-                    CURLOPT_SSL_VERIFYHOST => false
+                    CURLOPT_SSL_VERIFYHOST => false,
+
                 )
             ));
 
@@ -93,6 +93,7 @@ class FastIndex_IndexingApi
             $content = '{  "url": "' . $url . '",  "type": "URL_UPDATED"}';
 
             $response = $httpClient->post($endpoint, ['body' => $content]);
+		
             $statusCode = $response->getStatusCode();
         } catch(Exception $e) {
            $statusCode = $e->getCode();
@@ -101,7 +102,7 @@ class FastIndex_IndexingApi
 
         if ($statusCode != 200) {
             $this->setPassive($json['key'], $statusCode);
-            return $this->sendRequest($url);
+           /* return $this->sendRequest($url); */
         } else {
             $this->fastIndex->setServiceAccountStatus($json['key'], 200);
         }

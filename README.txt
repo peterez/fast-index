@@ -2,8 +2,8 @@
 Contributors: cultdevops
 Tags: Fast Index, Instant Index Google, Seo index, Google Index, Seo Problem
 Requires at least: 5.1
-Tested up to: 6.1
-Stable tag: 1.6
+Tested up to: 6.4
+Stable tag: 2.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,8 +34,27 @@ FastIndex – 9 Results:
 2-screenshot-3.png
 2-screenshot-4.png
 
+== Changelog ==
+= 2.1 =
+* Download bug fixed
 
 == Changelog ==
+= 2.0 =
+* Download bug fixed
+
+== Changelog ==
+= 1.10 =
+* Added new post status
+* Added licence key manager
+
+= 1.9 =
+* Bug fixed
+
+= 1.8 =
+* Added Manuel Cron Trigger
+
+= 1.7 =
+* Updated
 
 = 1.6 =
 * Php8 google API problem solved
@@ -57,7 +76,6 @@ FastIndex – 9 Results:
 
 = 1.0 =
 * First Version All tested and working.
-
 
 
 `<?php code(); ?>`
