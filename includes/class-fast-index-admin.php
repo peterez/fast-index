@@ -111,7 +111,7 @@ class Fast_Index_Admin {
 			'fast-index-admin',
 			'window.fastIndexAdmin = ' . wp_json_encode(
 				array(
-					'upgradeMessage' => __( 'Please upgrade to premium', 'fast-index' ),
+					'upgradeMessage' => __( 'This option needs the premium plan. Go to the upgrade page?', 'fast-index' ),
 					'upgradeUrl'     => admin_url( 'admin.php?page=fast-index-pricing' ),
 				)
 			) . ';',

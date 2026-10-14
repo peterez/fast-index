@@ -18,7 +18,7 @@ $fast_index_types = array(
 ?>
 <div id="fi" class="content-area">
 
-	<h1 class="title"><?php esc_html_e( 'Simple Report', 'fast-index' ); ?></h1>
+	<h1 class="title"><?php esc_html_e( 'Summary', 'fast-index' ); ?></h1>
 
 	<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts">
 		<thead>
@@ -70,7 +70,7 @@ $fast_index_types = array(
 					<?php echo esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $fast_index_entry['timestamp'] ) ); ?>
 				</td>
 				<td><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?></td>
-				<td><a class="row-title" href="<?php echo esc_url( $fast_index_entry['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'GO POST', 'fast-index' ); ?></a></td>
+				<td><a class="row-title" href="<?php echo esc_url( $fast_index_entry['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'View Post', 'fast-index' ); ?></a></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

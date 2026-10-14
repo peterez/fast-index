@@ -193,7 +193,7 @@ class Fast_Index_Settings {
 
 		if ( isset( $input['old_post_number'] ) && ! self::is_count( $input['old_post_number'] ) ) {
 			/* translators: %s: highest accepted number. */
-			$errors[] = sprintf( __( 'The daily number of old posts must be a whole number from 0 to %s.', 'fast-index' ), number_format_i18n( self::MAX_OLD_POSTS ) );
+			$errors[] = sprintf( __( 'The daily limit for old posts must be a whole number from 0 to %s.', 'fast-index' ), number_format_i18n( self::MAX_OLD_POSTS ) );
 		}
 
 		return $errors;

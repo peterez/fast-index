@@ -61,8 +61,8 @@ class Fast_Index_Log {
 			self::POST_TYPE,
 			array(
 				'labels'       => array(
-					'name'          => __( 'Fast Index Logs', 'fast-index' ),
-					'singular_name' => __( 'Fast Index Log', 'fast-index' ),
+					'name'          => __( 'Fast Index History', 'fast-index' ),
+					'singular_name' => __( 'Fast Index History Entry', 'fast-index' ),
 				),
 				'public'       => false,
 				'rewrite'      => false,

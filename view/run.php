@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<h1 class="title"><?php esc_html_e( 'Send Old Posts Now', 'fast-index' ); ?></h1>
 
-	<p><?php esc_html_e( 'Sends one batch of old posts now, within the daily limit set on the settings page. The same batch also runs every hour.', 'fast-index' ); ?></p>
+	<p><?php esc_html_e( 'Sends one batch of old posts now, within the daily limit set on the settings screen. The same batch also runs every hour.', 'fast-index' ); ?></p>
 
 	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 		<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::RUN ); ?>" />

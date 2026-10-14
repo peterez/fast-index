@@ -40,20 +40,23 @@ const RUN = admin( 'admin.php?page=fast-index-run' );
 const HELP = admin( 'admin.php?page=fast-index-help' );
 const PLUGINS = admin( 'plugins.php' );
 
+// "Settings" has a gettext context (the Search Console menu entry has another one): context, U+0004, source string.
+const SETTINGS_TITLE = 'Heading of the Fast Index settings screen\u0004Settings';
+
 // Source strings that must be on each screen in the language under test (all of them are translated
 // differently from English in every bundled language, except where noted in the .po by an identical text).
 const SCREENS = {
 	settings: {
 		path: SETTINGS,
-		strings: [ 'Status', 'Active', 'Passive', 'Post Types', 'Daily Old Content Post?', 'Post Status', 'Exclude Categories', 'Delete data on uninstall', 'Save', 'Upload key', 'Open Help & FAQ' ],
+		strings: [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Daily Limit for Old Posts', 'Post Events', 'Exclude Categories', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ' ],
 	},
 	history: {
 		path: HISTORY,
-		strings: [ 'Simple Report', 'Total Sent', 'Total Waiting', 'Sent Today', 'Title', 'Date', 'Send Status', 'GO POST', 'Next' ],
+		strings: [ 'Summary', 'Total Sent', 'Total Waiting', 'Sent Today', 'Title', 'Date', 'Send Status', 'View Post', 'Next' ],
 	},
 	run: {
 		path: RUN,
-		strings: [ 'Send Old Posts Now', 'Sends one batch of old posts now, within the daily limit set on the settings page. The same batch also runs every hour.', 'Send now' ],
+		strings: [ 'Send Old Posts Now', 'Sends one batch of old posts now, within the daily limit set on the settings screen. The same batch also runs every hour.', 'Send now' ],
 	},
 	help: {
 		path: HELP,
@@ -150,7 +153,7 @@ async function checkScreen( page, locale, view, po, projectName, prefix ) {
 	const text = await pageText( page );
 	for ( const id of screen.strings ) {
 		const translated = po.get( id );
-		expect( translated, 'translation of "' + id + '" exists in ' + locale ).toBeTruthy();
+		expect( translated, 'translation of "' + id.replace( '\u0004', ' / ' ) + '" exists in ' + locale ).toBeTruthy();
 		expect( text, locale + ' ' + view + ': "' + translated + '"' ).toContain( norm( translated ) );
 	}
 

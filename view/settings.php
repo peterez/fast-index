@@ -30,7 +30,7 @@ $fast_index_events   = array(
 
 		<div class="pw50">
 
-			<h1 class="title"><?php esc_html_e( 'Settings', 'fast-index' ); ?></h1>
+			<h1 class="title"><?php echo esc_html_x( 'Settings', 'Heading of the Fast Index settings screen', 'fast-index' ); ?></h1>
 
 			<div class="form">
 
@@ -44,7 +44,7 @@ $fast_index_events   = array(
 						<tr>
 							<td scope="row">
 								<label for="fast-index-status"><b><?php esc_html_e( 'Status', 'fast-index' ); ?></b></label> <br>
-								<small><?php esc_html_e( 'Important choice for the plugin work', 'fast-index' ); ?></small>
+								<small><?php esc_html_e( 'Switch sending on or off.', 'fast-index' ); ?></small>
 							</td>
 							<td>
 								<select id="fast-index-status" name="fast_index_options[status]">
@@ -58,7 +58,7 @@ $fast_index_events   = array(
 						<tr>
 							<td scope="row">
 								<b><?php esc_html_e( 'Post Types', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Select minimum one option', 'fast-index' ); ?></small>
+								<small><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></small>
 							</td>
 							<td>
 								<?php
@@ -76,8 +76,8 @@ $fast_index_events   = array(
 
 						<tr>
 							<td scope="row">
-								<label for="fast-index-old-posts"><b><?php esc_html_e( 'Daily Old Content Post?', 'fast-index' ); ?></b></label> <br>
-								<small><?php esc_html_e( 'How many old contents should be sent per day?', 'fast-index' ); ?></small>
+								<label for="fast-index-old-posts"><b><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></b></label> <br>
+								<small><?php esc_html_e( 'Number of old posts to send per day.', 'fast-index' ); ?></small>
 							</td>
 							<td>
 								<?php if ( $fast_index_premium ) : ?>
@@ -91,8 +91,8 @@ $fast_index_events   = array(
 
 						<tr>
 							<td scope="row">
-								<b><?php esc_html_e( 'Post Status', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Which status happen should content be sent?', 'fast-index' ); ?></small>
+								<b><?php esc_html_e( 'Post Events', 'fast-index' ); ?></b> <br>
+								<small><?php esc_html_e( 'Notify Google when a post is published, edited or trashed.', 'fast-index' ); ?></small>
 							</td>
 							<td>
 								<?php
@@ -111,7 +111,7 @@ $fast_index_events   = array(
 						<tr>
 							<td scope="row" colspan="2">
 								<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Select which you want to exclude', 'fast-index' ); ?></small>
+								<small><?php esc_html_e( 'Select the categories to exclude.', 'fast-index' ); ?></small>
 							</td>
 						</tr>
 
@@ -130,7 +130,7 @@ $fast_index_events   = array(
 						<tr>
 							<td scope="row">
 								<label for="fast-index-delete-data"><b><?php esc_html_e( 'Delete data on uninstall', 'fast-index' ); ?></b></label> <br>
-								<small><?php esc_html_e( 'Delete all plugin data (settings, keys and log) when the plugin is deleted. This cannot be undone.', 'fast-index' ); ?></small>
+								<small><?php esc_html_e( 'Delete all plugin data (settings, keys and history) when the plugin is deleted. This cannot be undone.', 'fast-index' ); ?></small>
 							</td>
 							<td>
 								<input id="fast-index-delete-data" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
@@ -140,7 +140,7 @@ $fast_index_events   = array(
 
 						<tr>
 							<td colspan="2">
-								<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/fast-index/reviews/"><?php esc_html_e( 'Rate Us on WordPress', 'fast-index' ); ?></a>
+								<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/fast-index/reviews/"><?php esc_html_e( 'Rate Fast Index on WordPress.org', 'fast-index' ); ?></a>
 							</td>
 						</tr>
 
@@ -155,7 +155,7 @@ $fast_index_events   = array(
 					</table>
 				</form>
 
-				<h1 class="title"><?php esc_html_e( 'Upload Google Service Account Json', 'fast-index' ); ?></h1>
+				<h1 class="title"><?php esc_html_e( 'Upload Google Service Account Key', 'fast-index' ); ?></h1>
 
 				<?php if ( ! $fast_index_view['openssl'] ) : ?>
 					<div class="notice notice-error inline"><p><?php echo esc_html( Fast_Index_Google_Client::openssl_message() ); ?></p></div>
@@ -196,10 +196,10 @@ $fast_index_events   = array(
 					<table class="form-table" role="presentation">
 						<tbody>
 						<tr>
-							<td scope="row"><label for="fast-index-key-files"><b><?php esc_html_e( 'Choose Json File/s', 'fast-index' ); ?></b></label></td>
+							<td scope="row"><label for="fast-index-key-files"><b><?php esc_html_e( 'JSON Key File', 'fast-index' ); ?></b></label></td>
 							<td>
 								<input id="fast-index-key-files" class="jsonFileUpload" type="file" accept=".json,application/json" name="fast_index_key_files[]" <?php echo $fast_index_premium ? 'multiple' : ''; ?> />
-								<p class="description"><?php esc_html_e( 'The key file is read and stored in the database; it is not saved in the uploads folder. Only the client email and the key ID are shown here.', 'fast-index' ); ?></p>
+								<p class="description"><?php esc_html_e( 'The key file is read and stored in the database; it is not saved in the uploads folder. Only the email address and the key ID are shown here.', 'fast-index' ); ?></p>
 							</td>
 						</tr>
 
@@ -207,9 +207,9 @@ $fast_index_events   = array(
 							<tr>
 								<td colspan="2">
 									<div class="licenceAlert laBg">
-										<?php esc_html_e( 'If you wanna upload multiple and more service account', 'fast-index' ); ?>
+										<?php echo esc_html( Fast_Index_Help_Content::premium_note( 'service_account' ) ); ?>
 										<br>
-										<b><?php esc_html_e( 'Please upgrade to premium', 'fast-index' ); ?></b>
+										<b><?php esc_html_e( 'Upgrade to Premium', 'fast-index' ); ?></b>
 									</div>
 								</td>
 							</tr>

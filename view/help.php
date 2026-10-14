@@ -15,7 +15,7 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 
 	<h1><?php esc_html_e( 'Help & FAQ', 'fast-index' ); ?></h1>
 
-	<p class="fi-help-lead"><?php esc_html_e( 'Everything you need to set up Fast Index and to solve the most common problems. Please read it before you write to support: the answer is most often here.', 'fast-index' ); ?></p>
+	<p class="fi-help-lead"><?php esc_html_e( 'Everything you need to set up Fast Index and to solve the most common problems. Read it before you write to support: the answer is most often here.', 'fast-index' ); ?></p>
 
 	<nav class="fi-help-nav" aria-label="<?php esc_attr_e( 'Help sections', 'fast-index' ); ?>">
 		<ul>
@@ -108,7 +108,7 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 	<section id="fi-help-support" class="card fi-help-section" aria-labelledby="fi-help-support-title">
 		<h2 id="fi-help-support-title"><?php echo esc_html( $fast_index_view['sections']['support'] ); ?></h2>
 
-		<p><?php esc_html_e( 'Before you write to support, please go through this list:', 'fast-index' ); ?></p>
+		<p><?php esc_html_e( 'Before you write to support, go through this list:', 'fast-index' ); ?></p>
 		<ol>
 			<?php foreach ( $fast_index_view['checklist'] as $fast_index_check ) : ?>
 				<li><?php echo wp_kses( $fast_index_check, $fast_index_allowed ); ?></li>

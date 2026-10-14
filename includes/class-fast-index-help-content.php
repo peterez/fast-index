@@ -114,7 +114,7 @@ class Fast_Index_Help_Content {
 	public static function getting_started_notice() {
 		return sprintf(
 			/* translators: 1: quoted sentence from Google's documentation, 2: link to that documentation. */
-			__( 'Please read this first. Google says: %1$s For other pages, Google may accept a notification, but nothing in its documentation promises that the page will be crawled or indexed sooner. See the FAQ and Google\'s documentation: %2$s.', 'fast-index' ),
+			__( 'Read this first. Google says: %1$s For other pages, Google may accept a notification, but nothing in its documentation promises that the page will be crawled or indexed sooner. See the FAQ and Google\'s documentation: %2$s.', 'fast-index' ),
 			'<em>' . esc_html__( '"The Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject."', 'fast-index' ) . '</em>',
 			self::ext( self::URL_QUICKSTART, __( 'Indexing API quickstart', 'fast-index' ) )
 		);
@@ -173,7 +173,7 @@ class Fast_Index_Help_Content {
 				'text'  => sprintf(
 					/* translators: 1: Search Console menu path "Settings", 2: "Users and permissions", 3: button name "Add user", 4: permission name "Owner", 5: link to Google's help page, 6: file field name "client_email". */
 					__( 'Open Search Console and choose the verified property of your site: a Domain property, or a URL-prefix property that matches your site address exactly, including https and www. Go to %1$s, then %2$s, click %3$s, enter the email address of the service account (the %6$s value in the JSON file; it ends in .iam.gserviceaccount.com) and choose %4$s as the permission. Google describes this in %5$s.', 'fast-index' ),
-					self::strong( __( 'Settings', 'fast-index' ) ),
+					self::strong( _x( 'Settings', 'Menu entry in Google Search Console', 'fast-index' ) ),
 					self::strong( __( 'Users and permissions', 'fast-index' ) ),
 					self::strong( __( 'Add user', 'fast-index' ) ),
 					self::strong( __( 'Owner', 'fast-index' ) ),
@@ -184,10 +184,10 @@ class Fast_Index_Help_Content {
 			array(
 				'title' => __( 'Upload the key to Fast Index', 'fast-index' ),
 				'text'  => sprintf(
-					/* translators: 1: heading on the settings screen, 2: file button label, 3: submit button label. */
+					/* translators: 1: heading on the settings screen, 2: label of the file field, 3: submit button label. */
 					__( 'Open the Fast Index settings. Under %1$s choose the .json file (%2$s) and click %3$s. The screen then lists the email address and key ID of the key. The private key is stored in your database and is never shown.', 'fast-index' ),
-					self::strong( __( 'Upload Google Service Account Json', 'fast-index' ) ),
-					self::strong( __( 'Choose Json File/s', 'fast-index' ) ),
+					self::strong( __( 'Upload Google Service Account Key', 'fast-index' ) ),
+					self::strong( __( 'JSON Key File', 'fast-index' ) ),
 					self::strong( __( 'Upload key', 'fast-index' ) )
 				),
 			),
@@ -252,18 +252,18 @@ class Fast_Index_Help_Content {
 			),
 			array(
 				'id'      => 'old_post_number',
-				'name'    => __( 'Daily Old Content Post?', 'fast-index' ),
+				'name'    => __( 'Daily Limit for Old Posts', 'fast-index' ),
 				'short'   => self::field_description( 'old_post_number' ),
-				'what'    => esc_html__( 'Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The number counts every successful notification of the last 24 hours, new posts included, and can be 0 to 10,000. Each batch is a random number from 0 to a third of the daily number, so some hours send nothing.', 'fast-index' ) . ' ' . esc_html( self::premium_note( 'old_post_number' ) ),
+				'what'    => esc_html__( 'Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The limit counts every successful notification of the last 24 hours, new posts included, and can be set from 0 to 10,000. Each batch is a random number from 0 to a third of the daily limit, so some hours send nothing.', 'fast-index' ) . ' ' . esc_html( self::premium_note( 'old_post_number' ) ),
 				'default' => __( '0 (off)', 'fast-index' ),
-				'when'    => esc_html__( 'Turn it on after your new posts are sent correctly. Keep the number low enough to leave room for new posts within Google\'s daily quota (see the FAQ).', 'fast-index' ),
+				'when'    => esc_html__( 'Turn it on after your new posts are sent correctly. Keep the limit low enough to leave room for new posts within Google\'s daily quota (see the FAQ).', 'fast-index' ),
 			),
 			array(
 				'id'      => 'post_status',
-				'name'    => __( 'Post Status', 'fast-index' ),
+				'name'    => __( 'Post Events', 'fast-index' ),
 				'short'   => self::field_description( 'post_status' ),
 				'what'    => esc_html__( 'Publish: a post becomes published. Edit: a post that is already published is saved again. Trash: a published post is moved to the trash or deleted, and Google is told that the address was removed. Changing a published post back to draft or private is not sent.', 'fast-index' ) . ' ' . esc_html( self::premium_note( 'post_status' ) ),
-				'default' => __( 'Publish (Edit is also on by default with the premium plan)', 'fast-index' ),
+				'default' => __( 'Publish and Edit. The free plan keeps only Publish once you save the settings.', 'fast-index' ),
 				'when'    => esc_html__( 'Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal.', 'fast-index' ),
 			),
 			array(
@@ -284,7 +284,7 @@ class Fast_Index_Help_Content {
 			),
 			array(
 				'id'      => 'service_account',
-				'name'    => __( 'Upload Google Service Account Json', 'fast-index' ),
+				'name'    => __( 'Upload Google Service Account Key', 'fast-index' ),
 				'short'   => '',
 				'what'    => esc_html__( 'Reads the .json key that you downloaded from Google Cloud, checks it and stores it in the database, not in the uploads folder. Each stored key is listed with its email address, key ID and the last answer from Google. A key can be deleted from the list.', 'fast-index' ) . ' ' . esc_html( self::premium_note( 'service_account' ) ),
 				'default' => __( 'No key', 'fast-index' ),
@@ -308,7 +308,7 @@ class Fast_Index_Help_Content {
 			case 'old_post_number':
 				return trim( __( 'How many old posts may be sent per day, in small hourly batches. 0 turns this off.', 'fast-index' ) . ' ' . self::premium_note( 'old_post_number' ) );
 			case 'post_status':
-				return trim( __( 'Publish: a post goes live. Edit: a live post is saved again. Trash: a live post is trashed or deleted.', 'fast-index' ) . ' ' . self::premium_note( 'post_status' ) );
+				return trim( __( 'Publish: a post is published. Edit: a published post is saved again. Trash: a published post is moved to the trash or deleted.', 'fast-index' ) . ' ' . self::premium_note( 'post_status' ) );
 			case 'exclude_category':
 				return trim( __( 'Posts in a checked category are never sent.', 'fast-index' ) . ' ' . self::premium_note( 'exclude_category' ) );
 			case 'delete_data':
@@ -374,19 +374,27 @@ class Fast_Index_Help_Content {
 				),
 				'fix'     => sprintf(
 					/* translators: %s: link to Google's quota page. */
-					__( 'Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily number of old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality.', 'fast-index' ),
+					__( 'Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily limit for old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality.', 'fast-index' ),
 					self::ext( self::URL_QUOTA, __( 'the quota page', 'fast-index' ) )
 				),
 			),
 			array(
 				'id'      => 'no-answer',
-				'symptom' => __( '"No answer from Google", or a 5xx code', 'fast-index' ),
+				'symptom' => sprintf(
+					/* translators: %s: status text "No answer from Google". */
+					__( '"%s", or a 5xx code', 'fast-index' ),
+					__( 'No answer from Google', 'fast-index' )
+				),
 				'cause'   => esc_html__( 'Your server could not reach Google within 15 seconds (firewall, DNS or a slow connection), Google had a temporary problem, or its answer could not be read. These answers do not make a key rest.', 'fast-index' ),
 				'fix'     => esc_html__( 'Allow outgoing HTTPS requests to oauth2.googleapis.com and indexing.googleapis.com, and try again later. Saving or publishing another post sends a new notification.', 'fast-index' ),
 			),
 			array(
 				'id'      => 'openssl',
-				'symptom' => __( 'A red notice says the PHP OpenSSL extension is not available, or the status "OpenSSL is missing"', 'fast-index' ),
+				'symptom' => sprintf(
+					/* translators: %s: status text "OpenSSL is missing". */
+					__( 'A red notice says the PHP OpenSSL extension is not available, or the status "%s"', 'fast-index' ),
+					__( 'OpenSSL is missing', 'fast-index' )
+				),
 				'cause'   => esc_html__( 'Fast Index signs its requests to Google with OpenSSL. PHP without OpenSSL cannot do that, so nothing can be sent. While OpenSSL is missing, nothing is written to History.', 'fast-index' ),
 				'fix'     => esc_html__( 'Ask your hosting provider to enable the OpenSSL extension for the PHP version your site uses. The system information below shows whether OpenSSL is available.', 'fast-index' ),
 			),
@@ -409,13 +417,21 @@ class Fast_Index_Help_Content {
 			),
 			array(
 				'id'      => 'old-posts',
-				'symptom' => __( '"There are no posts to send now", or old posts are not sent', 'fast-index' ),
-				'cause'   => esc_html__( 'The daily number is 0, Status is Passive, the daily number was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance.', 'fast-index' ),
-				'fix'     => esc_html__( 'Check the daily number and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own.', 'fast-index' ),
+				'symptom' => sprintf(
+					/* translators: %s: message of the Send Old Posts Now screen. */
+					__( 'Old posts are not sent, or the message "%s" appears', 'fast-index' ),
+					__( 'There are no posts to send now. Check your settings and the daily limit.', 'fast-index' )
+				),
+				'cause'   => esc_html__( 'The daily limit is 0, Status is Passive, the daily limit was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance.', 'fast-index' ),
+				'fix'     => esc_html__( 'Check the daily limit and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own.', 'fast-index' ),
 			),
 			array(
 				'id'      => 'key-notice',
-				'symptom' => __( 'A notice about keys stored in a public folder, or "Fast Index could not finish moving your service account keys"', 'fast-index' ),
+				'symptom' => sprintf(
+					/* translators: %s: title of the second notice. */
+					__( 'A notice about keys stored in a public folder, or "%s"', 'fast-index' ),
+					__( 'Fast Index could not finish moving your service account keys to the database.', 'fast-index' )
+				),
 				'cause'   => esc_html__( 'Version 2.x saved key files in the uploads folder, where anyone who knew the address could download them. Version 3 moves each key into the database and deletes the file. The first notice recommends replacing those keys. The second notice means one file could not be read, found or deleted; it names the file.', 'fast-index' ),
 				'fix'     => esc_html__( 'Create a new JSON key in Google Cloud, upload it on the settings screen (the same email address replaces the stored key), then delete the old key on the Keys tab of the service account in Google Cloud. If a file could not be deleted, delete it from the uploads folder yourself. Both notices have a link that hides them for good.', 'fast-index' ),
 			),
@@ -480,7 +496,12 @@ class Fast_Index_Help_Content {
 			array(
 				'id'       => 'old-posts',
 				'question' => __( 'Can Fast Index send my old posts?', 'fast-index' ),
-				'answer'   => esc_html__( 'Yes. Set a daily number under Daily Old Content Post. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily number is reached. The number counts all successful notifications of the last 24 hours. "Send Old Posts Now" runs one batch immediately, and History shows how many posts are still waiting. Keep the number within Google\'s daily quota.', 'fast-index' ) . ' ' . esc_html( self::premium_note( 'old_post_number' ) ),
+				'answer'   => sprintf(
+					/* translators: 1: setting name "Daily Limit for Old Posts", 2: menu entry "Send Old Posts Now". */
+					esc_html__( 'Yes. Set a daily limit under %1$s. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily limit is reached. The limit counts all successful notifications of the last 24 hours. %2$s runs one batch immediately, and History shows how many posts are still waiting. Keep the limit within Google\'s daily quota.', 'fast-index' ),
+					self::strong( __( 'Daily Limit for Old Posts', 'fast-index' ) ),
+					self::strong( __( 'Send Old Posts Now', 'fast-index' ) )
+				) . ' ' . esc_html( self::premium_note( 'old_post_number' ) ),
 			),
 			array(
 				'id'       => 'quota',
@@ -496,7 +517,7 @@ class Fast_Index_Help_Content {
 				'question' => __( 'Can I use more than one service account?', 'fast-index' ),
 				'answer'   => sprintf(
 					/* translators: %s: link to Google's quickstart page. */
-					__( 'With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Please note: Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.', 'fast-index' ),
+					__( 'With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.', 'fast-index' ),
 					self::ext( self::URL_QUICKSTART, __( 'quickstart', 'fast-index' ) )
 				),
 			),
@@ -508,7 +529,11 @@ class Fast_Index_Help_Content {
 			array(
 				'id'       => 'uninstall',
 				'question' => __( 'What happens to my data if I deactivate or delete Fast Index?', 'fast-index' ),
-				'answer'   => esc_html__( 'Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If "Delete data on uninstall" was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there.', 'fast-index' ),
+				'answer'   => sprintf(
+					/* translators: %s: setting name "Delete data on uninstall". */
+					esc_html__( 'Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If %s was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there.', 'fast-index' ),
+					self::strong( __( 'Delete data on uninstall', 'fast-index' ) )
+				),
 			),
 			array(
 				'id'       => 'upgrade',
@@ -535,7 +560,7 @@ class Fast_Index_Help_Content {
 				'question' => __( 'What is Freemius, and do I have to connect an account?', 'fast-index' ),
 				'answer'   => sprintf(
 					/* translators: %s: link to the Freemius privacy policy. */
-					__( 'Fast Index includes the Freemius SDK, a service for licences and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question.', 'fast-index' ),
+					__( 'Fast Index includes the Freemius SDK, a service for licenses and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question.', 'fast-index' ),
 					self::ext( 'https://freemius.com/privacy/', __( 'the Freemius privacy policy', 'fast-index' ) )
 				),
 			),
@@ -582,7 +607,7 @@ class Fast_Index_Help_Content {
 		$texts = array(
 			'settings' => __( 'Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen.', 'fast-index' ),
 			'history'  => __( 'Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting.', 'fast-index' ),
-			'run'      => __( 'Sends one batch of old posts now, within the daily number set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour.', 'fast-index' ),
+			'run'      => __( 'Sends one batch of old posts now, within the daily limit set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour.', 'fast-index' ),
 			'help'     => __( 'Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support.', 'fast-index' ),
 		);
 		$text  = isset( $texts[ $screen ] ) ? $texts[ $screen ] : $texts['help'];

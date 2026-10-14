@@ -47,7 +47,7 @@ If Trash is checked in the settings, a published post that is moved to the trash
 
 = Can Fast Index send my old posts? =
 
-Yes. Set a daily number under Daily Old Content Post. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily number is reached. The number counts all successful notifications of the last 24 hours. "Send Old Posts Now" runs one batch immediately, and History shows how many posts are still waiting. Keep the number within Google's daily quota. In this version, this needs the premium plan.
+Yes. Set a daily limit under Daily Limit for Old Posts. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily limit is reached. The limit counts all successful notifications of the last 24 hours. Send Old Posts Now runs one batch immediately, and History shows how many posts are still waiting. Keep the limit within Google's daily quota. In this version, this needs the premium plan.
 
 = How many URLs can I send per day? =
 
@@ -55,7 +55,7 @@ Google's default is 200 publish requests per day for each Google Cloud project; 
 
 = Can I use more than one service account? =
 
-With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Please note: Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked. Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.
+With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked. Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.
 
 = Where is my service account key stored, and is it safe? =
 
@@ -63,7 +63,7 @@ The key is kept in your WordPress database (an option that is not loaded on ever
 
 = What happens to my data if I deactivate or delete Fast Index? =
 
-Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If "Delete data on uninstall" was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there.
+Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If Delete data on uninstall was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there.
 
 = I am upgrading from version 2.2. What happens to my keys? =
 
@@ -83,7 +83,7 @@ No. Fast Index talks only to the Google Indexing API.
 
 = What is Freemius, and do I have to connect an account? =
 
-Fast Index includes the Freemius SDK, a service for licences and optional account connection. It decides which options are unlocked. Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in the Freemius privacy policy (https://freemius.com/privacy/). The code of Fast Index itself sends only addresses to Google, as described in the first question.
+Fast Index includes the Freemius SDK, a service for licenses and optional account connection. It decides which options are unlocked. Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in the Freemius privacy policy (https://freemius.com/privacy/). The code of Fast Index itself sends only addresses to Google, as described in the first question.
 
 = Does Fast Index slow down saving posts? =
 

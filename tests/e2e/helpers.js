@@ -67,8 +67,9 @@ function serviceAccountFile( email, keyId ) {
 /**
  * Reads languages/fast-index-<locale>.po into a map of source string to translation.
  *
- * Only what the i18n spec needs: single-line and wrapped strings, \n \t \" \\ escapes, no plurals or contexts
- * (the plugin has none). Entries with an empty translation are left out.
+ * Only what the i18n spec needs: single-line and wrapped strings, \n \t \" \\ escapes and contexts, no plurals
+ * (the plugin has none). A string with a context (_x) is stored under "context + U+0004 + source string", like
+ * gettext does. Entries with an empty translation are left out.
  *
  * @param {string} locale Locale, for example de_DE.
  * @return {Map<string,string>} Source string => translation.
@@ -79,19 +80,30 @@ function readPo( locale ) {
 	const map = new Map();
 	let id = null;
 	let str = null;
+	let ctx = null;
 	let field = null;
 	const flush = () => {
 		if ( id !== null && str !== null && '' !== id && '' !== str ) {
-			map.set( id, str );
+			map.set( null === ctx ? id : ctx + '\u0004' + id, str );
 		}
 		id = null;
 		str = null;
+		ctx = null;
 		field = null;
 	};
 	for ( const line of fs.readFileSync( file, 'utf8' ).split( '\n' ) ) {
-		let m = line.match( /^msgid "(.*)"$/ );
+		let m = line.match( /^msgctxt "(.*)"$/ );
 		if ( m ) {
 			flush();
+			ctx = unescape( m[ 1 ] );
+			field = 'ctx';
+			continue;
+		}
+		m = line.match( /^msgid "(.*)"$/ );
+		if ( m ) {
+			if ( null === ctx || null !== id ) {
+				flush();
+			}
 			id = unescape( m[ 1 ] );
 			field = 'id';
 			continue;
@@ -103,7 +115,9 @@ function readPo( locale ) {
 			continue;
 		}
 		m = line.match( /^"(.*)"$/ );
-		if ( m && 'id' === field ) {
+		if ( m && 'ctx' === field ) {
+			ctx += unescape( m[ 1 ] );
+		} else if ( m && 'id' === field ) {
 			id += unescape( m[ 1 ] );
 		} else if ( m && 'str' === field ) {
 			str += unescape( m[ 1 ] );
