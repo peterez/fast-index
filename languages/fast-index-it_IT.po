@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
 "POT-Creation-Date: 2026-10-14T17:38:18+00:00\n"
-"PO-Revision-Date: 2026-10-14 17:41+0000\n"
+"PO-Revision-Date: 2026-10-14 19:07+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
@@ -113,7 +113,7 @@ msgstr "Aiuto e FAQ"
 
 #: includes/class-fast-index-admin.php:114
 msgid "This option needs the premium plan. Go to the upgrade page?"
-msgstr "Questa opzione richiede il piano premium. Andare alla pagina di upgrade?"
+msgstr "Questa opzione richiede il piano Premium. Vuoi andare alla pagina di upgrade?"
 
 #: includes/class-fast-index-admin.php:240
 msgid "Not sent: no service account key"
@@ -218,13 +218,13 @@ msgstr "Fast Index comunica alla Google Indexing API quando un articolo viene pu
 
 #: includes/class-fast-index-help-content.php:140
 msgid "Create a Google Cloud project and turn on the API"
-msgstr "Crea un progetto Google Cloud e attiva l’API"
+msgstr "Crea un progetto Google Cloud e abilita l’API"
 
 #. translators: 1: link to the Google Cloud console, 2: name of the API, 3: link to Google's prerequisites page.
 #: includes/class-fast-index-help-content.php:143
 #, php-format
 msgid "Open the %1$s and select or create a project. Then enable the %2$s for that project (Google's documentation calls it the Indexing API). Google also offers a setup tool that creates a project and enables the API in one step; it is linked from %3$s."
-msgstr "Apri la %1$s e seleziona o crea un progetto. Poi abilita per quel progetto la seguente API: %2$s (la documentazione di Google la chiama Indexing API). Google offre anche uno strumento di configurazione che crea un progetto e abilita l’API in un solo passaggio; è collegato dalla %3$s."
+msgstr "Apri la %1$s e seleziona o crea un progetto. Poi abilita %2$s per quel progetto (nella documentazione di Google si chiama Indexing API). Google offre anche uno strumento di configurazione che crea un progetto e abilita l’API in un solo passaggio; il link si trova nella %3$s."
 
 #: includes/class-fast-index-help-content.php:144
 msgid "Google Cloud console"
@@ -352,7 +352,7 @@ msgstr "Scegli cosa inviare"
 #: includes/class-fast-index-help-content.php:198
 #, php-format
 msgid "In the settings keep %1$s on %2$s, check the %3$s to send and click %4$s. Every option is explained under Settings explained."
-msgstr "Nelle impostazioni lascia %1$s su %2$s, seleziona i %3$s da inviare e fai clic su %4$s. Ogni opzione è spiegata in Impostazioni spiegate."
+msgstr "Nelle impostazioni lascia %1$s su %2$s, seleziona in %3$s i tipi da inviare e fai clic su %4$s. Ogni opzione è spiegata in «Impostazioni spiegate»."
 
 #: includes/class-fast-index-help-content.php:199
 #: includes/class-fast-index-help-content.php:239 view/settings.php:46
@@ -382,7 +382,7 @@ msgstr "Pubblica un articolo di prova e controlla la Cronologia"
 #: includes/class-fast-index-help-content.php:209
 #, php-format
 msgid "Publish a post. A short while later (when WordPress runs its scheduled tasks) it appears under Fast Index, %1$s. %2$s means Google accepted the notification; it does not mean the page is indexed. Any other code is explained under Troubleshooting."
-msgstr "Pubblica un articolo. Poco dopo (quando WordPress esegue le attività pianificate) compare in Fast Index, %1$s. %2$s significa che Google ha accettato la notifica; non significa che la pagina sia indicizzata. Qualsiasi altro codice è spiegato in Diagnostica."
+msgstr "Pubblica un articolo. Poco dopo (quando WordPress esegue le attività pianificate) compare in Fast Index, %1$s. %2$s significa che Google ha accettato la notifica; non significa che la pagina sia indicizzata. Qualsiasi altro codice è spiegato in «Diagnostica»."
 
 #. translators: %s: link to a video on YouTube.
 #: includes/class-fast-index-help-content.php:225
@@ -518,20 +518,20 @@ msgstr "Disattivato per impostazione predefinita: eliminando il plugin si conser
 
 #: includes/class-fast-index-help-content.php:330
 msgid "In this version, types other than Posts need the premium plan."
-msgstr "In questa versione, i tipi diversi da Articoli richiedono il piano premium."
+msgstr "In questa versione, i tipi diversi da Articoli richiedono il piano Premium."
 
 #: includes/class-fast-index-help-content.php:332
 #: includes/class-fast-index-help-content.php:336
 msgid "In this version, this needs the premium plan."
-msgstr "In questa versione, questa opzione richiede il piano premium."
+msgstr "In questa versione, questa opzione richiede il piano Premium."
 
 #: includes/class-fast-index-help-content.php:334
 msgid "In this version, Edit and Trash need the premium plan."
-msgstr "In questa versione, Modifica e Cestina richiedono il piano premium."
+msgstr "In questa versione, Modifica e Cestina richiedono il piano Premium."
 
 #: includes/class-fast-index-help-content.php:338
 msgid "In this version, the free plan keeps one key (a new upload replaces it); the premium plan keeps several."
-msgstr "In questa versione, il piano gratuito conserva una sola chiave (un nuovo caricamento la sostituisce); il piano premium ne conserva più di una."
+msgstr "In questa versione, il piano gratuito conserva una sola chiave (un nuovo caricamento la sostituisce); il piano Premium ne conserva più di una."
 
 #: includes/class-fast-index-help-content.php:353
 msgid "403: \"Permission denied. Failed to verify the URL ownership\""
@@ -549,7 +549,7 @@ msgstr "elenco degli errori di Google"
 
 #: includes/class-fast-index-help-content.php:359
 msgid "In Search Console open the property, go to Settings and Users and permissions, and check that the service account email is listed with the permission Owner. Make sure the property matches your site address exactly (a Domain property covers every address). Then check in Google Cloud that the Web Search Indexing API is enabled for the key's project. After a 403 Fast Index lets the key rest for six hours; to retry at once, delete the key on the settings screen and upload it again."
-msgstr "In Search Console apri la proprietà, vai su Impostazioni e Utenti e autorizzazioni e controlla che l’email dell’account di servizio sia presente con l’autorizzazione Proprietario. Assicurati che la proprietà corrisponda esattamente all’indirizzo del sito (una proprietà Dominio copre ogni indirizzo). Poi controlla in Google Cloud che la Web Search Indexing API sia abilitata per il progetto della chiave. Dopo un 403 Fast Index mette la chiave in pausa per sei ore; per riprovare subito, elimina la chiave nella schermata delle impostazioni e caricala di nuovo."
+msgstr "In Search Console apri la proprietà, vai su «Impostazioni» e poi su «Utenti e autorizzazioni» e controlla che l’email dell’account di servizio sia presente con l’autorizzazione Proprietario. Assicurati che la proprietà corrisponda esattamente all’indirizzo del sito (una proprietà Dominio copre ogni indirizzo). Poi controlla in Google Cloud che la Web Search Indexing API sia abilitata per il progetto della chiave. Dopo un 403 Fast Index mette la chiave in pausa per sei ore; per riprovare subito, elimina la chiave nella schermata delle impostazioni e caricala di nuovo."
 
 #: includes/class-fast-index-help-content.php:363
 msgid "401: Unauthorized, or the key is refused"
@@ -709,11 +709,11 @@ msgstr "Apri Fast Index su ogni sito e carica lì una chiave. Lo stesso file di 
 
 #: includes/class-fast-index-help-content.php:462
 msgid "An option is locked, or asks me to upgrade to premium"
-msgstr "Un’opzione è bloccata, oppure mi chiede di passare al premium"
+msgstr "Un’opzione è bloccata, oppure mi chiede di passare al piano Premium"
 
 #: includes/class-fast-index-help-content.php:463
 msgid "In this version, some options need the premium plan. Settings explained says which ones. Fast Index uses Freemius for the plan."
-msgstr "In questa versione alcune opzioni richiedono il piano premium. Impostazioni spiegate indica quali. Fast Index usa Freemius per il piano."
+msgstr "In questa versione alcune opzioni richiedono il piano Premium. «Impostazioni spiegate» indica quali. Fast Index usa Freemius per il piano."
 
 #: includes/class-fast-index-help-content.php:464
 msgid "Use the free options, or see the FAQ entry about Freemius."
@@ -731,7 +731,7 @@ msgstr "Solo l’indirizzo (URL) di un articolo e il tipo di notifica: %1$s quan
 
 #: includes/class-fast-index-help-content.php:484
 msgid "Google's privacy policy"
-msgstr "informativa sulla privacy di Google"
+msgstr "l’informativa sulla privacy di Google"
 
 #: includes/class-fast-index-help-content.php:489
 msgid "Will Google index every page I publish right away?"
@@ -797,7 +797,7 @@ msgstr "Posso usare più di un account di servizio?"
 #: includes/class-fast-index-help-content.php:536
 #, php-format
 msgid "With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it."
-msgstr "Con il piano premium puoi caricare più chiavi. Per ogni notifica Fast Index sceglie in ordine casuale una delle chiavi che non sono in pausa. Se Google risponde 401, 403 o 429 (o rifiuta la chiave), quella chiave resta in pausa per sei ore e si prova la successiva. Altri errori (come 400, 5xx o nessuna risposta) concludono il tentativo senza mettere in pausa una chiave. Nota: Google conteggia la quota per progetto, non per chiave, quindi le chiavi dello stesso progetto condividono gli stessi 200 al giorno. Google scrive anche che i tentativi di abusare dell’API, incluso l’uso di più account per superare le quote di utilizzo, possono comportare la revoca dell’accesso (%s). Usa chiavi aggiuntive per l’affidabilità o per siti in progetti separati, e chiedi a Google più quota se ti serve."
+msgstr "Con il piano Premium puoi caricare più chiavi. Per ogni notifica Fast Index sceglie in ordine casuale una delle chiavi che non sono in pausa. Se Google risponde 401, 403 o 429 (o rifiuta la chiave), quella chiave resta in pausa per sei ore e si prova la successiva. Altri errori (come 400, 5xx o nessuna risposta) concludono il tentativo senza mettere in pausa una chiave. Nota: Google conteggia la quota per progetto, non per chiave, quindi le chiavi dello stesso progetto condividono gli stessi 200 al giorno. Google scrive anche che i tentativi di abusare dell’API, incluso l’uso di più account per superare le quote di utilizzo, possono comportare la revoca dell’accesso (%s). Usa chiavi aggiuntive per l’affidabilità o per siti in progetti separati, e chiedi a Google più quota se ti serve."
 
 #: includes/class-fast-index-help-content.php:537
 msgid "quickstart"
@@ -809,7 +809,7 @@ msgstr "Dove viene memorizzata la chiave del mio account di servizio ed è sicur
 
 #: includes/class-fast-index-help-content.php:543
 msgid "The key is kept in your WordPress database (an option that is not loaded on every request). It is never written to the uploads folder or any other file, and the screens show only the email address and key ID. Because the service account is an Owner of your Search Console property, treat the key like a password. If it may have leaked, delete the key in Google Cloud and remove the service account from the users of your Search Console property."
-msgstr "La chiave è conservata nel database di WordPress (un’opzione che non viene caricata a ogni richiesta). Non viene mai scritta nella cartella degli upload né in alcun altro file, e le schermate mostrano solo l’indirizzo email e l’ID della chiave. Poiché l’account di servizio è Proprietario della tua proprietà di Search Console, tratta la chiave come una password. Se potrebbe essere trapelata, elimina la chiave in Google Cloud e rimuovi l’account di servizio dagli utenti della tua proprietà di Search Console."
+msgstr "La chiave è conservata nel database di WordPress (un’opzione che non viene caricata a ogni richiesta). Non viene mai scritta nella cartella degli upload né in alcun altro file, e le schermate mostrano solo l’indirizzo email e l’ID della chiave. Poiché l’account di servizio è Proprietario della tua proprietà di Search Console, tratta la chiave come una password. Se sospetti che sia trapelata, elimina la chiave in Google Cloud e rimuovi l’account di servizio dagli utenti della tua proprietà di Search Console."
 
 #: includes/class-fast-index-help-content.php:547
 msgid "What happens to my data if I deactivate or delete Fast Index?"
@@ -823,11 +823,11 @@ msgstr "La disattivazione rimuove le attività pianificate e conserva tutto il r
 
 #: includes/class-fast-index-help-content.php:556
 msgid "I am upgrading from version 2.2. What happens to my keys?"
-msgstr "Sto passando dalla versione 2.2. Cosa succede alle mie chiavi?"
+msgstr "Sto aggiornando dalla versione 2.2. Cosa succede alle mie chiavi?"
 
 #: includes/class-fast-index-help-content.php:557
 msgid "On the first page load after the update, Fast Index reads each key file that version 2.x saved in the uploads folder, checks it, stores it in the database and deletes the file. Your settings and history are kept, and the old ten-minute scheduled task is replaced by an hourly one. Earlier versions kept the files in a folder that anyone could reach, so a notice recommends creating new keys and deleting the old ones in Google Cloud (see Troubleshooting). If a file cannot be moved, a notice names it, and you can upload that key again."
-msgstr "Al primo caricamento di pagina dopo l’aggiornamento, Fast Index legge ogni file di chiave che la versione 2.x aveva salvato nella cartella degli upload, lo controlla, lo memorizza nel database ed elimina il file. Impostazioni e cronologia vengono conservate, e la vecchia attività pianificata ogni dieci minuti viene sostituita da una oraria. Le versioni precedenti conservavano i file in una cartella raggiungibile da chiunque, quindi un avviso consiglia di creare nuove chiavi ed eliminare quelle vecchie in Google Cloud (vedi Diagnostica). Se un file non può essere spostato, un avviso ne indica il nome e puoi caricare di nuovo quella chiave."
+msgstr "Al primo caricamento di pagina dopo l’aggiornamento, Fast Index legge ogni file di chiave che la versione 2.x aveva salvato nella cartella degli upload, lo controlla, lo memorizza nel database ed elimina il file. Impostazioni e cronologia vengono conservate, e la vecchia attività pianificata ogni dieci minuti viene sostituita da una oraria. Le versioni precedenti conservavano i file in una cartella raggiungibile da chiunque, quindi un avviso consiglia di creare nuove chiavi ed eliminare quelle vecchie in Google Cloud (vedi «Diagnostica»). Se un file non può essere spostato, un avviso ne indica il nome e puoi caricare di nuovo quella chiave."
 
 #: includes/class-fast-index-help-content.php:561
 msgid "Does Fast Index work on multisite?"
@@ -861,11 +861,11 @@ msgstr "Cos’è Freemius e devo collegare un account?"
 #: includes/class-fast-index-help-content.php:579
 #, php-format
 msgid "Fast Index includes the Freemius SDK, a service for licenses and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question."
-msgstr "Fast Index include l’SDK di Freemius, un servizio per le licenze e il collegamento facoltativo di un account. Decide quali opzioni sono sbloccate (vedi Impostazioni spiegate). Freemius può mostrare nell’area di amministrazione proprie schermate o avvisi: una schermata della licenza (con un link per continuare con la versione gratuita) e una schermata di adesione con un pulsante per saltare, il cui testo dice che il plugin continua a funzionare anche se salti. Cosa raccoglie l’SDK è descritto in quelle schermate e in questo documento: %s. Il codice di Fast Index invia a Google solo indirizzi, come descritto nella prima domanda."
+msgstr "Fast Index include l’SDK di Freemius, un servizio per le licenze e il collegamento facoltativo di un account. Decide quali opzioni sono sbloccate (vedi «Impostazioni spiegate»). Freemius può mostrare nell’area di amministrazione proprie schermate o avvisi: una schermata della licenza (con un link per continuare con la versione gratuita) e una schermata di consenso con un pulsante «Salta», il cui testo dice che il plugin continua a funzionare anche se lo salti. Cosa raccoglie l’SDK è descritto in quelle schermate e in %s. Il codice di Fast Index invia a Google solo indirizzi, come descritto nella prima domanda."
 
 #: includes/class-fast-index-help-content.php:580
 msgid "the Freemius privacy policy"
-msgstr "informativa sulla privacy di Freemius"
+msgstr "l’informativa sulla privacy di Freemius"
 
 #: includes/class-fast-index-help-content.php:585
 msgid "Does Fast Index slow down saving posts?"
@@ -877,7 +877,7 @@ msgstr "No. Salvando un articolo si mette in coda soltanto un’attività pianif
 
 #: includes/class-fast-index-help-content.php:607
 msgid "Read the Troubleshooting entry that matches the code in History, and the FAQ."
-msgstr "Leggi la voce di Diagnostica che corrisponde al codice nella Cronologia, e le FAQ."
+msgstr "Leggi la voce «Diagnostica» che corrisponde al codice nella Cronologia, e le FAQ."
 
 #: includes/class-fast-index-help-content.php:608
 msgid "On the settings screen, look at the last answer shown next to each key."
@@ -901,11 +901,11 @@ msgstr "Quando scrivi, indica cosa ti aspettavi e cosa è successo, e incolla le
 
 #: includes/class-fast-index-help-content.php:624
 msgid "Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen."
-msgstr "Scegli cosa invia Fast Index a Google e carica la chiave dell’account di servizio. Ogni opzione è spiegata sotto il suo campo e in Impostazioni spiegate nella schermata Aiuto e FAQ."
+msgstr "Scegli cosa invia Fast Index a Google e carica la chiave dell’account di servizio. Ogni opzione è spiegata sotto il suo campo e in «Impostazioni spiegate» nella schermata Aiuto e FAQ."
 
 #: includes/class-fast-index-help-content.php:625
 msgid "Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting."
-msgstr "Mostra i totali e le ultime notifiche con la risposta di Google. 200 OK significa che Google ha accettato la notifica; non significa che la pagina sia indicizzata. Gli altri codici sono spiegati in Diagnostica."
+msgstr "Mostra i totali e le ultime notifiche con la risposta di Google. 200 OK significa che Google ha accettato la notifica; non significa che la pagina sia indicizzata. Gli altri codici sono spiegati in «Diagnostica»."
 
 #: includes/class-fast-index-help-content.php:626
 msgid "Sends one batch of old posts now, within the daily limit set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour."
@@ -921,7 +921,7 @@ msgstr "Informazioni su questa schermata"
 
 #: includes/class-fast-index-help-content.php:633 view/settings.php:239
 msgid "Open Help & FAQ"
-msgstr "Apri Aiuto e FAQ"
+msgstr "Apri l’aiuto e le FAQ"
 
 #: includes/class-fast-index-help-content.php:643
 msgid "For more information:"
@@ -941,7 +941,7 @@ msgstr "Informazioni di sistema copiate."
 
 #: includes/class-fast-index-help.php:96
 msgid "System info selected. Press Ctrl+C (Cmd+C on a Mac) to copy it."
-msgstr "Informazioni di sistema selezionate. Premi Ctrl+C (Cmd+C su un Mac) per copiarle."
+msgstr "Informazioni di sistema selezionate. Premi Ctrl+C (Cmd+C su Mac) per copiarle."
 
 #: includes/class-fast-index-help.php:138
 msgid "Yes"
@@ -981,7 +981,7 @@ msgstr "WP-Cron disattivato (DISABLE_WP_CRON)"
 
 #: includes/class-fast-index-help.php:171
 msgid "Premium plan active"
-msgstr "Piano premium attivo"
+msgstr "Piano Premium attivo"
 
 #: includes/class-fast-index-help.php:175
 msgid "Status setting"
@@ -1017,7 +1017,7 @@ msgstr "Non pianificata"
 
 #: includes/class-fast-index-help.php:199
 msgid "Sent in the last 24 hours"
-msgstr "Inviati nelle ultime 24 ore"
+msgstr "Inviate nelle ultime 24 ore"
 
 #: includes/class-fast-index-help.php:203
 msgid "Posts waiting"
@@ -1124,7 +1124,7 @@ msgstr "Tutto ciò che serve per configurare Fast Index e risolvere i problemi p
 
 #: view/help.php:20
 msgid "Help sections"
-msgstr "Sezioni dell’aiuto"
+msgstr "Sezioni della guida"
 
 #: view/help.php:56 view/help.php:65
 msgid "Setting"
@@ -1132,7 +1132,7 @@ msgstr "Impostazione"
 
 #: view/help.php:57 view/help.php:66
 msgid "What it does"
-msgstr "Cosa fa"
+msgstr "Che cosa fa"
 
 #: view/help.php:58 view/help.php:67
 msgid "Default"
@@ -1140,7 +1140,7 @@ msgstr "Predefinito"
 
 #: view/help.php:59 view/help.php:68
 msgid "Change it when"
-msgstr "Quando cambiarla"
+msgstr "Cambiala quando"
 
 #: view/help.php:80
 msgid "Find what you see, then read why it happens and what to do."
@@ -1168,7 +1168,7 @@ msgstr "Dati di sola lettura sul tuo sito che ci aiutano a rispondere. Non conte
 
 #: view/help.php:132
 msgid "Copy system info"
-msgstr "Copia info di sistema"
+msgstr "Copia le informazioni di sistema"
 
 #: view/help.php:137
 msgid "Open the Fast Index support forum on WordPress.org"
@@ -1216,7 +1216,7 @@ msgstr "Articolo"
 
 #: view/history.php:78
 msgid "View Post"
-msgstr "Vedi articolo"
+msgstr "Visualizza articolo"
 
 #: view/history.php:84
 msgid "Pagination"

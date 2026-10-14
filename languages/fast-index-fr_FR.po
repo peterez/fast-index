@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
 "POT-Creation-Date: 2026-10-14T17:38:18+00:00\n"
-"PO-Revision-Date: 2026-10-14 17:41+0000\n"
+"PO-Revision-Date: 2026-10-14 19:07+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -113,7 +113,7 @@ msgstr "Aide et FAQ"
 
 #: includes/class-fast-index-admin.php:114
 msgid "This option needs the premium plan. Go to the upgrade page?"
-msgstr "Cette option nécessite l’offre premium. Aller à la page de mise à niveau ?"
+msgstr "Cette option nécessite l’offre Premium. Aller à la page de mise à niveau ?"
 
 #: includes/class-fast-index-admin.php:240
 msgid "Not sent: no service account key"
@@ -224,7 +224,7 @@ msgstr "Créer un projet Google Cloud et activer l’API"
 #: includes/class-fast-index-help-content.php:143
 #, php-format
 msgid "Open the %1$s and select or create a project. Then enable the %2$s for that project (Google's documentation calls it the Indexing API). Google also offers a setup tool that creates a project and enables the API in one step; it is linked from %3$s."
-msgstr "Ouvrez la %1$s et sélectionnez ou créez un projet. Activez ensuite %2$s pour ce projet (la documentation de Google l’appelle Indexing API). Google propose aussi un outil de configuration qui crée un projet et active l’API en une seule étape ; il est lié depuis la %3$s."
+msgstr "Ouvrez la %1$s et sélectionnez ou créez un projet. Activez ensuite %2$s pour ce projet (la documentation de Google l’appelle Indexing API). Google propose aussi un outil de configuration qui crée un projet et active l’API en une seule étape ; il est accessible depuis la %3$s."
 
 #: includes/class-fast-index-help-content.php:144
 msgid "Google Cloud console"
@@ -329,7 +329,7 @@ msgstr "Téléverser la clé dans Fast Index"
 #: includes/class-fast-index-help-content.php:188
 #, php-format
 msgid "Open the Fast Index settings. Under %1$s choose the .json file (%2$s) and click %3$s. The screen then lists the email address and key ID of the key. The private key is stored in your database and is never shown."
-msgstr "Ouvrez les réglages de Fast Index. Sous « %1$s », choisissez le fichier .json (« %2$s ») et cliquez sur « %3$s ». L’écran affiche alors l’adresse e-mail et l’ID de la clé. La clé privée est stockée dans votre base de données et n’est jamais affichée."
+msgstr "Ouvrez les réglages de Fast Index. Sous %1$s, choisissez le fichier .json (%2$s) et cliquez sur %3$s. L’écran affiche alors l’adresse e-mail et l’ID de la clé. La clé privée est stockée dans votre base de données et n’est jamais affichée."
 
 #: includes/class-fast-index-help-content.php:189
 #: includes/class-fast-index-help-content.php:287 view/settings.php:158
@@ -352,7 +352,7 @@ msgstr "Choisir ce qui est envoyé"
 #: includes/class-fast-index-help-content.php:198
 #, php-format
 msgid "In the settings keep %1$s on %2$s, check the %3$s to send and click %4$s. Every option is explained under Settings explained."
-msgstr "Dans les réglages, laissez %1$s sur %2$s, cochez les %3$s à envoyer et cliquez sur %4$s. Chaque option est expliquée sous Réglages expliqués."
+msgstr "Dans les réglages, laissez %1$s sur %2$s, cochez sous %3$s les types à envoyer et cliquez sur %4$s. Chaque option est expliquée sous « Réglages expliqués »."
 
 #: includes/class-fast-index-help-content.php:199
 #: includes/class-fast-index-help-content.php:239 view/settings.php:46
@@ -382,7 +382,7 @@ msgstr "Publier un article de test et consulter l’Historique"
 #: includes/class-fast-index-help-content.php:209
 #, php-format
 msgid "Publish a post. A short while later (when WordPress runs its scheduled tasks) it appears under Fast Index, %1$s. %2$s means Google accepted the notification; it does not mean the page is indexed. Any other code is explained under Troubleshooting."
-msgstr "Publiez un article. Peu après (lorsque WordPress exécute ses tâches planifiées), il apparaît sous Fast Index, %1$s. %2$s signifie que Google a accepté la notification ; cela ne veut pas dire que la page est indexée. Tout autre code est expliqué sous Diagnostic."
+msgstr "Publiez un article. Peu après (lorsque WordPress exécute ses tâches planifiées), il apparaît sous Fast Index, %1$s. %2$s signifie que Google a accepté la notification ; cela ne veut pas dire que la page est indexée. Tout autre code est expliqué sous « Diagnostic »."
 
 #. translators: %s: link to a video on YouTube.
 #: includes/class-fast-index-help-content.php:225
@@ -400,7 +400,7 @@ msgstr "Actif : Fast Index envoie des notifications lorsque des articles change
 
 #: includes/class-fast-index-help-content.php:243
 msgid "Switch to Passive before a bulk import or a large edit, so that hundreds of addresses do not use up Google's daily quota. Your keys and history are kept."
-msgstr "Passez sur Passif avant un import en masse ou une modification importante, afin que des centaines d’adresses n’épuisent pas le quota quotidien de Google. Vos clés et votre historique sont conservés."
+msgstr "Passez sur Passif avant une importation en masse ou une modification importante, afin que des centaines d’adresses n’épuisent pas le quota quotidien de Google. Vos clés et votre historique sont conservés."
 
 #: includes/class-fast-index-help-content.php:249
 msgid "Lists every public post type of the site (posts, pages and custom types) except media attachments. Only the checked types are sent. At least one type is required."
@@ -421,7 +421,7 @@ msgstr "Limite quotidienne d’anciens articles"
 
 #: includes/class-fast-index-help-content.php:257
 msgid "Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The limit counts every successful notification of the last 24 hours, new posts included, and can be set from 0 to 10,000. Each batch is a random number from 0 to a third of the daily limit, so some hours send nothing."
-msgstr "Envoie les articles publiés que Google n’a jamais acceptés pour ce site, du plus récent au plus ancien, par petits lots chaque heure. La limite compte chaque notification réussie des dernières 24 heures, nouveaux articles compris, et peut être réglée de 0 à 10 000. Chaque lot est un nombre aléatoire compris entre 0 et un tiers de la limite quotidienne ; certaines heures n’envoient donc rien."
+msgstr "Envoie les articles publiés que Google n’a jamais acceptés pour ce site, du plus récent au plus ancien, par petits lots toutes les heures. La limite compte chaque notification réussie des 24 dernières heures, nouveaux articles compris, et peut être réglée de 0 à 10 000. La taille de chaque lot est aléatoire, de 0 à un tiers de la limite quotidienne ; certaines heures n’envoient donc rien."
 
 #: includes/class-fast-index-help-content.php:258
 msgid "0 (off)"
@@ -518,20 +518,20 @@ msgstr "Désactivé par défaut : supprimer l’extension conserve vos réglage
 
 #: includes/class-fast-index-help-content.php:330
 msgid "In this version, types other than Posts need the premium plan."
-msgstr "Dans cette version, les types autres que Articles nécessitent l’offre premium."
+msgstr "Dans cette version, les types autres qu’Articles nécessitent l’offre Premium."
 
 #: includes/class-fast-index-help-content.php:332
 #: includes/class-fast-index-help-content.php:336
 msgid "In this version, this needs the premium plan."
-msgstr "Dans cette version, cela nécessite l’offre premium."
+msgstr "Dans cette version, cela nécessite l’offre Premium."
 
 #: includes/class-fast-index-help-content.php:334
 msgid "In this version, Edit and Trash need the premium plan."
-msgstr "Dans cette version, Modifier et Corbeille nécessitent l’offre premium."
+msgstr "Dans cette version, Modifier et Corbeille nécessitent l’offre Premium."
 
 #: includes/class-fast-index-help-content.php:338
 msgid "In this version, the free plan keeps one key (a new upload replaces it); the premium plan keeps several."
-msgstr "Dans cette version, l’offre gratuite conserve une seule clé (un nouveau téléversement la remplace) ; l’offre premium en conserve plusieurs."
+msgstr "Dans cette version, l’offre gratuite conserve une seule clé (un nouveau téléversement la remplace) ; l’offre Premium en conserve plusieurs."
 
 #: includes/class-fast-index-help-content.php:353
 msgid "403: \"Permission denied. Failed to verify the URL ownership\""
@@ -549,7 +549,7 @@ msgstr "liste d’erreurs de Google"
 
 #: includes/class-fast-index-help-content.php:359
 msgid "In Search Console open the property, go to Settings and Users and permissions, and check that the service account email is listed with the permission Owner. Make sure the property matches your site address exactly (a Domain property covers every address). Then check in Google Cloud that the Web Search Indexing API is enabled for the key's project. After a 403 Fast Index lets the key rest for six hours; to retry at once, delete the key on the settings screen and upload it again."
-msgstr "Dans Search Console, ouvrez la propriété, allez dans Réglages puis Utilisateurs et autorisations, et vérifiez que l’adresse e-mail du compte de service figure dans la liste avec l’autorisation Propriétaire. Assurez-vous que la propriété correspond exactement à l’adresse de votre site (une propriété de type Domaine couvre toutes les adresses). Vérifiez ensuite dans Google Cloud que la Web Search Indexing API est activée pour le projet de la clé. Après une erreur 403, Fast Index met la clé en pause pendant six heures ; pour réessayer immédiatement, supprimez la clé sur l’écran des réglages et téléversez-la de nouveau."
+msgstr "Dans Search Console, ouvrez la propriété, allez dans « Paramètres » puis « Utilisateurs et autorisations », et vérifiez que l’adresse e-mail du compte de service figure dans la liste avec l’autorisation Propriétaire. Assurez-vous que la propriété correspond exactement à l’adresse de votre site (une propriété de type Domaine couvre toutes les adresses). Vérifiez ensuite dans Google Cloud que la Web Search Indexing API est activée pour le projet de la clé. Après une erreur 403, Fast Index met la clé en pause pendant six heures ; pour réessayer immédiatement, supprimez la clé sur l’écran des réglages et téléversez-la de nouveau."
 
 #: includes/class-fast-index-help-content.php:363
 msgid "401: Unauthorized, or the key is refused"
@@ -582,7 +582,7 @@ msgstr "page des quotas"
 #: includes/class-fast-index-help-content.php:377
 #, php-format
 msgid "Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily limit for old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality."
-msgstr "Patientez : Fast Index met la clé en pause pendant six heures et essaie entre-temps vos autres clés. Réduisez la limite quotidienne d’anciens articles et passez Fast Index sur Passif pendant les imports en masse. Si vous avez besoin de plus, demandez davantage de quota à Google sur %s ; Google précise que le quota peut augmenter ou diminuer en fonction de la qualité des documents."
+msgstr "Patientez : Fast Index met la clé en pause pendant six heures et essaie entre-temps vos autres clés. Réduisez la limite quotidienne d’anciens articles et passez Fast Index sur Passif pendant les importations en masse. Si vous avez besoin de plus, demandez davantage de quota à Google sur %s ; Google précise que le quota peut augmenter ou diminuer en fonction de la qualité des documents."
 
 #: includes/class-fast-index-help-content.php:378
 msgid "the quota page"
@@ -638,7 +638,7 @@ msgstr "Des articles sont publiés mais rien n’apparaît dans l’Historique, 
 
 #: includes/class-fast-index-help-content.php:420
 msgid "Fast Index queues each notification as a WordPress scheduled task (WP-Cron), so saving a post never waits for Google. WP-Cron runs when someone visits the site. If wp-config.php sets DISABLE_WP_CRON to true, WordPress does not start it, and the queue only moves when a real cron job calls wp-cron.php. Sites with very few visits can run late too."
-msgstr "Fast Index met chaque notification en file d’attente sous la forme d’une tâche planifiée WordPress (WP-Cron), de sorte qu’enregistrer un article n’attend jamais Google. WP-Cron s’exécute lorsque quelqu’un visite le site. Si wp-config.php définit DISABLE_WP_CRON sur true, WordPress ne le lance pas, et la file ne progresse que lorsqu’une vraie tâche cron appelle wp-cron.php. Les sites très peu visités peuvent aussi prendre du retard."
+msgstr "Fast Index met chaque notification en file d’attente sous la forme d’une tâche planifiée WordPress (WP-Cron), de sorte que l’enregistrement d’un article n’attend jamais Google. WP-Cron s’exécute lorsque quelqu’un visite le site. Si wp-config.php définit DISABLE_WP_CRON sur true, WordPress ne le lance pas, et la file ne progresse que lorsqu’une vraie tâche cron appelle wp-cron.php. Les sites très peu visités peuvent aussi prendre du retard."
 
 #. translators: 1: example cron line, 2: example WP-CLI command.
 #: includes/class-fast-index-help-content.php:423
@@ -670,7 +670,7 @@ msgstr "Il n’y a aucun article à envoyer pour le moment. Vérifiez vos régla
 
 #: includes/class-fast-index-help-content.php:441
 msgid "The daily limit is 0, Status is Passive, the daily limit was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance."
-msgstr "La limite quotidienne est 0, l’État est Passif, la limite quotidienne a déjà été atteint au cours des dernières 24 heures (les nouveaux articles comptent aussi), aucune clé n’est disponible, ou tous les articles éligibles ont été envoyés. Chaque lot a une taille aléatoire ; un envoi peut donc aussi être vide par hasard."
+msgstr "La limite quotidienne est à 0, l’État est Passif, la limite quotidienne a déjà été atteinte au cours des 24 dernières heures (les nouveaux articles comptent aussi), aucune clé n’est disponible, ou tous les articles éligibles ont été envoyés. Chaque lot a une taille aléatoire ; un envoi peut donc aussi être vide par hasard."
 
 #: includes/class-fast-index-help-content.php:442
 msgid "Check the daily limit and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own."
@@ -709,11 +709,11 @@ msgstr "Ouvrez Fast Index sur chaque site et téléversez-y une clé. Le même f
 
 #: includes/class-fast-index-help-content.php:462
 msgid "An option is locked, or asks me to upgrade to premium"
-msgstr "Une option est verrouillée, ou me demande de passer à l’offre premium"
+msgstr "Une option est verrouillée, ou me demande de passer à l’offre Premium"
 
 #: includes/class-fast-index-help-content.php:463
 msgid "In this version, some options need the premium plan. Settings explained says which ones. Fast Index uses Freemius for the plan."
-msgstr "Dans cette version, certaines options nécessitent l’offre premium. Réglages expliqués indique lesquelles. Fast Index utilise Freemius pour gérer l’offre."
+msgstr "Dans cette version, certaines options nécessitent l’offre Premium. « Réglages expliqués » indique lesquelles. Fast Index utilise Freemius pour gérer l’offre."
 
 #: includes/class-fast-index-help-content.php:464
 msgid "Use the free options, or see the FAQ entry about Freemius."
@@ -763,7 +763,7 @@ msgstr "Que se passe-t-il lorsque je mets un article à la corbeille ou que je l
 #: includes/class-fast-index-help-content.php:507
 #, php-format
 msgid "If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as %1$s with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal (%2$s)."
-msgstr "Si Corbeille est coché dans les réglages, un article publié mis à la corbeille, ou supprimé sans passer par la corbeille, est signalé comme %1$s avec l’adresse qu’il avait auparavant. Le supprimer ensuite définitivement de la corbeille n’envoie plus rien. Passer un article publié en brouillon ou en privé n’est pas signalé. Google demande que l’adresse renvoie 404 ou 410, ou comporte une balise noindex, lorsque vous envoyez une suppression (%2$s)."
+msgstr "Si l’option Corbeille est cochée dans les réglages, un article publié mis à la corbeille, ou supprimé sans passer par la corbeille, est signalé comme %1$s avec l’adresse qu’il avait auparavant. Le supprimer ensuite définitivement de la corbeille n’envoie plus rien. Passer un article publié en brouillon ou en privé n’est pas signalé. Google demande que l’adresse renvoie 404 ou 410, ou comporte une balise noindex, lorsque vous envoyez une suppression (%2$s)."
 
 #: includes/class-fast-index-help-content.php:509
 msgid "Google's documentation"
@@ -777,7 +777,7 @@ msgstr "Fast Index peut-il envoyer mes anciens articles ?"
 #: includes/class-fast-index-help-content.php:517
 #, php-format
 msgid "Yes. Set a daily limit under %1$s. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily limit is reached. The limit counts all successful notifications of the last 24 hours. %2$s runs one batch immediately, and History shows how many posts are still waiting. Keep the limit within Google's daily quota."
-msgstr "Oui. Définissez une limite quotidienne sous %1$s. Chaque heure, Fast Index envoie un petit lot aléatoire d’articles publiés que Google n’a pas encore acceptés, du plus récent au plus ancien, jusqu’à ce que la limite quotidienne soit atteinte. La limite compte toutes les notifications réussies des dernières 24 heures. %2$s lance immédiatement un lot, et l’Historique indique combien d’articles sont encore en attente. Restez dans les limites du quota quotidien de Google."
+msgstr "Oui. Définissez une limite quotidienne sous %1$s. Chaque heure, Fast Index envoie un petit lot aléatoire d’articles publiés que Google n’a pas encore acceptés, du plus récent au plus ancien, jusqu’à ce que la limite quotidienne soit atteinte. La limite compte toutes les notifications réussies des 24 dernières heures. %2$s lance immédiatement un lot, et l’Historique indique combien d’articles sont encore en attente. Restez dans les limites du quota quotidien de Google."
 
 #: includes/class-fast-index-help-content.php:524
 msgid "How many URLs can I send per day?"
@@ -797,7 +797,7 @@ msgstr "Puis-je utiliser plusieurs comptes de service ?"
 #: includes/class-fast-index-help-content.php:536
 #, php-format
 msgid "With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it."
-msgstr "Avec l’offre premium, vous pouvez téléverser plusieurs clés. Pour chaque notification, Fast Index choisit au hasard l’une des clés qui ne sont pas en pause. Si Google répond 401, 403 ou 429 (ou refuse la clé), cette clé est mise en pause pendant six heures et la suivante est essayée. Les autres erreurs (comme 400, 5xx ou l’absence de réponse) mettent fin à la tentative sans mettre de clé en pause. À noter : Google compte le quota par projet, et non par clé ; les clés d’un même projet partagent donc les mêmes 200 par jour. Google écrit aussi que les tentatives d’abus de l’API, y compris l’utilisation de plusieurs comptes pour dépasser les quotas d’utilisation, peuvent entraîner la révocation de l’accès (%s). Utilisez des clés supplémentaires pour la fiabilité ou pour des sites placés dans des projets distincts, et demandez plus de quota à Google si nécessaire."
+msgstr "Avec l’offre Premium, vous pouvez téléverser plusieurs clés. Pour chaque notification, Fast Index choisit au hasard l’une des clés qui ne sont pas en pause. Si Google répond 401, 403 ou 429 (ou refuse la clé), cette clé est mise en pause pendant six heures et la suivante est essayée. Les autres erreurs (comme 400, 5xx ou l’absence de réponse) mettent fin à la tentative sans mettre de clé en pause. À noter : Google compte le quota par projet, et non par clé ; les clés d’un même projet partagent donc les mêmes 200 par jour. Google écrit aussi que les tentatives d’abus de l’API, y compris l’utilisation de plusieurs comptes pour dépasser les quotas d’utilisation, peuvent entraîner la révocation de l’accès (%s). Utilisez des clés supplémentaires pour la fiabilité ou pour des sites placés dans des projets distincts, et demandez plus de quota à Google si nécessaire."
 
 #: includes/class-fast-index-help-content.php:537
 msgid "quickstart"
@@ -827,7 +827,7 @@ msgstr "Je mets à jour depuis la version 2.2. Que deviennent mes clés ?"
 
 #: includes/class-fast-index-help-content.php:557
 msgid "On the first page load after the update, Fast Index reads each key file that version 2.x saved in the uploads folder, checks it, stores it in the database and deletes the file. Your settings and history are kept, and the old ten-minute scheduled task is replaced by an hourly one. Earlier versions kept the files in a folder that anyone could reach, so a notice recommends creating new keys and deleting the old ones in Google Cloud (see Troubleshooting). If a file cannot be moved, a notice names it, and you can upload that key again."
-msgstr "Au premier chargement de page après la mise à jour, Fast Index lit chaque fichier de clé que la version 2.x avait enregistré dans le dossier des téléversements, le vérifie, l’enregistre dans la base de données et supprime le fichier. Vos réglages et votre historique sont conservés, et l’ancienne tâche planifiée de dix minutes est remplacée par une tâche horaire. Les versions antérieures conservaient les fichiers dans un dossier accessible à tous ; un avis recommande donc de créer de nouvelles clés et de supprimer les anciennes dans Google Cloud (voir Diagnostic). Si un fichier ne peut pas être déplacé, un avis le nomme, et vous pouvez téléverser cette clé de nouveau."
+msgstr "Au premier chargement de page après la mise à jour, Fast Index lit chaque fichier de clé que la version 2.x avait enregistré dans le dossier des téléversements, le vérifie, l’enregistre dans la base de données et supprime le fichier. Vos réglages et votre historique sont conservés, et l’ancienne tâche planifiée de dix minutes est remplacée par une tâche horaire. Les versions antérieures conservaient les fichiers dans un dossier accessible à tous ; un avis recommande donc de créer de nouvelles clés et de supprimer les anciennes dans Google Cloud (voir « Diagnostic »). Si un fichier ne peut pas être déplacé, un avis le nomme, et vous pouvez téléverser cette clé de nouveau."
 
 #: includes/class-fast-index-help-content.php:561
 msgid "Does Fast Index work on multisite?"
@@ -861,7 +861,7 @@ msgstr "Qu’est-ce que Freemius, et dois-je connecter un compte ?"
 #: includes/class-fast-index-help-content.php:579
 #, php-format
 msgid "Fast Index includes the Freemius SDK, a service for licenses and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question."
-msgstr "Fast Index inclut le SDK Freemius, un service de licences et de connexion de compte facultative. Il détermine quelles options sont déverrouillées (voir Réglages expliqués). Freemius peut afficher ses propres écrans ou avis dans l’administration : un écran de licence (avec un lien pour continuer avec la version gratuite) et un écran d’adhésion avec un bouton Skip, dont le texte indique que l’extension fonctionne quand même si vous passez cette étape. Ce que le SDK collecte est décrit sur ces écrans et dans %s. Le code de Fast Index lui-même n’envoie que des adresses à Google, comme décrit dans la première question."
+msgstr "Fast Index inclut le SDK Freemius, un service de licences et de connexion de compte facultative. Il détermine quelles options sont déverrouillées (voir « Réglages expliqués »). Freemius peut afficher ses propres écrans ou avis dans l’administration : un écran de licence (avec un lien pour continuer avec la version gratuite) et un écran de consentement avec un bouton « Passer », dont le texte indique que l’extension fonctionne quand même si vous passez cette étape. Ce que le SDK collecte est décrit sur ces écrans et dans %s. Le code de Fast Index lui-même n’envoie que des adresses à Google, comme décrit dans la première question."
 
 #: includes/class-fast-index-help-content.php:580
 msgid "the Freemius privacy policy"
@@ -877,7 +877,7 @@ msgstr "Non. Enregistrer un article ne fait que mettre une tâche planifiée en 
 
 #: includes/class-fast-index-help-content.php:607
 msgid "Read the Troubleshooting entry that matches the code in History, and the FAQ."
-msgstr "Lisez l’entrée de Diagnostic qui correspond au code affiché dans l’Historique, ainsi que la FAQ."
+msgstr "Lisez l’entrée « Diagnostic » qui correspond au code affiché dans l’Historique, ainsi que la FAQ."
 
 #: includes/class-fast-index-help-content.php:608
 msgid "On the settings screen, look at the last answer shown next to each key."
@@ -901,11 +901,11 @@ msgstr "Quand vous écrivez, indiquez ce que vous attendiez et ce qui s’est pa
 
 #: includes/class-fast-index-help-content.php:624
 msgid "Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen."
-msgstr "Choisissez ce que Fast Index envoie à Google et téléversez la clé du compte de service. Chaque option est expliquée sous son champ et dans Réglages expliqués, sur l’écran Aide et FAQ."
+msgstr "Choisissez ce que Fast Index envoie à Google et téléversez la clé du compte de service. Chaque option est expliquée sous son champ et dans « Réglages expliqués », sur l’écran Aide et FAQ."
 
 #: includes/class-fast-index-help-content.php:625
 msgid "Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting."
-msgstr "Affiche les totaux et les dernières notifications avec la réponse de Google. 200 OK signifie que Google a accepté la notification ; cela ne veut pas dire que la page est indexée. Les autres codes sont expliqués sous Diagnostic."
+msgstr "Affiche les totaux et les dernières notifications avec la réponse de Google. 200 OK signifie que Google a accepté la notification ; cela ne veut pas dire que la page est indexée. Les autres codes sont expliqués sous « Diagnostic »."
 
 #: includes/class-fast-index-help-content.php:626
 msgid "Sends one batch of old posts now, within the daily limit set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour."
@@ -913,7 +913,7 @@ msgstr "Envoie maintenant un lot d’anciens articles, dans la limite quotidienn
 
 #: includes/class-fast-index-help-content.php:627
 msgid "Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support."
-msgstr "Installation pas à pas, explication de chaque réglage, diagnostic des problèmes, questions fréquentes et informations système à joindre lorsque vous demandez de l’aide."
+msgstr "Configuration pas à pas, explication de chaque réglage, diagnostic, questions fréquentes et informations système à joindre lorsque vous demandez de l’aide."
 
 #: includes/class-fast-index-help-content.php:632
 msgid "About this screen"
@@ -921,11 +921,11 @@ msgstr "À propos de cet écran"
 
 #: includes/class-fast-index-help-content.php:633 view/settings.php:239
 msgid "Open Help & FAQ"
-msgstr "Ouvrir Aide et FAQ"
+msgstr "Ouvrir l’aide et la FAQ"
 
 #: includes/class-fast-index-help-content.php:643
 msgid "For more information:"
-msgstr "Pour plus d’informations :"
+msgstr "Plus d’informations :"
 
 #: includes/class-fast-index-help-content.php:645
 msgid "Support forum"
@@ -941,7 +941,7 @@ msgstr "Informations système copiées."
 
 #: includes/class-fast-index-help.php:96
 msgid "System info selected. Press Ctrl+C (Cmd+C on a Mac) to copy it."
-msgstr "Informations système sélectionnées. Appuyez sur Ctrl+C (Cmd+C sur un Mac) pour les copier."
+msgstr "Informations système sélectionnées. Appuyez sur Ctrl+C (Cmd+C sur Mac) pour les copier."
 
 #: includes/class-fast-index-help.php:138
 msgid "Yes"
@@ -981,7 +981,7 @@ msgstr "WP-Cron désactivé (DISABLE_WP_CRON)"
 
 #: includes/class-fast-index-help.php:171
 msgid "Premium plan active"
-msgstr "Offre premium active"
+msgstr "Offre Premium active"
 
 #: includes/class-fast-index-help.php:175
 msgid "Status setting"
@@ -1017,7 +1017,7 @@ msgstr "Non planifié"
 
 #: includes/class-fast-index-help.php:199
 msgid "Sent in the last 24 hours"
-msgstr "Envoyés au cours des dernières 24 heures"
+msgstr "Envoyées au cours des 24 dernières heures"
 
 #: includes/class-fast-index-help.php:203
 msgid "Posts waiting"
@@ -1132,7 +1132,7 @@ msgstr "Réglage"
 
 #: view/help.php:57 view/help.php:66
 msgid "What it does"
-msgstr "Ce que cela fait"
+msgstr "Ce qu’il fait"
 
 #: view/help.php:58 view/help.php:67
 msgid "Default"
@@ -1156,7 +1156,7 @@ msgstr "Que faire :"
 
 #: view/help.php:111
 msgid "Before you write to support, go through this list:"
-msgstr "Avant d’écrire au support, passez en revue cette liste :"
+msgstr "Avant d’écrire au support, passez cette liste en revue :"
 
 #: view/help.php:118
 msgid "System info"
@@ -1168,7 +1168,7 @@ msgstr "Informations en lecture seule sur votre site qui nous aident à répondr
 
 #: view/help.php:132
 msgid "Copy system info"
-msgstr "Copier les infos système"
+msgstr "Copier les informations système"
 
 #: view/help.php:137
 msgid "Open the Fast Index support forum on WordPress.org"
@@ -1196,7 +1196,7 @@ msgstr "Total en attente"
 
 #: view/history.php:28
 msgid "Sent Today"
-msgstr "Envoyés aujourd’hui"
+msgstr "Envoyé aujourd’hui"
 
 #: view/history.php:47
 msgid "Title"
