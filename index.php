@@ -3,7 +3,7 @@
 Plugin Name: Fast Index
 Plugin URI:
 Description: <strong>Fast Index</strong> on google
-Version: 2.1
+Version: 2.2
 Author: Samet AKIN
 Author URI: https://www.linkedin.com/in/samet-akin/
 Contact me at https://www.linkedin.com/in/samet-akin/
@@ -335,7 +335,7 @@ class FastIndex
         }
 
 
-        if ($options['status'] == 2 or $options['post_status'][$postStatus] != "1" or $options['post_type'][$postType] != "1") {
+        if ($options['status'] == 2 or $options['post_status'][$postStatus] != "1" or @$options['post_type'][$postType] != "1") {
             return false;
         }
 
