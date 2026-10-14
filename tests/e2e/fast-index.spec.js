@@ -98,6 +98,24 @@ test.describe( 'Fast Index admin', () => {
 		expect( wp( [ 'eval', 'echo count( glob( wp_upload_dir()["basedir"] . "/*/*/service-account*.json" ) ?: array() );' ] ) ).toBe( '0' );
 	} );
 
+	test( 'a locked option asks before it opens the upgrade page', async ( { page } ) => {
+		await page.goto( SETTINGS );
+		const locked = page.locator( 'label.licenceAlert' ).first();
+		test.skip( 0 === await locked.count(), 'The premium plan is active on this site.' );
+
+		// The question comes from the page (translated); dismissing it keeps the user on the settings screen.
+		const expected = await page.evaluate( () => window.fastIndexAdmin.upgradeMessage );
+		let asked = '';
+		page.once( 'dialog', async ( dialog ) => {
+			asked = dialog.message();
+			await dialog.dismiss();
+		} );
+		await locked.click();
+		expect( asked ).toBe( expected );
+		expect( asked ).not.toBe( '' );
+		await expect( page ).toHaveURL( /page=fast-index$/ );
+	} );
+
 	test( 'history pagination links work', async ( { page } ) => {
 		wp( [ 'eval', 'for ( $i = 0; $i < 25; $i++ ) { Fast_Index_Log::add( 0, home_url( "/e2e-history-" . $i . "/" ), 0 === $i % 5 ? 429 : 200, "URL_UPDATED" ); }' ] );
 
