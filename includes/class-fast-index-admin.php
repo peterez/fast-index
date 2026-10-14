@@ -47,6 +47,7 @@ class Fast_Index_Admin {
 		( new Fast_Index_Help() )->register_hooks();
 		( new Fast_Index_Admin_Actions() )->register_hooks();
 		( new Fast_Index_Notices() )->register_hooks();
+		( new Fast_Index_Upgrade() )->register_hooks();
 	}
 
 	/**
@@ -151,7 +152,8 @@ class Fast_Index_Admin {
 			'several_keys' => Fast_Index_Accounts::several_keys(),
 			'accounts'     => self::account_rows(),
 			'unused'       => Fast_Index_Settings::unused( $settings ),
-			'premium_card' => Fast_Index_Plugin::premium_loaded() ? null : self::premium_card(),
+			'premium_card' => Fast_Index_Upgrade::is_offered() ? self::premium_card() : null,
+			'hints'        => Fast_Index_Upgrade::is_offered() ? self::hints() : array(),
 			'openssl'      => Fast_Index_Google_Client::is_supported(),
 			'messages'     => self::take_flash(),
 		);
@@ -170,12 +172,15 @@ class Fast_Index_Admin {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page number.
 		$page            = isset( $_GET['pn'] ) ? absint( $_GET['pn'] ) : 0;
 		$log             = Fast_Index_Log::page( $page );
+		$stats           = Fast_Index_Log::stats( Fast_Index_Settings::get() );
 		$fast_index_view = array(
-			'stats'    => Fast_Index_Log::stats( Fast_Index_Settings::get() ),
-			'entries'  => $log['entries'],
-			'page'     => $page,
-			'has_next' => $log['has_next'],
-			'base_url' => admin_url( 'admin.php?page=' . self::SLUG_HISTORY ),
+			'stats'        => $stats,
+			'entries'      => $log['entries'],
+			'page'         => $page,
+			'has_next'     => $log['has_next'],
+			'base_url'     => admin_url( 'admin.php?page=' . self::SLUG_HISTORY ),
+			'waiting_line' => Fast_Index_Upgrade::waiting_line( $stats['waiting'] ),
+			'upgrade_url'  => Fast_Index_Upgrade::upgrade_url(),
 		);
 
 		include FAST_INDEX_PATH . 'view/history.php';
@@ -184,18 +189,22 @@ class Fast_Index_Admin {
 	/**
 	 * Queues a one-time message for the next screen of this user.
 	 *
-	 * @param string $type    success or error.
-	 * @param string $message Plain text.
+	 * @param string $type      success or error.
+	 * @param string $message   Plain text.
+	 * @param string $link_url  Optional link printed after the message.
+	 * @param string $link_text Text of that link.
 	 * @return void
 	 */
-	public static function flash( $type, $message ) {
+	public static function flash( $type, $message, $link_url = '', $link_text = '' ) {
 		$key      = self::FLASH_PREFIX . get_current_user_id();
 		$messages = get_transient( $key );
 		$messages = is_array( $messages ) ? $messages : array();
 
 		$messages[] = array(
-			'type'    => 'error' === $type ? 'error' : 'success',
-			'message' => (string) $message,
+			'type'      => 'error' === $type ? 'error' : 'success',
+			'message'   => (string) $message,
+			'link_url'  => '' !== (string) $link_text ? (string) $link_url : '',
+			'link_text' => (string) $link_text,
 		);
 
 		set_transient( $key, $messages, MINUTE_IN_SECONDS );
@@ -209,10 +218,23 @@ class Fast_Index_Admin {
 	public static function take_flash() {
 		$key      = self::FLASH_PREFIX . get_current_user_id();
 		$messages = get_transient( $key );
+		$clean    = array();
 
 		delete_transient( $key );
 
-		return is_array( $messages ) ? $messages : array();
+		foreach ( is_array( $messages ) ? $messages : array() as $message ) {
+			if ( is_array( $message ) && isset( $message['type'], $message['message'] ) ) {
+				$clean[] = array_merge(
+					array(
+						'link_url'  => '',
+						'link_text' => '',
+					),
+					$message
+				);
+			}
+		}
+
+		return $clean;
 	}
 
 	/**
@@ -277,20 +299,28 @@ class Fast_Index_Admin {
 	}
 
 	/**
-	 * Content of the Premium box on the settings screen: what the premium plan adds and where to get it.
+	 * Content of the Premium box on the settings screen: a Free / Premium comparison and where to get the plan.
 	 *
-	 * @return array Keys: features (plain text lines), url (upgrade page).
+	 * @return array Keys: rows (see Fast_Index_Upgrade::comparison()), url (upgrade page).
 	 */
 	public static function premium_card() {
 		return array(
-			'features' => array(
-				__( 'Pages and custom post types', 'fast-index' ),
-				__( 'Notifications when a published post is edited, trashed or deleted', 'fast-index' ),
-				__( 'Old posts sent in small hourly batches, within a daily limit you set', 'fast-index' ),
-				__( 'Categories whose posts are never sent', 'fast-index' ),
-				__( 'Several service account keys: when Google pauses one, the next one is tried', 'fast-index' ),
-			),
-			'url'      => function_exists( 'figi_fs' ) ? figi_fs()->get_upgrade_url() : '',
+			'rows' => Fast_Index_Upgrade::comparison(),
+			'url'  => Fast_Index_Upgrade::upgrade_url(),
+		);
+	}
+
+	/**
+	 * The "Premium" hints of the settings screen, by section.
+	 *
+	 * @return array Keys: post_type, post_status, keys (plain text) and url (upgrade page).
+	 */
+	private static function hints() {
+		return array(
+			'post_type'   => Fast_Index_Upgrade::hint( 'post_type' ),
+			'post_status' => Fast_Index_Upgrade::hint( 'post_status' ),
+			'keys'        => Fast_Index_Upgrade::hint( 'keys' ),
+			'url'         => Fast_Index_Upgrade::upgrade_url(),
 		);
 	}
 

@@ -127,6 +127,7 @@ class Fast_Index_Installer {
 	public static function install_site() {
 		self::upgrade_site();
 		Fast_Index_Cron::schedule();
+		Fast_Index_Upgrade::remember_first_use();
 	}
 
 	/**
@@ -282,6 +283,7 @@ class Fast_Index_Installer {
 		}
 
 		Fast_Index_Cron::schedule();
+		Fast_Index_Upgrade::remember_first_use();
 		update_option( self::DB_VERSION_OPTION, FAST_INDEX_DB_VERSION, true );
 	}
 

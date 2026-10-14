@@ -177,17 +177,57 @@ class Fast_Index_Admin_Actions {
 			return;
 		}
 
+		self::store_account( $account, $several );
+	}
+
+	/**
+	 * Stores one valid account and queues the message about it. With one key, a key of another account replaces
+	 * the key in use, and the message says so.
+	 *
+	 * @param array $account Account returned by Fast_Index_Accounts::parse_key_json().
+	 * @param bool  $several Whether several keys are kept.
+	 * @return void
+	 */
+	public static function store_account( array $account, $several ) {
+		$replaced = '';
+
 		if ( $several ) {
 			Fast_Index_Accounts::save( $account );
 		} else {
+			$replaced = self::email_of_key_in_use();
 			Fast_Index_Accounts::use_key( $account );
 		}
 
 		// Notifications that waited for a key go out with the next scheduled-task run.
 		Fast_Index_Retry::resume();
 
+		if ( '' !== $replaced && strtolower( $replaced ) !== strtolower( $account['client_email'] ) ) {
+			// The free version keeps one key: say what happened to the other one, and where several keys come from.
+			$offered = Fast_Index_Upgrade::is_offered();
+
+			Fast_Index_Admin::flash(
+				'success',
+				Fast_Index_Upgrade::replaced_key_message( $account['client_email'], $replaced ),
+				$offered ? Fast_Index_Upgrade::upgrade_url() : '',
+				$offered ? __( 'See the premium plan', 'fast-index' ) : ''
+			);
+			return;
+		}
+
 		/* translators: %s: service account email. */
 		Fast_Index_Admin::flash( 'success', sprintf( __( 'The key of %s was saved.', 'fast-index' ), $account['client_email'] ) );
+	}
+
+	/**
+	 * Email address of the key used for sending (the first stored key).
+	 *
+	 * @return string Empty when no key is stored.
+	 */
+	private static function email_of_key_in_use() {
+		$accounts = Fast_Index_Accounts::all();
+		$first    = reset( $accounts );
+
+		return is_array( $first ) && isset( $first['client_email'] ) ? (string) $first['client_email'] : '';
 	}
 
 	/**

@@ -119,3 +119,79 @@
 	#fi .fi-key-use {
 		color: #50575e;
 	}
+
+	/* Free / Premium comparison in the Premium box. */
+	#fi .fi-compare {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0 0 12px;
+	}
+
+	#fi .fi-compare th,
+	#fi .fi-compare td {
+		padding: 6px 8px;
+		border-bottom: 1px solid #f0f0f1;
+		text-align: start;
+		vertical-align: top;
+	}
+
+	#fi .fi-compare thead th {
+		font-weight: 600;
+		border-bottom: 1px solid #dcdcde;
+	}
+
+	#fi .fi-compare tbody th {
+		font-weight: 400;
+	}
+
+	#fi .fi-compare .fi-yes {
+		color: #00a32a;
+		font-weight: 600;
+	}
+
+	#fi .fi-compare .fi-no {
+		color: #646970;
+	}
+
+	/* "Premium" hint next to a settings section: a small badge that opens a short explanation. */
+	#fi .fi-premium-hint {
+		margin-top: 6px;
+	}
+
+	#fi .fi-premium-hint summary {
+		display: inline-block;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	#fi .fi-premium-hint summary::-webkit-details-marker {
+		display: none;
+	}
+
+	#fi .fi-premium-badge {
+		display: inline-block;
+		padding: 0 6px;
+		border: 1px solid #2271b1;
+		border-radius: 3px;
+		color: #2271b1;
+		font-size: 11px;
+		line-height: 18px;
+		font-weight: 600;
+	}
+
+	#fi .fi-premium-hint summary:focus-visible .fi-premium-badge {
+		outline: 2px solid #2271b1;
+		outline-offset: 1px;
+	}
+
+	#fi .fi-premium-hint p {
+		margin: 6px 0 0;
+		font-size: 12px;
+		color: #50575e;
+	}
+
+	/* One line on History about posts that Google has not accepted yet. */
+	#fi .fi-upgrade-line {
+		margin: 8px 0 0;
+	}
+

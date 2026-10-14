@@ -37,6 +37,13 @@ $fast_index_types = array(
 		</tbody>
 	</table>
 
+	<?php if ( '' !== $fast_index_view['waiting_line'] ) : ?>
+		<p class="fi-upgrade-line">
+			<?php echo esc_html( $fast_index_view['waiting_line'] ); ?>
+			<a href="<?php echo esc_url( $fast_index_view['upgrade_url'] ); ?>"><?php esc_html_e( 'See the premium plan', 'fast-index' ); ?></a>
+		</p>
+	<?php endif; ?>
+
 	<br>
 	<h1 class="title"><?php esc_html_e( 'History', 'fast-index' ); ?></h1>
 	<br>

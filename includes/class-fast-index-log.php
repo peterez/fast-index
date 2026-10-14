@@ -127,6 +127,10 @@ class Fast_Index_Log {
 			return 0;
 		}
 
+		if ( 200 === (int) $code ) {
+			Fast_Index_Upgrade::remember_success();
+		}
+
 		self::supersede( $post_id, esc_url_raw( $url ), (int) $log_id, Fast_Index_Submitter::is_not_sent( $code ) );
 
 		return (int) $log_id;

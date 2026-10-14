@@ -62,7 +62,7 @@ abstract class Fast_Index_Test_Case extends WP_UnitTestCase {
 	 * Replaces the Freemius instance with a test double.
 	 *
 	 * @param bool $licensed Whether a license allows the premium code.
-	 * @return void
+	 * @return Fast_Index_Test_Freemius
 	 */
 	protected function fake_freemius( $licensed ) {
 		if ( null === $this->real_freemius ) {
@@ -70,6 +70,8 @@ abstract class Fast_Index_Test_Case extends WP_UnitTestCase {
 		}
 
 		$GLOBALS['figi_fs'] = new Fast_Index_Test_Freemius( $licensed );
+
+		return $GLOBALS['figi_fs'];
 	}
 
 	/**

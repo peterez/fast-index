@@ -19,6 +19,13 @@ class Fast_Index_Test_Freemius {
 	private $licensed;
 
 	/**
+	 * Address returned by get_upgrade_url(); empty for the plans page of the site admin.
+	 *
+	 * @var string
+	 */
+	public $upgrade_url = '';
+
+	/**
 	 * Builds the double.
 	 *
 	 * @param bool $licensed Whether a license allows the premium code.
@@ -42,7 +49,7 @@ class Fast_Index_Test_Freemius {
 	 * @return string
 	 */
 	public function get_upgrade_url() {
-		return admin_url( 'admin.php?page=fast-index-pricing' );
+		return '' !== $this->upgrade_url ? $this->upgrade_url : admin_url( 'admin.php?page=fast-index-pricing' );
 	}
 
 	/**

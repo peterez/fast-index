@@ -56,7 +56,7 @@ class Fast_Index_Notices {
 	 * @return string[]
 	 */
 	public static function names() {
-		return array( self::KEY_ROTATION, self::ISSUES );
+		return array_merge( array( self::KEY_ROTATION, self::ISSUES ), Fast_Index_Upgrade::notice_names() );
 	}
 
 	/**
@@ -153,6 +153,9 @@ class Fast_Index_Notices {
 			delete_option( self::KEY_ROTATION_OPTION );
 		} elseif ( self::ISSUES === $notice ) {
 			delete_option( self::ISSUES_OPTION );
+		} else {
+			// The thank-you and the premium plan notices are dismissed for the current user only.
+			Fast_Index_Upgrade::dismiss( get_current_user_id(), $notice );
 		}
 	}
 

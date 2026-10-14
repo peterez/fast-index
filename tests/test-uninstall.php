@@ -177,4 +177,27 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 		update_option( 'active_plugins', $active );
 		$reflection->setValue( null, false );
 	}
+
+	/**
+	 * The dismissed notices of the users go with the data; they stay while data is kept.
+	 *
+	 * @return void
+	 */
+	public function test_user_notice_record_follows_the_data() {
+		$user = self::factory()->user->create( array( 'role' => 'administrator' ) );
+
+		$this->seed( false );
+		Fast_Index_Upgrade::dismiss( $user, Fast_Index_Upgrade::NOTICE_OFFER );
+		Fast_Index_Uninstaller::run();
+		$this->assertNotSame( array(), Fast_Index_Upgrade::dismissed( $user ) );
+
+		if ( ! is_multisite() ) {
+			$this->seed( true );
+			update_option( Fast_Index_Upgrade::FIRST_USE_OPTION, time() );
+			Fast_Index_Uninstaller::run();
+			wp_cache_flush();
+			$this->assertSame( array(), Fast_Index_Upgrade::dismissed( $user ) );
+			$this->assertFalse( get_option( Fast_Index_Upgrade::FIRST_USE_OPTION ) );
+		}
+	}
 }

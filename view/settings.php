@@ -16,7 +16,12 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 
 	<?php foreach ( $fast_index_view['messages'] as $fast_index_message ) : ?>
 		<div class="<?php echo esc_attr( 'notice notice-' . $fast_index_message['type'] . ' is-dismissible' ); ?>">
-			<p><?php echo esc_html( $fast_index_message['message'] ); ?></p>
+			<p>
+				<?php echo esc_html( $fast_index_message['message'] ); ?>
+				<?php if ( '' !== $fast_index_message['link_url'] ) : ?>
+					<a href="<?php echo esc_url( $fast_index_message['link_url'] ); ?>"><?php echo esc_html( $fast_index_message['link_text'] ); ?></a>
+				<?php endif; ?>
+			</p>
 		</div>
 	<?php endforeach; ?>
 
@@ -66,6 +71,9 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<td scope="row">
 								<b><?php esc_html_e( 'Post Types', 'fast-index' ); ?></b> <br>
 								<small><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></small>
+								<?php if ( isset( $fast_index_view['hints']['post_type'] ) ) : ?>
+									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['post_type'], $fast_index_view['hints']['url'] ); ?>
+								<?php endif; ?>
 							</td>
 							<td>
 								<?php foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) : ?>
@@ -84,6 +92,9 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<td scope="row">
 								<b><?php esc_html_e( 'Post Events', 'fast-index' ); ?></b> <br>
 								<small><?php esc_html_e( 'Choose when Google is notified.', 'fast-index' ); ?></small>
+								<?php if ( isset( $fast_index_view['hints']['post_status'] ) ) : ?>
+									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['post_status'], $fast_index_view['hints']['url'] ); ?>
+								<?php endif; ?>
 							</td>
 							<td>
 								<?php foreach ( $fast_index_view['events'] as $fast_index_event => $fast_index_label ) : ?>
@@ -139,6 +150,10 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 				</form>
 
 				<h1 class="title"><?php esc_html_e( 'Upload Google Service Account Key', 'fast-index' ); ?></h1>
+
+				<?php if ( isset( $fast_index_view['hints']['keys'] ) ) : ?>
+					<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['keys'], $fast_index_view['hints']['url'] ); ?>
+				<?php endif; ?>
 
 				<?php if ( ! $fast_index_view['openssl'] ) : ?>
 					<div class="notice notice-error inline"><p><?php echo esc_html( Fast_Index_Google_Client::openssl_message() ); ?></p></div>
@@ -226,12 +241,34 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 			<?php if ( null !== $fast_index_view['premium_card'] ) : ?>
 				<div class="fi-premium-card">
 					<h2><?php echo esc_html_x( 'Premium', 'Heading of the box about the premium plan', 'fast-index' ); ?></h2>
-					<p><?php esc_html_e( 'The premium plan is a separate package. It adds:', 'fast-index' ); ?></p>
-					<ul>
-						<?php foreach ( $fast_index_view['premium_card']['features'] as $fast_index_feature ) : ?>
-							<li><?php echo esc_html( $fast_index_feature ); ?></li>
+					<p><?php esc_html_e( 'The premium plan is a separate package. What each version does:', 'fast-index' ); ?></p>
+					<table class="fi-compare">
+						<thead>
+						<tr>
+							<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Feature', 'fast-index' ); ?></span></th>
+							<th scope="col"><?php echo esc_html_x( 'Free', 'Column of the comparison table', 'fast-index' ); ?></th>
+							<th scope="col"><?php echo esc_html_x( 'Premium', 'Column of the comparison table', 'fast-index' ); ?></th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach ( $fast_index_view['premium_card']['rows'] as $fast_index_row ) : ?>
+							<tr>
+								<th scope="row"><?php echo esc_html( $fast_index_row['label'] ); ?></th>
+								<?php foreach ( array( $fast_index_row['free'], $fast_index_row['premium'] ) as $fast_index_cell ) : ?>
+									<td>
+										<?php if ( true === $fast_index_cell ) : ?>
+											<span class="fi-yes" aria-hidden="true">&#10003;</span><span class="screen-reader-text"><?php esc_html_e( 'Included', 'fast-index' ); ?></span>
+										<?php elseif ( false === $fast_index_cell ) : ?>
+											<span class="fi-no" aria-hidden="true">&ndash;</span><span class="screen-reader-text"><?php esc_html_e( 'Not included', 'fast-index' ); ?></span>
+										<?php else : ?>
+											<?php echo esc_html( $fast_index_cell ); ?>
+										<?php endif; ?>
+									</td>
+								<?php endforeach; ?>
+							</tr>
 						<?php endforeach; ?>
-					</ul>
+						</tbody>
+					</table>
 					<?php if ( '' !== $fast_index_view['premium_card']['url'] ) : ?>
 						<p><a class="button" href="<?php echo esc_url( $fast_index_view['premium_card']['url'] ); ?>"><?php esc_html_e( 'Upgrade to Premium', 'fast-index' ); ?></a></p>
 					<?php endif; ?>

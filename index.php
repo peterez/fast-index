@@ -58,6 +58,7 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-help-content.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-help.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin-actions.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-upgrade.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-uninstaller.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-freemius.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-plugin.php';
