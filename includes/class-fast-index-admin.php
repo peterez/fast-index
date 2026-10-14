@@ -23,22 +23,12 @@ class Fast_Index_Admin {
 	const SLUG_HISTORY = 'fast-index-history';
 
 	/**
-	 * Manual run page slug.
-	 */
-	const SLUG_RUN = 'fast-index-run';
-
-	/**
 	 * Prefix of the per-user transient holding one-time screen messages.
 	 */
 	const FLASH_PREFIX = 'fast_index_flash_';
 
 	/**
-	 * Prefix of the per-user transient holding the last manual run results.
-	 */
-	const RESULTS_PREFIX = 'fast_index_run_results_';
-
-	/**
-	 * Hook suffixes of the plugin pages.
+	 * Hook suffixes of the plugin pages, by screen key (settings, history, help and pages added by extensions).
 	 *
 	 * @var string[]
 	 */
@@ -65,17 +55,53 @@ class Fast_Index_Admin {
 	 * @return void
 	 */
 	public function add_menu() {
-		$help  = new Fast_Index_Help();
-		$hooks = array(
-			'settings' => add_menu_page( __( 'Fast Index', 'fast-index' ), __( 'Fast Index', 'fast-index' ), 'manage_options', self::SLUG, array( $this, 'render_settings' ) ),
-			'history'  => add_submenu_page( self::SLUG, __( 'History', 'fast-index' ), __( 'History', 'fast-index' ), 'manage_options', self::SLUG_HISTORY, array( $this, 'render_history' ) ),
-			'run'      => add_submenu_page( self::SLUG, __( 'Send Old Posts Now', 'fast-index' ), __( 'Send Old Posts Now', 'fast-index' ), 'manage_options', self::SLUG_RUN, array( $this, 'render_run' ) ),
-			'help'     => add_submenu_page( self::SLUG, __( 'Help & FAQ', 'fast-index' ), __( 'Help & FAQ', 'fast-index' ), 'manage_options', Fast_Index_Help::SLUG, array( $help, 'render' ) ),
-		);
+		$help = new Fast_Index_Help();
 
-		self::$page_hooks = array_values( array_filter( array_map( 'strval', $hooks ) ) );
+		self::$page_hooks = array();
 
-		$help->register_screens( $hooks );
+		self::remember_page( 'settings', add_menu_page( __( 'Fast Index', 'fast-index' ), __( 'Fast Index', 'fast-index' ), 'manage_options', self::SLUG, array( $this, 'render_settings' ) ) );
+		self::remember_page( 'history', add_submenu_page( self::SLUG, __( 'History', 'fast-index' ), __( 'History', 'fast-index' ), 'manage_options', self::SLUG_HISTORY, array( $this, 'render_history' ) ) );
+
+		/**
+		 * Fires between the History and Help & FAQ entries of the Fast Index menu. Add pages with
+		 * Fast_Index_Admin::add_page(), so they get the plugin styles and a help tab.
+		 *
+		 * @param string $parent_slug Slug of the Fast Index menu.
+		 */
+		do_action( 'fast_index_admin_menu', self::SLUG );
+
+		self::remember_page( 'help', add_submenu_page( self::SLUG, __( 'Help & FAQ', 'fast-index' ), __( 'Help & FAQ', 'fast-index' ), 'manage_options', Fast_Index_Help::SLUG, array( $help, 'render' ) ) );
+
+		$help->register_screens( self::$page_hooks );
+	}
+
+	/**
+	 * Adds a page to the Fast Index menu. Call it on the fast_index_admin_menu action.
+	 *
+	 * @param string   $key      Screen key; its help tab text comes from Fast_Index_Help_Content::screen_help().
+	 * @param string   $title    Page and menu title.
+	 * @param string   $slug     Page slug.
+	 * @param callable $callback Renders the page.
+	 * @return string Hook suffix, empty when the page was not added.
+	 */
+	public static function add_page( $key, $title, $slug, $callback ) {
+		return self::remember_page( $key, add_submenu_page( self::SLUG, $title, $title, 'manage_options', $slug, $callback ) );
+	}
+
+	/**
+	 * Stores the hook suffix of a plugin page.
+	 *
+	 * @param string       $key  Screen key.
+	 * @param string|false $hook Hook suffix returned by add_menu_page() or add_submenu_page().
+	 * @return string
+	 */
+	private static function remember_page( $key, $hook ) {
+		if ( is_string( $hook ) && '' !== $hook ) {
+			self::$page_hooks[ (string) $key ] = $hook;
+			return $hook;
+		}
+
+		return '';
 	}
 
 	/**
@@ -107,16 +133,6 @@ class Fast_Index_Admin {
 		}
 
 		wp_enqueue_script( 'fast-index-admin', FAST_INDEX_URL . 'assets/fast-index-admin.js', array(), FAST_INDEX_VERSION, true );
-		wp_add_inline_script(
-			'fast-index-admin',
-			'window.fastIndexAdmin = ' . wp_json_encode(
-				array(
-					'upgradeMessage' => __( 'This option needs the premium plan. Go to the upgrade page?', 'fast-index' ),
-					'upgradeUrl'     => admin_url( 'admin.php?page=fast-index-pricing' ),
-				)
-			) . ';',
-			'before'
-		);
 	}
 
 	/**
@@ -127,15 +143,17 @@ class Fast_Index_Admin {
 	public function render_settings() {
 		self::require_capability();
 
-		$premium         = Fast_Index_Plugin::can_use_premium();
+		$settings        = Fast_Index_Settings::get();
 		$fast_index_view = array(
-			'settings'   => Fast_Index_Settings::apply_plan_limits( Fast_Index_Settings::get(), $premium ),
-			'premium'    => $premium,
-			'post_types' => Fast_Index_Settings::public_post_types(),
-			'categories' => get_categories( array( 'hide_empty' => false ) ),
-			'accounts'   => self::account_rows(),
-			'openssl'    => Fast_Index_Google_Client::is_supported(),
-			'messages'   => self::take_flash(),
+			'settings'     => $settings,
+			'post_types'   => Fast_Index_Settings::post_type_choices(),
+			'events'       => Fast_Index_Settings::event_choices(),
+			'several_keys' => Fast_Index_Accounts::several_keys(),
+			'accounts'     => self::account_rows(),
+			'unused'       => Fast_Index_Settings::unused( $settings ),
+			'premium_card' => Fast_Index_Plugin::premium_loaded() ? null : self::premium_card(),
+			'openssl'      => Fast_Index_Google_Client::is_supported(),
+			'messages'     => self::take_flash(),
 		);
 
 		include FAST_INDEX_PATH . 'view/settings.php';
@@ -161,36 +179,6 @@ class Fast_Index_Admin {
 		);
 
 		include FAST_INDEX_PATH . 'view/history.php';
-	}
-
-	/**
-	 * Renders the manual run page.
-	 *
-	 * @return void
-	 */
-	public function render_run() {
-		self::require_capability();
-
-		$key     = self::RESULTS_PREFIX . get_current_user_id();
-		$results = get_transient( $key );
-
-		delete_transient( $key );
-
-		$fast_index_view = array(
-			'results' => is_array( $results ) ? $results : null,
-		);
-
-		include FAST_INDEX_PATH . 'view/run.php';
-	}
-
-	/**
-	 * Stores the results of a manual run for the next page view of this user.
-	 *
-	 * @param array[] $results Rows from Fast_Index_Backlog::run().
-	 * @return void
-	 */
-	public static function store_run_results( array $results ) {
-		set_transient( self::RESULTS_PREFIX . get_current_user_id(), $results, 5 * MINUTE_IN_SECONDS );
 	}
 
 	/**
@@ -268,10 +256,11 @@ class Fast_Index_Admin {
 	/**
 	 * Display rows of the stored keys. The private key is never part of them.
 	 *
-	 * @return array[]
+	 * @return array[] Each: id, email, key_id, status (last HTTP status or null), in_use.
 	 */
 	private static function account_rows() {
 		$statuses = Fast_Index_Accounts::statuses();
+		$in_use   = Fast_Index_Accounts::in_use();
 		$rows     = array();
 
 		foreach ( Fast_Index_Accounts::all() as $id => $account ) {
@@ -280,10 +269,29 @@ class Fast_Index_Admin {
 				'email'  => $account['client_email'],
 				'key_id' => $account['private_key_id'],
 				'status' => isset( $statuses[ $id ] ) ? $statuses[ $id ] : null,
+				'in_use' => isset( $in_use[ $id ] ),
 			);
 		}
 
 		return $rows;
+	}
+
+	/**
+	 * Content of the Premium box on the settings screen: what the premium plan adds and where to get it.
+	 *
+	 * @return array Keys: features (plain text lines), url (upgrade page).
+	 */
+	public static function premium_card() {
+		return array(
+			'features' => array(
+				__( 'Pages and custom post types', 'fast-index' ),
+				__( 'Notifications when a published post is edited, trashed or deleted', 'fast-index' ),
+				__( 'Old posts sent in small hourly batches, within a daily limit you set', 'fast-index' ),
+				__( 'Categories whose posts are never sent', 'fast-index' ),
+				__( 'Several service account keys: when Google pauses one, the next one is tried', 'fast-index' ),
+			),
+			'url'      => function_exists( 'figi_fs' ) ? figi_fs()->get_upgrade_url() : '',
+		);
 	}
 
 	/**

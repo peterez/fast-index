@@ -41,7 +41,6 @@ class Fast_Index_Test_Admin_Actions extends Fast_Index_Test_Case {
 			'save'    => array( 'save_settings', Fast_Index_Admin_Actions::SAVE ),
 			'upload'  => array( 'upload_key', Fast_Index_Admin_Actions::UPLOAD ),
 			'delete'  => array( 'delete_key', Fast_Index_Admin_Actions::DELETE ),
-			'run'     => array( 'run_backlog', Fast_Index_Admin_Actions::RUN ),
 			'dismiss' => array( 'dismiss_notice', Fast_Index_Admin_Actions::DISMISS ),
 		);
 	}
@@ -269,9 +268,6 @@ class Fast_Index_Test_Admin_Actions extends Fast_Index_Test_Case {
 				break;
 			case 'delete_key':
 				$this->actions->delete_key();
-				break;
-			case 'run_backlog':
-				$this->actions->run_backlog();
 				break;
 			default:
 				$this->actions->dismiss_notice();

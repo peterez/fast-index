@@ -29,11 +29,6 @@ class Fast_Index_Admin_Actions {
 	const DELETE = 'fast_index_delete_key';
 
 	/**
-	 * Action: send a batch of old posts now.
-	 */
-	const RUN = 'fast_index_run_backlog';
-
-	/**
 	 * Action: dismiss an admin notice.
 	 */
 	const DISMISS = 'fast_index_dismiss_notice';
@@ -52,7 +47,6 @@ class Fast_Index_Admin_Actions {
 		add_action( 'admin_post_' . self::SAVE, array( $this, 'save_settings' ) );
 		add_action( 'admin_post_' . self::UPLOAD, array( $this, 'upload_key' ) );
 		add_action( 'admin_post_' . self::DELETE, array( $this, 'delete_key' ) );
-		add_action( 'admin_post_' . self::RUN, array( $this, 'run_backlog' ) );
 		add_action( 'admin_post_' . self::DISMISS, array( $this, 'dismiss_notice' ) );
 	}
 
@@ -81,7 +75,7 @@ class Fast_Index_Admin_Actions {
 			self::redirect( Fast_Index_Admin::SLUG );
 		}
 
-		Fast_Index_Settings::save( Fast_Index_Settings::sanitize_input( $input, Fast_Index_Plugin::can_use_premium() ) );
+		Fast_Index_Settings::save( Fast_Index_Settings::sanitize_input( $input ) );
 		Fast_Index_Log::flush_stats();
 		Fast_Index_Admin::flash( 'success', __( 'Settings saved.', 'fast-index' ) );
 
@@ -91,7 +85,8 @@ class Fast_Index_Admin_Actions {
 	/**
 	 * Stores uploaded service account keys. The files are read, never saved.
 	 *
-	 * The free plan keeps one key: a new key replaces the stored one (2.x behaviour).
+	 * One key is used unless several keys are kept (premium module): then every chosen file is stored.
+	 * With one key, the uploaded key replaces the key in use (2.x behaviour).
 	 *
 	 * @return void
 	 */
@@ -105,15 +100,15 @@ class Fast_Index_Admin_Actions {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Fast_Index_Key_Upload sanitizes the name, casts size and error, and checks tmp_name with is_uploaded_file().
 		$field   = isset( $_FILES['fast_index_key_files'] ) && is_array( $_FILES['fast_index_key_files'] ) ? $_FILES['fast_index_key_files'] : array();
 		$files   = Fast_Index_Key_Upload::files_from_field( $field );
-		$premium = Fast_Index_Plugin::can_use_premium();
+		$several = Fast_Index_Accounts::several_keys();
 
 		if ( array() === $files ) {
 			Fast_Index_Admin::flash( 'error', __( 'Choose a .json key file.', 'fast-index' ) );
 			self::redirect( Fast_Index_Admin::SLUG );
 		}
 
-		foreach ( $premium ? $files : array_slice( $files, 0, 1 ) as $file ) {
-			self::store_key( $file, $premium );
+		foreach ( $several ? $files : array_slice( $files, 0, 1 ) as $file ) {
+			self::store_key( $file, $several );
 		}
 
 		self::redirect( Fast_Index_Admin::SLUG );
@@ -140,23 +135,6 @@ class Fast_Index_Admin_Actions {
 		}
 
 		self::redirect( Fast_Index_Admin::SLUG );
-	}
-
-	/**
-	 * Sends one batch of old posts now and shows the results.
-	 *
-	 * @return void
-	 */
-	public function run_backlog() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			self::forbidden();
-		}
-
-		check_admin_referer( self::RUN, self::NONCE_FIELD );
-
-		Fast_Index_Admin::store_run_results( Fast_Index_Backlog::run() );
-
-		self::redirect( Fast_Index_Admin::SLUG_RUN );
 	}
 
 	/**
@@ -187,10 +165,10 @@ class Fast_Index_Admin_Actions {
 	 * Validates and stores one uploaded key, and queues the message about it.
 	 *
 	 * @param array $file    One entry of Fast_Index_Key_Upload::files_from_field().
-	 * @param bool  $premium Whether several keys may be kept.
+	 * @param bool  $several Whether several keys are kept.
 	 * @return void
 	 */
-	private static function store_key( array $file, $premium ) {
+	private static function store_key( array $file, $several ) {
 		$account = Fast_Index_Key_Upload::account_from_file( $file );
 
 		if ( is_wp_error( $account ) ) {
@@ -199,10 +177,10 @@ class Fast_Index_Admin_Actions {
 			return;
 		}
 
-		if ( $premium ) {
+		if ( $several ) {
 			Fast_Index_Accounts::save( $account );
 		} else {
-			Fast_Index_Accounts::replace_all( $account );
+			Fast_Index_Accounts::use_key( $account );
 		}
 
 		// Notifications that waited for a key go out with the next scheduled-task run.
@@ -217,7 +195,7 @@ class Fast_Index_Admin_Actions {
 	 *
 	 * @return void
 	 */
-	private static function forbidden() {
+	public static function forbidden() {
 		wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'fast-index' ), '', array( 'response' => 403 ) );
 	}
 
@@ -227,7 +205,7 @@ class Fast_Index_Admin_Actions {
 	 * @param string $page Page slug.
 	 * @return void
 	 */
-	private static function redirect( $page ) {
+	public static function redirect( $page ) {
 		wp_safe_redirect( admin_url( 'admin.php?page=' . $page ) );
 		exit;
 	}

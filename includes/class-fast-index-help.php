@@ -39,7 +39,7 @@ class Fast_Index_Help {
 	/**
 	 * Remembers the screens and adds a help tab to each of them when it loads.
 	 *
-	 * @param string[] $hooks Hook suffix by screen key: settings, history, run, help.
+	 * @param string[] $hooks Hook suffix by screen key: settings, history, help and pages added by extensions.
 	 * @return void
 	 */
 	public function register_screens( array $hooks ) {
@@ -134,7 +134,7 @@ class Fast_Index_Help {
 		$settings = Fast_Index_Settings::get();
 		$accounts = Fast_Index_Accounts::all();
 		$stats    = Fast_Index_Log::stats( $settings );
-		$next     = wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK );
+		$next     = wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK );
 		$yes      = __( 'Yes', 'fast-index' );
 		$no       = __( 'No', 'fast-index' );
 
@@ -168,8 +168,8 @@ class Fast_Index_Help {
 				'value' => defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ? $yes : $no,
 			),
 			array(
-				'label' => __( 'Premium plan active', 'fast-index' ),
-				'value' => Fast_Index_Plugin::can_use_premium() ? $yes : $no,
+				'label' => __( 'Premium plan features loaded', 'fast-index' ),
+				'value' => Fast_Index_Plugin::premium_loaded() ? $yes : $no,
 			),
 			array(
 				'label' => __( 'Status setting', 'fast-index' ),
@@ -192,7 +192,7 @@ class Fast_Index_Help {
 				'value' => self::key_statuses( array_keys( $accounts ) ),
 			),
 			array(
-				'label' => __( 'Next hourly old-post run', 'fast-index' ),
+				'label' => __( 'Next hourly task', 'fast-index' ),
 				'value' => $next ? gmdate( 'Y-m-d H:i:s', $next ) . ' UTC' : __( 'Not scheduled', 'fast-index' ),
 			),
 			array(

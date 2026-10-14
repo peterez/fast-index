@@ -12,6 +12,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * The stored shape stays compatible with version 2.x: flag maps keyed by post
  * type or post event, and a term ID map for the excluded categories.
+ *
+ * The free version offers Posts and the Publish event. The premium module adds more choices and its own
+ * settings through the fast_index_* filters below. Stored values that the running code does not offer are
+ * kept as they are: they are not used, and they are not lost when the settings are saved.
  */
 class Fast_Index_Settings {
 
@@ -46,7 +50,7 @@ class Fast_Index_Settings {
 	const MAX_POST_TYPE_LENGTH = 20;
 
 	/**
-	 * Post events that can trigger a notification.
+	 * Every post event the stored settings can hold (the shape of the option, not what is offered).
 	 *
 	 * @return string[]
 	 */
@@ -55,22 +59,71 @@ class Fast_Index_Settings {
 	}
 
 	/**
-	 * Default values, defined in one place.
+	 * Post events offered on the settings screen, with their labels.
+	 *
+	 * @return string[] Label by event name.
+	 */
+	public static function event_choices() {
+		/**
+		 * Filters the post events offered on the settings screen.
+		 *
+		 * @param string[] $events Label by event name: publish, edit or trash.
+		 */
+		$events = apply_filters( 'fast_index_post_events', array( 'publish' => __( 'Publish', 'fast-index' ) ) );
+
+		return array_intersect_key( is_array( $events ) ? $events : array(), array_flip( self::post_events() ) );
+	}
+
+	/**
+	 * Post types offered on the settings screen, with their labels.
+	 *
+	 * @return string[] Label by post type name.
+	 */
+	public static function post_type_choices() {
+		$post = get_post_type_object( 'post' );
+
+		/**
+		 * Filters the post types offered on the settings screen.
+		 *
+		 * @param string[] $types Label by post type name.
+		 */
+		$types   = apply_filters( 'fast_index_post_type_choices', array( 'post' => $post ? $post->label : 'Posts' ) );
+		$choices = array();
+
+		foreach ( is_array( $types ) ? $types : array() as $name => $label ) {
+			$name = (string) $name;
+
+			if ( self::is_clean_key( $name ) && 'attachment' !== $name && Fast_Index_Log::POST_TYPE !== $name && post_type_exists( $name ) ) {
+				$choices[ $name ] = (string) $label;
+			}
+		}
+
+		return $choices;
+	}
+
+	/**
+	 * Default values, defined in one place. The free version notifies Google when a post is published.
 	 *
 	 * @return array
 	 */
 	public static function defaults() {
-		return array(
+		$defaults = array(
 			'status'           => self::STATUS_ACTIVE,
 			'post_type'        => array( 'post' => '1' ),
-			'post_status'      => array(
-				'publish' => '1',
-				'edit'    => '1',
-			),
+			'post_status'      => array( 'publish' => '1' ),
 			'old_post_number'  => 0,
 			'exclude_category' => array(),
 			'delete_data'      => false,
 		);
+
+		/**
+		 * Filters the default settings, used while the settings were never saved.
+		 *
+		 * @param array $defaults Default settings.
+		 */
+		$filtered = apply_filters( 'fast_index_default_settings', $defaults );
+
+		return is_array( $filtered ) ? array_merge( $defaults, array_intersect_key( $filtered, $defaults ) ) : $defaults;
 	}
 
 	/**
@@ -145,31 +198,33 @@ class Fast_Index_Settings {
 	}
 
 	/**
-	 * Cleans the settings form. Post types and categories are checked against what exists.
+	 * Cleans the settings form. The form changes only what it shows: offered post types and events are set from
+	 * the checkboxes, and every stored value the form does not show (a premium setting while the premium module
+	 * is off, for example) is kept.
 	 *
-	 * @param mixed $input           Unslashed $_POST['fast_index_options'].
-	 * @param bool  $can_use_premium Whether the premium plan is active.
+	 * @param mixed $input Unslashed $_POST['fast_index_options'].
 	 * @return array
 	 */
-	public static function sanitize_input( $input, $can_use_premium ) {
-		$input = is_array( $input ) ? $input : array();
+	public static function sanitize_input( $input ) {
+		$input  = is_array( $input ) ? $input : array();
+		$stored = self::get();
+		$clean  = $stored;
 
-		// Unchecked checkbox groups are missing from the request: they mean "nothing selected".
-		$clean = self::normalize(
-			array(
-				'status'           => isset( $input['status'] ) ? $input['status'] : self::STATUS_ACTIVE,
-				'post_type'        => isset( $input['post_type'] ) && is_array( $input['post_type'] ) ? $input['post_type'] : array(),
-				'post_status'      => isset( $input['post_status'] ) && is_array( $input['post_status'] ) ? $input['post_status'] : array(),
-				'old_post_number'  => isset( $input['old_post_number'] ) ? $input['old_post_number'] : 0,
-				'exclude_category' => isset( $input['exclude_category'] ) && is_array( $input['exclude_category'] ) ? $input['exclude_category'] : array(),
-				'delete_data'      => ! empty( $input['delete_data'] ),
-			)
-		);
+		$clean['status']      = isset( $input['status'] ) && is_scalar( $input['status'] ) ? (string) $input['status'] : self::STATUS_ACTIVE;
+		$clean['delete_data'] = ! empty( $input['delete_data'] );
+		$clean['post_type']   = self::merge_choices( $stored['post_type'], $input, 'post_type', array_keys( self::post_type_choices() ) );
+		$clean['post_status'] = self::merge_choices( $stored['post_status'], $input, 'post_status', array_keys( self::event_choices() ) );
 
-		$clean['post_type']        = array_intersect_key( $clean['post_type'], self::public_post_types() );
-		$clean['exclude_category'] = self::existing_categories( $clean['exclude_category'] );
+		/**
+		 * Filters the settings about to be saved from the settings form.
+		 *
+		 * @param array $clean  Settings: the stored ones with the fields of the free version applied.
+		 * @param array $input  Unslashed form values; not sanitized.
+		 * @param array $stored Settings stored before this save.
+		 */
+		$clean = apply_filters( 'fast_index_sanitize_settings', $clean, $input, $stored );
 
-		return self::apply_plan_limits( $clean, $can_use_premium );
+		return self::normalize( is_array( $clean ) ? $clean : $stored );
 	}
 
 	/**
@@ -187,48 +242,107 @@ class Fast_Index_Settings {
 			$errors[] = __( 'Choose a valid status.', 'fast-index' );
 		}
 
-		if ( empty( $input['post_type'] ) || ! is_array( $input['post_type'] ) ) {
+		$types   = isset( $input['post_type'] ) && is_array( $input['post_type'] ) ? $input['post_type'] : array();
+		$checked = array_intersect_key( self::flag_map( array( 'post_type' => $types ), 'post_type', array(), array() ), self::post_type_choices() );
+
+		if ( array() === $checked ) {
 			$errors[] = __( 'Select at least one post type.', 'fast-index' );
 		}
 
-		if ( isset( $input['old_post_number'] ) && ! self::is_count( $input['old_post_number'] ) ) {
-			/* translators: %s: highest accepted number. */
-			$errors[] = sprintf( __( 'The daily limit for old posts must be a whole number from 0 to %s.', 'fast-index' ), number_format_i18n( self::MAX_OLD_POSTS ) );
-		}
+		/**
+		 * Filters the errors that reject the settings form.
+		 *
+		 * @param string[] $errors Error messages.
+		 * @param array    $input  Unslashed form values; not sanitized.
+		 */
+		$errors = apply_filters( 'fast_index_validate_settings', $errors, $input );
 
-		return $errors;
+		return array_values( array_filter( array_map( 'strval', is_array( $errors ) ? $errors : array() ) ) );
 	}
 
 	/**
-	 * Whether a form value is a whole number within the accepted range.
+	 * Applies the checkboxes of offered choices to a stored flag map. Stored keys that are not offered stay.
 	 *
-	 * @param mixed $value Value.
-	 * @return bool
-	 */
-	private static function is_count( $value ) {
-		$value = is_scalar( $value ) ? trim( (string) $value ) : '';
-
-		return '' === $value || ( ctype_digit( $value ) && (int) $value <= self::MAX_OLD_POSTS );
-	}
-
-	/**
-	 * Applies the limits of the free plan (kept from 2.x; see audit finding FI-005).
-	 *
-	 * @param array $settings        Clean settings.
-	 * @param bool  $can_use_premium Whether the premium plan is active.
+	 * @param array    $stored  Stored flag map.
+	 * @param array    $input   Form values.
+	 * @param string   $key     Map name.
+	 * @param string[] $offered Keys shown on the form.
 	 * @return array
 	 */
-	public static function apply_plan_limits( array $settings, $can_use_premium ) {
-		if ( $can_use_premium ) {
-			return $settings;
+	private static function merge_choices( array $stored, array $input, $key, array $offered ) {
+		$checked = self::flag_map( $input, $key, array(), array() );
+
+		foreach ( $offered as $name ) {
+			if ( isset( $checked[ $name ] ) ) {
+				$stored[ $name ] = '1';
+			} else {
+				unset( $stored[ $name ] );
+			}
 		}
 
-		$settings['old_post_number']  = 0;
-		$settings['exclude_category'] = array();
-		$settings['post_type']        = array_intersect_key( $settings['post_type'], array( 'post' => true ) );
-		$settings['post_status']      = array_intersect_key( $settings['post_status'], array( 'publish' => true ) );
+		return $stored;
+	}
 
-		return $settings;
+	/**
+	 * Stored values that the running code does not use, for a short note on the settings screen. They are kept,
+	 * and the premium module uses them again.
+	 *
+	 * @param array $settings Clean settings.
+	 * @return string[] Plain text, one line each; empty when everything stored is used.
+	 */
+	public static function unused( array $settings ) {
+		$lines  = array();
+		$types  = array();
+		$events = array_diff( array_keys( $settings['post_status'] ), array_keys( self::event_choices() ) );
+		$keys   = count( Fast_Index_Accounts::all() ) - count( Fast_Index_Accounts::in_use() );
+
+		foreach ( array_diff( array_keys( $settings['post_type'] ), array_keys( self::post_type_choices() ) ) as $type ) {
+			$object = get_post_type_object( (string) $type );
+
+			if ( $object ) {
+				$types[] = $object->label;
+			}
+		}
+
+		if ( array() !== $types ) {
+			/* translators: %s: list of post type names. */
+			$lines[] = sprintf( __( 'Post types: %s', 'fast-index' ), wp_sprintf( '%l', $types ) );
+		}
+
+		if ( array() !== $events ) {
+			$labels = array(
+				'edit'  => __( 'Edit', 'fast-index' ),
+				'trash' => __( 'Trash', 'fast-index' ),
+			);
+			$names  = array_intersect_key( $labels, array_flip( $events ) );
+			/* translators: %s: list of post event names, such as Edit and Trash. */
+			$lines[] = sprintf( __( 'Post events: %s', 'fast-index' ), wp_sprintf( '%l', array_values( $names ) ) );
+		}
+
+		if ( $settings['old_post_number'] > 0 ) {
+			/* translators: %s: number of old posts per day. */
+			$lines[] = sprintf( __( 'Daily limit for old posts: %s', 'fast-index' ), number_format_i18n( $settings['old_post_number'] ) );
+		}
+
+		if ( array() !== $settings['exclude_category'] ) {
+			/* translators: %s: number of categories. */
+			$lines[] = sprintf( __( 'Excluded categories: %s', 'fast-index' ), number_format_i18n( count( $settings['exclude_category'] ) ) );
+		}
+
+		if ( $keys > 0 ) {
+			/* translators: %s: number of keys. */
+			$lines[] = sprintf( __( 'Service account keys after the first one: %s', 'fast-index' ), number_format_i18n( $keys ) );
+		}
+
+		/**
+		 * Filters the list of stored values that are kept but not used. The premium module uses them all.
+		 *
+		 * @param string[] $lines    Plain text lines.
+		 * @param array    $settings Clean settings.
+		 */
+		$lines = apply_filters( 'fast_index_unused_settings', $lines, $settings );
+
+		return is_array( $lines ) ? array_values( array_map( 'strval', $lines ) ) : array();
 	}
 
 	/**
@@ -242,7 +356,7 @@ class Fast_Index_Settings {
 	}
 
 	/**
-	 * Enabled post types that exist, are viewable and are not the plugin's log type.
+	 * Checked post types that are offered, exist and are viewable.
 	 *
 	 * @param array $settings Clean settings.
 	 * @return string[]
@@ -250,10 +364,10 @@ class Fast_Index_Settings {
 	public static function enabled_post_types( array $settings ) {
 		$types = array();
 
-		foreach ( array_keys( $settings['post_type'] ) as $type ) {
+		foreach ( array_keys( array_intersect_key( $settings['post_type'], self::post_type_choices() ) ) as $type ) {
 			$type = (string) $type;
 
-			if ( Fast_Index_Log::POST_TYPE !== $type && post_type_exists( $type ) && is_post_type_viewable( $type ) ) {
+			if ( is_post_type_viewable( $type ) ) {
 				$types[] = $type;
 			}
 		}
@@ -262,30 +376,13 @@ class Fast_Index_Settings {
 	}
 
 	/**
-	 * Excluded category term IDs.
+	 * Checked post events that are offered.
 	 *
 	 * @param array $settings Clean settings.
-	 * @return int[]
+	 * @return string[]
 	 */
-	public static function excluded_category_ids( array $settings ) {
-		return array_map( 'absint', array_keys( $settings['exclude_category'] ) );
-	}
-
-	/**
-	 * Public post types the user can choose from (attachments excluded).
-	 *
-	 * @return string[] Labels keyed by post type name.
-	 */
-	public static function public_post_types() {
-		$types = array();
-
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $name => $object ) {
-			if ( 'attachment' !== $name ) {
-				$types[ $name ] = $object->label;
-			}
-		}
-
-		return $types;
+	public static function enabled_events( array $settings ) {
+		return array_map( 'strval', array_keys( array_intersect_key( $settings['post_status'], self::event_choices() ) ) );
 	}
 
 	/**
@@ -342,39 +439,6 @@ class Fast_Index_Settings {
 			if ( is_int( $id ) && $id > 0 ) {
 				$map[ $id ] = $id;
 			}
-		}
-
-		return $map;
-	}
-
-	/**
-	 * Keeps only IDs of existing categories.
-	 *
-	 * @param int[] $ids Term ID map.
-	 * @return int[]
-	 */
-	private static function existing_categories( array $ids ) {
-		if ( array() === $ids ) {
-			return array();
-		}
-
-		$found = get_terms(
-			array(
-				'taxonomy'   => 'category',
-				'include'    => array_values( $ids ),
-				'fields'     => 'ids',
-				'hide_empty' => false,
-			)
-		);
-
-		if ( ! is_array( $found ) ) {
-			return array();
-		}
-
-		$map = array();
-
-		foreach ( $found as $id ) {
-			$map[ (int) $id ] = (int) $id;
 		}
 
 		return $map;

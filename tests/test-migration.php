@@ -152,7 +152,7 @@ class Fast_Index_Test_Migration extends Fast_Index_Test_Case {
 		$this->assertSame( '1', get_option( Fast_Index_Notices::KEY_ROTATION_OPTION ) );
 		$this->assertSame( array(), Fast_Index_Notices::issues() );
 		$this->assertFalse( wp_next_scheduled( 'fiDailyCronHook' ) );
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 	}
 
 	/**
@@ -261,13 +261,13 @@ class Fast_Index_Test_Migration extends Fast_Index_Test_Case {
 
 		Fast_Index_Installer::deactivate( false );
 
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		$this->assertFalse( wp_next_scheduled( 'fiDailyCronHook' ) );
 		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( 'https://example.org/a/', 'URL_UPDATED', 1 ) ) );
 		$this->assertCount( 1, Fast_Index_Accounts::all() );
 		$this->assertIsArray( get_option( Fast_Index_Settings::OPTION ) );
 
 		Fast_Index_Installer::activate( false );
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 	}
 }

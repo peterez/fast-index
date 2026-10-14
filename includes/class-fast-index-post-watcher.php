@@ -8,26 +8,23 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Turns post saves and deletions into queued notifications.
+ * Turns published posts into queued notifications.
  *
  * Nothing is sent while the post is saved: the URL goes into a single WP-Cron event,
  * so saving a post never waits for Google.
  *
- * Events:
- * - publish: a post becomes published (URL_UPDATED).
- * - edit:    a published post is saved again (URL_UPDATED).
- * - trash:   a published post is trashed or deleted (URL_DELETED, with the URL it had).
+ * The free version sends one event: publish, a post becomes published (URL_UPDATED). The premium module
+ * watches edits and removals itself and queues them through notify().
  */
 class Fast_Index_Post_Watcher {
 
 	/**
-	 * Registers the post hooks.
+	 * Registers the post hook.
 	 *
 	 * @return void
 	 */
 	public function register_hooks() {
 		add_action( 'wp_after_insert_post', array( $this, 'on_after_insert_post' ), 10, 4 );
-		add_action( 'before_delete_post', array( $this, 'on_before_delete_post' ), 10, 1 );
 	}
 
 	/**
@@ -44,55 +41,11 @@ class Fast_Index_Post_Watcher {
 			return;
 		}
 
-		$before = $update && $post_before instanceof WP_Post ? $post_before : null;
-		$event  = self::event_for( $post, $before );
+		$before = $update && $post_before instanceof WP_Post ? $post_before->post_status : '';
 
-		if ( 'trash' === $event ) {
-			// The trashed post has a "__trashed" slug now; Google must hear about the old URL.
-			$this->maybe_queue( $before, $event );
-			return;
+		if ( 'publish' === $post->post_status && 'publish' !== $before ) {
+			self::notify( $post, 'publish' );
 		}
-
-		if ( '' !== $event ) {
-			$this->maybe_queue( $post, $event );
-		}
-	}
-
-	/**
-	 * Handles before_delete_post: a published post deleted without the trash.
-	 *
-	 * Posts deleted from the trash were already reported when they were trashed.
-	 *
-	 * @param int $post_id Post ID.
-	 * @return void
-	 */
-	public function on_before_delete_post( $post_id ) {
-		$post = get_post( $post_id );
-
-		if ( $post instanceof WP_Post && 'publish' === $post->post_status ) {
-			$this->maybe_queue( $post, 'trash' );
-		}
-	}
-
-	/**
-	 * Names the event of a save.
-	 *
-	 * @param WP_Post      $post   Post after the save.
-	 * @param WP_Post|null $before Post before the save, null for new posts.
-	 * @return string publish, edit, trash or an empty string.
-	 */
-	public static function event_for( WP_Post $post, $before ) {
-		$before_status = $before instanceof WP_Post ? $before->post_status : '';
-
-		if ( 'publish' === $post->post_status ) {
-			return 'publish' === $before_status ? 'edit' : 'publish';
-		}
-
-		if ( 'trash' === $post->post_status && 'publish' === $before_status ) {
-			return 'trash';
-		}
-
-		return '';
 	}
 
 	/**
@@ -104,7 +57,7 @@ class Fast_Index_Post_Watcher {
 	 * @return bool
 	 */
 	public static function should_notify( array $settings, WP_Post $post, $event ) {
-		if ( ! Fast_Index_Settings::is_active( $settings ) || ! isset( $settings['post_status'][ $event ] ) ) {
+		if ( ! Fast_Index_Settings::is_active( $settings ) || ! in_array( $event, Fast_Index_Settings::enabled_events( $settings ), true ) ) {
 			return false;
 		}
 
@@ -112,32 +65,40 @@ class Fast_Index_Post_Watcher {
 			return false;
 		}
 
-		$categories = array_map( 'absint', wp_get_post_categories( $post->ID ) );
-
-		return array() === array_intersect( $categories, Fast_Index_Settings::excluded_category_ids( $settings ) );
+		/**
+		 * Filters whether a post event is sent to Google.
+		 *
+		 * @param bool    $notify   Whether the notification is queued.
+		 * @param WP_Post $post     Post.
+		 * @param string  $event    Event name: publish, edit or trash.
+		 * @param array   $settings Clean settings.
+		 */
+		return (bool) apply_filters( 'fast_index_should_notify', true, $post, $event, $settings );
 	}
 
 	/**
 	 * Queues a notification when the settings allow it.
 	 *
 	 * @param WP_Post $post  Post whose permalink is sent.
-	 * @param string  $event Event name.
-	 * @return void
+	 * @param string  $event Event name: publish, edit or trash. Trash sends URL_DELETED.
+	 * @return bool Whether a notification was queued.
 	 */
-	private function maybe_queue( WP_Post $post, $event ) {
+	public static function notify( WP_Post $post, $event ) {
 		if ( ! self::should_notify( Fast_Index_Settings::get(), $post, $event ) ) {
-			return;
+			return false;
 		}
 
 		$url = get_permalink( $post );
 
 		if ( ! self::is_http_url( $url ) ) {
-			return;
+			return false;
 		}
 
 		$type = 'trash' === $event ? Fast_Index_Google_Client::TYPE_DELETED : Fast_Index_Google_Client::TYPE_UPDATED;
 
 		Fast_Index_Cron::queue_submission( $url, $type, (int) $post->ID );
+
+		return true;
 	}
 
 	/**

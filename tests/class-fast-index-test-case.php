@@ -32,7 +32,15 @@ abstract class Fast_Index_Test_Case extends WP_UnitTestCase {
 	protected $publish_codes = array( 200 );
 
 	/**
-	 * Resets globals touched by the tests.
+	 * The Freemius instance replaced by a test double, restored after the test.
+	 *
+	 * @var object|null
+	 */
+	private $real_freemius = null;
+
+	/**
+	 * Resets globals touched by the tests. Hooks added by the premium module are removed by the parent, which
+	 * restores the hooks of before the test.
 	 *
 	 * @return void
 	 */
@@ -42,7 +50,36 @@ abstract class Fast_Index_Test_Case extends WP_UnitTestCase {
 		$_REQUEST = array();
 		$_FILES   = array();
 
+		if ( null !== $this->real_freemius ) {
+			$GLOBALS['figi_fs']  = $this->real_freemius;
+			$this->real_freemius = null;
+		}
+
 		parent::tear_down();
+	}
+
+	/**
+	 * Replaces the Freemius instance with a test double.
+	 *
+	 * @param bool $licensed Whether a license allows the premium code.
+	 * @return void
+	 */
+	protected function fake_freemius( $licensed ) {
+		if ( null === $this->real_freemius ) {
+			$this->real_freemius = $GLOBALS['figi_fs'];
+		}
+
+		$GLOBALS['figi_fs'] = new Fast_Index_Test_Freemius( $licensed );
+	}
+
+	/**
+	 * Loads the premium module as a valid license would. Its hooks are removed again after the test.
+	 *
+	 * @return void
+	 */
+	protected function with_premium() {
+		$this->fake_freemius( true );
+		$this->assertTrue( Fast_Index_Premium::maybe_boot(), 'The premium module loads with a license.' );
 	}
 
 	/**

@@ -62,10 +62,7 @@
 
     }
 
-    #fi .laBg {
-      padding: 10px; background:#d3ffd4; margin-right: 20px; cursor:pointer;
-    }
-	
+
 	#fi .form-table td {
 	border-bottom: 1px dotted #aca9a9;
 	}
@@ -90,4 +87,35 @@
 	#fi.content-area:lang(ja) {
 		word-break: auto-phrase;
 		line-break: strict;
+	}
+
+	/* Settings kept from the premium plan that this version does not use. */
+	#fi .fi-unused ul {
+		list-style: disc;
+		margin: 0 0 8px;
+		margin-inline-start: 20px;
+	}
+
+	/* The Premium box: plain, below Help & FAQ, on the settings screen only. */
+	#fi .fi-premium-card {
+		margin-top: 24px;
+		padding: 4px 16px 8px;
+		border: 1px solid #dcdcde;
+		background: #fff;
+		border-radius: 3px;
+	}
+
+	#fi .fi-premium-card h2 {
+		color: #1d2327;
+		font-size: 1.15em;
+	}
+
+	#fi .fi-premium-card ul {
+		list-style: disc;
+		margin: 0 0 8px;
+		margin-inline-start: 20px;
+	}
+
+	#fi .fi-key-use {
+		color: #50575e;
 	}

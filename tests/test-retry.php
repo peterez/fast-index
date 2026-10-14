@@ -159,7 +159,7 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 		$this->assertSame( 0, Fast_Index_Log::count_held() );
 		$this->assertFalse( wp_next_scheduled( Fast_Index_Retry::HOOK ) );
 		$this->assertSame( 0, Fast_Index_Log::count_sent() );
-		$this->assertContains( $post['post_id'], Fast_Index_Log::backlog_ids( Fast_Index_Settings::get(), 10 ), 'The post still counts as waiting for the old-post batches.' );
+		$this->assertSame( 1, Fast_Index_Log::count_waiting( Fast_Index_Settings::get() ), 'The post still counts as waiting on the History screen.' );
 
 		// The History screen says why.
 		$this->login_as( 'administrator' );
@@ -172,11 +172,13 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Saving the same post again without a key keeps one not-sent line for its address.
+	 * Premium (Edit event): saving the same post again without a key keeps one not-sent line for its address.
 	 *
 	 * @return void
 	 */
 	public function test_repeated_events_without_key_keep_one_line() {
+		$this->with_premium();
+
 		$post = $this->publish_and_run();
 
 		wp_update_post(
@@ -261,11 +263,14 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Several events of one address while keys rest: one waiting notification, the newest event wins.
+	 * Premium (Edit and Trash events): several events of one address while keys rest: one waiting
+	 * notification, the newest event wins.
 	 *
 	 * @return void
 	 */
 	public function test_same_address_waits_once_and_newest_event_wins() {
+		$this->with_premium();
+
 		update_option(
 			Fast_Index_Settings::OPTION,
 			array(
@@ -509,7 +514,7 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 		$this->publish_and_run();
 		wp_unschedule_hook( Fast_Index_Retry::HOOK );
 
-		( new Fast_Index_Cron() )->run_backlog();
+		( new Fast_Index_Cron() )->run_hourly();
 
 		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Retry::HOOK ) );
 	}

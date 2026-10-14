@@ -44,7 +44,7 @@ class Fast_Index_Test_Multisite extends Fast_Index_Test_Case {
 
 		switch_to_blog( $blog_id );
 		$this->assertSame( FAST_INDEX_DB_VERSION, get_option( Fast_Index_Installer::DB_VERSION_OPTION ) );
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		restore_current_blog();
 	}
 
@@ -63,7 +63,7 @@ class Fast_Index_Test_Multisite extends Fast_Index_Test_Case {
 
 		switch_to_blog( $blog_id );
 		$this->assertSame( FAST_INDEX_DB_VERSION, get_option( Fast_Index_Installer::DB_VERSION_OPTION ) );
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		restore_current_blog();
 	}
 
@@ -101,7 +101,7 @@ class Fast_Index_Test_Multisite extends Fast_Index_Test_Case {
 		foreach ( array( get_main_site_id(), $blog_id ) as $site_id ) {
 			switch_to_blog( $site_id );
 			$this->assertSame( FAST_INDEX_DB_VERSION, get_option( Fast_Index_Installer::DB_VERSION_OPTION ) );
-			$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+			$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 			restore_current_blog();
 		}
 
@@ -112,7 +112,7 @@ class Fast_Index_Test_Multisite extends Fast_Index_Test_Case {
 		Fast_Index_Installer::deactivate( true );
 
 		switch_to_blog( $blog_id );
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		$this->assertIsArray( get_option( Fast_Index_Settings::OPTION ) );
 		restore_current_blog();
 	}

@@ -22,11 +22,20 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( function_exists( 'figi_fs' ) ) {
+	// The free version and the premium package can be installed side by side, and the other one is loaded
+	// already. Tell Freemius which one this file is and stop: activating it makes Freemius deactivate the other.
+	figi_fs()->set_basename( file_exists( __DIR__ . '/includes/premium/class-fast-index-premium.php' ), __FILE__ );
+	return;
+}
+
 define( 'FAST_INDEX_VERSION', '3.0.0' );
 define( 'FAST_INDEX_DB_VERSION', '3.0.0' ); // Data version: raised only when stored data changes.
 define( 'FAST_INDEX_FILE', __FILE__ );
 define( 'FAST_INDEX_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FAST_INDEX_URL', plugin_dir_url( __FILE__ ) );
+// Loader of the premium module. Only the premium package has it; the WordPress.org package leaves includes/premium/ out.
+define( 'FAST_INDEX_PREMIUM_LOADER', FAST_INDEX_PATH . 'includes/premium/class-fast-index-premium.php' );
 
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-settings.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-accounts.php';
@@ -35,7 +44,6 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-key-upload.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-google-client.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-log.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-submitter.php';
-require_once FAST_INDEX_PATH . 'includes/class-fast-index-backlog.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-retry.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-cron.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-post-watcher.php';
@@ -47,12 +55,14 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-help-content.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-help.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin-actions.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-freemius.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-plugin.php';
-require_once FAST_INDEX_PATH . 'freemius-sdk/start.php';
 
+// Declared inside a condition on purpose: PHP declares an unconditional function before the file runs, and the
+// check at the top of this file would then always find it.
 if ( ! function_exists( 'figi_fs' ) ) {
 	/**
-	 * Returns the Freemius SDK instance of this plugin (unchanged from 2.x).
+	 * Returns the Freemius SDK instance of this plugin (the accessor name is unchanged from 2.x).
 	 *
 	 * @return Freemius
 	 */
@@ -65,27 +75,9 @@ if ( ! function_exists( 'figi_fs' ) ) {
 				define( 'WP_FS__PRODUCT_11893_MULTISITE', true );
 			}
 
-			$figi_fs = fs_dynamic_init(
-				array(
-					'id'              => '11893',
-					'slug'            => 'fast-index',
-					'premium_slug'    => 'fast-index',
-					'type'            => 'plugin',
-					'public_key'      => 'pk_4352cecbab080b84df64da3246477',
-					'is_premium'      => true,
-					'is_premium_only' => false,
-					'has_addons'      => false,
-					'has_paid_plans'  => true,
-					'menu'            => array(
-						'slug'       => 'fast-index',
-						'first-path' => 'admin.php?page=fast-index',
-						'contact'    => false,
-						'support'    => true,
-						'account'    => true,
-						'network'    => true,
-					),
-				)
-			);
+			require_once FAST_INDEX_PATH . 'freemius-sdk/start.php';
+
+			$figi_fs = fs_dynamic_init( Fast_Index_Freemius::config( Fast_Index_Freemius::has_premium_package() ) );
 		}
 
 		return $figi_fs;
@@ -93,9 +85,15 @@ if ( ! function_exists( 'figi_fs' ) ) {
 }
 
 figi_fs();
+figi_fs()->add_filter( 'plugin_icon', array( 'Fast_Index_Freemius', 'icon' ) );
 do_action( 'figi_fs_loaded' );
 
 register_activation_hook( FAST_INDEX_FILE, array( 'Fast_Index_Installer', 'activate' ) );
 register_deactivation_hook( FAST_INDEX_FILE, array( 'Fast_Index_Installer', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( new Fast_Index_Plugin(), 'run' ) );
+
+if ( Fast_Index_Freemius::has_premium_package() ) {
+	// Premium package only. The module checks the license itself and stays off without one.
+	require_once FAST_INDEX_PREMIUM_LOADER;
+}

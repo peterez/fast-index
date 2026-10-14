@@ -77,15 +77,21 @@ No, and Fast Index cannot promise it. Google says: "The Indexing API can only be
 
 = Which post types does Fast Index send? =
 
-Every public post type of your site except media attachments can be chosen in the settings: posts, pages and custom types. Only published content is sent; drafts, pending and private posts are not. By default only Posts are checked. In this version, types other than Posts need the premium plan.
+Fast Index sends published content of the post types checked in the settings; drafts, pending and private posts are not sent. The free version offers Posts, which are checked by default.
+
+Pages and custom post types are part of the premium plan, a separate package.
 
 = What happens when I trash or delete a post? =
 
-If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as URL_DELETED with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal. In this version, Edit and Trash need the premium plan.
+If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as URL_DELETED with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal.
+
+Edit and Trash are part of the premium plan, a separate package.
 
 = Can Fast Index send my old posts? =
 
-Yes. Set a daily limit under Daily Limit for Old Posts. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily limit is reached. The limit counts all successful notifications of the last 24 hours. Send Old Posts Now runs one batch immediately, and History shows how many posts are still waiting. Keep the limit within Google's daily quota. In this version, this needs the premium plan.
+Yes. Set a daily limit under Daily Limit for Old Posts. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily limit is reached. The limit counts all successful notifications of the last 24 hours. Send Old Posts Now runs one batch immediately, and History shows how many posts are still waiting. Keep the limit within Google's daily quota.
+
+This setting is part of the premium plan, a separate package.
 
 = How many URLs can I send per day? =
 
@@ -118,6 +124,10 @@ Fast Index does not read language plugins. It sends the address that WordPress g
 = Does Fast Index support Bing or IndexNow? =
 
 No. Fast Index talks only to the Google Indexing API.
+
+= How do I get the premium plan, and how do I install it? =
+
+Open Upgrade in the Fast Index menu, or click Upgrade to Premium on the settings screen, and buy a plan there; Freemius handles the payment. Freemius then emails you the premium package (a .zip file) and a license key; both are also in your account at https://customers.freemius.com/. In WordPress go to Plugins, add a new plugin, click Upload Plugin and choose that .zip file, then activate it and enter the license key when you are asked. If both versions are installed, Freemius deactivates the free one. Your settings, keys and history are kept. The free version from WordPress.org never contains the premium code.
 
 = What is Freemius, and do I have to connect an account? =
 

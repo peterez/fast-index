@@ -52,4 +52,5 @@ tests_add_filter( 'pre_http_request', 'fast_index_tests_block_http', PHP_INT_MAX
 
 require $fast_index_tests_dir . '/includes/bootstrap.php';
 require_once __DIR__ . '/class-fast-index-test-redirect.php';
+require_once __DIR__ . '/class-fast-index-test-freemius.php';
 require_once __DIR__ . '/class-fast-index-test-case.php';

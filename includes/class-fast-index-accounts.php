@@ -12,6 +12,9 @@ defined( 'ABSPATH' ) || exit;
  *
  * Keys are never written to disk. Only the client email and the key ID are ever shown;
  * the private key never leaves this option and the HTTP client.
+ *
+ * The free version sends with one key: the first stored key. Keys stored after it (saved by the premium
+ * module, which keeps several) are kept but not used until the module uses them again.
  */
 class Fast_Index_Accounts {
 
@@ -67,14 +70,39 @@ class Fast_Index_Accounts {
 	}
 
 	/**
-	 * Accounts that are not resting after an error.
+	 * Whether several keys are kept and used. False in the free version: a new key replaces the key in use.
+	 *
+	 * @return bool
+	 */
+	public static function several_keys() {
+		/**
+		 * Filters whether Fast Index keeps and uses several service account keys.
+		 *
+		 * @param bool $several False: one key, the first stored one.
+		 */
+		return (bool) apply_filters( 'fast_index_use_several_keys', false );
+	}
+
+	/**
+	 * Accounts used for sending: every stored account when several keys are used, otherwise the first one.
+	 *
+	 * @return array[]
+	 */
+	public static function in_use() {
+		$accounts = self::all();
+
+		return self::several_keys() ? $accounts : array_slice( $accounts, 0, 1, true );
+	}
+
+	/**
+	 * Accounts in use that are not resting after an error.
 	 *
 	 * @return array[]
 	 */
 	public static function available() {
 		$available = array();
 
-		foreach ( self::all() as $id => $account ) {
+		foreach ( self::in_use() as $id => $account ) {
 			if ( 0 === self::rest_end( $id ) ) {
 				$available[ $id ] = $account;
 			}
@@ -84,7 +112,7 @@ class Fast_Index_Accounts {
 	}
 
 	/**
-	 * When the first stored account can be used again.
+	 * When the first account in use can be used again.
 	 *
 	 * @return int Unix time: now when an account is available, the earliest end of a rest when
 	 *             every account rests, 0 when no account is stored.
@@ -92,7 +120,7 @@ class Fast_Index_Accounts {
 	public static function next_ready_time() {
 		$next = 0;
 
-		foreach ( array_keys( self::all() ) as $id ) {
+		foreach ( array_keys( self::in_use() ) as $id ) {
 			$end = self::rest_end( $id );
 
 			if ( 0 === $end ) {
@@ -166,21 +194,30 @@ class Fast_Index_Accounts {
 	}
 
 	/**
-	 * Replaces every stored account with one account.
+	 * Makes an account the key in use (the first one). The key that was in use is replaced and deleted; other
+	 * stored keys stay where they are. With one stored key this is the 2.x behaviour: a new upload replaces it.
 	 *
 	 * @param array $account Account returned by parse_key_json().
 	 * @return string Account ID.
 	 */
-	public static function replace_all( array $account ) {
-		$id = self::id_for( $account['client_email'] );
+	public static function use_key( array $account ) {
+		$id    = self::id_for( $account['client_email'] );
+		$first = array_key_first( self::all() );
 
-		foreach ( array_keys( self::all() ) as $old_id ) {
-			if ( $old_id !== $id ) {
-				self::delete( $old_id );
-			}
+		if ( null !== $first && $first !== $id ) {
+			self::delete( $first );
 		}
 
-		return self::save( $account );
+		$accounts = self::all();
+
+		if ( isset( $accounts[ $id ] ) ) {
+			Fast_Index_Google_Client::forget_token( $accounts[ $id ] );
+			unset( $accounts[ $id ] );
+		}
+
+		self::store( array( $id => $account ) + $accounts );
+
+		return $id;
 	}
 
 	/**

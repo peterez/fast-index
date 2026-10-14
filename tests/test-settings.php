@@ -78,11 +78,93 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * The form is checked against registered public post types and existing categories.
+	 * FI-043: a site that never saved the settings sends Publish only; Edit is not a default of the free version.
+	 *
+	 * @return void
+	 */
+	public function test_defaults_send_publish_only() {
+		$this->assertSame( array( 'publish' => '1' ), Fast_Index_Settings::defaults()['post_status'] );
+		$this->assertSame( array( 'publish' ), Fast_Index_Settings::enabled_events( Fast_Index_Settings::get() ) );
+		$this->assertSame( array( 'post' ), Fast_Index_Settings::enabled_post_types( Fast_Index_Settings::get() ) );
+		$this->assertSame( array( 'publish' => 'Publish' ), Fast_Index_Settings::event_choices() );
+		$this->assertSame( array( 'post' ), array_keys( Fast_Index_Settings::post_type_choices() ) );
+	}
+
+	/**
+	 * Free version: saving the form changes only what the form shows. Values of the premium plan stay stored,
+	 * are not used, and are listed in the note of the settings screen.
+	 *
+	 * @return void
+	 */
+	public function test_free_save_keeps_premium_values() {
+		$category = self::factory()->category->create();
+
+		update_option(
+			Fast_Index_Settings::OPTION,
+			array(
+				'status'           => '1',
+				'post_type'        => array(
+					'post' => '1',
+					'page' => '1',
+				),
+				'post_status'      => array(
+					'publish' => '1',
+					'edit'    => '1',
+					'trash'   => '1',
+				),
+				'old_post_number'  => 40,
+				'exclude_category' => array( $category => $category ),
+			)
+		);
+
+		$stored = Fast_Index_Settings::get();
+
+		$this->assertSame( array( 'post' ), Fast_Index_Settings::enabled_post_types( $stored ) );
+		$this->assertSame( array( 'publish' ), Fast_Index_Settings::enabled_events( $stored ) );
+		$this->assertCount( 4, Fast_Index_Settings::unused( $stored ) );
+
+		// The free form has Posts and Publish only; the user unchecks Publish and turns on data deletion.
+		$clean = Fast_Index_Settings::sanitize_input(
+			array(
+				'status'          => '2',
+				'post_type'       => array( 'post' => '1' ),
+				'delete_data'     => '1',
+				'old_post_number' => '9',
+			)
+		);
+
+		$this->assertSame( '2', $clean['status'] );
+		$this->assertTrue( $clean['delete_data'] );
+		$this->assertSame(
+			array(
+				'post' => '1',
+				'page' => '1',
+			),
+			$clean['post_type']
+		);
+		$this->assertSame(
+			array(
+				'edit'  => '1',
+				'trash' => '1',
+			),
+			$clean['post_status']
+		);
+		$this->assertSame( 40, $clean['old_post_number'], 'A value the free form does not show is not taken from the request.' );
+		$this->assertSame( array( $category => $category ), $clean['exclude_category'] );
+
+		// With the premium module nothing stored is unused.
+		$this->with_premium();
+		$this->assertSame( array(), Fast_Index_Settings::unused( $stored ) );
+	}
+
+	/**
+	 * Premium: the form is checked against registered public post types and existing categories.
 	 *
 	 * @return void
 	 */
 	public function test_sanitize_input_allowlists_types_and_categories() {
+		$this->with_premium();
+
 		$category = self::factory()->category->create();
 
 		$clean = Fast_Index_Settings::sanitize_input(
@@ -102,8 +184,7 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 					999999    => 999999,
 				),
 				'old_post_number'  => '50',
-			),
-			true
+			)
 		);
 
 		$this->assertSame(
@@ -115,37 +196,31 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 		);
 		$this->assertSame( array( $category => $category ), $clean['exclude_category'] );
 		$this->assertSame( 50, $clean['old_post_number'] );
+		$this->assertSame(
+			array(
+				'edit'  => '1',
+				'trash' => '1',
+			),
+			$clean['post_status']
+		);
 	}
 
 	/**
-	 * The free plan keeps the 2.x limits.
+	 * Premium: sites that never saved the settings keep the 2.x default of Publish and Edit.
 	 *
 	 * @return void
 	 */
-	public function test_free_plan_limits() {
-		$clean = Fast_Index_Settings::apply_plan_limits(
-			array(
-				'status'           => '1',
-				'post_type'        => array(
-					'post' => '1',
-					'page' => '1',
-				),
-				'post_status'      => array(
-					'publish' => '1',
-					'edit'    => '1',
-				),
-				'old_post_number'  => 20,
-				'exclude_category' => array( 3 => 3 ),
-				'delete_data'      => true,
-			),
-			false
-		);
+	public function test_premium_defaults_keep_edit() {
+		$this->with_premium();
 
-		$this->assertSame( array( 'post' => '1' ), $clean['post_type'] );
-		$this->assertSame( array( 'publish' => '1' ), $clean['post_status'] );
-		$this->assertSame( 0, $clean['old_post_number'] );
-		$this->assertSame( array(), $clean['exclude_category'] );
-		$this->assertTrue( $clean['delete_data'] );
+		$this->assertSame(
+			array(
+				'publish' => '1',
+				'edit'    => '1',
+			),
+			Fast_Index_Settings::defaults()['post_status']
+		);
+		$this->assertSame( array( 'publish', 'edit' ), Fast_Index_Settings::enabled_events( Fast_Index_Settings::get() ) );
 	}
 
 	/**
@@ -179,8 +254,11 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 		wp_cache_delete( Fast_Index_Settings::OPTION, 'options' );
 		wp_cache_delete( 'alloptions', 'options' );
 
+		$this->with_premium();
+
 		add_filter( 'query', array( $this, 'record_query' ) );
-		Fast_Index_Log::backlog_ids( Fast_Index_Settings::get(), 5 );
+		Fast_Index_Premium_Backlog::ids( Fast_Index_Settings::get(), 5 );
+		Fast_Index_Premium_Backlog::count_waiting( Fast_Index_Settings::get() );
 		Fast_Index_Log::count_waiting( Fast_Index_Settings::get() );
 		remove_filter( 'query', array( $this, 'record_query' ) );
 
@@ -191,11 +269,13 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * One placeholder is generated per post type and per excluded term.
+	 * Premium: one placeholder is generated per post type and per excluded term.
 	 *
 	 * @return void
 	 */
 	public function test_backlog_sql_lists_every_value() {
+		$this->with_premium();
+
 		$category = self::factory()->category->create();
 		$term     = get_term( $category, 'category' );
 
@@ -210,7 +290,7 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 		);
 
 		add_filter( 'query', array( $this, 'record_query' ) );
-		Fast_Index_Log::backlog_ids( $settings, 3 );
+		Fast_Index_Premium_Backlog::ids( $settings, 3 );
 		remove_filter( 'query', array( $this, 'record_query' ) );
 
 		$sql = end( $this->queries );
@@ -221,11 +301,13 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * The backlog skips sent posts, excluded categories and other post types.
+	 * Premium: the backlog skips sent posts, excluded categories and other post types; History counts the same.
 	 *
 	 * @return void
 	 */
 	public function test_backlog_selects_unsent_posts() {
+		$this->with_premium();
+
 		$excluded = self::factory()->category->create();
 		$sent     = self::factory()->post->create();
 		$fresh    = self::factory()->post->create();
@@ -243,14 +325,16 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 			)
 		);
 
-		$ids = Fast_Index_Log::backlog_ids( $settings, 10 );
+		$ids = Fast_Index_Premium_Backlog::ids( $settings, 10 );
 
 		$this->assertContains( $fresh, $ids );
 		$this->assertContains( $failed, $ids, 'A failed submission must be retried.' );
 		$this->assertNotContains( $sent, $ids );
 		$this->assertNotContains( $skipped, $ids );
 		$this->assertNotContains( $page, $ids );
-		$this->assertSame( count( $ids ), Fast_Index_Log::count_waiting( $settings ) );
+		$this->assertSame( count( $ids ), Fast_Index_Premium_Backlog::count_waiting( $settings ) );
+		$this->assertSame( count( $ids ), Fast_Index_Log::stats( $settings )['waiting'], 'History counts what the batches can send.' );
+		$this->assertSame( count( $ids ) + 1, Fast_Index_Log::count_waiting( $settings ), 'Without the module no category is left out.' );
 	}
 
 	/**
@@ -282,11 +366,13 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 	 * @return void
 	 */
 	public function test_backlog_batch_size() {
-		$this->assertSame( 0, Fast_Index_Backlog::batch_size( 0, 0 ) );
-		$this->assertSame( 0, Fast_Index_Backlog::batch_size( 10, 10 ) );
+		$this->with_premium();
+
+		$this->assertSame( 0, Fast_Index_Premium_Backlog::batch_size( 0, 0 ) );
+		$this->assertSame( 0, Fast_Index_Premium_Backlog::batch_size( 10, 10 ) );
 
 		for ( $i = 0; $i < 20; $i++ ) {
-			$size = Fast_Index_Backlog::batch_size( 30, 28 );
+			$size = Fast_Index_Premium_Backlog::batch_size( 30, 28 );
 			$this->assertGreaterThanOrEqual( 0, $size );
 			$this->assertLessThanOrEqual( 2, $size );
 		}

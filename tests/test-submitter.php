@@ -49,11 +49,13 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * A quota error rests the account and the next account sends the URL.
+	 * Premium: a quota error rests the account and the next account sends the URL.
 	 *
 	 * @return void
 	 */
 	public function test_quota_error_moves_to_next_account() {
+		$this->with_premium();
+
 		$first  = $this->add_account( 'one@example-project.iam.gserviceaccount.com', 'one' );
 		$second = $this->add_account( 'two@example-project.iam.gserviceaccount.com', 'two' );
 
@@ -79,11 +81,13 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * When every account is out of quota the 429 is logged and the accounts rest.
+	 * Premium: when every account is out of quota the 429 is logged and the accounts rest.
 	 *
 	 * @return void
 	 */
 	public function test_quota_error_on_every_account_is_logged() {
+		$this->with_premium();
+
 		$this->add_account( 'one@example-project.iam.gserviceaccount.com', 'one' );
 		$this->add_account( 'two@example-project.iam.gserviceaccount.com', 'two' );
 
@@ -103,15 +107,17 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 
 		// Both accounts rest for six hours: the next URL is not attempted.
 		$this->assertSame( Fast_Index_Submitter::RESTING, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED', $post ) );
-		$this->assertContains( $post, Fast_Index_Log::backlog_ids( Fast_Index_Settings::get(), 10 ) );
+		$this->assertContains( $post, Fast_Index_Premium_Backlog::ids( Fast_Index_Settings::get(), 10 ) );
 	}
 
 	/**
-	 * A Google outage stops the attempt without resting accounts.
+	 * Premium: a Google outage stops the attempt without resting accounts.
 	 *
 	 * @return void
 	 */
 	public function test_server_error_does_not_rest_accounts() {
+		$this->with_premium();
+
 		$this->add_account( 'one@example-project.iam.gserviceaccount.com', 'one' );
 		$this->add_account( 'two@example-project.iam.gserviceaccount.com', 'two' );
 
@@ -144,11 +150,36 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Trashing a published post queues URL_DELETED with the URL it had before.
+	 * Free version, several stored keys: only the first key is tried; a 429 on it pauses it and the other keys
+	 * are not used.
+	 *
+	 * @return void
+	 */
+	public function test_free_version_sends_with_the_first_key_only() {
+		$first = $this->add_account( 'one@example-project.iam.gserviceaccount.com', 'one' );
+		$this->add_account( 'two@example-project.iam.gserviceaccount.com', 'two' );
+
+		$this->publish_codes = array( 429, 200 );
+		$this->fake_google();
+
+		$submitter = new Fast_Index_Submitter();
+
+		$this->assertSame( array( $first ), array_keys( Fast_Index_Accounts::in_use() ) );
+		$this->assertSame( 429, $submitter->submit( 'https://example.org/a/', 'URL_UPDATED' ) );
+		$this->assertCount( 1, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
+		$this->assertSame( array( $first => 429 ), Fast_Index_Accounts::statuses() );
+		$this->assertSame( Fast_Index_Submitter::RESTING, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED' ) );
+		$this->assertCount( 2, Fast_Index_Accounts::all(), 'The second key is kept.' );
+	}
+
+	/**
+	 * Premium: trashing a published post queues URL_DELETED with the URL it had before.
 	 *
 	 * @return void
 	 */
 	public function test_trash_queues_deleted_with_old_url() {
+		$this->with_premium();
+
 		update_option(
 			Fast_Index_Settings::OPTION,
 			array(
@@ -172,11 +203,13 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Passive status, disabled events, other post types and excluded categories queue nothing.
+	 * Premium: passive status, disabled events, other post types and excluded categories queue nothing.
 	 *
 	 * @return void
 	 */
 	public function test_settings_prevent_queueing() {
+		$this->with_premium();
+
 		$category = self::factory()->category->create();
 
 		update_option(

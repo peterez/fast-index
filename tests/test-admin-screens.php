@@ -13,7 +13,7 @@ class Fast_Index_Test_Admin_Screens extends Fast_Index_Test_Case {
 	/**
 	 * Renders a screen and returns its HTML.
 	 *
-	 * @param string $screen settings, history or run.
+	 * @param string $screen settings, history or run (the premium "Send Old Posts Now" screen).
 	 * @return string
 	 */
 	private static function render( $screen ) {
@@ -26,7 +26,7 @@ class Fast_Index_Test_Admin_Screens extends Fast_Index_Test_Case {
 		} elseif ( 'history' === $screen ) {
 			$admin->render_history();
 		} else {
-			$admin->render_run();
+			Fast_Index_Premium_Backlog::render();
 		}
 
 		return (string) ob_get_clean();
@@ -56,6 +56,7 @@ class Fast_Index_Test_Admin_Screens extends Fast_Index_Test_Case {
 	 * @return void
 	 */
 	public function test_screens_require_capability() {
+		$this->with_premium();
 		$this->login_as( 'editor' );
 
 		foreach ( array( 'settings', 'history', 'run' ) as $screen ) {
@@ -91,11 +92,12 @@ class Fast_Index_Test_Admin_Screens extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Invalid settings are rejected with a message and nothing is saved.
+	 * Premium: invalid settings are rejected with a message and nothing is saved.
 	 *
 	 * @return void
 	 */
 	public function test_invalid_settings_are_rejected() {
+		$this->with_premium();
 		$this->catch_redirects();
 		$this->login_as( 'administrator' );
 		update_option( Fast_Index_Settings::OPTION, Fast_Index_Settings::defaults() );

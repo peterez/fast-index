@@ -272,6 +272,15 @@ class Fast_Index_Log {
 			'today'   => self::count_sent_since( time() - DAY_IN_SECONDS ),
 		);
 
+		/**
+		 * Filters the History counters before they are cached.
+		 *
+		 * @param int[] $stats    Keys: sent, waiting, today.
+		 * @param array $settings Clean settings.
+		 */
+		$filtered = apply_filters( 'fast_index_history_stats', $stats, $settings );
+		$stats    = is_array( $filtered ) ? array_map( 'intval', array_merge( $stats, array_intersect_key( $filtered, $stats ) ) ) : $stats;
+
 		set_transient( self::STATS_TRANSIENT, $stats, 10 * MINUTE_IN_SECONDS );
 
 		return $stats;
@@ -326,44 +335,7 @@ class Fast_Index_Log {
 	}
 
 	/**
-	 * IDs of published posts that were never sent successfully, newest first.
-	 *
-	 * @param array $settings Clean settings.
-	 * @param int   $limit    Maximum number of IDs.
-	 * @return int[]
-	 */
-	public static function backlog_ids( array $settings, $limit ) {
-		global $wpdb;
-
-		$types = Fast_Index_Settings::enabled_post_types( $settings );
-		$terms = self::excluded_term_taxonomy_ids( $settings );
-		$limit = absint( $limit );
-
-		if ( array() === $types || 0 === $limit ) {
-			return array();
-		}
-
-		$values = array_merge( $types, array( self::POST_TYPE, self::STATUS_SENT ), $terms, array( $limit ) );
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- NOT EXISTS over the log has no WP_Query equivalent; runs in cron or after an admin action, every value is a placeholder.
-		$ids = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT p.ID FROM {$wpdb->posts} AS p
-				WHERE p.post_status = 'publish'
-				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
-				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
-				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )
-				ORDER BY p.ID DESC
-				LIMIT %d',
-				$values
-			)
-		);
-
-		return array_map( 'absint', (array) $ids );
-	}
-
-	/**
-	 * Number of published posts that were never sent successfully.
+	 * Number of published posts of the enabled types that were never sent successfully.
 	 *
 	 * @param array $settings Clean settings.
 	 * @return int
@@ -372,22 +344,20 @@ class Fast_Index_Log {
 		global $wpdb;
 
 		$types = Fast_Index_Settings::enabled_post_types( $settings );
-		$terms = self::excluded_term_taxonomy_ids( $settings );
 
 		if ( array() === $types ) {
 			return 0;
 		}
 
-		$values = array_merge( $types, array( self::POST_TYPE, self::STATUS_SENT ), $terms );
+		$values = array_merge( $types, array( self::POST_TYPE, self::STATUS_SENT ) );
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Same query as backlog_ids(); the result is cached by stats().
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- NOT EXISTS over the log has no WP_Query equivalent; the result is cached by stats(), every value is a placeholder.
 		$count = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT COUNT(*) FROM {$wpdb->posts} AS p
 				WHERE p.post_status = 'publish'
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
-				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
-				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )',
+				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )",
 				$values
 			)
 		);
@@ -464,25 +434,5 @@ class Fast_Index_Log {
 			'type'      => '' === $type ? Fast_Index_Google_Client::TYPE_UPDATED : (string) $type,
 			'retry'     => '' !== get_post_meta( $post->ID, self::META_RETRY, true ),
 		);
-	}
-
-	/**
-	 * Term taxonomy IDs of the excluded categories. Holds 0 when none, so the IN list is never empty.
-	 *
-	 * @param array $settings Clean settings.
-	 * @return int[]
-	 */
-	private static function excluded_term_taxonomy_ids( array $settings ) {
-		$ids = array();
-
-		foreach ( Fast_Index_Settings::excluded_category_ids( $settings ) as $term_id ) {
-			$term = get_term( $term_id, 'category' );
-
-			if ( $term instanceof WP_Term ) {
-				$ids[] = (int) $term->term_taxonomy_id;
-			}
-		}
-
-		return array() === $ids ? array( 0 ) : $ids;
 	}
 }

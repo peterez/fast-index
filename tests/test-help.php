@@ -223,15 +223,16 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Every plugin screen gets a help tab that links to the Help & FAQ page.
+	 * Every plugin screen gets a help tab that links to the Help & FAQ page, the premium screen too.
 	 *
 	 * @return void
 	 */
 	public function test_help_tabs_on_every_screen() {
+		$this->with_premium();
 		$this->login_as( 'administrator' );
 		( new Fast_Index_Admin() )->add_menu();
 
-		foreach ( array( Fast_Index_Admin::SLUG, Fast_Index_Admin::SLUG_HISTORY, Fast_Index_Admin::SLUG_RUN, Fast_Index_Help::SLUG ) as $slug ) {
+		foreach ( array( Fast_Index_Admin::SLUG, Fast_Index_Admin::SLUG_HISTORY, Fast_Index_Premium_Backlog::PAGE_SLUG, Fast_Index_Help::SLUG ) as $slug ) {
 			$hook = get_plugin_page_hookname( $slug, Fast_Index_Admin::SLUG );
 			set_current_screen( $hook );
 
@@ -265,25 +266,53 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * The settings screen has no frame, links to the help page and describes every field.
+	 * The settings screen has no frame, links to the help page and describes every field it shows: the free
+	 * fields without the premium module, the premium fields too with it.
 	 *
 	 * @return void
 	 */
 	public function test_settings_screen_links_to_help_and_describes_fields() {
 		$this->login_as( 'administrator' );
 
-		ob_start();
-		( new Fast_Index_Admin() )->render_settings();
-		$html = (string) ob_get_clean();
+		$html = self::render_settings();
 
 		$this->assertStringNotContainsString( '<iframe', $html );
 		$this->assertStringContainsString( 'page=fast-index-help', $html );
-		$this->assertGreaterThanOrEqual( 7, substr_count( $html, '<p class="description">' ) );
+		$this->assertGreaterThanOrEqual( 5, substr_count( $html, '<p class="description">' ) );
 
-		foreach ( array( 'status', 'post_type', 'old_post_number', 'post_status', 'exclude_category', 'delete_data' ) as $field ) {
+		foreach ( array( 'status', 'post_type', 'delete_data' ) as $field ) {
 			$this->assertNotSame( '', Fast_Index_Help_Content::field_description( $field ), $field );
 			$this->assertStringContainsString( esc_html( Fast_Index_Help_Content::field_description( $field ) ), $html, $field );
 		}
+
+		$this->assertStringContainsString( esc_html( Fast_Index_Help_Content::event_description( 'publish' ) ), $html );
+
+		foreach ( array( 'old_post_number', 'exclude_category' ) as $field ) {
+			$this->assertStringNotContainsString( esc_html( Fast_Index_Help_Content::field_description( $field ) ), $html, $field );
+		}
+
+		$this->with_premium();
+		$html = self::render_settings();
+
+		foreach ( array( 'status', 'post_type', 'old_post_number', 'exclude_category', 'delete_data' ) as $field ) {
+			$this->assertStringContainsString( esc_html( Fast_Index_Help_Content::field_description( $field ) ), $html, $field );
+		}
+
+		foreach ( array( 'publish', 'edit', 'trash' ) as $event ) {
+			$this->assertStringContainsString( esc_html( Fast_Index_Help_Content::event_description( $event ) ), $html, $event );
+		}
+	}
+
+	/**
+	 * Renders the settings screen.
+	 *
+	 * @return string
+	 */
+	private static function render_settings() {
+		ob_start();
+		( new Fast_Index_Admin() )->render_settings();
+
+		return (string) ob_get_clean();
 	}
 
 	/**
@@ -304,28 +333,36 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * The premium plan sentence is its own paragraph, never joined to the description with a space.
+	 * The premium plan is never mentioned under a field of the settings screen (only in the Premium box). In Help
+	 * & FAQ its sentence is a paragraph of its own, never joined to another sentence with a space.
 	 *
 	 * @return void
 	 */
 	public function test_premium_sentence_is_a_separate_paragraph() {
-		foreach ( array( 'post_type', 'old_post_number', 'post_status', 'exclude_category' ) as $field ) {
-			$this->assertStringNotContainsString( 'In this version', Fast_Index_Help_Content::field_description( $field ), $field );
-			$this->assertSame(
-				array( Fast_Index_Help_Content::field_description( $field ), Fast_Index_Help_Content::premium_note( $field ) ),
-				Fast_Index_Help_Content::field_notes( $field ),
-				$field
-			);
+		foreach ( array( 'status', 'post_type', 'old_post_number', 'post_status', 'exclude_category', 'delete_data' ) as $field ) {
+			$this->assertSame( array( Fast_Index_Help_Content::field_description( $field ) ), Fast_Index_Help_Content::field_notes( $field ), $field );
+			$this->assertStringNotContainsString( 'premium', Fast_Index_Help_Content::field_description( $field ), $field );
 		}
 
-		$this->assertSame( array( Fast_Index_Help_Content::field_description( 'status' ) ), Fast_Index_Help_Content::field_notes( 'status' ) );
+		foreach ( array( 'post_type', 'old_post_number', 'post_status', 'exclude_category', 'service_account' ) as $field ) {
+			$this->assertStringContainsString( 'premium plan, a separate package', Fast_Index_Help_Content::premium_note( $field ), $field );
+		}
 
 		foreach ( Fast_Index_Help_Content::settings() as $setting ) {
 			$this->assertStringNotContainsString( 'In this version', wp_strip_all_tags( $setting['what'] ), $setting['id'] );
+			$this->assertSame( Fast_Index_Help_Content::premium_note( $setting['id'] ), isset( $setting['note'] ) ? $setting['note'] : '', $setting['id'] );
 		}
 
 		foreach ( Fast_Index_Help_Content::faq() as $item ) {
-			$this->assertStringNotContainsString( '. In this version', wp_strip_all_tags( $item['answer'] ), $item['id'] );
+			$this->assertStringNotContainsString( 'In this version', wp_strip_all_tags( $item['answer'] ), $item['id'] );
+
+			foreach ( array( 'post_type', 'post_status', 'old_post_number' ) as $field ) {
+				$note = esc_html( Fast_Index_Help_Content::premium_note( $field ) );
+
+				if ( false !== strpos( $item['answer'], $note ) ) {
+					$this->assertStringContainsString( '</p><p>' . $note, $item['answer'], $item['id'] );
+				}
+			}
 		}
 	}
 

@@ -49,7 +49,7 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 		$this->assertNotNull( get_post( $log_id ) );
 
 		$this->assertFalse( get_transient( 'fast_index_token_test' ) );
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		$this->assertFalse( wp_next_scheduled( 'fiDailyCronHook' ) );
 	}
 
@@ -71,7 +71,7 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 		$this->assertNull( get_post( $log_id ) );
 		$this->assertSame( '', get_post_meta( $log_id, Fast_Index_Log::META_CODE, true ) );
 		$this->assertFalse( get_transient( 'fast_index_token_test' ) );
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 
 		switch_to_blog( $keep );
 		$this->assertIsArray( get_option( Fast_Index_Settings::OPTION ) );
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		restore_current_blog();
 
 		switch_to_blog( $delete );

@@ -50,11 +50,12 @@ class Fast_Index_Plugin {
 	}
 
 	/**
-	 * Whether the Freemius premium plan is active. Kept from 2.x until the decision on FI-005.
+	 * Whether the premium module is loaded. The module fires fast_index_premium_loaded once it has added its
+	 * hooks; it checks the license itself. No license is checked here.
 	 *
 	 * @return bool
 	 */
-	public static function can_use_premium() {
-		return function_exists( 'figi_fs' ) && figi_fs()->can_use_premium_code();
+	public static function premium_loaded() {
+		return did_action( 'fast_index_premium_loaded' ) > 0;
 	}
 }

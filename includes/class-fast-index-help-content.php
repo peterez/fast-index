@@ -71,6 +71,11 @@ class Fast_Index_Help_Content {
 	const URL_SUPPORT = 'https://wordpress.org/support/plugin/fast-index/';
 
 	/**
+	 * Freemius customer portal: purchases, downloads and license keys.
+	 */
+	const URL_FREEMIUS_ACCOUNT = 'https://customers.freemius.com/';
+
+	/**
 	 * Section IDs and their titles, in page order. The IDs are the anchors of the page.
 	 *
 	 * @return string[] Title by section key.
@@ -240,7 +245,7 @@ class Fast_Index_Help_Content {
 				'id'      => 'status',
 				'name'    => __( 'Status', 'fast-index' ),
 				'short'   => self::field_description( 'status' ),
-				'what'    => esc_html__( 'Active: Fast Index sends notifications when posts change, and sends old posts if you asked for that. Passive: nothing is sent. A post saved while Passive is not queued for later.', 'fast-index' ),
+				'what'    => esc_html__( 'Active: Fast Index sends the notifications chosen on the settings screen. Passive: nothing is sent. A post saved while Passive is not queued for later.', 'fast-index' ),
 				'default' => __( 'Active', 'fast-index' ),
 				'when'    => esc_html__( 'Switch to Passive before a bulk import or a large edit, so that hundreds of addresses do not use up Google\'s daily quota. Your keys and history are kept.', 'fast-index' ),
 			),
@@ -248,7 +253,7 @@ class Fast_Index_Help_Content {
 				'id'      => 'post_type',
 				'name'    => __( 'Post Types', 'fast-index' ),
 				'short'   => self::field_description( 'post_type' ),
-				'what'    => esc_html__( 'Lists every public post type of the site (posts, pages and custom types) except media attachments. Only the checked types are sent. At least one type is required.', 'fast-index' ),
+				'what'    => esc_html__( 'Only the checked post types are sent, and at least one is required. The free version offers Posts; media attachments are never offered.', 'fast-index' ),
 				'note'    => self::premium_note( 'post_type' ),
 				'default' => __( 'Posts', 'fast-index' ),
 				'when'    => esc_html__( 'Check another type when its pages should be sent too, for example a custom post type that holds job postings or live videos.', 'fast-index' ),
@@ -268,7 +273,7 @@ class Fast_Index_Help_Content {
 				'short'   => self::field_description( 'post_status' ),
 				'what'    => esc_html__( 'Publish: a post becomes published. Edit: a post that is already published is saved again. Trash: a published post is moved to the trash or deleted, and Google is told that the address was removed. Changing a published post back to draft or private is not sent.', 'fast-index' ),
 				'note'    => self::premium_note( 'post_status' ),
-				'default' => __( 'Publish and Edit. The free plan keeps only Publish once you save the settings.', 'fast-index' ),
+				'default' => __( 'Publish. With the premium plan: Publish and Edit.', 'fast-index' ),
 				'when'    => esc_html__( 'Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal.', 'fast-index' ),
 			),
 			array(
@@ -301,15 +306,34 @@ class Fast_Index_Help_Content {
 	}
 
 	/**
-	 * Sentences printed under a field of the settings screen, one paragraph each: the description and, when the
-	 * option needs the premium plan, that note. Separate paragraphs, so no language gets a space between
-	 * sentences that it does not write (Japanese).
+	 * Sentences printed under a field of the settings screen, one paragraph each, so no language gets a space
+	 * between sentences that it does not write (Japanese). The premium plan is described only in the Premium box
+	 * of the settings screen and in Help & FAQ, never under a field.
 	 *
 	 * @param string $field Field name, as for field_description().
 	 * @return string[] Plain text.
 	 */
 	public static function field_notes( $field ) {
-		return array_values( array_filter( array( self::field_description( $field ), self::premium_note( $field ) ) ) );
+		return array_values( array_filter( array( self::field_description( $field ) ) ) );
+	}
+
+	/**
+	 * Description of one post event, printed under the event checkboxes.
+	 *
+	 * @param string $event publish, edit or trash.
+	 * @return string Plain text; empty for an unknown event.
+	 */
+	public static function event_description( $event ) {
+		switch ( $event ) {
+			case 'publish':
+				return __( 'Publish: a post is published.', 'fast-index' );
+			case 'edit':
+				return __( 'Edit: a published post is saved again.', 'fast-index' );
+			case 'trash':
+				return __( 'Trash: a published post is moved to the trash or deleted.', 'fast-index' );
+			default:
+				return '';
+		}
 	}
 
 	/**
@@ -338,23 +362,23 @@ class Fast_Index_Help_Content {
 	}
 
 	/**
-	 * The sentence that says an option needs the premium plan. One place, so it can change with the plan decision.
+	 * The sentence of Help & FAQ that says which part of an option comes with the premium plan. The premium plan
+	 * is a separate package: the free version does not contain its code, and nothing in it is locked.
 	 *
 	 * @param string $field Field name.
-	 * @return string Plain text; empty when the option is free.
+	 * @return string Plain text; empty when the whole option is in the free version.
 	 */
 	public static function premium_note( $field ) {
 		switch ( $field ) {
 			case 'post_type':
-				return __( 'In this version, types other than Posts need the premium plan.', 'fast-index' );
-			case 'old_post_number':
-				return __( 'In this version, this needs the premium plan.', 'fast-index' );
+				return __( 'Pages and custom post types are part of the premium plan, a separate package.', 'fast-index' );
 			case 'post_status':
-				return __( 'In this version, Edit and Trash need the premium plan.', 'fast-index' );
+				return __( 'Edit and Trash are part of the premium plan, a separate package.', 'fast-index' );
+			case 'old_post_number':
 			case 'exclude_category':
-				return __( 'In this version, this needs the premium plan.', 'fast-index' );
+				return __( 'This setting is part of the premium plan, a separate package.', 'fast-index' );
 			case 'service_account':
-				return __( 'In this version, the free plan keeps one key (a new upload replaces it); the premium plan keeps several.', 'fast-index' );
+				return __( 'The free version uses one key, and a new upload replaces it. Several keys are part of the premium plan, a separate package.', 'fast-index' );
 			default:
 				return '';
 		}
@@ -393,7 +417,7 @@ class Fast_Index_Help_Content {
 				),
 				'fix'     => sprintf(
 					/* translators: %s: link to Google's quota page. */
-					__( 'Wait: Fast Index pauses the key for six hours and tries your other keys meanwhile. Lower the daily limit for old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on the %s; Google notes that quota may increase or decrease based on document quality.', 'fast-index' ),
+					__( 'Wait: Fast Index pauses the key for six hours. If the premium plan keeps several keys, the others are tried meanwhile. Lower the daily limit for old posts if you use it, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on the %s; Google notes that quota may increase or decrease based on document quality.', 'fast-index' ),
 					self::ext( self::URL_QUOTA, __( 'quota page', 'fast-index' ) )
 				),
 			),
@@ -431,7 +455,7 @@ class Fast_Index_Help_Content {
 					esc_html( Fast_Index_Admin::retry_note() ),
 					esc_html( number_format_i18n( Fast_Index_Retry::MAX ) )
 				),
-				'fix'     => esc_html__( 'Upload a key on the settings screen. For a paused key, read the entry for its code above. A post that Google has not accepted yet counts as Total Waiting on the History screen: save it again to send it, or turn on old-post sending so that the hourly batches pick it up.', 'fast-index' ),
+				'fix'     => esc_html__( 'Upload a key on the settings screen. For a paused key, read the entry for its code above. A post that Google has not accepted yet counts as Total Waiting on the History screen: save it again to send it. With the premium plan, the hourly batches of old posts can pick it up too.', 'fast-index' ),
 			),
 			array(
 				'id'      => 'wp-cron',
@@ -477,10 +501,10 @@ class Fast_Index_Help_Content {
 				'fix'     => esc_html__( 'Open Fast Index on each site and upload a key there. The same key file may be used on several sites. Their notifications then share the quota of the key\'s Google Cloud project.', 'fast-index' ),
 			),
 			array(
-				'id'      => 'locked',
-				'symptom' => __( 'An option is locked, or asks me to upgrade to the premium plan', 'fast-index' ),
-				'cause'   => esc_html__( 'In this version, some options need the premium plan. Settings explained says which ones. Fast Index uses Freemius for the plan.', 'fast-index' ),
-				'fix'     => esc_html__( 'Use the free options, or see the FAQ entry about Freemius.', 'fast-index' ),
+				'id'      => 'premium-options',
+				'symptom' => __( 'The settings screen has no option for pages, edits, old posts or categories', 'fast-index' ),
+				'cause'   => esc_html__( 'These options are part of the premium plan, which is a separate package. The free version from WordPress.org does not contain their code, so nothing on the screen is locked; the options are simply not there. Settings explained says which options belong to the premium plan.', 'fast-index' ),
+				'fix'     => esc_html__( 'Read the Premium box on the settings screen and the FAQ entry about the premium plan. If you bought the plan, install the premium package as that entry describes.', 'fast-index' ),
 			),
 		);
 	}
@@ -516,7 +540,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'       => 'post-types',
 				'question' => __( 'Which post types does Fast Index send?', 'fast-index' ),
-				'answer'   => esc_html__( 'Every public post type of your site except media attachments can be chosen in the settings: posts, pages and custom types. Only published content is sent; drafts, pending and private posts are not. By default only Posts are checked.', 'fast-index' ) . '</p><p>' . esc_html( self::premium_note( 'post_type' ) ),
+				'answer'   => esc_html__( 'Fast Index sends published content of the post types checked in the settings; drafts, pending and private posts are not sent. The free version offers Posts, which are checked by default.', 'fast-index' ) . '</p><p>' . esc_html( self::premium_note( 'post_type' ) ),
 			),
 			array(
 				'id'       => 'deleted-posts',
@@ -589,6 +613,17 @@ class Fast_Index_Help_Content {
 				'id'       => 'indexnow',
 				'question' => __( 'Does Fast Index support Bing or IndexNow?', 'fast-index' ),
 				'answer'   => esc_html__( 'No. Fast Index talks only to the Google Indexing API.', 'fast-index' ),
+			),
+			array(
+				'id'       => 'premium',
+				'question' => __( 'How do I get the premium plan, and how do I install it?', 'fast-index' ),
+				'answer'   => sprintf(
+					/* translators: 1: menu entry "Upgrade", 2: button "Upgrade to Premium", 3: link to the Freemius customer portal. */
+					__( 'Open %1$s in the Fast Index menu, or click %2$s on the settings screen, and buy a plan there; Freemius handles the payment. Freemius then emails you the premium package (a .zip file) and a license key; both are also in your account at %3$s. In WordPress go to Plugins, add a new plugin, click Upload Plugin and choose that .zip file, then activate it and enter the license key when you are asked. If both versions are installed, Freemius deactivates the free one. Your settings, keys and history are kept. The free version from WordPress.org never contains the premium code.', 'fast-index' ),
+					self::strong( __( 'Upgrade', 'fast-index' ) ),
+					self::strong( __( 'Upgrade to Premium', 'fast-index' ) ),
+					self::ext( self::URL_FREEMIUS_ACCOUNT, 'customers.freemius.com' )
+				),
 			),
 			array(
 				'id'       => 'freemius',

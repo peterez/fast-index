@@ -11,7 +11,9 @@ defined( 'ABSPATH' ) || exit;
  * Registers, schedules and runs the plugin's WP-Cron events.
  *
  * - fast_index_submit_url: one queued notification (single event, queued on post save).
- * - fast_index_process_backlog: hourly batch of old posts (the "daily old content" setting).
+ * - fast_index_process_backlog: hourly upkeep. Checks the notifications that wait for a key, then fires the
+ *   fast_index_hourly action (the premium module sends its batch of old posts there). The event name is the
+ *   one of the 2.x old-post batch, so existing schedules keep working.
  * - fast_index_retry: notifications that wait for a resting key (single event, Fast_Index_Retry).
  */
 class Fast_Index_Cron {
@@ -22,9 +24,9 @@ class Fast_Index_Cron {
 	const SUBMIT_HOOK = 'fast_index_submit_url';
 
 	/**
-	 * Recurring event that sends a batch of old posts.
+	 * Recurring hourly event.
 	 */
-	const BACKLOG_HOOK = 'fast_index_process_backlog';
+	const HOURLY_HOOK = 'fast_index_process_backlog';
 
 	/**
 	 * Recurring event of version 2.x (every ten minutes). Removed on upgrade.
@@ -32,9 +34,9 @@ class Fast_Index_Cron {
 	const LEGACY_HOOK = 'fiDailyCronHook';
 
 	/**
-	 * Recurrence of the backlog event (core schedule).
+	 * Recurrence of the hourly event (core schedule).
 	 */
-	const BACKLOG_RECURRENCE = 'hourly';
+	const HOURLY_RECURRENCE = 'hourly';
 
 	/**
 	 * Connects the events to their handlers. Runs on every request; never schedules.
@@ -43,19 +45,19 @@ class Fast_Index_Cron {
 	 */
 	public function register_hooks() {
 		add_action( self::SUBMIT_HOOK, array( $this, 'run_submit' ), 10, 3 );
-		add_action( self::BACKLOG_HOOK, array( $this, 'run_backlog' ) );
+		add_action( self::HOURLY_HOOK, array( $this, 'run_hourly' ) );
 		add_action( Fast_Index_Retry::HOOK, array( 'Fast_Index_Retry', 'run' ) );
 	}
 
 	/**
-	 * Schedules the recurring backlog event once, and the notifications that were waiting for a key
+	 * Schedules the recurring hourly event once, and the notifications that were waiting for a key
 	 * when the plugin was deactivated. Called on activation and upgrade.
 	 *
 	 * @return void
 	 */
 	public static function schedule() {
-		if ( ! wp_next_scheduled( self::BACKLOG_HOOK ) ) {
-			wp_schedule_event( time() + 5 * MINUTE_IN_SECONDS, self::BACKLOG_RECURRENCE, self::BACKLOG_HOOK );
+		if ( ! wp_next_scheduled( self::HOURLY_HOOK ) ) {
+			wp_schedule_event( time() + 5 * MINUTE_IN_SECONDS, self::HOURLY_RECURRENCE, self::HOURLY_HOOK );
 		}
 
 		Fast_Index_Retry::resume();
@@ -68,7 +70,7 @@ class Fast_Index_Cron {
 	 */
 	public static function unschedule() {
 		wp_unschedule_hook( self::SUBMIT_HOOK );
-		wp_unschedule_hook( self::BACKLOG_HOOK );
+		wp_unschedule_hook( self::HOURLY_HOOK );
 		wp_unschedule_hook( Fast_Index_Retry::HOOK );
 		wp_unschedule_hook( self::LEGACY_HOOK );
 	}
@@ -103,12 +105,16 @@ class Fast_Index_Cron {
 	}
 
 	/**
-	 * Hourly run: checks the notifications waiting for a key, then sends one batch of old posts.
+	 * Hourly run: checks the notifications waiting for a key, then lets extensions do their hourly work.
 	 *
 	 * @return void
 	 */
-	public function run_backlog() {
+	public function run_hourly() {
 		Fast_Index_Retry::maintain();
-		Fast_Index_Backlog::run();
+
+		/**
+		 * Fires once an hour, after the notifications that wait for a key were checked.
+		 */
+		do_action( 'fast_index_hourly' );
 	}
 }

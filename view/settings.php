@@ -10,13 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $fast_index_settings = $fast_index_view['settings'];
-$fast_index_premium  = $fast_index_view['premium'];
 $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
-$fast_index_events   = array(
-	'publish' => __( 'Publish', 'fast-index' ),
-	'edit'    => __( 'Edit', 'fast-index' ),
-	'trash'   => __( 'Trash', 'fast-index' ),
-);
 ?>
 <div id="fi" class="content-area">
 
@@ -31,6 +25,17 @@ $fast_index_events   = array(
 		<div class="pw50">
 
 			<h1 class="title"><?php echo esc_html_x( 'Settings', 'Heading of the Fast Index settings screen', 'fast-index' ); ?></h1>
+
+			<?php if ( array() !== $fast_index_view['unused'] ) : ?>
+				<div class="notice notice-info inline fi-unused">
+					<p><?php esc_html_e( 'Some of your settings belong to the premium plan. They are kept, but this version does not use them. They are used again when the premium package is installed and its license is active.', 'fast-index' ); ?></p>
+					<ul>
+						<?php foreach ( $fast_index_view['unused'] as $fast_index_line ) : ?>
+							<li><?php echo esc_html( $fast_index_line ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			<?php endif; ?>
 
 			<div class="form">
 
@@ -63,12 +68,9 @@ $fast_index_events   = array(
 								<small><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></small>
 							</td>
 							<td>
-								<?php
-								foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) :
-									$fast_index_locked = ! $fast_index_premium && 'post' !== $fast_index_name;
-									?>
-									<label class="<?php echo esc_attr( $fast_index_locked ? 'fast-index-choice licenceAlert' : 'fast-index-choice' ); ?>">
-										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_type][' . $fast_index_name . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_type'][ $fast_index_name ] ) ); ?> <?php echo $fast_index_locked ? 'readonly' : ''; ?> />
+								<?php foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) : ?>
+									<label class="fast-index-choice">
+										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_type][' . $fast_index_name . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_type'][ $fast_index_name ] ) ); ?> />
 										<?php echo esc_html( $fast_index_label ); ?>
 									</label>
 								<?php endforeach; ?>
@@ -80,62 +82,31 @@ $fast_index_events   = array(
 
 						<tr>
 							<td scope="row">
-								<label for="fast-index-old-posts"><b><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></b></label> <br>
-								<small><?php esc_html_e( 'Number of old posts to send per day.', 'fast-index' ); ?></small>
-							</td>
-							<td>
-								<?php if ( $fast_index_premium ) : ?>
-									<input id="fast-index-old-posts" class="regular-text" type="number" min="0" max="<?php echo esc_attr( Fast_Index_Settings::MAX_OLD_POSTS ); ?>" name="fast_index_options[old_post_number]" value="<?php echo esc_attr( $fast_index_settings['old_post_number'] ); ?>" />
-								<?php else : ?>
-									<input id="fast-index-old-posts" class="regular-text licenceAlert" type="text" value="0" readonly disabled />
-								<?php endif; ?>
-								<?php foreach ( Fast_Index_Help_Content::field_notes( 'old_post_number' ) as $fast_index_note ) : ?>
-									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
-								<?php endforeach; ?>
-							</td>
-						</tr>
-
-						<tr>
-							<td scope="row">
 								<b><?php esc_html_e( 'Post Events', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Notify Google when a post is published, edited or trashed.', 'fast-index' ); ?></small>
+								<small><?php esc_html_e( 'Choose when Google is notified.', 'fast-index' ); ?></small>
 							</td>
 							<td>
-								<?php
-								foreach ( $fast_index_events as $fast_index_event => $fast_index_label ) :
-									$fast_index_locked = ! $fast_index_premium && 'publish' !== $fast_index_event;
-									?>
-									<label class="<?php echo esc_attr( $fast_index_locked ? 'fast-index-choice licenceAlert' : 'fast-index-choice' ); ?>">
-										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_status][' . $fast_index_event . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_status'][ $fast_index_event ] ) ); ?> <?php echo $fast_index_locked ? 'readonly' : ''; ?> />
+								<?php foreach ( $fast_index_view['events'] as $fast_index_event => $fast_index_label ) : ?>
+									<label class="fast-index-choice">
+										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_status][' . $fast_index_event . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_status'][ $fast_index_event ] ) ); ?> />
 										<?php echo esc_html( $fast_index_label ); ?>
 									</label>
 								<?php endforeach; ?>
-								<?php foreach ( Fast_Index_Help_Content::field_notes( 'post_status' ) as $fast_index_note ) : ?>
-									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php foreach ( array_keys( $fast_index_view['events'] ) as $fast_index_event ) : ?>
+									<p class="description"><?php echo esc_html( Fast_Index_Help_Content::event_description( $fast_index_event ) ); ?></p>
 								<?php endforeach; ?>
 							</td>
 						</tr>
 
-						<tr>
-							<td scope="row" colspan="2">
-								<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Select the categories to exclude.', 'fast-index' ); ?></small>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<?php foreach ( $fast_index_view['categories'] as $fast_index_category ) : ?>
-									<label class="<?php echo esc_attr( $fast_index_premium ? 'fast-index-choice' : 'fast-index-choice licenceAlert' ); ?>">
-										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[exclude_category][' . $fast_index_category->term_id . ']' ); ?>" value="<?php echo esc_attr( $fast_index_category->term_id ); ?>" <?php checked( isset( $fast_index_settings['exclude_category'][ (int) $fast_index_category->term_id ] ) ); ?> <?php echo $fast_index_premium ? '' : 'readonly'; ?> />
-										<?php echo esc_html( $fast_index_category->name ); ?>
-									</label>
-								<?php endforeach; ?>
-								<?php foreach ( Fast_Index_Help_Content::field_notes( 'exclude_category' ) as $fast_index_note ) : ?>
-									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
-								<?php endforeach; ?>
-							</td>
-						</tr>
+						<?php
+						/**
+						 * Fires inside the settings form table, before the "Delete data on uninstall" row. Print whole
+						 * table rows; field names go under fast_index_options[...].
+						 *
+						 * @param array $settings Clean settings.
+						 */
+						do_action( 'fast_index_settings_rows', $fast_index_settings );
+						?>
 
 						<tr>
 							<td scope="row">
@@ -188,6 +159,9 @@ $fast_index_events   = array(
 									</small>
 								</td>
 								<td class="insideTd">
+									<?php if ( ! $fast_index_view['several_keys'] && count( $fast_index_view['accounts'] ) > 1 ) : ?>
+										<small class="fi-key-use"><?php echo esc_html( $fast_index_account['in_use'] ? __( 'Used for sending', 'fast-index' ) : __( 'Kept, not used by this version', 'fast-index' ) ); ?></small><br>
+									<?php endif; ?>
 									<bdi dir="auto"><?php echo esc_html( null === $fast_index_account['status'] ? __( 'Not used yet', 'fast-index' ) : Fast_Index_Admin::status_label( $fast_index_account['status'] ) ); ?></bdi>
 									<form method="post" class="fast-index-inline-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 										<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::DELETE ); ?>" />
@@ -210,22 +184,13 @@ $fast_index_events   = array(
 						<tr>
 							<td scope="row"><label for="fast-index-key-files"><b><?php esc_html_e( 'JSON Key File', 'fast-index' ); ?></b></label></td>
 							<td>
-								<input id="fast-index-key-files" class="jsonFileUpload" type="file" accept=".json,application/json" name="fast_index_key_files[]" <?php echo $fast_index_premium ? 'multiple' : ''; ?> />
+								<input id="fast-index-key-files" class="jsonFileUpload" type="file" accept=".json,application/json" name="fast_index_key_files[]" <?php echo $fast_index_view['several_keys'] ? 'multiple' : ''; ?> />
 								<p class="description"><?php esc_html_e( 'The key file is read and stored in the database; it is not saved in the uploads folder. Only the email address and the key ID are shown here.', 'fast-index' ); ?></p>
+								<?php if ( ! $fast_index_view['several_keys'] ) : ?>
+									<p class="description"><?php esc_html_e( 'A new key replaces the key that is used for sending.', 'fast-index' ); ?></p>
+								<?php endif; ?>
 							</td>
 						</tr>
-
-						<?php if ( ! $fast_index_premium ) : ?>
-							<tr>
-								<td colspan="2">
-									<div class="licenceAlert laBg">
-										<?php echo esc_html( Fast_Index_Help_Content::premium_note( 'service_account' ) ); ?>
-										<br>
-										<b><?php esc_html_e( 'Upgrade to Premium', 'fast-index' ); ?></b>
-									</div>
-								</td>
-							</tr>
-						<?php endif; ?>
 
 						<tr>
 							<td scope="row">&nbsp;</td>
@@ -257,6 +222,21 @@ $fast_index_events   = array(
 				</ul>
 				<p class="description"><?php esc_html_e( 'Fast Index sends your addresses to the Google Indexing API. A 200 answer means Google accepted the notification; Google does not promise to index the page.', 'fast-index' ); ?></p>
 			</div>
+
+			<?php if ( null !== $fast_index_view['premium_card'] ) : ?>
+				<div class="fi-premium-card">
+					<h2><?php echo esc_html_x( 'Premium', 'Heading of the box about the premium plan', 'fast-index' ); ?></h2>
+					<p><?php esc_html_e( 'The premium plan is a separate package. It adds:', 'fast-index' ); ?></p>
+					<ul>
+						<?php foreach ( $fast_index_view['premium_card']['features'] as $fast_index_feature ) : ?>
+							<li><?php echo esc_html( $fast_index_feature ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+					<?php if ( '' !== $fast_index_view['premium_card']['url'] ) : ?>
+						<p><a class="button" href="<?php echo esc_url( $fast_index_view['premium_card']['url'] ); ?>"><?php esc_html_e( 'Upgrade to Premium', 'fast-index' ); ?></a></p>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
 
 		</div>
 
