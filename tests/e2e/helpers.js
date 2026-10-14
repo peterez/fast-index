@@ -2,6 +2,8 @@
  * Helpers shared by the Fast Index end-to-end specs (local QA only).
  */
 const crypto = require( 'crypto' );
+const fs = require( 'fs' );
+const path = require( 'path' );
 const { execFileSync } = require( 'child_process' );
 
 const SITE_URL = process.env.WP_URL;
@@ -62,4 +64,55 @@ function serviceAccountFile( email, keyId ) {
 	return { privateKey, buffer: Buffer.from( JSON.stringify( body ) ) };
 }
 
-module.exports = { wp, serviceAccountFile, SITE_URL, IS_MULTISITE };
+/**
+ * Reads languages/fast-index-<locale>.po into a map of source string to translation.
+ *
+ * Only what the i18n spec needs: single-line and wrapped strings, \n \t \" \\ escapes, no plurals or contexts
+ * (the plugin has none). Entries with an empty translation are left out.
+ *
+ * @param {string} locale Locale, for example de_DE.
+ * @return {Map<string,string>} Source string => translation.
+ */
+function readPo( locale ) {
+	const file = path.join( __dirname, '..', '..', 'languages', 'fast-index-' + locale + '.po' );
+	const unescape = ( text ) => text.replace( /\\(n|t|"|\\)/g, ( m, c ) => ( { n: '\n', t: '\t', '"': '"', '\\': '\\' }[ c ] ) );
+	const map = new Map();
+	let id = null;
+	let str = null;
+	let field = null;
+	const flush = () => {
+		if ( id !== null && str !== null && '' !== id && '' !== str ) {
+			map.set( id, str );
+		}
+		id = null;
+		str = null;
+		field = null;
+	};
+	for ( const line of fs.readFileSync( file, 'utf8' ).split( '\n' ) ) {
+		let m = line.match( /^msgid "(.*)"$/ );
+		if ( m ) {
+			flush();
+			id = unescape( m[ 1 ] );
+			field = 'id';
+			continue;
+		}
+		m = line.match( /^msgstr "(.*)"$/ );
+		if ( m ) {
+			str = unescape( m[ 1 ] );
+			field = 'str';
+			continue;
+		}
+		m = line.match( /^"(.*)"$/ );
+		if ( m && 'id' === field ) {
+			id += unescape( m[ 1 ] );
+		} else if ( m && 'str' === field ) {
+			str += unescape( m[ 1 ] );
+		} else if ( '' === line.trim() ) {
+			flush();
+		}
+	}
+	flush();
+	return map;
+}
+
+module.exports = { wp, serviceAccountFile, readPo, SITE_URL, IS_MULTISITE };

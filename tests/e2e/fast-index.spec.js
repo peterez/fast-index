@@ -20,7 +20,7 @@ test.describe( 'Fast Index admin', () => {
 	} );
 
 	test( 'every plugin screen opens', async ( { page } ) => {
-		// Language-neutral checks: the sites run in English, Turkish and Arabic.
+		// Language-neutral checks: the sites run in English, Turkish and Arabic (wording lives in i18n.spec.js).
 		for ( const [ path, marker ] of [
 			[ SETTINGS, '#fast-index-status' ],
 			[ HISTORY, '#fi nav .pagination' ],
@@ -41,7 +41,7 @@ test.describe( 'Fast Index admin', () => {
 		await page.check( '#fast-index-delete-data' );
 		await page.click( '.settingsForm input[type="submit"]' );
 
-		await expect( page.locator( '.notice-success' ) ).toContainText( 'Settings saved.' );
+		await expect( page.locator( '.notice-success' ) ).toHaveCount( 1 );
 
 		await page.reload();
 		await expect( page.locator( '#fast-index-status' ) ).toHaveValue( '2' );
@@ -51,7 +51,7 @@ test.describe( 'Fast Index admin', () => {
 		await page.selectOption( '#fast-index-status', '1' );
 		await page.uncheck( '#fast-index-delete-data' );
 		await page.click( '.settingsForm input[type="submit"]' );
-		await expect( page.locator( '.notice-success' ) ).toContainText( 'Settings saved.' );
+		await expect( page.locator( '.notice-success' ) ).toHaveCount( 1 );
 		await expect( page.locator( '#fast-index-status' ) ).toHaveValue( '1' );
 	} );
 
@@ -61,7 +61,7 @@ test.describe( 'Fast Index admin', () => {
 		await page.uncheck( 'input[name="fast_index_options[post_type][post]"]' );
 		await page.click( '.settingsForm input[type="submit"]' );
 
-		await expect( page.locator( '.notice-error' ) ).toContainText( 'Select at least one post type.' );
+		await expect( page.locator( '.notice-error' ) ).toHaveCount( 1 );
 		// Nothing was saved.
 		await expect( page.locator( '#fast-index-status' ) ).toHaveValue( '1' );
 		await expect( page.locator( 'input[name="fast_index_options[post_type][post]"]' ) ).toBeChecked();
@@ -72,7 +72,8 @@ test.describe( 'Fast Index admin', () => {
 			buffer: Buffer.from( '{"type":"authorized_user"}' ),
 		} );
 		await page.click( 'form[enctype="multipart/form-data"] input[type="submit"]' );
-		await expect( page.locator( '.notice-error' ) ).toContainText( 'not a Google service account key' );
+		await expect( page.locator( '.notice-error' ) ).toHaveCount( 1 );
+		await expect( page.locator( '.notice-error' ) ).toContainText( 'not-a-key.json' );
 	} );
 
 	test( 'key upload shows only the client email and the key ID', async ( { page } ) => {
@@ -127,7 +128,8 @@ test.describe( 'Fast Index admin', () => {
 		for ( const path of [ admin( '' ), SETTINGS ] ) {
 			await page.goto( path );
 			const notice = page.locator( '.fast-index-notice' );
-			await expect( notice ).toContainText( 'publicly accessible folder' );
+			await expect( notice ).toHaveCount( 1 );
+			await expect( notice ).toContainText( 'Fast Index' );
 			await expect( notice.locator( 'a[href*="action=fast_index_dismiss_notice"]' ) ).toBeVisible();
 			await expect( notice.locator( '.notice-dismiss' ) ).toBeVisible();
 		}
