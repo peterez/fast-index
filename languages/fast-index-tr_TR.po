@@ -1,287 +1,1280 @@
+# Turkish translation of Fast Index.
+# Copyright (C) 2026 Samet AKIN
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Fast Index\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-20 13:02+0000\n"
-"PO-Revision-Date: 2023-02-20 13:12+0000\n"
-"Last-Translator: \n"
-"Language-Team: Türkçe\n"
+"Project-Id-Version: Fast Index 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
+"POT-Creation-Date: 2026-10-14T15:24:17+00:00\n"
+"PO-Revision-Date: 2026-10-14 15:47+0000\n"
+"Last-Translator: Fast Index project\n"
+"Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.3; wp-6.1.1\n"
-"X-Domain: fast-index"
+"X-Generator: Fast Index translation build\n"
+"X-Domain: fast-index\n"
 
-#: view/settings.php:295
-msgid ""
-"1 Google account can create minimum 12 google cloud projects. Every google "
-"cloud project can enable Indexing API Service and every services has 200 "
-"daily limit. It's means you can send 2400 url to google. If you do same "
-"steps with your another google account you will get more 2400 limit and you "
-"4800 url to google daily"
-msgstr ""
-"1 Google hesabı en az 12 google cloud projesi oluşturabilir. Her google "
-"cloud projesi, Indexing API Hizmetini etkinleştirebilir ve her hizmetin "
-"günlük 200 sınırı vardır. Bu, google'a 2400 url gönderebileceğiniz anlamına "
-"gelir. Aynı adımları başka bir google hesabınızla yaparsanız daha fazla "
-"gönderim hakkı kazanırsınız."
+#. Plugin Name of the plugin
+#: index.php
+#: includes/class-fast-index-admin.php:70
+msgid "Fast Index"
+msgstr "Fast Index"
 
 #. Description of the plugin
-msgid "<strong>Fast Index</strong> on google"
-msgstr "Google'da <strong>Hızlı İndex</strong> al"
-
-#: view/settings.php:301
-msgid "Add as owner on your webmaster tools"
-msgstr "Web yöneticisi araçlarınıza SAHİP olarak ekleyin"
-
-#: view/settings.php:225 view/settings.php:228
-msgid "Choose Json File/s"
-msgstr "Json Dosya/larını Seç"
-
-#: view/settings.php:299
-msgid "Create Project and Select"
-msgstr "Proje Oluştur ve Seç"
-
-#: view/settings.php:300
-msgid ""
-"Create Service Account and make authorized you created email on service "
-"account"
-msgstr ""
-"Hizmet Hesabı oluşturun ve oluşturduğunuz e-postayı hizmet hesabında "
-"yetkilendirin"
-
-#: view/settings.php:280
-msgid "Daily Old Content Post"
-msgstr "Günlük Eski İçerik Gönderisi"
-
-#: view/settings.php:146
-msgid "Daily Old Content Post?"
-msgstr "Günlük Eski İçerik Gönderisi?"
-
-#: view/history.php:35
-msgid "Date"
-msgstr "Tarih"
-
-#: view/settings.php:278
-msgid ""
-"Define the when you make post action which one post types will send to "
-"google. If you add new post type or added from plugin it will be shown in "
-"here"
-msgstr ""
-"Gönderi işlemini yaptığınızda hangi gönderi türlerinin google'a "
-"gönderileceğini tanımlayın. Yeni gönderi türü eklerseniz veya eklentiden "
-"eklerseniz, burada gösterilecektir."
-
-#: view/settings.php:209
-msgid "Delete"
-msgstr "Sil"
-
-#. Name of the plugin
-msgid "Fast Index"
-msgstr "Hızlı İndex"
-
-#: view/settings.php:298
-msgid "Go Link"
-msgstr "Linke Git"
-
-#: view/history.php:52
-msgid "GO POST"
-msgstr "İçeriğe Git"
-
-#: view/settings.php:302
-msgid ""
-"Go your wordpress admin dashboard and open Fast Index settings page and "
-"upload your service account JSON"
-msgstr ""
-"WordPress yönetici kontrol panelinize gidin ve Hızlı Dizin ayarları "
-"sayfasını açın ve hizmet hesabınızı JSON yükleyin"
-
-#: view/settings.php:264
-msgid "Guideline"
-msgstr "Yönerge"
-
-#: view/history.php:27
-msgid "History"
-msgstr "Geçmiş"
-
-#: view/settings.php:147
-msgid "How many old contents should be sent per day?"
-msgstr "Günde kaç tane eski içerik gönderilmeli?"
-
-#: view/settings.php:289
-msgid "How work wordpress Cron Job ( Daily Old Content Post )?"
-msgstr "Wordpress Cron Job (Günlük Eski İçerik Gönderisi) nasıl çalışır?"
-
-#. Author URI of the plugin
-msgid "https://www.linkedin.com/in/samet-akin/"
-msgstr "https://www.linkedin.com/in/samet-akin/"
-
-#: view/settings.php:277
-msgid "If you don't use set as passive"
-msgstr "Pasif olarak tanımlarsanız eklentiyi kullanamazsınız"
-
-#: view/settings.php:280
-msgid ""
-"If you wanna sent to google your old posts type the your daily limit. Every "
-"service account has daily 200 limit and you have to split your limits daily "
-"new post and old posts"
-msgstr ""
-"Eski gönderilerinizi google'a göndermek istiyorsanız günlük limitinizi yazın."
-" Her hizmet hesabının günlük 200 limiti vardır ve limitlerinizi günlük yeni "
-"gönderi ve eski gönderiler olarak bölmeniz gerekir."
-
-#: view/settings.php:105
-msgid "Important choice for the plugin work"
-msgstr "Eklentinin çalışması için önemli bir ayar"
-
-#: view/settings.php:285
-msgid "Is it legal?"
-msgstr "Yasal mı?"
-
-#: view/settings.php:271
-msgid ""
-"It means that the service account you have installed is not authorized or "
-"authorized as 'owner' in your webmaster tools account"
-msgstr ""
-"Bu, yüklediğiniz hizmet hesabının web yöneticisi araçları hesabınızda "
-"'sahip' olarak yetkilendirilmediği veya yetkilendirilmediği anlamına gelir."
-
-#: view/settings.php:281
-msgid "It's means which post status trigger the this plugin"
-msgstr "Bu, hangi gönderi durumunun bu eklentiyi tetiklediği anlamına gelir"
-
-#: view/settings.php:269
-msgid "It's means working and ready"
-msgstr "Çalışıyor ve hazır demektir."
-
-#: view/settings.php:293
-msgid "Mass Service Account creating and upload"
-msgstr "Toplu Hizmet Hesabı oluşturma ve yükleme"
-
-#: view/settings.php:272
-msgid ""
-"Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, "
-"check your webmaster tools owners"
-msgstr ""
-"Not : 200 veya 429 görürseniz hiçbir şey yapmayın. 401 veya 4xx kodları "
-"görürseniz, web yöneticisi araçlarınızın sahiplerini kontrol edin"
-
-#: view/history.php:51
-msgid "OK"
-msgstr "Tamam"
-
-#: view/history.php:37
-msgid "Post"
-msgstr "İçerik"
-
-#: view/settings.php:158 view/settings.php:281
-msgid "Post Status"
-msgstr "İçerik Durumu"
-
-#: view/settings.php:119 view/settings.php:278
-msgid "Post Types"
-msgstr "İçerik Tipi"
+#: index.php
+msgid "Sends new, updated and deleted posts to the Google Indexing API so Google can crawl them sooner."
+msgstr "Yeni, güncellenen ve silinen yazıları Google Indexing API'ye bildirir; böylece Google bunları daha erken tarayabilir."
 
 #. Author of the plugin
+#: index.php
 msgid "Samet AKIN"
 msgstr "Samet AKIN"
 
-#: view/settings.php:244
-msgid "Save"
-msgstr "Kaydet"
+#. Author URI of the plugin
+#: index.php
+msgid "https://www.linkedin.com/in/samet-akin/"
+msgstr "https://www.linkedin.com/in/samet-akin/"
 
-#: view/settings.php:120
-msgid "Select minimum one option"
-msgstr "En az bir seçenek seçin"
+#: includes/class-fast-index-accounts.php:222
+#: includes/class-fast-index-key-upload.php:70
+msgid "The file is empty or too large to be a service account key."
+msgstr "Dosya boş ya da bir hizmet hesabı anahtarı olamayacak kadar büyük."
 
-#: view/history.php:36
-msgid "Send Status"
-msgstr "Gönderi Durumu"
+#: includes/class-fast-index-accounts.php:228
+msgid "The file is not valid JSON."
+msgstr "Dosya geçerli bir JSON değil."
 
-#: view/history.php:11
-msgid "Sent Today"
-msgstr "Bugün Gönderilen"
+#: includes/class-fast-index-accounts.php:232
+msgid "The file is not a Google service account key."
+msgstr "Dosya bir Google hizmet hesabı anahtarı değil."
 
-#: view/settings.php:93 view/settings.php:275
+#: includes/class-fast-index-accounts.php:238
+msgid "The key does not contain a valid client email."
+msgstr "Anahtarda geçerli bir istemci e-posta adresi yok."
+
+#: includes/class-fast-index-accounts.php:244
+msgid "The key does not contain a valid private key."
+msgstr "Anahtarda geçerli bir özel anahtar yok."
+
+#: includes/class-fast-index-admin-actions.php:86
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: includes/class-fast-index-admin-actions.php:111
+#: includes/class-fast-index-key-upload.php:66
+msgid "Choose a .json key file."
+msgstr "Bir .json anahtar dosyası seçin."
+
+#: includes/class-fast-index-admin-actions.php:137
+msgid "The service account key was deleted."
+msgstr "Hizmet hesabı anahtarı silindi."
+
+#: includes/class-fast-index-admin-actions.php:139
+msgid "The service account key was not found."
+msgstr "Hizmet hesabı anahtarı bulunamadı."
+
+#. translators: 1: uploaded file name, 2: reason the file was rejected.
+#: includes/class-fast-index-admin-actions.php:198
+#, php-format
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#. translators: %s: service account email.
+#: includes/class-fast-index-admin-actions.php:209
+#, php-format
+msgid "The key of %s was saved."
+msgstr "%s anahtarı kaydedildi."
+
+#: includes/class-fast-index-admin-actions.php:218
+msgid "Sorry, you are not allowed to do that."
+msgstr "Bunu yapma izniniz yok."
+
+#: includes/class-fast-index-admin.php:71
+#: includes/class-fast-index-help-content.php:210
+#: view/history.php:41
+msgid "History"
+msgstr "Geçmiş"
+
+#: includes/class-fast-index-admin.php:72
+#: view/run.php:14
+msgid "Send Old Posts Now"
+msgstr "Eski yazıları şimdi gönder"
+
+#: includes/class-fast-index-admin.php:73
+#: includes/class-fast-index-help-content.php:603
+#: view/help.php:16
+#: view/settings.php:234
+msgid "Help & FAQ"
+msgstr "Yardım ve SSS"
+
+#: includes/class-fast-index-admin.php:114
+#: view/settings.php:212
+msgid "Please upgrade to premium"
+msgstr "Premium'a geçin"
+
+#: includes/class-fast-index-admin.php:240
+msgid "No service account available"
+msgstr "Kullanılabilir hizmet hesabı yok"
+
+#: includes/class-fast-index-admin.php:244
+msgid "OpenSSL is missing"
+msgstr "OpenSSL eksik"
+
+#: includes/class-fast-index-admin.php:248
+msgid "No answer from Google"
+msgstr "Google'dan yanıt gelmedi"
+
+#: includes/class-fast-index-admin.php:252
+#: includes/class-fast-index-help-content.php:211
+msgid "OK"
+msgstr "Tamam"
+
+#: includes/class-fast-index-admin.php:286
+#: includes/class-fast-index-help.php:110
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Bu sayfaya erişme izniniz yok."
+
+#: includes/class-fast-index-google-client.php:121
+msgid "Unknown notification type."
+msgstr "Bilinmeyen bildirim türü."
+
+#: includes/class-fast-index-google-client.php:192
+#: includes/class-fast-index-google-client.php:341
+msgid "Google sent an unexpected response."
+msgstr "Google beklenmeyen bir yanıt gönderdi."
+
+#: includes/class-fast-index-google-client.php:236
+msgid "The private key of the service account could not be read."
+msgstr "Hizmet hesabının özel anahtarı okunamadı."
+
+#: includes/class-fast-index-google-client.php:242
+msgid "The request to Google could not be signed."
+msgstr "Google'a giden istek imzalanamadı."
+
+#: includes/class-fast-index-google-client.php:254
+msgid "The PHP OpenSSL extension is not available, so requests to Google cannot be signed. Ask your hosting provider to enable OpenSSL for PHP."
+msgstr "PHP OpenSSL eklentisi kullanılamıyor; bu yüzden Google'a giden istekler imzalanamıyor. Barındırma sağlayıcınızdan PHP için OpenSSL'i etkinleştirmesini isteyin."
+
+#: includes/class-fast-index-google-client.php:329
+msgid "Could not connect to Google."
+msgstr "Google'a bağlanılamadı."
+
+#. translators: %d: HTTP status code returned by Google.
+#: includes/class-fast-index-google-client.php:367
+#, php-format
+msgid "Google answered with HTTP status %d."
+msgstr "Google, %d HTTP durum koduyla yanıt verdi."
+
+#: includes/class-fast-index-help-content.php:80
+msgid "Getting started"
+msgstr "Başlarken"
+
+#: includes/class-fast-index-help-content.php:81
+msgid "Settings explained"
+msgstr "Ayarların açıklaması"
+
+#: includes/class-fast-index-help-content.php:82
+msgid "Troubleshooting"
+msgstr "Sorun giderme"
+
+#: includes/class-fast-index-help-content.php:83
+msgid "FAQ"
+msgstr "SSS"
+
+#: includes/class-fast-index-help-content.php:84
+msgid "Still need help?"
+msgstr "Hâlâ yardıma mı ihtiyacınız var?"
+
+#. translators: 1: quoted sentence from Google's documentation, 2: link to that documentation.
+#: includes/class-fast-index-help-content.php:117
+#, php-format
+msgid "Please read this first. Google says: %1$s For other pages, Google may accept a notification, but nothing in its documentation promises that the page will be crawled or indexed sooner. See the FAQ and Google's documentation: %2$s."
+msgstr "Önce bunu okuyun. Google şöyle diyor: %1$s Diğer sayfalar için Google bildirimi kabul edebilir, ancak belgelerinde sayfanın daha erken taranacağına ya da dizine ekleneceğine dair bir söz yoktur. SSS bölümüne ve Google'ın belgelerine bakın: %2$s."
+
+#: includes/class-fast-index-help-content.php:118
+#: includes/class-fast-index-help-content.php:461
+msgid "\"The Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject.\""
+msgstr "“Indexing API yalnızca JobPosting ya da VideoObject içine gömülü BroadcastEvent içeren sayfaları taramak için kullanılabilir.”"
+
+#: includes/class-fast-index-help-content.php:119
+msgid "Indexing API quickstart"
+msgstr "Indexing API hızlı başlangıç"
+
+#: includes/class-fast-index-help-content.php:129
+msgid "Fast Index tells the Google Indexing API when a post is published, changed or removed. For this, Google needs a service account that you create once in Google Cloud. The steps below follow Google's own instructions."
+msgstr "Fast Index, bir yazı yayımlandığında, değiştirildiğinde ya da kaldırıldığında bunu Google Indexing API'ye bildirir. Bunun için Google'ın Google Cloud'da bir kez oluşturacağınız bir hizmet hesabına ihtiyacı vardır. Aşağıdaki adımlar Google'ın kendi yönergelerini izler."
+
+#: includes/class-fast-index-help-content.php:140
+msgid "Create a Google Cloud project and turn on the API"
+msgstr "Bir Google Cloud projesi oluşturun ve API'yi açın"
+
+#. translators: 1: link to the Google Cloud console, 2: name of the API, 3: link to Google's prerequisites page.
+#: includes/class-fast-index-help-content.php:143
+#, php-format
+msgid "Open the %1$s and select or create a project. Then enable the %2$s for that project (Google's documentation calls it the Indexing API). Google also offers a setup tool that creates a project and enables the API in one step; it is linked from %3$s."
+msgstr "%1$s sayfasında bir proje seçin veya oluşturun. Ardından bu proje için %2$s hizmetini etkinleştirin (Google'ın belgelerinde Indexing API olarak geçer). Google, projeyi oluşturup API'yi tek adımda etkinleştiren bir kurulum aracı da sunar; bağlantısı şu sayfada: %3$s."
+
+#: includes/class-fast-index-help-content.php:144
+msgid "Google Cloud console"
+msgstr "Google Cloud konsolu"
+
+#: includes/class-fast-index-help-content.php:145
+msgid "Web Search Indexing API"
+msgstr "Web Search Indexing API"
+
+#: includes/class-fast-index-help-content.php:146
+msgid "Google's prerequisites page"
+msgstr "Google'ın önkoşullar sayfası"
+
+#: includes/class-fast-index-help-content.php:150
+msgid "Create a service account"
+msgstr "Hizmet hesabı oluşturun"
+
+#. translators: 1: Google Cloud menu name "Service accounts", 2: button name "Create service account", 3: button name "Done".
+#: includes/class-fast-index-help-content.php:153
+#, php-format
+msgid "In the Google Cloud console open the %1$s page, choose your project and click %2$s. Enter a name. You can skip the optional steps about access (IAM roles). Click %3$s."
+msgstr "Google Cloud konsolunda %1$s sayfasını açın, projenizi seçin ve %2$s düğmesine tıklayın. Bir ad girin. Erişimle (IAM rolleri) ilgili isteğe bağlı adımları atlayabilirsiniz. %3$s düğmesine tıklayın."
+
+#: includes/class-fast-index-help-content.php:154
+msgid "Service accounts"
+msgstr "Hizmet hesapları"
+
+#: includes/class-fast-index-help-content.php:155
+msgid "Create service account"
+msgstr "Hizmet hesabı oluştur"
+
+#: includes/class-fast-index-help-content.php:156
+msgid "Done"
+msgstr "Bitti"
+
+#: includes/class-fast-index-help-content.php:160
+msgid "Download a JSON key"
+msgstr "JSON anahtarı indirin"
+
+#. translators: 1: tab name "Keys", 2: menu entry "Add key", 3: menu entry "Create new key", 4: key type "JSON", 5: button name "Create".
+#: includes/class-fast-index-help-content.php:163
+#, php-format
+msgid "Click the email address of the new service account and open the %1$s tab. Click %2$s, choose %3$s, select %4$s as the key type and click %5$s. The file downloads once and Google cannot give it to you again. Keep it private and never share or post it. If Google says you cannot create keys, your organization may block key creation with a policy; ask your Google Cloud administrator."
+msgstr "Yeni hizmet hesabının e-posta adresine tıklayın ve %1$s sekmesini açın. %2$s düğmesine tıklayın, %3$s seçeneğini seçin, anahtar türü olarak %4$s seçin ve %5$s düğmesine tıklayın. Dosya yalnızca bir kez iner ve Google onu size bir daha veremez. Dosyayı gizli tutun; kimseyle paylaşmayın, hiçbir yerde yayımlamayın. Google anahtar oluşturamayacağınızı söylüyorsa kuruluşunuz anahtar oluşturmayı bir ilkeyle engelliyor olabilir; Google Cloud yöneticinize başvurun."
+
+#: includes/class-fast-index-help-content.php:164
+msgid "Keys"
+msgstr "Anahtarlar"
+
+#: includes/class-fast-index-help-content.php:165
+msgid "Add key"
+msgstr "Anahtar ekle"
+
+#: includes/class-fast-index-help-content.php:166
+msgid "Create new key"
+msgstr "Yeni anahtar oluştur"
+
+#: includes/class-fast-index-help-content.php:167
+msgid "JSON"
+msgstr "JSON"
+
+#: includes/class-fast-index-help-content.php:168
+msgid "Create"
+msgstr "Oluştur"
+
+#: includes/class-fast-index-help-content.php:172
+msgid "Add the service account as an Owner in Search Console"
+msgstr "Hizmet hesabını Search Console'da Sahip olarak ekleyin"
+
+#. translators: 1: Search Console menu path "Settings", 2: "Users and permissions", 3: button name "Add user", 4: permission name "Owner", 5: link to Google's help page, 6: file field name "client_email".
+#: includes/class-fast-index-help-content.php:175
+#, php-format
+msgid "Open Search Console and choose the verified property of your site: a Domain property, or a URL-prefix property that matches your site address exactly, including https and www. Go to %1$s, then %2$s, click %3$s, enter the email address of the service account (the %6$s value in the JSON file; it ends in .iam.gserviceaccount.com) and choose %4$s as the permission. Google describes this in %5$s."
+msgstr "Search Console'u açın ve sitenizin doğrulanmış mülkünü seçin: bir Alan mülkü ya da site adresinizle (https ve www dahil) tam olarak eşleşen bir URL öneki mülkü. %1$s bölümüne, ardından %2$s sayfasına gidin, %3$s düğmesine tıklayın, hizmet hesabının e-posta adresini girin (JSON dosyasındaki %6$s değeri; .iam.gserviceaccount.com ile biter) ve izin olarak %4$s seçin. Google bunu %5$s sayfasında anlatır."
+
+#: includes/class-fast-index-help-content.php:176
+#: view/settings.php:33
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: view/history.php:3
-msgid "Simple Report"
-msgstr "Basit Rapor"
+#: includes/class-fast-index-help-content.php:177
+msgid "Users and permissions"
+msgstr "Kullanıcılar ve izinler"
 
-#: view/settings.php:104 view/settings.php:277
+#: includes/class-fast-index-help-content.php:178
+msgid "Add user"
+msgstr "Kullanıcı ekle"
+
+#: includes/class-fast-index-help-content.php:179
+msgid "Owner"
+msgstr "Sahip"
+
+#: includes/class-fast-index-help-content.php:180
+msgid "Search Console Help"
+msgstr "Search Console Yardımı"
+
+#: includes/class-fast-index-help-content.php:185
+msgid "Upload the key to Fast Index"
+msgstr "Anahtarı Fast Index'e yükleyin"
+
+#. translators: 1: heading on the settings screen, 2: file button label, 3: submit button label.
+#: includes/class-fast-index-help-content.php:188
+#, php-format
+msgid "Open the Fast Index settings. Under %1$s choose the .json file (%2$s) and click %3$s. The screen then lists the email address and key ID of the key. The private key is stored in your database and is never shown."
+msgstr "Fast Index ayarlarını açın. %1$s altında .json dosyasını seçin (%2$s) ve %3$s düğmesine tıklayın. Ekranda anahtarın e-posta adresi ve anahtar kimliği listelenir. Özel anahtar veritabanınızda saklanır ve hiçbir zaman gösterilmez."
+
+#: includes/class-fast-index-help-content.php:189
+#: includes/class-fast-index-help-content.php:287
+#: view/settings.php:158
+msgid "Upload Google Service Account Json"
+msgstr "Google hizmet hesabı JSON dosyasını yükle"
+
+#: includes/class-fast-index-help-content.php:190
+#: view/settings.php:199
+msgid "Choose Json File/s"
+msgstr "JSON dosyası seç"
+
+#: includes/class-fast-index-help-content.php:191
+#: view/settings.php:221
+msgid "Upload key"
+msgstr "Anahtarı yükle"
+
+#: includes/class-fast-index-help-content.php:195
+msgid "Choose what to send"
+msgstr "Nelerin gönderileceğini seçin"
+
+#. translators: 1: setting name "Status", 2: value "Active", 3: setting name "Post Types", 4: button name "Save".
+#: includes/class-fast-index-help-content.php:198
+#, php-format
+msgid "In the settings keep %1$s on %2$s, check the %3$s to send and click %4$s. Every option is explained under Settings explained."
+msgstr "Ayarlarda %1$s alanını %2$s olarak bırakın, göndermek istediğiniz %3$s seçeneklerini işaretleyin ve %4$s düğmesine tıklayın. Her seçenek Ayarların açıklaması bölümünde anlatılır."
+
+#: includes/class-fast-index-help-content.php:199
+#: includes/class-fast-index-help-content.php:239
+#: view/settings.php:46
 msgid "Status"
 msgstr "Durum"
 
-#: view/settings.php:290
-msgid ""
-"The task list is triggered when someone logs into the site at or after the "
-"specified hours. These tasks will never be triggered if no one accesses your "
-"site. If no one visits your site during the day, log in to your site for "
-"once and the task list will be triggered automatically"
-msgstr ""
-"Görev listesi, birisi belirtilen saatlerde veya sonrasında siteye giriş "
-"yaptığında tetiklenir. Sitenize kimse erişmezse bu görevler asla tetiklenmez."
-" Gün içinde kimse sitenizi ziyaret etmezse, sitenize bir kez giriş yapın, "
-"görev listesi otomatik olarak tetiklenecektir."
+#: includes/class-fast-index-help-content.php:200
+#: includes/class-fast-index-help-content.php:242
+#: includes/class-fast-index-help.php:175
+#: view/settings.php:51
+msgid "Active"
+msgstr "Etkin"
 
-#: view/history.php:34
+#: includes/class-fast-index-help-content.php:201
+#: includes/class-fast-index-help-content.php:247
+#: view/settings.php:60
+msgid "Post Types"
+msgstr "Yazı türleri"
+
+#: includes/class-fast-index-help-content.php:202
+#: view/settings.php:150
+msgid "Save"
+msgstr "Kaydet"
+
+#: includes/class-fast-index-help-content.php:206
+msgid "Publish a test post and check History"
+msgstr "Deneme yazısı yayımlayın ve Geçmiş'e bakın"
+
+#. translators: 1: menu name "History", 2: example status "200 OK".
+#: includes/class-fast-index-help-content.php:209
+#, php-format
+msgid "Publish a post. A short while later (when WordPress runs its scheduled tasks) it appears under Fast Index, %1$s. %2$s means Google accepted the notification; it does not mean the page is indexed. Any other code is explained under Troubleshooting."
+msgstr "Bir yazı yayımlayın. Kısa bir süre sonra (WordPress zamanlanmış görevlerini çalıştırdığında) Fast Index altında, %1$s bölümünde görünür. %2$s, Google'ın bildirimi kabul ettiği anlamına gelir; sayfanın dizine eklendiği anlamına gelmez. Diğer kodlar Sorun giderme bölümünde açıklanır."
+
+#. translators: %s: link to a video on YouTube.
+#: includes/class-fast-index-help-content.php:225
+#, php-format
+msgid "Prefer a video? %s The video was recorded for an earlier version, so some screens may look different from this guide."
+msgstr "Video mu tercih edersiniz? %s Video önceki bir sürüm için çekildi; bu yüzden bazı ekranlar bu kılavuzdakilerden farklı görünebilir."
+
+#: includes/class-fast-index-help-content.php:226
+msgid "Watch the setup video on YouTube (external link, opens in a new tab)"
+msgstr "Kurulum videosunu YouTube'da izleyin (harici bağlantı, yeni sekmede açılır)"
+
+#: includes/class-fast-index-help-content.php:241
+msgid "Active: Fast Index sends notifications when posts change, and sends old posts if you asked for that. Passive: nothing is sent. A post saved while Passive is not queued for later."
+msgstr "Etkin: Fast Index, yazılar değiştiğinde bildirim gönderir; istediyseniz eski yazıları da gönderir. Pasif: hiçbir şey gönderilmez. Pasifken kaydedilen yazı sonraya sıraya alınmaz."
+
+#: includes/class-fast-index-help-content.php:243
+msgid "Switch to Passive before a bulk import or a large edit, so that hundreds of addresses do not use up Google's daily quota. Your keys and history are kept."
+msgstr "Toplu içe aktarmadan ya da büyük bir düzenlemeden önce Pasif'e geçin; yüzlerce adres Google'ın günlük kotasını tüketmesin. Anahtarlarınız ve geçmişiniz korunur."
+
+#: includes/class-fast-index-help-content.php:249
+msgid "Lists every public post type of the site (posts, pages and custom types) except media attachments. Only the checked types are sent. At least one type is required."
+msgstr "Sitenin medya ekleri dışındaki tüm herkese açık yazı türlerini (yazılar, sayfalar ve özel türler) listeler. Yalnızca işaretli türler gönderilir. En az bir tür gerekir."
+
+#: includes/class-fast-index-help-content.php:250
+msgid "Posts"
+msgstr "Yazılar"
+
+#: includes/class-fast-index-help-content.php:251
+msgid "Check another type when its pages should be sent too, for example a custom post type that holds job postings or live videos."
+msgstr "Sayfalarının da gönderilmesini istediğiniz başka bir tür varsa onu da işaretleyin; örneğin iş ilanları ya da canlı yayın videoları içeren özel bir yazı türü."
+
+#: includes/class-fast-index-help-content.php:255
+#: view/settings.php:79
+msgid "Daily Old Content Post?"
+msgstr "Günlük eski içerik gönderimi"
+
+#: includes/class-fast-index-help-content.php:257
+msgid "Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The number counts every successful notification of the last 24 hours, new posts included, and can be 0 to 10,000. Each batch is a random number from 0 to a third of the daily number, so some hours send nothing."
+msgstr "Google'ın bu siteden hiç kabul etmediği yayımlanmış yazıları, en yeniden başlayarak, her saat küçük gruplar hâlinde gönderir. Sayı, yeni yazılar dahil son 24 saatteki tüm başarılı bildirimleri sayar ve 0 ile 10.000 arasında olabilir. Her grup 0 ile günlük sayının üçte biri arasında rastgele bir sayıdadır; bu yüzden bazı saatlerde hiçbir şey gönderilmez."
+
+#: includes/class-fast-index-help-content.php:258
+msgid "0 (off)"
+msgstr "0 (kapalı)"
+
+#: includes/class-fast-index-help-content.php:259
+msgid "Turn it on after your new posts are sent correctly. Keep the number low enough to leave room for new posts within Google's daily quota (see the FAQ)."
+msgstr "Yeni yazılarınız doğru gönderilmeye başladıktan sonra açın. Sayıyı, Google'ın günlük kotası içinde yeni yazılara da yer kalacak kadar düşük tutun (bkz. SSS)."
+
+#: includes/class-fast-index-help-content.php:263
+#: view/settings.php:94
+msgid "Post Status"
+msgstr "Yazı durumu"
+
+#: includes/class-fast-index-help-content.php:265
+msgid "Publish: a post becomes published. Edit: a post that is already published is saved again. Trash: a published post is moved to the trash or deleted, and Google is told that the address was removed. Changing a published post back to draft or private is not sent."
+msgstr "Yayınla: bir yazı yayımlanır. Düzenle: zaten yayımlanmış bir yazı yeniden kaydedilir. Çöp: yayımlanmış bir yazı çöpe taşınır ya da silinir ve Google'a adresin kaldırıldığı bildirilir. Yayımlanmış bir yazıyı taslağa ya da özele çevirmek gönderilmez."
+
+#: includes/class-fast-index-help-content.php:266
+msgid "Publish (Edit is also on by default with the premium plan)"
+msgstr "Yayınla (premium planda Düzenle de varsayılan olarak açıktır)"
+
+#: includes/class-fast-index-help-content.php:267
+msgid "Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal."
+msgstr "Değişen içeriğin yeniden taranmasını istiyorsanız Düzenle'yi açın. Kaldırılan sayfalar bildirilsin istiyorsanız Çöp'ü açın; kaldırma bildirimi gönderdiğinizde Google, adresin zaten 404 ya da 410 döndürmesini veya noindex etiketi taşımasını ister."
+
+#: includes/class-fast-index-help-content.php:271
+#: view/settings.php:113
+msgid "Exclude Categories"
+msgstr "Kategorileri hariç tut"
+
+#: includes/class-fast-index-help-content.php:273
+msgid "A post in at least one checked category is never sent, whether it is new, changed, removed or part of an old-post batch, even if it is also in other categories."
+msgstr "İşaretli en az bir kategoride yer alan yazı, yeni, değişmiş, kaldırılmış ya da eski yazı grubunun parçası olsa bile, başka kategorilerde de yer alsa bile hiçbir zaman gönderilmez."
+
+#: includes/class-fast-index-help-content.php:274
+msgid "No category is excluded"
+msgstr "Hiçbir kategori hariç tutulmadı"
+
+#: includes/class-fast-index-help-content.php:275
+msgid "Use it for content you do not want Google to hear about, for example internal or duplicate material."
+msgstr "Google'ın haberdar olmasını istemediğiniz içerikler için kullanın; örneğin dahili ya da yinelenen içerikler."
+
+#: includes/class-fast-index-help-content.php:279
+#: view/settings.php:132
+msgid "Delete data on uninstall"
+msgstr "Kaldırırken verileri sil"
+
+#: includes/class-fast-index-help-content.php:281
+msgid "Applies when the plugin is deleted from the Plugins screen, not when it is deactivated. Settings, keys and history are removed, on every site of a multisite network. Records kept by Freemius are not touched."
+msgstr "Eklenti devre dışı bırakıldığında değil, Eklentiler ekranından silindiğinde geçerlidir. Ayarlar, anahtarlar ve geçmiş, çoklu site ağındaki her sitede kaldırılır. Freemius'un tuttuğu kayıtlara dokunulmaz."
+
+#: includes/class-fast-index-help-content.php:282
+msgid "Off"
+msgstr "Kapalı"
+
+#: includes/class-fast-index-help-content.php:283
+msgid "Turn it on only if you are removing Fast Index for good. The key also stays valid in Google Cloud until you delete it there."
+msgstr "Yalnızca Fast Index'i kalıcı olarak kaldırıyorsanız açın. Anahtar, siz Google Cloud'da silene kadar orada geçerli kalmaya devam eder."
+
+#: includes/class-fast-index-help-content.php:289
+msgid "Reads the .json key that you downloaded from Google Cloud, checks it and stores it in the database, not in the uploads folder. Each stored key is listed with its email address, key ID and the last answer from Google. A key can be deleted from the list."
+msgstr "Google Cloud'dan indirdiğiniz .json anahtarını okur, denetler ve uploads klasörüne değil, veritabanına kaydeder. Kayıtlı her anahtar, e-posta adresi, anahtar kimliği ve Google'ın son yanıtıyla listelenir. Bir anahtar listeden silinebilir."
+
+#: includes/class-fast-index-help-content.php:290
+msgid "No key"
+msgstr "Anahtar yok"
+
+#: includes/class-fast-index-help-content.php:291
+msgid "Upload again after you create a new key. Uploading a key for an email address that is already stored replaces the stored key."
+msgstr "Yeni bir anahtar oluşturduktan sonra yeniden yükleyin. E-posta adresi zaten kayıtlı olan bir anahtarı yüklemek, kayıtlı anahtarın yerini alır."
+
+#: includes/class-fast-index-help-content.php:305
+msgid "Active sends notifications to Google. Passive pauses everything; your keys and history are kept."
+msgstr "Etkin, Google'a bildirim gönderir. Pasif her şeyi duraklatır; anahtarlarınız ve geçmişiniz korunur."
+
+#: includes/class-fast-index-help-content.php:307
+msgid "Only the checked types are sent. Media attachments are not listed."
+msgstr "Yalnızca işaretli türler gönderilir. Medya ekleri listelenmez."
+
+#: includes/class-fast-index-help-content.php:309
+msgid "How many old posts may be sent per day, in small hourly batches. 0 turns this off."
+msgstr "Günde kaç eski yazının, saatlik küçük gruplar hâlinde gönderilebileceği. 0 bunu kapatır."
+
+#: includes/class-fast-index-help-content.php:311
+msgid "Publish: a post goes live. Edit: a live post is saved again. Trash: a live post is trashed or deleted."
+msgstr "Yayınla: bir yazı yayına girer. Düzenle: yayındaki bir yazı yeniden kaydedilir. Çöp: yayındaki bir yazı çöpe taşınır ya da silinir."
+
+#: includes/class-fast-index-help-content.php:313
+msgid "Posts in a checked category are never sent."
+msgstr "İşaretli bir kategorideki yazılar hiçbir zaman gönderilmez."
+
+#: includes/class-fast-index-help-content.php:315
+msgid "Off by default: deleting the plugin keeps your settings, keys and history, so a reinstall continues where you left off."
+msgstr "Varsayılan olarak kapalıdır: eklentiyi silmek ayarlarınızı, anahtarlarınızı ve geçmişinizi korur; yeniden kurulum kaldığınız yerden devam eder."
+
+#: includes/class-fast-index-help-content.php:330
+msgid "In this version, types other than Posts need the premium plan."
+msgstr "Bu sürümde Yazılar dışındaki türler premium plan gerektirir."
+
+#: includes/class-fast-index-help-content.php:332
+#: includes/class-fast-index-help-content.php:336
+msgid "In this version, this needs the premium plan."
+msgstr "Bu sürümde bu seçenek premium plan gerektirir."
+
+#: includes/class-fast-index-help-content.php:334
+msgid "In this version, Edit and Trash need the premium plan."
+msgstr "Bu sürümde Düzenle ve Çöp premium plan gerektirir."
+
+#: includes/class-fast-index-help-content.php:338
+msgid "In this version, the free plan keeps one key (a new upload replaces it); the premium plan keeps several."
+msgstr "Bu sürümde ücretsiz plan tek anahtar tutar (yeni yükleme eskisinin yerini alır); premium plan birden fazla anahtar tutar."
+
+#: includes/class-fast-index-help-content.php:353
+msgid "403: \"Permission denied. Failed to verify the URL ownership\""
+msgstr "403: \"Permission denied. Failed to verify the URL ownership\""
+
+#. translators: %s: link to Google's error list.
+#: includes/class-fast-index-help-content.php:356
+#, php-format
+msgid "Google answers 403 when the service account is not an Owner of the Search Console property that contains the page address (%s). Common reasons: the account was never added, it was added with a lower permission than Owner, the property is for another address (http or https, www or no www, another site), or the Indexing API is not enabled in the project that owns the key."
+msgstr "Google, hizmet hesabı sayfa adresini içeren Search Console mülkünün Sahibi değilse 403 yanıtı verir (%s). Sık görülen nedenler: hesap hiç eklenmemiş, Sahip'ten düşük bir izinle eklenmiş, mülk başka bir adres için (http ya da https, www'lu ya da www'suz, başka bir site) veya Indexing API anahtarın sahibi olan projede etkin değil."
+
+#: includes/class-fast-index-help-content.php:357
+msgid "Google's error list"
+msgstr "Google'ın hata listesi"
+
+#: includes/class-fast-index-help-content.php:359
+msgid "In Search Console open the property, go to Settings and Users and permissions, and check that the service account email is listed with the permission Owner. Make sure the property matches your site address exactly (a Domain property covers every address). Then check in Google Cloud that the Web Search Indexing API is enabled for the key's project. After a 403 Fast Index lets the key rest for six hours; to retry at once, delete the key on the settings screen and upload it again."
+msgstr "Search Console'da mülkü açın, Ayarlar ve Kullanıcılar ve izinler bölümüne gidin ve hizmet hesabının e-postasının Sahip izniyle listelendiğini denetleyin. Mülkün site adresinizle tam olarak eşleştiğinden emin olun (Alan mülkü tüm adresleri kapsar). Ardından Google Cloud'da Web Search Indexing API'nin anahtarın projesi için etkin olduğunu denetleyin. 403 sonrasında Fast Index anahtarı altı saat bekletir; hemen yeniden denemek için ayarlar ekranında anahtarı silin ve yeniden yükleyin."
+
+#: includes/class-fast-index-help-content.php:363
+msgid "401: Unauthorized, or the key is refused"
+msgstr "401: Unauthorized ya da anahtar reddedildi"
+
+#: includes/class-fast-index-help-content.php:364
+msgid "Google did not accept the key. The key may have been deleted or disabled in Google Cloud, the uploaded file may be an older key, or the clock of your server may be far off, because the signed request carries the current time. Any 4xx answer to the request for an access token is treated the same way."
+msgstr "Google anahtarı kabul etmedi. Anahtar Google Cloud'da silinmiş ya da devre dışı bırakılmış olabilir, yüklenen dosya eski bir anahtar olabilir ya da sunucunuzun saati çok yanlış olabilir; çünkü imzalı istek geçerli saati taşır. Erişim belirteci isteğine verilen her 4xx yanıtı aynı şekilde ele alınır."
+
+#: includes/class-fast-index-help-content.php:365
+msgid "Create a new JSON key (Service accounts, your account, Keys, Add key, Create new key, JSON), upload it on the settings screen (the same email address replaces the stored key) and check that your server time is correct. The key rests for six hours after a 401; deleting it and uploading it again ends the rest."
+msgstr "Yeni bir JSON anahtarı oluşturun (Hizmet hesapları, hesabınız, Anahtarlar, Anahtar ekle, Yeni anahtar oluştur, JSON), ayarlar ekranından yükleyin (aynı e-posta adresi kayıtlı anahtarın yerini alır) ve sunucu saatinizin doğru olduğunu denetleyin. Anahtar 401 sonrasında altı saat bekletilir; silip yeniden yüklemek beklemeyi bitirir."
+
+#: includes/class-fast-index-help-content.php:369
+msgid "429: Too Many Requests"
+msgstr "429: Too Many Requests"
+
+#. translators: %s: link to Google's quota page.
+#: includes/class-fast-index-help-content.php:372
+#, php-format
+msgid "The quota of Google is used up. Google's default is 200 publish requests per day for each Google Cloud project (%s). New, changed and removed addresses all count, and all keys of one project share the same quota."
+msgstr "Google kotası doldu. Google'ın varsayılanı, her Google Cloud projesi için günde 200 yayın isteğidir (%s). Yeni, değişen ve kaldırılan adreslerin hepsi sayılır; bir projenin tüm anahtarları aynı kotayı paylaşır."
+
+#: includes/class-fast-index-help-content.php:373
+#: includes/class-fast-index-help-content.php:491
+msgid "quota page"
+msgstr "kota sayfası"
+
+#. translators: %s: link to Google's quota page.
+#: includes/class-fast-index-help-content.php:377
+#, php-format
+msgid "Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily number of old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality."
+msgstr "Bekleyin: Fast Index anahtarı altı saat bekletir ve bu arada diğer anahtarlarınızı dener. Günlük eski yazı sayısını düşürün; toplu içe aktarma sırasında Fast Index'i Pasif yapın. Daha fazlasına ihtiyacınız varsa Google'dan daha fazla kota isteyin: %s. Google, kotanın belge kalitesine göre artabileceğini ya da azalabileceğini belirtir."
+
+#: includes/class-fast-index-help-content.php:378
+msgid "the quota page"
+msgstr "kota sayfası"
+
+#: includes/class-fast-index-help-content.php:383
+msgid "\"No answer from Google\", or a 5xx code"
+msgstr "“Google'dan yanıt gelmedi” ya da bir 5xx kodu"
+
+#: includes/class-fast-index-help-content.php:384
+msgid "Your server could not reach Google within 15 seconds (firewall, DNS or a slow connection), Google had a temporary problem, or its answer could not be read. These answers do not make a key rest."
+msgstr "Sunucunuz 15 saniye içinde Google'a ulaşamadı (güvenlik duvarı, DNS ya da yavaş bağlantı), Google'da geçici bir sorun oldu ya da yanıtı okunamadı. Bu yanıtlar anahtarı beklemeye almaz."
+
+#: includes/class-fast-index-help-content.php:385
+msgid "Allow outgoing HTTPS requests to oauth2.googleapis.com and indexing.googleapis.com, and try again later. Saving or publishing another post sends a new notification."
+msgstr "oauth2.googleapis.com ve indexing.googleapis.com adreslerine giden HTTPS isteklerine izin verin ve daha sonra yeniden deneyin. Başka bir yazıyı kaydetmek ya da yayımlamak yeni bir bildirim gönderir."
+
+#: includes/class-fast-index-help-content.php:389
+msgid "A red notice says the PHP OpenSSL extension is not available, or the status \"OpenSSL is missing\""
+msgstr "PHP OpenSSL eklentisinin kullanılamadığını söyleyen kırmızı bir uyarı ya da “OpenSSL eksik” durumu"
+
+#: includes/class-fast-index-help-content.php:390
+msgid "Fast Index signs its requests to Google with OpenSSL. PHP without OpenSSL cannot do that, so nothing can be sent. While OpenSSL is missing, nothing is written to History."
+msgstr "Fast Index, Google'a giden isteklerini OpenSSL ile imzalar. OpenSSL'siz PHP bunu yapamaz, bu yüzden hiçbir şey gönderilemez. OpenSSL eksikken Geçmiş'e hiçbir şey yazılmaz."
+
+#: includes/class-fast-index-help-content.php:391
+msgid "Ask your hosting provider to enable the OpenSSL extension for the PHP version your site uses. The system information below shows whether OpenSSL is available."
+msgstr "Barındırma sağlayıcınızdan, sitenizin kullandığı PHP sürümü için OpenSSL eklentisini etkinleştirmesini isteyin. Aşağıdaki sistem bilgisi OpenSSL'in kullanılabilir olup olmadığını gösterir."
+
+#: includes/class-fast-index-help-content.php:395
+msgid "Posts are published but nothing appears in History, or it appears much later"
+msgstr "Yazılar yayımlanıyor ama Geçmiş'te hiçbir şey görünmüyor ya da çok geç görünüyor"
+
+#: includes/class-fast-index-help-content.php:396
+msgid "Fast Index queues each notification as a WordPress scheduled task (WP-Cron), so saving a post never waits for Google. WP-Cron runs when someone visits the site. If wp-config.php sets DISABLE_WP_CRON to true, WordPress does not start it, and the queue only moves when a real cron job calls wp-cron.php. Sites with very few visits can run late too."
+msgstr "Fast Index her bildirimi WordPress zamanlanmış görevi (WP-Cron) olarak sıraya alır; böylece bir yazıyı kaydederken Google'ı beklemez. WP-Cron, biri siteyi ziyaret ettiğinde çalışır. wp-config.php içinde DISABLE_WP_CRON true ise WordPress onu başlatmaz ve sıra yalnızca gerçek bir cron görevi wp-cron.php'yi çağırdığında ilerler. Çok az ziyaret alan siteler de geç kalabilir."
+
+#. translators: 1: example cron line, 2: example WP-CLI command.
+#: includes/class-fast-index-help-content.php:399
+#, php-format
+msgid "If you disabled WP-Cron on purpose, set up a real cron job on your server that runs every 5 minutes, for example %1$s or, with WP-CLI, %2$s. Otherwise remove DISABLE_WP_CRON from wp-config.php. The system information below shows whether it is set."
+msgstr "WP-Cron'u bilerek devre dışı bıraktıysanız sunucunuzda 5 dakikada bir çalışan gerçek bir cron görevi kurun; örneğin %1$s ya da WP-CLI ile %2$s. Aksi halde wp-config.php içinden DISABLE_WP_CRON satırını kaldırın. Aşağıdaki sistem bilgisi bunun tanımlı olup olmadığını gösterir."
+
+#: includes/class-fast-index-help-content.php:406
+msgid "A post is missing from History"
+msgstr "Bir yazı Geçmiş'te yok"
+
+#: includes/class-fast-index-help-content.php:407
+msgid "Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in an excluded category, or when it is not published. Nothing is written to History, and the notification is not repeated, when no key is stored, when every key is resting after an error, or when OpenSSL is missing."
+msgstr "Fast Index şu durumlarda yazıyı atlar: Durum Pasifse, yazı türü ya da olay (Yayınla, Düzenle, Çöp) işaretli değilse, yazı hariç tutulan bir kategorideyse ya da yazı yayımlanmamışsa. Kayıtlı anahtar yoksa, her anahtar bir hatadan sonra bekletiliyorsa ya da OpenSSL eksikse Geçmiş'e hiçbir şey yazılmaz ve bildirim tekrarlanmaz."
+
+#: includes/class-fast-index-help-content.php:408
+msgid "Check the settings above. On the settings screen each key shows the last answer from Google; a key in 401, 403 or 429 rests for six hours. After you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches."
+msgstr "Yukarıdaki ayarları denetleyin. Ayarlar ekranında her anahtar Google'ın son yanıtını gösterir; 401, 403 veya 429 alan bir anahtar altı saat bekletilir. Nedeni giderdikten sonra yazıyı göndermek için yeniden kaydedin. Eski yazı gönderimi açıksa Google'a hiç ulaşmamış yazılar saatlik gruplarla da alınır."
+
+#: includes/class-fast-index-help-content.php:412
+msgid "\"There are no posts to send now\", or old posts are not sent"
+msgstr "“Şu anda gönderilecek yazı yok” ya da eski yazılar gönderilmiyor"
+
+#: includes/class-fast-index-help-content.php:413
+msgid "The daily number is 0, Status is Passive, the daily number was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance."
+msgstr "Günlük sayı 0, Durum Pasif, günlük sayıya son 24 saatte zaten ulaşıldı (yeni yazılar da sayılır), kullanılabilir anahtar yok ya da uygun tüm yazılar gönderildi. Her grubun boyutu rastgeledir; bu yüzden bir çalıştırma tesadüfen boş da kalabilir."
+
+#: includes/class-fast-index-help-content.php:414
+msgid "Check the daily number and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own."
+msgstr "Günlük sayıyı ve Geçmiş ekranındaki sayaçları denetleyin (Toplam bekleyen, Google'ın henüz kabul etmediği yazı sayısını gösterir). Grubu daha sonra yeniden çalıştırın; kendiliğinden her saat de çalışır."
+
+#: includes/class-fast-index-help-content.php:418
+msgid "A notice about keys stored in a public folder, or \"Fast Index could not finish moving your service account keys\""
+msgstr "Herkese açık bir klasörde saklanan anahtarlarla ilgili bir uyarı ya da “Fast Index hizmet hesabı anahtarlarınızı taşımayı tamamlayamadı”"
+
+#: includes/class-fast-index-help-content.php:419
+msgid "Version 2.x saved key files in the uploads folder, where anyone who knew the address could download them. Version 3 moves each key into the database and deletes the file. The first notice recommends replacing those keys. The second notice means one file could not be read, found or deleted; it names the file."
+msgstr "2.x sürümü anahtar dosyalarını uploads klasörüne kaydediyordu; adresi bilen herkes onları indirebilirdi. 3. sürüm her anahtarı veritabanına taşır ve dosyayı siler. İlk uyarı bu anahtarların değiştirilmesini önerir. İkinci uyarı bir dosyanın okunamadığı, bulunamadığı ya da silinemediği anlamına gelir; dosyanın adını belirtir."
+
+#: includes/class-fast-index-help-content.php:420
+msgid "Create a new JSON key in Google Cloud, upload it on the settings screen (the same email address replaces the stored key), then delete the old key on the Keys tab of the service account in Google Cloud. If a file could not be deleted, delete it from the uploads folder yourself. Both notices have a link that hides them for good."
+msgstr "Google Cloud'da yeni bir JSON anahtarı oluşturun, ayarlar ekranından yükleyin (aynı e-posta adresi kayıtlı anahtarın yerini alır), ardından Google Cloud'da hizmet hesabının Anahtarlar sekmesinden eski anahtarı silin. Bir dosya silinemediyse uploads klasöründen kendiniz silin. Her iki uyarıda da onları kalıcı olarak gizleyen bir bağlantı vardır."
+
+#: includes/class-fast-index-help-content.php:424
+msgid "On a multisite network, one site sends and another does not"
+msgstr "Çoklu site ağında bir site gönderiyor, diğeri göndermiyor"
+
+#: includes/class-fast-index-help-content.php:425
+msgid "Settings, keys, history and the schedule belong to each site. Network activation sets up every site, but a key uploaded on one site is not shared with the others, and Fast Index has no network admin screen."
+msgstr "Ayarlar, anahtarlar, geçmiş ve zamanlama her siteye aittir. Ağ etkinleştirmesi her siteyi kurar, ancak bir sitede yüklenen anahtar diğerleriyle paylaşılmaz ve Fast Index'in ağ yönetimi ekranı yoktur."
+
+#: includes/class-fast-index-help-content.php:426
+msgid "Open Fast Index on each site and upload a key there. The same key file may be used on several sites. Their notifications then share the quota of the key's Google Cloud project."
+msgstr "Fast Index'i her sitede açın ve anahtarı orada yükleyin. Aynı anahtar dosyası birkaç sitede kullanılabilir. Bu sitelerin bildirimleri o zaman anahtarın Google Cloud projesinin kotasını paylaşır."
+
+#: includes/class-fast-index-help-content.php:430
+msgid "An option is locked, or asks me to upgrade to premium"
+msgstr "Bir seçenek kilitli ya da premium'a geçmemi istiyor"
+
+#: includes/class-fast-index-help-content.php:431
+msgid "In this version, some options need the premium plan. Settings explained says which ones. Fast Index uses Freemius for the plan."
+msgstr "Bu sürümde bazı seçenekler premium plan gerektirir. Ayarların açıklaması hangilerinin gerektirdiğini söyler. Fast Index plan için Freemius kullanır."
+
+#: includes/class-fast-index-help-content.php:432
+msgid "Use the free options, or see the FAQ entry about Freemius."
+msgstr "Ücretsiz seçenekleri kullanın ya da SSS'deki Freemius maddesine bakın."
+
+#: includes/class-fast-index-help-content.php:446
+msgid "What does Fast Index send to Google?"
+msgstr "Fast Index Google'a ne gönderir?"
+
+#. translators: 1: notification type "URL_UPDATED", 2: notification type "URL_DELETED", 3: link to Google's privacy policy.
+#: includes/class-fast-index-help-content.php:449
+#, php-format
+msgid "Only the address (URL) of a post and the kind of notification: %1$s when a post is published or changed, %2$s when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. Your own History keeps the title, address and Google's answer in your database. See also %3$s."
+msgstr "Yalnızca bir yazının adresini (URL) ve bildirimin türünü: yazı yayımlandığında ya da değiştirildiğinde %1$s, kaldırıldığında %2$s. Başlıklar, içerik, ziyaretçiler ve veritabanınız gönderilmez. Kimin istekte bulunduğunu kanıtlamak için Fast Index ayrıca hizmet hesabınızın e-posta adresini ve anahtar kimliğini içeren imzalı bir istek gönderir; özel anahtarın kendisi sitenizden hiç çıkmaz. İstekler oauth2.googleapis.com ve indexing.googleapis.com adreslerine gider. Kendi Geçmişiniz başlığı, adresi ve Google'ın yanıtını veritabanınızda tutar. Ayrıca bkz. %3$s."
+
+#: includes/class-fast-index-help-content.php:452
+msgid "Google's privacy policy"
+msgstr "Google'ın gizlilik politikası"
+
+#: includes/class-fast-index-help-content.php:457
+msgid "Will Google index every page I publish right away?"
+msgstr "Google yayımladığım her sayfayı hemen dizine ekler mi?"
+
+#. translators: 1: quoted sentence from Google's documentation, 2: link to Google's documentation.
+#: includes/class-fast-index-help-content.php:460
+#, php-format
+msgid "No, and Fast Index cannot promise it. Google says: %1$s For other pages, such as ordinary posts or products, Google may accept the notification and answer 200, but its documentation does not promise that the page will be crawled or indexed, or that this happens sooner. A 200 only means that, in Google's words, it \"may try to recrawl this URL soon\". Google also checks every submission for spam and may revoke access for abuse. Keep your sitemap and Search Console as they are. Details: %2$s."
+msgstr "Hayır ve Fast Index bunu vaat edemez. Google şöyle diyor: %1$s Sıradan yazılar ya da ürünler gibi diğer sayfalar için Google bildirimi kabul edip 200 yanıtı verebilir; ancak belgeleri sayfanın taranacağını ya da dizine ekleneceğini veya bunun daha erken olacağını vaat etmez. 200 yalnızca, Google'ın ifadesiyle, “bu URL'yi yakında yeniden taramayı deneyebileceği” anlamına gelir. Google ayrıca her gönderimi spam açısından denetler ve kötüye kullanım durumunda erişimi iptal edebilir. Site haritanızı ve Search Console'u olduğu gibi bırakın. Ayrıntılar: %2$s."
+
+#: includes/class-fast-index-help-content.php:462
+msgid "Using the Indexing API"
+msgstr "Indexing API'yi kullanma"
+
+#: includes/class-fast-index-help-content.php:467
+msgid "Which post types does Fast Index send?"
+msgstr "Fast Index hangi yazı türlerini gönderir?"
+
+#: includes/class-fast-index-help-content.php:468
+msgid "Every public post type of your site except media attachments can be chosen in the settings: posts, pages and custom types. Only published content is sent; drafts, pending and private posts are not. By default only Posts are checked."
+msgstr "Sitenizin medya ekleri dışındaki tüm herkese açık yazı türleri ayarlardan seçilebilir: yazılar, sayfalar ve özel türler. Yalnızca yayımlanmış içerik gönderilir; taslaklar, onay bekleyen ve özel yazılar gönderilmez. Varsayılan olarak yalnızca Yazılar işaretlidir."
+
+#: includes/class-fast-index-help-content.php:472
+msgid "What happens when I trash or delete a post?"
+msgstr "Bir yazıyı çöpe attığımda ya da sildiğimde ne olur?"
+
+#. translators: 1: notification type "URL_DELETED", 2: link to Google's documentation.
+#: includes/class-fast-index-help-content.php:475
+#, php-format
+msgid "If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as %1$s with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal (%2$s)."
+msgstr "Ayarlarda Çöp işaretliyse, çöpe taşınan ya da çöpe uğramadan silinen yayımlanmış bir yazı, önceki adresiyle %1$s olarak bildirilir. Sonradan çöpten silmek bir şey göndermez. Yayımlanmış bir yazıyı taslağa ya da özele çevirmek bildirilmez. Kaldırma bildirimi gönderdiğinizde Google, adresin 404 ya da 410 döndürmesini veya noindex etiketi taşımasını ister (%2$s)."
+
+#: includes/class-fast-index-help-content.php:477
+msgid "Google's documentation"
+msgstr "Google'ın belgeleri"
+
+#: includes/class-fast-index-help-content.php:482
+msgid "Can Fast Index send my old posts?"
+msgstr "Fast Index eski yazılarımı gönderebilir mi?"
+
+#: includes/class-fast-index-help-content.php:483
+msgid "Yes. Set a daily number under Daily Old Content Post. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily number is reached. The number counts all successful notifications of the last 24 hours. \"Send Old Posts Now\" runs one batch immediately, and History shows how many posts are still waiting. Keep the number within Google's daily quota."
+msgstr "Evet. Günlük eski içerik gönderimi alanına günlük bir sayı girin. Fast Index her saat, Google'ın henüz kabul etmediği yayımlanmış yazılardan en yeniden başlayarak küçük, rastgele bir grup gönderir; günlük sayıya ulaşılana kadar. Sayı, son 24 saatteki tüm başarılı bildirimleri sayar. “Eski yazıları şimdi gönder” bir grubu hemen çalıştırır; Geçmiş de kaç yazının hâlâ beklediğini gösterir. Sayıyı Google'ın günlük kotası içinde tutun."
+
+#: includes/class-fast-index-help-content.php:487
+msgid "How many URLs can I send per day?"
+msgstr "Günde kaç URL gönderebilirim?"
+
+#. translators: %s: link to Google's quota page.
+#: includes/class-fast-index-help-content.php:490
+#, php-format
+msgid "Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count (%s). Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it lets that key rest for six hours."
+msgstr "Google'ın varsayılanı, her Google Cloud projesi için günde 200 yayın isteğidir; iki türdeki bildirimler, yani güncellenen ve kaldırılan adresler de sayılır (%s). Google, daha yüksek kullanımın onayına bağlı olduğunu ve kotanın belge kalitesine göre artabileceğini ya da azalabileceğini söyler. Fast Index kotanızı önceden bilmez: Google 429 yanıtı verdiğinde o anahtarı altı saat bekletir."
+
+#: includes/class-fast-index-help-content.php:496
+msgid "Can I use more than one service account?"
+msgstr "Birden fazla hizmet hesabı kullanabilir miyim?"
+
+#. translators: %s: link to Google's quickstart page.
+#: includes/class-fast-index-help-content.php:499
+#, php-format
+msgid "With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Please note: Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it."
+msgstr "Premium planla birkaç anahtar yükleyebilirsiniz. Her bildirim için Fast Index, beklemede olmayan anahtarlardan birini rastgele sırayla seçer. Google 401, 403 ya da 429 yanıtı verirse (veya anahtarı reddederse) o anahtar altı saat bekletilir ve bir sonrakine geçilir. Diğer hatalar (400, 5xx ya da yanıt gelmemesi gibi) anahtarı bekletmeden denemeyi sonlandırır. Şunu unutmayın: Google kotayı anahtar başına değil, proje başına sayar; bu yüzden aynı projenin anahtarları günlük aynı 200'ü paylaşır. Google ayrıca API'yi kötüye kullanma girişimlerinin, kullanım kotalarını aşmak için birden fazla hesap kullanmak dahil, erişimin iptaline yol açabileceğini yazar (%s). Ek anahtarları güvenilirlik için ya da ayrı projelerdeki siteler için kullanın; daha fazla kotaya ihtiyacınız varsa Google'dan isteyin."
+
+#: includes/class-fast-index-help-content.php:500
+msgid "quickstart"
+msgstr "hızlı başlangıç"
+
+#: includes/class-fast-index-help-content.php:505
+msgid "Where is my service account key stored, and is it safe?"
+msgstr "Hizmet hesabı anahtarım nerede saklanıyor ve güvenli mi?"
+
+#: includes/class-fast-index-help-content.php:506
+msgid "The key is kept in your WordPress database (an option that is not loaded on every request). It is never written to the uploads folder or any other file, and the screens show only the email address and key ID. Because the service account is an Owner of your Search Console property, treat the key like a password. If it may have leaked, delete the key in Google Cloud and remove the service account from the users of your Search Console property."
+msgstr "Anahtar WordPress veritabanınızda tutulur (her istekte yüklenmeyen bir seçenek olarak). Hiçbir zaman uploads klasörüne ya da başka bir dosyaya yazılmaz; ekranlarda yalnızca e-posta adresi ve anahtar kimliği gösterilir. Hizmet hesabı Search Console mülkünüzün Sahibi olduğundan anahtarı bir parola gibi koruyun. Sızmış olabileceğinden şüpheleniyorsanız anahtarı Google Cloud'da silin ve hizmet hesabını Search Console mülkünüzün kullanıcılarından kaldırın."
+
+#: includes/class-fast-index-help-content.php:510
+msgid "What happens to my data if I deactivate or delete Fast Index?"
+msgstr "Fast Index'i devre dışı bırakırsam ya da silersem verilerime ne olur?"
+
+#: includes/class-fast-index-help-content.php:511
+msgid "Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If \"Delete data on uninstall\" was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there."
+msgstr "Devre dışı bırakmak zamanlanmış görevleri kaldırır, geri kalan her şeyi korur. Eklentiyi silmek geçici verileri (sıradaki görevler, önbellekler, kilitler) kaldırır; ayarlarınızı, anahtarlarınızı ve geçmişinizi ise varsayılan olarak korur, böylece yeniden kurulum kaldığınız yerden devam eder. Eklentiyi silmeden önce “Kaldırırken verileri sil” işaretliyse ayarlar, anahtarlar ve geçmiş de ağdaki her sitede kaldırılır. Freemius'un tuttuğu kayıtlara dokunulmaz ve anahtar siz Google Cloud'da silene kadar orada geçerli kalır."
+
+#: includes/class-fast-index-help-content.php:515
+msgid "I am upgrading from version 2.2. What happens to my keys?"
+msgstr "2.2 sürümünden yükseltiyorum. Anahtarlarıma ne olur?"
+
+#: includes/class-fast-index-help-content.php:516
+msgid "On the first page load after the update, Fast Index reads each key file that version 2.x saved in the uploads folder, checks it, stores it in the database and deletes the file. Your settings and history are kept, and the old ten-minute scheduled task is replaced by an hourly one. Earlier versions kept the files in a folder that anyone could reach, so a notice recommends creating new keys and deleting the old ones in Google Cloud (see Troubleshooting). If a file cannot be moved, a notice names it, and you can upload that key again."
+msgstr "Güncellemeden sonraki ilk sayfa yüklemesinde Fast Index, 2.x sürümünün uploads klasörüne kaydettiği her anahtar dosyasını okur, denetler, veritabanına kaydeder ve dosyayı siler. Ayarlarınız ve geçmişiniz korunur; eski on dakikalık zamanlanmış görev yerini saatlik bir göreve bırakır. Önceki sürümler dosyaları herkesin erişebileceği bir klasörde tuttuğu için bir uyarı, yeni anahtarlar oluşturmanızı ve eskileri Google Cloud'da silmenizi önerir (bkz. Sorun giderme). Bir dosya taşınamazsa bir uyarı onun adını söyler ve o anahtarı yeniden yükleyebilirsiniz."
+
+#: includes/class-fast-index-help-content.php:520
+msgid "Does Fast Index work on multisite?"
+msgstr "Fast Index çoklu sitede çalışır mı?"
+
+#: includes/class-fast-index-help-content.php:521
+msgid "Yes. You can activate it for the whole network or for single sites; sites created later are set up automatically after a network activation. Settings, keys, history and the schedule belong to each site, so upload a key on every site that should send. There is no network admin screen."
+msgstr "Evet. Tüm ağ için ya da tek tek siteler için etkinleştirebilirsiniz; ağ etkinleştirmesinden sonra sonradan oluşturulan siteler otomatik kurulur. Ayarlar, anahtarlar, geçmiş ve zamanlama her siteye aittir; bu yüzden gönderim yapması gereken her sitede bir anahtar yükleyin. Ağ yönetimi ekranı yoktur."
+
+#: includes/class-fast-index-help-content.php:525
+msgid "Does Fast Index work on multilingual sites?"
+msgstr "Fast Index çok dilli sitelerde çalışır mı?"
+
+#: includes/class-fast-index-help-content.php:526
+msgid "Fast Index does not read language plugins. It sends the address that WordPress gives for the post that was saved, so a translation that is stored as its own post is sent when that post changes. The service account must be an Owner of a Search Console property that covers the addresses of every language, for example a Domain property. The plugin's own screens follow the language of your site or user profile."
+msgstr "Fast Index dil eklentilerini okumaz. Kaydedilen yazı için WordPress'in verdiği adresi gönderir; bu yüzden ayrı bir yazı olarak saklanan bir çeviri, o yazı değiştiğinde gönderilir. Hizmet hesabı, her dilin adreslerini kapsayan bir Search Console mülkünün (örneğin bir Alan mülkünün) Sahibi olmalıdır. Eklentinin kendi ekranları sitenizin ya da kullanıcı profilinizin dilini izler."
+
+#: includes/class-fast-index-help-content.php:530
+msgid "Does Fast Index support Bing or IndexNow?"
+msgstr "Fast Index Bing'i ya da IndexNow'u destekler mi?"
+
+#: includes/class-fast-index-help-content.php:531
+msgid "No. Fast Index talks only to the Google Indexing API."
+msgstr "Hayır. Fast Index yalnızca Google Indexing API ile iletişim kurar."
+
+#: includes/class-fast-index-help-content.php:535
+msgid "What is Freemius, and do I have to connect an account?"
+msgstr "Freemius nedir ve bir hesap bağlamam gerekir mi?"
+
+#. translators: %s: link to the Freemius privacy policy.
+#: includes/class-fast-index-help-content.php:538
+#, php-format
+msgid "Fast Index includes the Freemius SDK, a service for licences and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question."
+msgstr "Fast Index, lisanslar ve isteğe bağlı hesap bağlantısı için bir hizmet olan Freemius SDK'yı içerir. Hangi seçeneklerin açıldığını o belirler (bkz. Ayarların açıklaması). Freemius yönetim alanında kendi ekranlarını ya da uyarılarını gösterebilir: bir lisans ekranı (ücretsiz sürümle devam etmek için bir bağlantıyla) ve atlarsanız eklentinin yine çalışacağını söyleyen bir Atla düğmeli onay ekranı. SDK'nın topladıkları bu ekranlarda ve %s sayfasında anlatılır. Fast Index'in kendi kodu, ilk soruda anlatıldığı gibi Google'a yalnızca adres gönderir."
+
+#: includes/class-fast-index-help-content.php:539
+msgid "the Freemius privacy policy"
+msgstr "Freemius gizlilik politikası"
+
+#: includes/class-fast-index-help-content.php:544
+msgid "Does Fast Index slow down saving posts?"
+msgstr "Fast Index yazı kaydetmeyi yavaşlatır mı?"
+
+#: includes/class-fast-index-help-content.php:545
+msgid "No. Saving a post only queues a scheduled task. The request to Google is made later by WP-Cron, with a time limit of 15 seconds, and a batch of old posts stops after about 20 seconds."
+msgstr "Hayır. Yazıyı kaydetmek yalnızca zamanlanmış bir görevi sıraya alır. Google'a istek daha sonra WP-Cron tarafından, 15 saniyelik zaman sınırıyla yapılır; eski yazı grubu yaklaşık 20 saniye sonra durur."
+
+#: includes/class-fast-index-help-content.php:566
+msgid "Read the Troubleshooting entry that matches the code in History, and the FAQ."
+msgstr "Geçmiş'teki kodla eşleşen Sorun giderme maddesini ve SSS'yi okuyun."
+
+#: includes/class-fast-index-help-content.php:567
+msgid "On the settings screen, look at the last answer shown next to each key."
+msgstr "Ayarlar ekranında her anahtarın yanında gösterilen son yanıta bakın."
+
+#: includes/class-fast-index-help-content.php:568
+msgid "In Search Console, check that the service account is an Owner of a property that matches your site address exactly."
+msgstr "Search Console'da hizmet hesabının, site adresinizle tam olarak eşleşen bir mülkün Sahibi olduğunu denetleyin."
+
+#: includes/class-fast-index-help-content.php:569
+msgid "If WP_DEBUG_LOG is on, look in wp-content/debug.log for lines that mention fast-index."
+msgstr "WP_DEBUG_LOG açıksa wp-content/debug.log dosyasında fast-index geçen satırlara bakın."
+
+#: includes/class-fast-index-help-content.php:570
+msgid "Search the support forum for your question first."
+msgstr "Sorunuzu önce destek forumunda arayın."
+
+#: includes/class-fast-index-help-content.php:571
+msgid "When you write, say what you expected and what happened, and paste the system information below. Never post your JSON key file or any part of the private key."
+msgstr "Yazarken ne beklediğinizi ve ne olduğunu belirtin, aşağıdaki sistem bilgisini yapıştırın. JSON anahtar dosyanızı ya da özel anahtarın herhangi bir bölümünü asla paylaşmayın."
+
+#: includes/class-fast-index-help-content.php:583
+msgid "Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen."
+msgstr "Fast Index'in Google'a ne göndereceğini seçin ve hizmet hesabı anahtarını yükleyin. Her seçenek kendi alanının altında ve Yardım ve SSS ekranındaki Ayarların açıklaması bölümünde anlatılır."
+
+#: includes/class-fast-index-help-content.php:584
+msgid "Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting."
+msgstr "Toplamları ve Google'ın yanıtıyla birlikte son bildirimleri gösterir. 200 OK, Google'ın bildirimi kabul ettiği anlamına gelir; sayfanın dizine eklendiği anlamına gelmez. Diğer kodlar Sorun giderme bölümünde açıklanır."
+
+#: includes/class-fast-index-help-content.php:585
+msgid "Sends one batch of old posts now, within the daily number set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour."
+msgstr "Ayarlar ekranında belirlenen günlük sayı içinde bir eski yazı grubunu şimdi gönderir. Grubun boyutu rastgeledir; bu yüzden bir çalıştırma hiçbir şey göndermeyebilir. Aynı grup her saat de çalışır."
+
+#: includes/class-fast-index-help-content.php:586
+msgid "Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support."
+msgstr "Adım adım kurulum, her ayarın açıklaması, sorun giderme, sık sorulan sorular ve destek isterken eklemeniz gereken sistem bilgisi."
+
+#: includes/class-fast-index-help-content.php:591
+msgid "About this screen"
+msgstr "Bu ekran hakkında"
+
+#: includes/class-fast-index-help-content.php:592
+#: view/settings.php:239
+msgid "Open Help & FAQ"
+msgstr "Yardım ve SSS'yi aç"
+
+#: includes/class-fast-index-help-content.php:602
+msgid "For more information:"
+msgstr "Daha fazla bilgi için:"
+
+#: includes/class-fast-index-help-content.php:604
+msgid "Support forum"
+msgstr "Destek forumu"
+
+#: includes/class-fast-index-help-content.php:627
+msgid "(external link, opens in a new tab)"
+msgstr "(harici bağlantı, yeni sekmede açılır)"
+
+#: includes/class-fast-index-help.php:95
+msgid "System info copied."
+msgstr "Sistem bilgisi kopyalandı."
+
+#: includes/class-fast-index-help.php:96
+msgid "System info selected. Press Ctrl+C (Cmd+C on a Mac) to copy it."
+msgstr "Sistem bilgisi seçildi. Kopyalamak için Ctrl+C'ye (Mac'te Cmd+C) basın."
+
+#: includes/class-fast-index-help.php:137
+msgid "Yes"
+msgstr "Evet"
+
+#: includes/class-fast-index-help.php:138
+msgid "No"
+msgstr "Hayır"
+
+#: includes/class-fast-index-help.php:142
+msgid "Fast Index version"
+msgstr "Fast Index sürümü"
+
+#: includes/class-fast-index-help.php:146
+msgid "WordPress version"
+msgstr "WordPress sürümü"
+
+#: includes/class-fast-index-help.php:150
+msgid "PHP version"
+msgstr "PHP sürümü"
+
+#: includes/class-fast-index-help.php:154
+msgid "Multisite"
+msgstr "Çoklu site"
+
+#: includes/class-fast-index-help.php:158
+msgid "Site language"
+msgstr "Site dili"
+
+#: includes/class-fast-index-help.php:162
+msgid "OpenSSL available"
+msgstr "OpenSSL kullanılabilir"
+
+#: includes/class-fast-index-help.php:166
+msgid "WP-Cron disabled (DISABLE_WP_CRON)"
+msgstr "WP-Cron devre dışı (DISABLE_WP_CRON)"
+
+#: includes/class-fast-index-help.php:170
+msgid "Premium plan active"
+msgstr "Premium plan etkin"
+
+#: includes/class-fast-index-help.php:174
+msgid "Status setting"
+msgstr "Durum ayarı"
+
+#: includes/class-fast-index-help.php:175
+#: view/settings.php:52
+msgid "Passive"
+msgstr "Pasif"
+
+#: includes/class-fast-index-help.php:178
+msgid "Post types enabled"
+msgstr "Etkin yazı türleri"
+
+#: includes/class-fast-index-help.php:182
+msgid "Stored service account keys"
+msgstr "Kayıtlı hizmet hesabı anahtarları"
+
+#: includes/class-fast-index-help.php:186
+msgid "Keys available now (not resting)"
+msgstr "Şu anda kullanılabilir anahtarlar (beklemede olmayan)"
+
+#: includes/class-fast-index-help.php:190
+msgid "Last answer for each key"
+msgstr "Her anahtarın son yanıtı"
+
+#: includes/class-fast-index-help.php:194
+msgid "Next hourly old-post run"
+msgstr "Eski yazıların sonraki saatlik gönderimi"
+
+#: includes/class-fast-index-help.php:195
+msgid "Not scheduled"
+msgstr "Zamanlanmadı"
+
+#: includes/class-fast-index-help.php:198
+msgid "Sent in the last 24 hours"
+msgstr "Son 24 saatte gönderilen"
+
+#: includes/class-fast-index-help.php:202
+msgid "Posts waiting"
+msgstr "Bekleyen yazılar"
+
+#: includes/class-fast-index-help.php:206
+msgid "Last notification"
+msgstr "Son bildirim"
+
+#. translators: 1: number of the key in the list, 2: last answer from Google.
+#: includes/class-fast-index-help.php:246
+#, php-format
+msgid "Key %1$d: %2$s"
+msgstr "%1$d. anahtar: %2$s"
+
+#: includes/class-fast-index-help.php:248
+#: view/settings.php:179
+msgid "Not used yet"
+msgstr "Henüz kullanılmadı"
+
+#: includes/class-fast-index-help.php:264
+#: view/history.php:55
+msgid "Nothing was sent yet."
+msgstr "Henüz hiçbir şey gönderilmedi."
+
+#: includes/class-fast-index-key-upload.php:62
+#: includes/class-fast-index-key-upload.php:76
+msgid "The file could not be uploaded."
+msgstr "Dosya yüklenemedi."
+
+#: includes/class-fast-index-log.php:64
+msgid "Fast Index Logs"
+msgstr "Fast Index kayıtları"
+
+#: includes/class-fast-index-log.php:65
+msgid "Fast Index Log"
+msgstr "Fast Index kaydı"
+
+#: includes/class-fast-index-notices.php:223
+msgid "Fast Index:"
+msgstr "Fast Index:"
+
+#: includes/class-fast-index-notices.php:224
+msgid "In earlier versions, service account key files were stored in a publicly accessible folder; for security, we recommend creating a new key in Google Cloud and revoking the old one."
+msgstr "Önceki sürümlerde hizmet hesabı anahtar dosyaları herkesin erişebileceği bir klasörde saklanıyordu; güvenlik için Google Cloud'da yeni bir anahtar oluşturmanızı ve eskisini iptal etmenizi öneririz."
+
+#: includes/class-fast-index-notices.php:240
+msgid "Fast Index could not finish moving your service account keys to the database."
+msgstr "Fast Index hizmet hesabı anahtarlarınızı veritabanına taşımayı tamamlayamadı."
+
+#: includes/class-fast-index-notices.php:268
+msgid "Do not show this again"
+msgstr "Bunu bir daha gösterme"
+
+#: includes/class-fast-index-notices.php:278
+msgid "an unknown account"
+msgstr "bilinmeyen bir hesap"
+
+#. translators: %s: service account email.
+#: includes/class-fast-index-notices.php:283
+#, php-format
+msgid "The key file of %s was not found. Upload the key again."
+msgstr "%s anahtar dosyası bulunamadı. Anahtarı yeniden yükleyin."
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:286
+#, php-format
+msgid "The key file of %1$s (uploads/%2$s) could not be read. Upload the key again, then delete the old file."
+msgstr "%1$s anahtar dosyası (uploads/%2$s) okunamadı. Anahtarı yeniden yükleyin, ardından eski dosyayı silin."
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:289
+#, php-format
+msgid "The key file of %1$s (uploads/%2$s) is not a valid service account key. Upload the key again, then delete the old file."
+msgstr "%1$s anahtar dosyası (uploads/%2$s) geçerli bir hizmet hesabı anahtarı değil. Anahtarı yeniden yükleyin, ardından eski dosyayı silin."
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:292
+#, php-format
+msgid "The key of %1$s was moved, but the old file uploads/%2$s could not be deleted. Delete this file now: it can be downloaded by anyone."
+msgstr "%1$s anahtarı taşındı, ancak eski uploads/%2$s dosyası silinemedi. Bu dosyayı şimdi silin: herkes tarafından indirilebilir."
+
+#. translators: 1: service account email, 2: file name.
+#: includes/class-fast-index-notices.php:295
+#, php-format
+msgid "The key file of %1$s (%2$s) is not inside the uploads folder and was left untouched. Upload the key again, then delete the old file."
+msgstr "%1$s anahtar dosyası (%2$s) uploads klasörünün içinde değil ve dokunulmadan bırakıldı. Anahtarı yeniden yükleyin, ardından eski dosyayı silin."
+
+#: includes/class-fast-index-settings.php:187
+msgid "Choose a valid status."
+msgstr "Geçerli bir durum seçin."
+
+#: includes/class-fast-index-settings.php:191
+msgid "Select at least one post type."
+msgstr "En az bir yazı türü seçin."
+
+#. translators: %s: highest accepted number.
+#: includes/class-fast-index-settings.php:196
+#, php-format
+msgid "The daily number of old posts must be a whole number from 0 to %s."
+msgstr "Eski yazıların günlük sayısı 0 ile %s arasında bir tam sayı olmalıdır."
+
+#: view/help.php:18
+msgid "Everything you need to set up Fast Index and to solve the most common problems. Please read it before you write to support: the answer is most often here."
+msgstr "Fast Index'i kurmak ve en sık karşılaşılan sorunları çözmek için gereken her şey burada. Desteğe yazmadan önce okuyun: yanıt çoğunlukla burada."
+
+#: view/help.php:20
+msgid "Help sections"
+msgstr "Yardım bölümleri"
+
+#: view/help.php:56
+#: view/help.php:65
+msgid "Setting"
+msgstr "Ayar"
+
+#: view/help.php:57
+#: view/help.php:66
+msgid "What it does"
+msgstr "Ne yapar"
+
+#: view/help.php:58
+#: view/help.php:67
+msgid "Default"
+msgstr "Varsayılan"
+
+#: view/help.php:59
+#: view/help.php:68
+msgid "Change it when"
+msgstr "Ne zaman değiştirilir"
+
+#: view/help.php:80
+msgid "Find what you see, then read why it happens and what to do."
+msgstr "Gördüğünüz durumu bulun, ardından neden olduğunu ve ne yapacağınızı okuyun."
+
+#: view/help.php:86
+msgid "Why it happens:"
+msgstr "Neden oluyor:"
+
+#: view/help.php:87
+msgid "What to do:"
+msgstr "Ne yapmalı:"
+
+#: view/help.php:111
+msgid "Before you write to support, please go through this list:"
+msgstr "Desteğe yazmadan önce bu listeye göz atın:"
+
+#: view/help.php:118
+msgid "System info"
+msgstr "Sistem bilgisi"
+
+#: view/help.php:120
+msgid "Read-only facts about your site that help us answer. They contain no keys and no email addresses."
+msgstr "Yanıt vermemize yardımcı olan, sitenizle ilgili salt okunur bilgiler. Anahtar ya da e-posta adresi içermez."
+
+#: view/help.php:124
+msgid "Copy system info"
+msgstr "Sistem bilgisini kopyala"
+
+#: view/help.php:129
+msgid "Open the Fast Index support forum on WordPress.org"
+msgstr "WordPress.org'daki Fast Index destek forumunu açın"
+
+#: view/history.php:15
+msgid "Updated"
+msgstr "Güncellendi"
+
+#: view/history.php:16
+msgid "Deleted"
+msgstr "Silindi"
+
+#: view/history.php:21
+msgid "Simple Report"
+msgstr "Basit rapor"
+
+#: view/history.php:26
+msgid "Total Sent"
+msgstr "Toplam gönderilen"
+
+#: view/history.php:27
+msgid "Total Waiting"
+msgstr "Toplam bekleyen"
+
+#: view/history.php:28
+msgid "Sent Today"
+msgstr "Bugün gönderilen"
+
+#: view/history.php:47
 msgid "Title"
 msgstr "Başlık"
 
-#: view/settings.php:270
-msgid "Too many requests are thrown and when it's 24 hours it starts again"
-msgstr "Çok fazla istek atılıyor ve 24 saat olduğunda tekrar başlıyor"
+#: view/history.php:48
+msgid "Date"
+msgstr "Tarih"
 
-#: view/history.php:9
-msgid "Total Sent"
-msgstr "Toplam Gönderilen"
+#: view/history.php:49
+msgid "Send Status"
+msgstr "Gönderim durumu"
 
-#: view/history.php:10
-msgid "Total Waiting"
-msgstr "Toplam Bekleyen"
+#: view/history.php:50
+msgid "Post"
+msgstr "Yazı"
 
-#: view/settings.php:286
-msgid ""
-"Totally is legal. It's google service and working with google API. If you "
-"upload too much service account it's can be defined a spam. Just watch out "
-"for this"
-msgstr ""
-"Tamamen yasaldır. Google hizmetidir ve google API ile çalışır. Çok fazla "
-"hizmet hesabı yüklerseniz spam olarak tanımlanabilir. Sadece buna dikkat et"
+#: view/history.php:73
+msgid "GO POST"
+msgstr "Yazıya git"
 
-#: view/settings.php:194
-msgid "Upload Google Service Account Json"
-msgstr "Google Hizmet Hesabı Json'u yükleyin"
+#: view/history.php:79
+msgid "Pagination"
+msgstr "Sayfalandırma"
 
-#: view/settings.php:304
-msgid "Watch Video"
-msgstr "Videoyu İzle"
+#: view/history.php:82
+msgid "Previous"
+msgstr "Önceki"
 
-#: view/settings.php:268
-msgid "What means 200, 429 and 401 codes?"
-msgstr "200, 429 ve 401 kodları ne anlama geliyor?"
+#: view/history.php:85
+msgid "Next"
+msgstr "Sonraki"
 
-#: view/settings.php:159
+#: view/run.php:16
+msgid "Sends one batch of old posts now, within the daily limit set on the settings page. The same batch also runs every hour."
+msgstr "Ayarlar sayfasında belirlenen günlük sınır içinde bir eski yazı grubunu şimdi gönderir. Aynı grup her saat de çalışır."
+
+#: view/run.php:21
+msgid "Send now"
+msgstr "Şimdi gönder"
+
+#: view/run.php:29
+msgid "There are no posts to send now. Check your settings and the daily limit."
+msgstr "Şu anda gönderilecek yazı yok. Ayarlarınızı ve günlük sınırı denetleyin."
+
+#: view/settings.php:16
+msgid "Publish"
+msgstr "Yayınla"
+
+#: view/settings.php:17
+msgid "Edit"
+msgstr "Düzenle"
+
+#: view/settings.php:18
+msgid "Trash"
+msgstr "Çöp"
+
+#: view/settings.php:47
+msgid "Important choice for the plugin work"
+msgstr "Eklentinin çalışması için önemli bir seçim"
+
+#: view/settings.php:61
+msgid "Select minimum one option"
+msgstr "En az bir seçenek işaretleyin"
+
+#: view/settings.php:80
+msgid "How many old contents should be sent per day?"
+msgstr "Günde kaç eski içerik gönderilsin?"
+
+#: view/settings.php:95
 msgid "Which status happen should content be sent?"
-msgstr "İçerik hangi durumda gönderilmelidir?"
+msgstr "İçerik hangi durumda gönderilsin?"
 
-#: view/settings.php:236
-msgid "If you wanna upload multiple and more service account"
-msgstr "Birden çok ve daha fazla hizmet hesabı yüklemek istiyorsanız"
-
-#: view/settings.php:238
-msgid "Please upgrade to premium"
-msgstr "Lütfen premium sürüme yükseltin"
-
-#: view/settings.php:238
-msgid "Exclude Categories"
-msgstr "Kategorileri Hariç Tut"
-
-#: view/settings.php:238
+#: view/settings.php:114
 msgid "Select which you want to exclude"
-msgstr "Hariç tutmak istediğiniz kategorileri seçiniz"
+msgstr "Hariç tutmak istediklerinizi seçin"
+
+#: view/settings.php:133
+msgid "Delete all plugin data (settings, keys and log) when the plugin is deleted. This cannot be undone."
+msgstr "Eklenti silindiğinde tüm eklenti verilerini (ayarlar, anahtarlar ve kayıt) sil. Bu işlem geri alınamaz."
+
+#: view/settings.php:143
+msgid "Rate Us on WordPress"
+msgstr "WordPress'te bizi değerlendirin"
+
+#. translators: %s: ID of the service account key.
+#: view/settings.php:174
+#, php-format
+msgid "Key ID: %s"
+msgstr "Anahtar kimliği: %s"
+
+#: view/settings.php:184
+msgid "Delete"
+msgstr "Sil"
+
+#: view/settings.php:202
+msgid "The key file is read and stored in the database; it is not saved in the uploads folder. Only the client email and the key ID are shown here."
+msgstr "Anahtar dosyası okunur ve veritabanına kaydedilir; uploads klasörüne kaydedilmez. Burada yalnızca istemci e-posta adresi ve anahtar kimliği gösterilir."
+
+#: view/settings.php:210
+msgid "If you wanna upload multiple and more service account"
+msgstr "Birden fazla hizmet hesabı yüklemek isterseniz"
+
+#: view/settings.php:237
+msgid "Setting up for the first time, or something does not work? Step-by-step instructions, an explanation of every setting, solutions to common problems and answers to frequently asked questions are in Help & FAQ."
+msgstr "İlk kez kuruyorsanız ya da bir şey çalışmıyorsa: adım adım yönergeler, her ayarın açıklaması, sık karşılaşılan sorunların çözümleri ve sık sorulan sorulara yanıtlar Yardım ve SSS ekranında."
+
+#: view/settings.php:246
+msgid "Fast Index sends your addresses to the Google Indexing API. A 200 answer means Google accepted the notification; Google does not promise to index the page."
+msgstr "Fast Index adreslerinizi Google Indexing API'ye gönderir. 200 yanıtı, Google'ın bildirimi kabul ettiği anlamına gelir; Google sayfayı dizine ekleyeceğine söz vermez."

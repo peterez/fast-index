@@ -1,0 +1,1280 @@
+# French translation of Fast Index.
+# Copyright (C) 2026 Samet AKIN
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Fast Index 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
+"POT-Creation-Date: 2026-10-14T15:24:17+00:00\n"
+"PO-Revision-Date: 2026-10-14 15:47+0000\n"
+"Last-Translator: Fast Index project\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Fast Index translation build\n"
+"X-Domain: fast-index\n"
+
+#. Plugin Name of the plugin
+#: index.php
+#: includes/class-fast-index-admin.php:70
+msgid "Fast Index"
+msgstr "Fast Index"
+
+#. Description of the plugin
+#: index.php
+msgid "Sends new, updated and deleted posts to the Google Indexing API so Google can crawl them sooner."
+msgstr "Envoie les articles nouveaux, modifiés et supprimés à la Google Indexing API afin que Google puisse les explorer plus tôt."
+
+#. Author of the plugin
+#: index.php
+msgid "Samet AKIN"
+msgstr "Samet AKIN"
+
+#. Author URI of the plugin
+#: index.php
+msgid "https://www.linkedin.com/in/samet-akin/"
+msgstr "https://www.linkedin.com/in/samet-akin/"
+
+#: includes/class-fast-index-accounts.php:222
+#: includes/class-fast-index-key-upload.php:70
+msgid "The file is empty or too large to be a service account key."
+msgstr "Le fichier est vide ou trop volumineux pour être une clé de compte de service."
+
+#: includes/class-fast-index-accounts.php:228
+msgid "The file is not valid JSON."
+msgstr "Le fichier n’est pas un JSON valide."
+
+#: includes/class-fast-index-accounts.php:232
+msgid "The file is not a Google service account key."
+msgstr "Le fichier n’est pas une clé de compte de service Google."
+
+#: includes/class-fast-index-accounts.php:238
+msgid "The key does not contain a valid client email."
+msgstr "La clé ne contient pas d’adresse e-mail de client valide."
+
+#: includes/class-fast-index-accounts.php:244
+msgid "The key does not contain a valid private key."
+msgstr "La clé ne contient pas de clé privée valide."
+
+#: includes/class-fast-index-admin-actions.php:86
+msgid "Settings saved."
+msgstr "Réglages enregistrés."
+
+#: includes/class-fast-index-admin-actions.php:111
+#: includes/class-fast-index-key-upload.php:66
+msgid "Choose a .json key file."
+msgstr "Choisissez un fichier de clé .json."
+
+#: includes/class-fast-index-admin-actions.php:137
+msgid "The service account key was deleted."
+msgstr "La clé du compte de service a été supprimée."
+
+#: includes/class-fast-index-admin-actions.php:139
+msgid "The service account key was not found."
+msgstr "La clé du compte de service est introuvable."
+
+#. translators: 1: uploaded file name, 2: reason the file was rejected.
+#: includes/class-fast-index-admin-actions.php:198
+#, php-format
+msgid "%1$s: %2$s"
+msgstr "%1$s : %2$s"
+
+#. translators: %s: service account email.
+#: includes/class-fast-index-admin-actions.php:209
+#, php-format
+msgid "The key of %s was saved."
+msgstr "La clé de %s a été enregistrée."
+
+#: includes/class-fast-index-admin-actions.php:218
+msgid "Sorry, you are not allowed to do that."
+msgstr "Désolé, vous n’avez pas l’autorisation de faire cela."
+
+#: includes/class-fast-index-admin.php:71
+#: includes/class-fast-index-help-content.php:210
+#: view/history.php:41
+msgid "History"
+msgstr "Historique"
+
+#: includes/class-fast-index-admin.php:72
+#: view/run.php:14
+msgid "Send Old Posts Now"
+msgstr "Envoyer les anciens articles maintenant"
+
+#: includes/class-fast-index-admin.php:73
+#: includes/class-fast-index-help-content.php:603
+#: view/help.php:16
+#: view/settings.php:234
+msgid "Help & FAQ"
+msgstr "Aide et FAQ"
+
+#: includes/class-fast-index-admin.php:114
+#: view/settings.php:212
+msgid "Please upgrade to premium"
+msgstr "Passez à l’offre premium"
+
+#: includes/class-fast-index-admin.php:240
+msgid "No service account available"
+msgstr "Aucun compte de service disponible"
+
+#: includes/class-fast-index-admin.php:244
+msgid "OpenSSL is missing"
+msgstr "OpenSSL est absent"
+
+#: includes/class-fast-index-admin.php:248
+msgid "No answer from Google"
+msgstr "Aucune réponse de Google"
+
+#: includes/class-fast-index-admin.php:252
+#: includes/class-fast-index-help-content.php:211
+msgid "OK"
+msgstr "OK"
+
+#: includes/class-fast-index-admin.php:286
+#: includes/class-fast-index-help.php:110
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Désolé, vous n’avez pas l’autorisation d’accéder à cette page."
+
+#: includes/class-fast-index-google-client.php:121
+msgid "Unknown notification type."
+msgstr "Type de notification inconnu."
+
+#: includes/class-fast-index-google-client.php:192
+#: includes/class-fast-index-google-client.php:341
+msgid "Google sent an unexpected response."
+msgstr "Google a envoyé une réponse inattendue."
+
+#: includes/class-fast-index-google-client.php:236
+msgid "The private key of the service account could not be read."
+msgstr "La clé privée du compte de service n’a pas pu être lue."
+
+#: includes/class-fast-index-google-client.php:242
+msgid "The request to Google could not be signed."
+msgstr "La requête envoyée à Google n’a pas pu être signée."
+
+#: includes/class-fast-index-google-client.php:254
+msgid "The PHP OpenSSL extension is not available, so requests to Google cannot be signed. Ask your hosting provider to enable OpenSSL for PHP."
+msgstr "L’extension PHP OpenSSL n’est pas disponible ; les requêtes vers Google ne peuvent donc pas être signées. Demandez à votre hébergeur d’activer OpenSSL pour PHP."
+
+#: includes/class-fast-index-google-client.php:329
+msgid "Could not connect to Google."
+msgstr "Connexion à Google impossible."
+
+#. translators: %d: HTTP status code returned by Google.
+#: includes/class-fast-index-google-client.php:367
+#, php-format
+msgid "Google answered with HTTP status %d."
+msgstr "Google a répondu avec le code d’état HTTP %d."
+
+#: includes/class-fast-index-help-content.php:80
+msgid "Getting started"
+msgstr "Premiers pas"
+
+#: includes/class-fast-index-help-content.php:81
+msgid "Settings explained"
+msgstr "Réglages expliqués"
+
+#: includes/class-fast-index-help-content.php:82
+msgid "Troubleshooting"
+msgstr "Diagnostic"
+
+#: includes/class-fast-index-help-content.php:83
+msgid "FAQ"
+msgstr "FAQ"
+
+#: includes/class-fast-index-help-content.php:84
+msgid "Still need help?"
+msgstr "Besoin d’aide supplémentaire ?"
+
+#. translators: 1: quoted sentence from Google's documentation, 2: link to that documentation.
+#: includes/class-fast-index-help-content.php:117
+#, php-format
+msgid "Please read this first. Google says: %1$s For other pages, Google may accept a notification, but nothing in its documentation promises that the page will be crawled or indexed sooner. See the FAQ and Google's documentation: %2$s."
+msgstr "À lire en premier. Google indique : %1$s Pour les autres pages, Google peut accepter une notification, mais rien dans sa documentation ne promet que la page sera explorée ou indexée plus tôt. Consultez la FAQ et la documentation de Google : %2$s."
+
+#: includes/class-fast-index-help-content.php:118
+#: includes/class-fast-index-help-content.php:461
+msgid "\"The Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject.\""
+msgstr "« L’Indexing API ne peut servir qu’à explorer des pages contenant soit JobPosting, soit BroadcastEvent intégré dans un VideoObject. »"
+
+#: includes/class-fast-index-help-content.php:119
+msgid "Indexing API quickstart"
+msgstr "Démarrage rapide de l’Indexing API"
+
+#: includes/class-fast-index-help-content.php:129
+msgid "Fast Index tells the Google Indexing API when a post is published, changed or removed. For this, Google needs a service account that you create once in Google Cloud. The steps below follow Google's own instructions."
+msgstr "Fast Index informe l’Indexing API de Google lorsqu’un article est publié, modifié ou supprimé. Pour cela, Google a besoin d’un compte de service que vous créez une seule fois dans Google Cloud. Les étapes ci-dessous suivent les instructions de Google."
+
+#: includes/class-fast-index-help-content.php:140
+msgid "Create a Google Cloud project and turn on the API"
+msgstr "Créer un projet Google Cloud et activer l’API"
+
+#. translators: 1: link to the Google Cloud console, 2: name of the API, 3: link to Google's prerequisites page.
+#: includes/class-fast-index-help-content.php:143
+#, php-format
+msgid "Open the %1$s and select or create a project. Then enable the %2$s for that project (Google's documentation calls it the Indexing API). Google also offers a setup tool that creates a project and enables the API in one step; it is linked from %3$s."
+msgstr "Ouvrez la %1$s et sélectionnez ou créez un projet. Activez ensuite %2$s pour ce projet (la documentation de Google l’appelle Indexing API). Google propose aussi un outil de configuration qui crée un projet et active l’API en une seule étape ; il est lié depuis la %3$s."
+
+#: includes/class-fast-index-help-content.php:144
+msgid "Google Cloud console"
+msgstr "console Google Cloud"
+
+#: includes/class-fast-index-help-content.php:145
+msgid "Web Search Indexing API"
+msgstr "Web Search Indexing API"
+
+#: includes/class-fast-index-help-content.php:146
+msgid "Google's prerequisites page"
+msgstr "page des prérequis de Google"
+
+#: includes/class-fast-index-help-content.php:150
+msgid "Create a service account"
+msgstr "Créer un compte de service"
+
+#. translators: 1: Google Cloud menu name "Service accounts", 2: button name "Create service account", 3: button name "Done".
+#: includes/class-fast-index-help-content.php:153
+#, php-format
+msgid "In the Google Cloud console open the %1$s page, choose your project and click %2$s. Enter a name. You can skip the optional steps about access (IAM roles). Click %3$s."
+msgstr "Dans la console Google Cloud, ouvrez la page %1$s, choisissez votre projet et cliquez sur %2$s. Saisissez un nom. Vous pouvez ignorer les étapes facultatives concernant l’accès (rôles IAM). Cliquez sur %3$s."
+
+#: includes/class-fast-index-help-content.php:154
+msgid "Service accounts"
+msgstr "Comptes de service"
+
+#: includes/class-fast-index-help-content.php:155
+msgid "Create service account"
+msgstr "Créer un compte de service"
+
+#: includes/class-fast-index-help-content.php:156
+msgid "Done"
+msgstr "Terminé"
+
+#: includes/class-fast-index-help-content.php:160
+msgid "Download a JSON key"
+msgstr "Télécharger une clé JSON"
+
+#. translators: 1: tab name "Keys", 2: menu entry "Add key", 3: menu entry "Create new key", 4: key type "JSON", 5: button name "Create".
+#: includes/class-fast-index-help-content.php:163
+#, php-format
+msgid "Click the email address of the new service account and open the %1$s tab. Click %2$s, choose %3$s, select %4$s as the key type and click %5$s. The file downloads once and Google cannot give it to you again. Keep it private and never share or post it. If Google says you cannot create keys, your organization may block key creation with a policy; ask your Google Cloud administrator."
+msgstr "Cliquez sur l’adresse e-mail du nouveau compte de service et ouvrez l’onglet %1$s. Cliquez sur %2$s, choisissez %3$s, sélectionnez %4$s comme type de clé et cliquez sur %5$s. Le fichier n’est téléchargé qu’une seule fois et Google ne peut pas vous le fournir de nouveau. Gardez-le privé et ne le partagez ni ne le publiez jamais. Si Google indique que vous ne pouvez pas créer de clés, votre organisation bloque peut-être la création de clés par une règle ; demandez à votre administrateur Google Cloud."
+
+#: includes/class-fast-index-help-content.php:164
+msgid "Keys"
+msgstr "Clés"
+
+#: includes/class-fast-index-help-content.php:165
+msgid "Add key"
+msgstr "Ajouter une clé"
+
+#: includes/class-fast-index-help-content.php:166
+msgid "Create new key"
+msgstr "Créer une clé"
+
+#: includes/class-fast-index-help-content.php:167
+msgid "JSON"
+msgstr "JSON"
+
+#: includes/class-fast-index-help-content.php:168
+msgid "Create"
+msgstr "Créer"
+
+#: includes/class-fast-index-help-content.php:172
+msgid "Add the service account as an Owner in Search Console"
+msgstr "Ajouter le compte de service comme Propriétaire dans Search Console"
+
+#. translators: 1: Search Console menu path "Settings", 2: "Users and permissions", 3: button name "Add user", 4: permission name "Owner", 5: link to Google's help page, 6: file field name "client_email".
+#: includes/class-fast-index-help-content.php:175
+#, php-format
+msgid "Open Search Console and choose the verified property of your site: a Domain property, or a URL-prefix property that matches your site address exactly, including https and www. Go to %1$s, then %2$s, click %3$s, enter the email address of the service account (the %6$s value in the JSON file; it ends in .iam.gserviceaccount.com) and choose %4$s as the permission. Google describes this in %5$s."
+msgstr "Ouvrez Search Console et choisissez la propriété validée de votre site : une propriété de type Domaine, ou une propriété de type Préfixe d’URL qui correspond exactement à l’adresse de votre site, y compris https et www. Allez dans %1$s, puis %2$s, cliquez sur %3$s, saisissez l’adresse e-mail du compte de service (la valeur %6$s du fichier JSON ; elle se termine par .iam.gserviceaccount.com) et choisissez %4$s comme autorisation. Google décrit cette procédure dans %5$s."
+
+#: includes/class-fast-index-help-content.php:176
+#: view/settings.php:33
+msgid "Settings"
+msgstr "Réglages"
+
+#: includes/class-fast-index-help-content.php:177
+msgid "Users and permissions"
+msgstr "Utilisateurs et autorisations"
+
+#: includes/class-fast-index-help-content.php:178
+msgid "Add user"
+msgstr "Ajouter un utilisateur"
+
+#: includes/class-fast-index-help-content.php:179
+msgid "Owner"
+msgstr "Propriétaire"
+
+#: includes/class-fast-index-help-content.php:180
+msgid "Search Console Help"
+msgstr "Aide de Search Console"
+
+#: includes/class-fast-index-help-content.php:185
+msgid "Upload the key to Fast Index"
+msgstr "Téléverser la clé dans Fast Index"
+
+#. translators: 1: heading on the settings screen, 2: file button label, 3: submit button label.
+#: includes/class-fast-index-help-content.php:188
+#, php-format
+msgid "Open the Fast Index settings. Under %1$s choose the .json file (%2$s) and click %3$s. The screen then lists the email address and key ID of the key. The private key is stored in your database and is never shown."
+msgstr "Ouvrez les réglages de Fast Index. Sous « %1$s », choisissez le fichier .json (« %2$s ») et cliquez sur « %3$s ». L’écran affiche alors l’adresse e-mail et l’ID de la clé. La clé privée est stockée dans votre base de données et n’est jamais affichée."
+
+#: includes/class-fast-index-help-content.php:189
+#: includes/class-fast-index-help-content.php:287
+#: view/settings.php:158
+msgid "Upload Google Service Account Json"
+msgstr "Téléverser le fichier JSON du compte de service Google"
+
+#: includes/class-fast-index-help-content.php:190
+#: view/settings.php:199
+msgid "Choose Json File/s"
+msgstr "Choisir des fichiers JSON"
+
+#: includes/class-fast-index-help-content.php:191
+#: view/settings.php:221
+msgid "Upload key"
+msgstr "Téléverser la clé"
+
+#: includes/class-fast-index-help-content.php:195
+msgid "Choose what to send"
+msgstr "Choisir ce qui est envoyé"
+
+#. translators: 1: setting name "Status", 2: value "Active", 3: setting name "Post Types", 4: button name "Save".
+#: includes/class-fast-index-help-content.php:198
+#, php-format
+msgid "In the settings keep %1$s on %2$s, check the %3$s to send and click %4$s. Every option is explained under Settings explained."
+msgstr "Dans les réglages, laissez %1$s sur %2$s, cochez les %3$s à envoyer et cliquez sur %4$s. Chaque option est expliquée sous Réglages expliqués."
+
+#: includes/class-fast-index-help-content.php:199
+#: includes/class-fast-index-help-content.php:239
+#: view/settings.php:46
+msgid "Status"
+msgstr "État"
+
+#: includes/class-fast-index-help-content.php:200
+#: includes/class-fast-index-help-content.php:242
+#: includes/class-fast-index-help.php:175
+#: view/settings.php:51
+msgid "Active"
+msgstr "Actif"
+
+#: includes/class-fast-index-help-content.php:201
+#: includes/class-fast-index-help-content.php:247
+#: view/settings.php:60
+msgid "Post Types"
+msgstr "Types de publication"
+
+#: includes/class-fast-index-help-content.php:202
+#: view/settings.php:150
+msgid "Save"
+msgstr "Enregistrer"
+
+#: includes/class-fast-index-help-content.php:206
+msgid "Publish a test post and check History"
+msgstr "Publier un article de test et consulter l’Historique"
+
+#. translators: 1: menu name "History", 2: example status "200 OK".
+#: includes/class-fast-index-help-content.php:209
+#, php-format
+msgid "Publish a post. A short while later (when WordPress runs its scheduled tasks) it appears under Fast Index, %1$s. %2$s means Google accepted the notification; it does not mean the page is indexed. Any other code is explained under Troubleshooting."
+msgstr "Publiez un article. Peu après (lorsque WordPress exécute ses tâches planifiées), il apparaît sous Fast Index, %1$s. %2$s signifie que Google a accepté la notification ; cela ne veut pas dire que la page est indexée. Tout autre code est expliqué sous Diagnostic."
+
+#. translators: %s: link to a video on YouTube.
+#: includes/class-fast-index-help-content.php:225
+#, php-format
+msgid "Prefer a video? %s The video was recorded for an earlier version, so some screens may look different from this guide."
+msgstr "Vous préférez une vidéo ? %s Elle a été enregistrée pour une version antérieure ; certains écrans peuvent donc différer de ce guide."
+
+#: includes/class-fast-index-help-content.php:226
+msgid "Watch the setup video on YouTube (external link, opens in a new tab)"
+msgstr "Regarder la vidéo d’installation sur YouTube (lien externe, s’ouvre dans un nouvel onglet)"
+
+#: includes/class-fast-index-help-content.php:241
+msgid "Active: Fast Index sends notifications when posts change, and sends old posts if you asked for that. Passive: nothing is sent. A post saved while Passive is not queued for later."
+msgstr "Actif : Fast Index envoie des notifications lorsque des articles changent, et envoie les anciens articles si vous l’avez demandé. Passif : rien n’est envoyé. Un article enregistré en mode Passif n’est pas mis en file d’attente pour plus tard."
+
+#: includes/class-fast-index-help-content.php:243
+msgid "Switch to Passive before a bulk import or a large edit, so that hundreds of addresses do not use up Google's daily quota. Your keys and history are kept."
+msgstr "Passez sur Passif avant un import en masse ou une modification importante, afin que des centaines d’adresses n’épuisent pas le quota quotidien de Google. Vos clés et votre historique sont conservés."
+
+#: includes/class-fast-index-help-content.php:249
+msgid "Lists every public post type of the site (posts, pages and custom types) except media attachments. Only the checked types are sent. At least one type is required."
+msgstr "Liste tous les types de publication publics du site (articles, pages et types personnalisés) à l’exception des fichiers médias. Seuls les types cochés sont envoyés. Au moins un type est requis."
+
+#: includes/class-fast-index-help-content.php:250
+msgid "Posts"
+msgstr "Articles"
+
+#: includes/class-fast-index-help-content.php:251
+msgid "Check another type when its pages should be sent too, for example a custom post type that holds job postings or live videos."
+msgstr "Cochez un autre type lorsque ses pages doivent aussi être envoyées, par exemple un type de publication personnalisé qui contient des offres d’emploi ou des vidéos en direct."
+
+#: includes/class-fast-index-help-content.php:255
+#: view/settings.php:79
+msgid "Daily Old Content Post?"
+msgstr "Envoi quotidien d’anciens contenus ?"
+
+#: includes/class-fast-index-help-content.php:257
+msgid "Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The number counts every successful notification of the last 24 hours, new posts included, and can be 0 to 10,000. Each batch is a random number from 0 to a third of the daily number, so some hours send nothing."
+msgstr "Envoie les articles publiés que Google n’a jamais acceptés pour ce site, du plus récent au plus ancien, par petits lots chaque heure. Le nombre compte chaque notification réussie des dernières 24 heures, nouveaux articles compris, et peut aller de 0 à 10 000. Chaque lot est un nombre aléatoire compris entre 0 et un tiers du nombre quotidien ; certaines heures n’envoient donc rien."
+
+#: includes/class-fast-index-help-content.php:258
+msgid "0 (off)"
+msgstr "0 (désactivé)"
+
+#: includes/class-fast-index-help-content.php:259
+msgid "Turn it on after your new posts are sent correctly. Keep the number low enough to leave room for new posts within Google's daily quota (see the FAQ)."
+msgstr "Activez-le une fois que vos nouveaux articles sont correctement envoyés. Gardez un nombre assez bas pour laisser de la place aux nouveaux articles dans le quota quotidien de Google (voir la FAQ)."
+
+#: includes/class-fast-index-help-content.php:263
+#: view/settings.php:94
+msgid "Post Status"
+msgstr "État de l’article"
+
+#: includes/class-fast-index-help-content.php:265
+msgid "Publish: a post becomes published. Edit: a post that is already published is saved again. Trash: a published post is moved to the trash or deleted, and Google is told that the address was removed. Changing a published post back to draft or private is not sent."
+msgstr "Publier : un article est publié. Modifier : un article déjà publié est enregistré de nouveau. Corbeille : un article publié est mis à la corbeille ou supprimé, et Google est informé que l’adresse a été retirée. Le passage d’un article publié en brouillon ou en privé n’est pas envoyé."
+
+#: includes/class-fast-index-help-content.php:266
+msgid "Publish (Edit is also on by default with the premium plan)"
+msgstr "Publier (Modifier est aussi activé par défaut avec l’offre premium)"
+
+#: includes/class-fast-index-help-content.php:267
+msgid "Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal."
+msgstr "Activez Modifier si le contenu modifié doit être réexploré. Activez Corbeille si les pages supprimées doivent être signalées ; Google demande que l’adresse renvoie déjà le code 404 ou 410, ou comporte une balise noindex, lorsque vous envoyez une suppression."
+
+#: includes/class-fast-index-help-content.php:271
+#: view/settings.php:113
+msgid "Exclude Categories"
+msgstr "Exclure des catégories"
+
+#: includes/class-fast-index-help-content.php:273
+msgid "A post in at least one checked category is never sent, whether it is new, changed, removed or part of an old-post batch, even if it is also in other categories."
+msgstr "Un article appartenant à au moins une catégorie cochée n’est jamais envoyé, qu’il soit nouveau, modifié, supprimé ou qu’il fasse partie d’un lot d’anciens articles, même s’il appartient aussi à d’autres catégories."
+
+#: includes/class-fast-index-help-content.php:274
+msgid "No category is excluded"
+msgstr "Aucune catégorie n’est exclue"
+
+#: includes/class-fast-index-help-content.php:275
+msgid "Use it for content you do not want Google to hear about, for example internal or duplicate material."
+msgstr "À utiliser pour les contenus dont vous ne voulez pas que Google ait connaissance, par exemple du contenu interne ou en double."
+
+#: includes/class-fast-index-help-content.php:279
+#: view/settings.php:132
+msgid "Delete data on uninstall"
+msgstr "Supprimer les données à la désinstallation"
+
+#: includes/class-fast-index-help-content.php:281
+msgid "Applies when the plugin is deleted from the Plugins screen, not when it is deactivated. Settings, keys and history are removed, on every site of a multisite network. Records kept by Freemius are not touched."
+msgstr "S’applique lorsque l’extension est supprimée depuis l’écran Extensions, et non lorsqu’elle est désactivée. Les réglages, les clés et l’historique sont supprimés, sur chaque site d’un réseau multisite. Les données conservées par Freemius ne sont pas touchées."
+
+#: includes/class-fast-index-help-content.php:282
+msgid "Off"
+msgstr "Désactivé"
+
+#: includes/class-fast-index-help-content.php:283
+msgid "Turn it on only if you are removing Fast Index for good. The key also stays valid in Google Cloud until you delete it there."
+msgstr "Activez-le uniquement si vous retirez définitivement Fast Index. La clé reste aussi valide dans Google Cloud tant que vous ne l’y avez pas supprimée."
+
+#: includes/class-fast-index-help-content.php:289
+msgid "Reads the .json key that you downloaded from Google Cloud, checks it and stores it in the database, not in the uploads folder. Each stored key is listed with its email address, key ID and the last answer from Google. A key can be deleted from the list."
+msgstr "Lit la clé .json que vous avez téléchargée depuis Google Cloud, la vérifie et l’enregistre dans la base de données, et non dans le dossier des téléversements. Chaque clé enregistrée est listée avec son adresse e-mail, son ID de clé et la dernière réponse de Google. Une clé peut être supprimée depuis la liste."
+
+#: includes/class-fast-index-help-content.php:290
+msgid "No key"
+msgstr "Aucune clé"
+
+#: includes/class-fast-index-help-content.php:291
+msgid "Upload again after you create a new key. Uploading a key for an email address that is already stored replaces the stored key."
+msgstr "Téléversez de nouveau après avoir créé une nouvelle clé. Téléverser une clé pour une adresse e-mail déjà enregistrée remplace la clé enregistrée."
+
+#: includes/class-fast-index-help-content.php:305
+msgid "Active sends notifications to Google. Passive pauses everything; your keys and history are kept."
+msgstr "Actif envoie les notifications à Google. Passif met tout en pause ; vos clés et votre historique sont conservés."
+
+#: includes/class-fast-index-help-content.php:307
+msgid "Only the checked types are sent. Media attachments are not listed."
+msgstr "Seuls les types cochés sont envoyés. Les fichiers médias ne sont pas listés."
+
+#: includes/class-fast-index-help-content.php:309
+msgid "How many old posts may be sent per day, in small hourly batches. 0 turns this off."
+msgstr "Nombre d’anciens articles pouvant être envoyés par jour, par petits lots horaires. 0 désactive cette fonction."
+
+#: includes/class-fast-index-help-content.php:311
+msgid "Publish: a post goes live. Edit: a live post is saved again. Trash: a live post is trashed or deleted."
+msgstr "Publier : un article est mis en ligne. Modifier : un article en ligne est enregistré de nouveau. Corbeille : un article en ligne est mis à la corbeille ou supprimé."
+
+#: includes/class-fast-index-help-content.php:313
+msgid "Posts in a checked category are never sent."
+msgstr "Les articles d’une catégorie cochée ne sont jamais envoyés."
+
+#: includes/class-fast-index-help-content.php:315
+msgid "Off by default: deleting the plugin keeps your settings, keys and history, so a reinstall continues where you left off."
+msgstr "Désactivé par défaut : supprimer l’extension conserve vos réglages, vos clés et votre historique, ce qui permet de reprendre là où vous en étiez après une réinstallation."
+
+#: includes/class-fast-index-help-content.php:330
+msgid "In this version, types other than Posts need the premium plan."
+msgstr "Dans cette version, les types autres que Articles nécessitent l’offre premium."
+
+#: includes/class-fast-index-help-content.php:332
+#: includes/class-fast-index-help-content.php:336
+msgid "In this version, this needs the premium plan."
+msgstr "Dans cette version, cela nécessite l’offre premium."
+
+#: includes/class-fast-index-help-content.php:334
+msgid "In this version, Edit and Trash need the premium plan."
+msgstr "Dans cette version, Modifier et Corbeille nécessitent l’offre premium."
+
+#: includes/class-fast-index-help-content.php:338
+msgid "In this version, the free plan keeps one key (a new upload replaces it); the premium plan keeps several."
+msgstr "Dans cette version, l’offre gratuite conserve une seule clé (un nouveau téléversement la remplace) ; l’offre premium en conserve plusieurs."
+
+#: includes/class-fast-index-help-content.php:353
+msgid "403: \"Permission denied. Failed to verify the URL ownership\""
+msgstr "403 : « Permission denied. Failed to verify the URL ownership »"
+
+#. translators: %s: link to Google's error list.
+#: includes/class-fast-index-help-content.php:356
+#, php-format
+msgid "Google answers 403 when the service account is not an Owner of the Search Console property that contains the page address (%s). Common reasons: the account was never added, it was added with a lower permission than Owner, the property is for another address (http or https, www or no www, another site), or the Indexing API is not enabled in the project that owns the key."
+msgstr "Google répond 403 lorsque le compte de service n’est pas Propriétaire de la propriété Search Console qui contient l’adresse de la page (%s). Raisons fréquentes : le compte n’a jamais été ajouté, il a été ajouté avec une autorisation inférieure à Propriétaire, la propriété correspond à une autre adresse (http ou https, avec ou sans www, un autre site), ou l’Indexing API n’est pas activée dans le projet auquel appartient la clé."
+
+#: includes/class-fast-index-help-content.php:357
+msgid "Google's error list"
+msgstr "liste d’erreurs de Google"
+
+#: includes/class-fast-index-help-content.php:359
+msgid "In Search Console open the property, go to Settings and Users and permissions, and check that the service account email is listed with the permission Owner. Make sure the property matches your site address exactly (a Domain property covers every address). Then check in Google Cloud that the Web Search Indexing API is enabled for the key's project. After a 403 Fast Index lets the key rest for six hours; to retry at once, delete the key on the settings screen and upload it again."
+msgstr "Dans Search Console, ouvrez la propriété, allez dans Réglages puis Utilisateurs et autorisations, et vérifiez que l’adresse e-mail du compte de service figure dans la liste avec l’autorisation Propriétaire. Assurez-vous que la propriété correspond exactement à l’adresse de votre site (une propriété de type Domaine couvre toutes les adresses). Vérifiez ensuite dans Google Cloud que la Web Search Indexing API est activée pour le projet de la clé. Après une erreur 403, Fast Index met la clé en pause pendant six heures ; pour réessayer immédiatement, supprimez la clé sur l’écran des réglages et téléversez-la de nouveau."
+
+#: includes/class-fast-index-help-content.php:363
+msgid "401: Unauthorized, or the key is refused"
+msgstr "401 : Unauthorized, ou clé refusée"
+
+#: includes/class-fast-index-help-content.php:364
+msgid "Google did not accept the key. The key may have been deleted or disabled in Google Cloud, the uploaded file may be an older key, or the clock of your server may be far off, because the signed request carries the current time. Any 4xx answer to the request for an access token is treated the same way."
+msgstr "Google n’a pas accepté la clé. Elle a peut-être été supprimée ou désactivée dans Google Cloud, le fichier téléversé est peut-être une ancienne clé, ou l’horloge de votre serveur est peut-être très décalée, car la requête signée contient l’heure actuelle. Toute réponse 4xx à la demande de jeton d’accès est traitée de la même façon."
+
+#: includes/class-fast-index-help-content.php:365
+msgid "Create a new JSON key (Service accounts, your account, Keys, Add key, Create new key, JSON), upload it on the settings screen (the same email address replaces the stored key) and check that your server time is correct. The key rests for six hours after a 401; deleting it and uploading it again ends the rest."
+msgstr "Créez une nouvelle clé JSON (Comptes de service, votre compte, Clés, Ajouter une clé, Créer une clé, JSON), téléversez-la sur l’écran des réglages (la même adresse e-mail remplace la clé enregistrée) et vérifiez que l’heure de votre serveur est correcte. La clé est en pause pendant six heures après une erreur 401 ; la supprimer puis la téléverser de nouveau met fin à la pause."
+
+#: includes/class-fast-index-help-content.php:369
+msgid "429: Too Many Requests"
+msgstr "429 : Too Many Requests"
+
+#. translators: %s: link to Google's quota page.
+#: includes/class-fast-index-help-content.php:372
+#, php-format
+msgid "The quota of Google is used up. Google's default is 200 publish requests per day for each Google Cloud project (%s). New, changed and removed addresses all count, and all keys of one project share the same quota."
+msgstr "Le quota de Google est épuisé. Par défaut, Google autorise 200 demandes de publication par jour pour chaque projet Google Cloud (%s). Les adresses nouvelles, modifiées et supprimées comptent toutes, et toutes les clés d’un même projet partagent le même quota."
+
+#: includes/class-fast-index-help-content.php:373
+#: includes/class-fast-index-help-content.php:491
+msgid "quota page"
+msgstr "page des quotas"
+
+#. translators: %s: link to Google's quota page.
+#: includes/class-fast-index-help-content.php:377
+#, php-format
+msgid "Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily number of old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality."
+msgstr "Patientez : Fast Index met la clé en pause pendant six heures et essaie entre-temps vos autres clés. Réduisez le nombre quotidien d’anciens articles et passez Fast Index sur Passif pendant les imports en masse. Si vous avez besoin de plus, demandez davantage de quota à Google sur %s ; Google précise que le quota peut augmenter ou diminuer en fonction de la qualité des documents."
+
+#: includes/class-fast-index-help-content.php:378
+msgid "the quota page"
+msgstr "la page des quotas"
+
+#: includes/class-fast-index-help-content.php:383
+msgid "\"No answer from Google\", or a 5xx code"
+msgstr "« Aucune réponse de Google », ou un code 5xx"
+
+#: includes/class-fast-index-help-content.php:384
+msgid "Your server could not reach Google within 15 seconds (firewall, DNS or a slow connection), Google had a temporary problem, or its answer could not be read. These answers do not make a key rest."
+msgstr "Votre serveur n’a pas pu joindre Google en 15 secondes (pare-feu, DNS ou connexion lente), Google a rencontré un problème temporaire, ou sa réponse n’a pas pu être lue. Ces réponses ne mettent pas une clé en pause."
+
+#: includes/class-fast-index-help-content.php:385
+msgid "Allow outgoing HTTPS requests to oauth2.googleapis.com and indexing.googleapis.com, and try again later. Saving or publishing another post sends a new notification."
+msgstr "Autorisez les requêtes HTTPS sortantes vers oauth2.googleapis.com et indexing.googleapis.com, puis réessayez plus tard. Enregistrer ou publier un autre article envoie une nouvelle notification."
+
+#: includes/class-fast-index-help-content.php:389
+msgid "A red notice says the PHP OpenSSL extension is not available, or the status \"OpenSSL is missing\""
+msgstr "Un avis rouge indique que l’extension PHP OpenSSL n’est pas disponible, ou l’état « OpenSSL est absent »"
+
+#: includes/class-fast-index-help-content.php:390
+msgid "Fast Index signs its requests to Google with OpenSSL. PHP without OpenSSL cannot do that, so nothing can be sent. While OpenSSL is missing, nothing is written to History."
+msgstr "Fast Index signe ses requêtes vers Google avec OpenSSL. PHP sans OpenSSL ne peut pas le faire, donc rien ne peut être envoyé. Tant qu’OpenSSL est absent, rien n’est écrit dans l’Historique."
+
+#: includes/class-fast-index-help-content.php:391
+msgid "Ask your hosting provider to enable the OpenSSL extension for the PHP version your site uses. The system information below shows whether OpenSSL is available."
+msgstr "Demandez à votre hébergeur d’activer l’extension OpenSSL pour la version de PHP utilisée par votre site. Les informations système ci-dessous indiquent si OpenSSL est disponible."
+
+#: includes/class-fast-index-help-content.php:395
+msgid "Posts are published but nothing appears in History, or it appears much later"
+msgstr "Des articles sont publiés mais rien n’apparaît dans l’Historique, ou cela apparaît bien plus tard"
+
+#: includes/class-fast-index-help-content.php:396
+msgid "Fast Index queues each notification as a WordPress scheduled task (WP-Cron), so saving a post never waits for Google. WP-Cron runs when someone visits the site. If wp-config.php sets DISABLE_WP_CRON to true, WordPress does not start it, and the queue only moves when a real cron job calls wp-cron.php. Sites with very few visits can run late too."
+msgstr "Fast Index met chaque notification en file d’attente sous la forme d’une tâche planifiée WordPress (WP-Cron), de sorte qu’enregistrer un article n’attend jamais Google. WP-Cron s’exécute lorsque quelqu’un visite le site. Si wp-config.php définit DISABLE_WP_CRON sur true, WordPress ne le lance pas, et la file ne progresse que lorsqu’une vraie tâche cron appelle wp-cron.php. Les sites très peu visités peuvent aussi prendre du retard."
+
+#. translators: 1: example cron line, 2: example WP-CLI command.
+#: includes/class-fast-index-help-content.php:399
+#, php-format
+msgid "If you disabled WP-Cron on purpose, set up a real cron job on your server that runs every 5 minutes, for example %1$s or, with WP-CLI, %2$s. Otherwise remove DISABLE_WP_CRON from wp-config.php. The system information below shows whether it is set."
+msgstr "Si vous avez désactivé WP-Cron volontairement, configurez sur votre serveur une vraie tâche cron exécutée toutes les 5 minutes, par exemple %1$s ou, avec WP-CLI, %2$s. Sinon, retirez DISABLE_WP_CRON de wp-config.php. Les informations système ci-dessous indiquent si cette constante est définie."
+
+#: includes/class-fast-index-help-content.php:406
+msgid "A post is missing from History"
+msgstr "Un article est absent de l’Historique"
+
+#: includes/class-fast-index-help-content.php:407
+msgid "Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in an excluded category, or when it is not published. Nothing is written to History, and the notification is not repeated, when no key is stored, when every key is resting after an error, or when OpenSSL is missing."
+msgstr "Fast Index ignore un article lorsque le réglage État est sur Passif, lorsque son type de publication ou l’événement (Publier, Modifier, Corbeille) n’est pas coché, lorsqu’il appartient à une catégorie exclue, ou lorsqu’il n’est pas publié. Rien n’est écrit dans l’Historique, et la notification n’est pas répétée, lorsqu’aucune clé n’est enregistrée, lorsque toutes les clés sont en pause après une erreur, ou lorsque OpenSSL est absent."
+
+#: includes/class-fast-index-help-content.php:408
+msgid "Check the settings above. On the settings screen each key shows the last answer from Google; a key in 401, 403 or 429 rests for six hours. After you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches."
+msgstr "Vérifiez les réglages ci-dessus. Sur l’écran des réglages, chaque clé affiche la dernière réponse de Google ; une clé en 401, 403 ou 429 est en pause pendant six heures. Une fois la cause corrigée, enregistrez de nouveau l’article pour l’envoyer. Si l’envoi des anciens articles est activé, les articles qui n’ont jamais atteint Google sont aussi repris par les lots horaires."
+
+#: includes/class-fast-index-help-content.php:412
+msgid "\"There are no posts to send now\", or old posts are not sent"
+msgstr "« Il n’y a aucun article à envoyer pour le moment », ou les anciens articles ne sont pas envoyés"
+
+#: includes/class-fast-index-help-content.php:413
+msgid "The daily number is 0, Status is Passive, the daily number was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance."
+msgstr "Le nombre quotidien est 0, l’État est Passif, le nombre quotidien a déjà été atteint au cours des dernières 24 heures (les nouveaux articles comptent aussi), aucune clé n’est disponible, ou tous les articles éligibles ont été envoyés. Chaque lot a une taille aléatoire ; un envoi peut donc aussi être vide par hasard."
+
+#: includes/class-fast-index-help-content.php:414
+msgid "Check the daily number and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own."
+msgstr "Vérifiez le nombre quotidien et les compteurs de l’écran Historique (Total en attente indique combien d’articles n’ont pas encore été acceptés par Google). Relancez le lot plus tard ; il s’exécute aussi de lui-même chaque heure."
+
+#: includes/class-fast-index-help-content.php:418
+msgid "A notice about keys stored in a public folder, or \"Fast Index could not finish moving your service account keys\""
+msgstr "Un avis concernant des clés stockées dans un dossier public, ou « Fast Index n’a pas pu terminer le déplacement de vos clés de compte de service »"
+
+#: includes/class-fast-index-help-content.php:419
+msgid "Version 2.x saved key files in the uploads folder, where anyone who knew the address could download them. Version 3 moves each key into the database and deletes the file. The first notice recommends replacing those keys. The second notice means one file could not be read, found or deleted; it names the file."
+msgstr "La version 2.x enregistrait les fichiers de clé dans le dossier des téléversements, où toute personne connaissant l’adresse pouvait les télécharger. La version 3 déplace chaque clé dans la base de données et supprime le fichier. Le premier avis recommande de remplacer ces clés. Le second avis signifie qu’un fichier n’a pas pu être lu, trouvé ou supprimé ; il indique le nom du fichier."
+
+#: includes/class-fast-index-help-content.php:420
+msgid "Create a new JSON key in Google Cloud, upload it on the settings screen (the same email address replaces the stored key), then delete the old key on the Keys tab of the service account in Google Cloud. If a file could not be deleted, delete it from the uploads folder yourself. Both notices have a link that hides them for good."
+msgstr "Créez une nouvelle clé JSON dans Google Cloud, téléversez-la sur l’écran des réglages (la même adresse e-mail remplace la clé enregistrée), puis supprimez l’ancienne clé dans l’onglet Clés du compte de service dans Google Cloud. Si un fichier n’a pas pu être supprimé, supprimez-le vous-même du dossier des téléversements. Les deux avis comportent un lien qui les masque définitivement."
+
+#: includes/class-fast-index-help-content.php:424
+msgid "On a multisite network, one site sends and another does not"
+msgstr "Sur un réseau multisite, un site envoie et un autre non"
+
+#: includes/class-fast-index-help-content.php:425
+msgid "Settings, keys, history and the schedule belong to each site. Network activation sets up every site, but a key uploaded on one site is not shared with the others, and Fast Index has no network admin screen."
+msgstr "Les réglages, les clés, l’historique et la planification appartiennent à chaque site. L’activation sur le réseau configure chaque site, mais une clé téléversée sur un site n’est pas partagée avec les autres, et Fast Index n’a pas d’écran d’administration du réseau."
+
+#: includes/class-fast-index-help-content.php:426
+msgid "Open Fast Index on each site and upload a key there. The same key file may be used on several sites. Their notifications then share the quota of the key's Google Cloud project."
+msgstr "Ouvrez Fast Index sur chaque site et téléversez-y une clé. Le même fichier de clé peut servir sur plusieurs sites. Leurs notifications partagent alors le quota du projet Google Cloud de la clé."
+
+#: includes/class-fast-index-help-content.php:430
+msgid "An option is locked, or asks me to upgrade to premium"
+msgstr "Une option est verrouillée, ou me demande de passer à l’offre premium"
+
+#: includes/class-fast-index-help-content.php:431
+msgid "In this version, some options need the premium plan. Settings explained says which ones. Fast Index uses Freemius for the plan."
+msgstr "Dans cette version, certaines options nécessitent l’offre premium. Réglages expliqués indique lesquelles. Fast Index utilise Freemius pour gérer l’offre."
+
+#: includes/class-fast-index-help-content.php:432
+msgid "Use the free options, or see the FAQ entry about Freemius."
+msgstr "Utilisez les options gratuites, ou consultez l’entrée de la FAQ sur Freemius."
+
+#: includes/class-fast-index-help-content.php:446
+msgid "What does Fast Index send to Google?"
+msgstr "Qu’envoie Fast Index à Google ?"
+
+#. translators: 1: notification type "URL_UPDATED", 2: notification type "URL_DELETED", 3: link to Google's privacy policy.
+#: includes/class-fast-index-help-content.php:449
+#, php-format
+msgid "Only the address (URL) of a post and the kind of notification: %1$s when a post is published or changed, %2$s when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. Your own History keeps the title, address and Google's answer in your database. See also %3$s."
+msgstr "Uniquement l’adresse (URL) d’un article et le type de notification : %1$s lorsqu’un article est publié ou modifié, %2$s lorsqu’il est supprimé. Les titres, le contenu, les visiteurs et votre base de données ne sont pas envoyés. Pour prouver qui fait la demande, Fast Index envoie aussi une requête signée qui contient l’adresse e-mail et l’ID de clé de votre compte de service ; la clé privée elle-même ne quitte jamais votre site. Les requêtes sont envoyées à oauth2.googleapis.com et indexing.googleapis.com. Votre propre Historique conserve dans votre base de données le titre, l’adresse et la réponse de Google. Voir aussi la %3$s."
+
+#: includes/class-fast-index-help-content.php:452
+msgid "Google's privacy policy"
+msgstr "politique de confidentialité de Google"
+
+#: includes/class-fast-index-help-content.php:457
+msgid "Will Google index every page I publish right away?"
+msgstr "Google indexera-t-il immédiatement chaque page que je publie ?"
+
+#. translators: 1: quoted sentence from Google's documentation, 2: link to Google's documentation.
+#: includes/class-fast-index-help-content.php:460
+#, php-format
+msgid "No, and Fast Index cannot promise it. Google says: %1$s For other pages, such as ordinary posts or products, Google may accept the notification and answer 200, but its documentation does not promise that the page will be crawled or indexed, or that this happens sooner. A 200 only means that, in Google's words, it \"may try to recrawl this URL soon\". Google also checks every submission for spam and may revoke access for abuse. Keep your sitemap and Search Console as they are. Details: %2$s."
+msgstr "Non, et Fast Index ne peut pas le promettre. Google indique : %1$s Pour les autres pages, comme les articles ordinaires ou les produits, Google peut accepter la notification et répondre 200, mais sa documentation ne promet pas que la page sera explorée ou indexée, ni que cela se fera plus tôt. Un 200 signifie seulement que, selon les termes de Google, il « peut essayer de réexplorer cette URL prochainement ». Google vérifie aussi chaque envoi pour détecter le spam et peut révoquer l’accès en cas d’abus. Conservez votre sitemap et Search Console tels quels. Détails : %2$s."
+
+#: includes/class-fast-index-help-content.php:462
+msgid "Using the Indexing API"
+msgstr "Utilisation de l’Indexing API"
+
+#: includes/class-fast-index-help-content.php:467
+msgid "Which post types does Fast Index send?"
+msgstr "Quels types de publication Fast Index envoie-t-il ?"
+
+#: includes/class-fast-index-help-content.php:468
+msgid "Every public post type of your site except media attachments can be chosen in the settings: posts, pages and custom types. Only published content is sent; drafts, pending and private posts are not. By default only Posts are checked."
+msgstr "Tous les types de publication publics de votre site, sauf les fichiers médias, peuvent être choisis dans les réglages : articles, pages et types personnalisés. Seul le contenu publié est envoyé ; les brouillons, les articles en attente et les articles privés ne le sont pas. Par défaut, seuls les Articles sont cochés."
+
+#: includes/class-fast-index-help-content.php:472
+msgid "What happens when I trash or delete a post?"
+msgstr "Que se passe-t-il lorsque je mets un article à la corbeille ou que je le supprime ?"
+
+#. translators: 1: notification type "URL_DELETED", 2: link to Google's documentation.
+#: includes/class-fast-index-help-content.php:475
+#, php-format
+msgid "If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as %1$s with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal (%2$s)."
+msgstr "Si Corbeille est coché dans les réglages, un article publié mis à la corbeille, ou supprimé sans passer par la corbeille, est signalé comme %1$s avec l’adresse qu’il avait auparavant. Le supprimer ensuite définitivement de la corbeille n’envoie plus rien. Passer un article publié en brouillon ou en privé n’est pas signalé. Google demande que l’adresse renvoie 404 ou 410, ou comporte une balise noindex, lorsque vous envoyez une suppression (%2$s)."
+
+#: includes/class-fast-index-help-content.php:477
+msgid "Google's documentation"
+msgstr "documentation de Google"
+
+#: includes/class-fast-index-help-content.php:482
+msgid "Can Fast Index send my old posts?"
+msgstr "Fast Index peut-il envoyer mes anciens articles ?"
+
+#: includes/class-fast-index-help-content.php:483
+msgid "Yes. Set a daily number under Daily Old Content Post. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily number is reached. The number counts all successful notifications of the last 24 hours. \"Send Old Posts Now\" runs one batch immediately, and History shows how many posts are still waiting. Keep the number within Google's daily quota."
+msgstr "Oui. Définissez un nombre quotidien sous « Envoi quotidien d’anciens contenus ». Chaque heure, Fast Index envoie un petit lot aléatoire d’articles publiés que Google n’a pas encore acceptés, du plus récent au plus ancien, jusqu’à ce que le nombre quotidien soit atteint. Le nombre compte toutes les notifications réussies des dernières 24 heures. « Envoyer les anciens articles maintenant » lance immédiatement un lot, et l’Historique indique combien d’articles sont encore en attente. Restez dans les limites du quota quotidien de Google."
+
+#: includes/class-fast-index-help-content.php:487
+msgid "How many URLs can I send per day?"
+msgstr "Combien d’URL puis-je envoyer par jour ?"
+
+#. translators: %s: link to Google's quota page.
+#: includes/class-fast-index-help-content.php:490
+#, php-format
+msgid "Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count (%s). Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it lets that key rest for six hours."
+msgstr "Par défaut, Google autorise 200 demandes de publication par jour pour chaque projet Google Cloud ; les notifications des deux types, mise à jour et suppression, comptent (%s). Google indique qu’une utilisation plus importante nécessite son approbation et que le quota peut augmenter ou diminuer en fonction de la qualité des documents. Fast Index ne connaît pas votre quota à l’avance : lorsque Google répond 429, il met cette clé en pause pendant six heures."
+
+#: includes/class-fast-index-help-content.php:496
+msgid "Can I use more than one service account?"
+msgstr "Puis-je utiliser plusieurs comptes de service ?"
+
+#. translators: %s: link to Google's quickstart page.
+#: includes/class-fast-index-help-content.php:499
+#, php-format
+msgid "With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Please note: Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it."
+msgstr "Avec l’offre premium, vous pouvez téléverser plusieurs clés. Pour chaque notification, Fast Index choisit au hasard l’une des clés qui ne sont pas en pause. Si Google répond 401, 403 ou 429 (ou refuse la clé), cette clé est mise en pause pendant six heures et la suivante est essayée. Les autres erreurs (comme 400, 5xx ou l’absence de réponse) mettent fin à la tentative sans mettre de clé en pause. À noter : Google compte le quota par projet, et non par clé ; les clés d’un même projet partagent donc les mêmes 200 par jour. Google écrit aussi que les tentatives d’abus de l’API, y compris l’utilisation de plusieurs comptes pour dépasser les quotas d’utilisation, peuvent entraîner la révocation de l’accès (%s). Utilisez des clés supplémentaires pour la fiabilité ou pour des sites placés dans des projets distincts, et demandez plus de quota à Google si nécessaire."
+
+#: includes/class-fast-index-help-content.php:500
+msgid "quickstart"
+msgstr "guide de démarrage rapide"
+
+#: includes/class-fast-index-help-content.php:505
+msgid "Where is my service account key stored, and is it safe?"
+msgstr "Où est stockée ma clé de compte de service, et est-elle sécurisée ?"
+
+#: includes/class-fast-index-help-content.php:506
+msgid "The key is kept in your WordPress database (an option that is not loaded on every request). It is never written to the uploads folder or any other file, and the screens show only the email address and key ID. Because the service account is an Owner of your Search Console property, treat the key like a password. If it may have leaked, delete the key in Google Cloud and remove the service account from the users of your Search Console property."
+msgstr "La clé est conservée dans la base de données de WordPress (une option qui n’est pas chargée à chaque requête). Elle n’est jamais écrite dans le dossier des téléversements ni dans aucun autre fichier, et les écrans n’affichent que l’adresse e-mail et l’ID de clé. Comme le compte de service est Propriétaire de votre propriété Search Console, traitez la clé comme un mot de passe. Si elle a pu être divulguée, supprimez la clé dans Google Cloud et retirez le compte de service des utilisateurs de votre propriété Search Console."
+
+#: includes/class-fast-index-help-content.php:510
+msgid "What happens to my data if I deactivate or delete Fast Index?"
+msgstr "Que deviennent mes données si je désactive ou supprime Fast Index ?"
+
+#: includes/class-fast-index-help-content.php:511
+msgid "Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If \"Delete data on uninstall\" was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there."
+msgstr "La désactivation supprime les tâches planifiées et conserve tout le reste. La suppression de l’extension efface les données temporaires (tâches en file d’attente, caches, verrous) et, par défaut, conserve vos réglages, vos clés et votre historique, ce qui permet de reprendre là où vous en étiez après une réinstallation. Si « Supprimer les données à la désinstallation » était coché avant la suppression de l’extension, les réglages, les clés et l’historique sont aussi supprimés, sur chaque site d’un réseau. Les données conservées par Freemius ne sont pas touchées, et la clé reste valide dans Google Cloud tant que vous ne l’y avez pas supprimée."
+
+#: includes/class-fast-index-help-content.php:515
+msgid "I am upgrading from version 2.2. What happens to my keys?"
+msgstr "Je mets à jour depuis la version 2.2. Que deviennent mes clés ?"
+
+#: includes/class-fast-index-help-content.php:516
+msgid "On the first page load after the update, Fast Index reads each key file that version 2.x saved in the uploads folder, checks it, stores it in the database and deletes the file. Your settings and history are kept, and the old ten-minute scheduled task is replaced by an hourly one. Earlier versions kept the files in a folder that anyone could reach, so a notice recommends creating new keys and deleting the old ones in Google Cloud (see Troubleshooting). If a file cannot be moved, a notice names it, and you can upload that key again."
+msgstr "Au premier chargement de page après la mise à jour, Fast Index lit chaque fichier de clé que la version 2.x avait enregistré dans le dossier des téléversements, le vérifie, l’enregistre dans la base de données et supprime le fichier. Vos réglages et votre historique sont conservés, et l’ancienne tâche planifiée de dix minutes est remplacée par une tâche horaire. Les versions antérieures conservaient les fichiers dans un dossier accessible à tous ; un avis recommande donc de créer de nouvelles clés et de supprimer les anciennes dans Google Cloud (voir Diagnostic). Si un fichier ne peut pas être déplacé, un avis le nomme, et vous pouvez téléverser cette clé de nouveau."
+
+#: includes/class-fast-index-help-content.php:520
+msgid "Does Fast Index work on multisite?"
+msgstr "Fast Index fonctionne-t-il en multisite ?"
+
+#: includes/class-fast-index-help-content.php:521
+msgid "Yes. You can activate it for the whole network or for single sites; sites created later are set up automatically after a network activation. Settings, keys, history and the schedule belong to each site, so upload a key on every site that should send. There is no network admin screen."
+msgstr "Oui. Vous pouvez l’activer pour tout le réseau ou pour des sites individuels ; les sites créés ensuite sont configurés automatiquement après une activation sur le réseau. Les réglages, les clés, l’historique et la planification appartiennent à chaque site : téléversez donc une clé sur chaque site qui doit envoyer. Il n’y a pas d’écran d’administration du réseau."
+
+#: includes/class-fast-index-help-content.php:525
+msgid "Does Fast Index work on multilingual sites?"
+msgstr "Fast Index fonctionne-t-il sur les sites multilingues ?"
+
+#: includes/class-fast-index-help-content.php:526
+msgid "Fast Index does not read language plugins. It sends the address that WordPress gives for the post that was saved, so a translation that is stored as its own post is sent when that post changes. The service account must be an Owner of a Search Console property that covers the addresses of every language, for example a Domain property. The plugin's own screens follow the language of your site or user profile."
+msgstr "Fast Index ne lit pas les extensions de langue. Il envoie l’adresse que WordPress fournit pour l’article qui a été enregistré ; une traduction stockée comme un article distinct est donc envoyée lorsque cet article change. Le compte de service doit être Propriétaire d’une propriété Search Console qui couvre les adresses de toutes les langues, par exemple une propriété de type Domaine. Les écrans de l’extension suivent la langue de votre site ou de votre profil utilisateur."
+
+#: includes/class-fast-index-help-content.php:530
+msgid "Does Fast Index support Bing or IndexNow?"
+msgstr "Fast Index prend-il en charge Bing ou IndexNow ?"
+
+#: includes/class-fast-index-help-content.php:531
+msgid "No. Fast Index talks only to the Google Indexing API."
+msgstr "Non. Fast Index ne communique qu’avec la Google Indexing API."
+
+#: includes/class-fast-index-help-content.php:535
+msgid "What is Freemius, and do I have to connect an account?"
+msgstr "Qu’est-ce que Freemius, et dois-je connecter un compte ?"
+
+#. translators: %s: link to the Freemius privacy policy.
+#: includes/class-fast-index-help-content.php:538
+#, php-format
+msgid "Fast Index includes the Freemius SDK, a service for licences and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question."
+msgstr "Fast Index inclut le SDK Freemius, un service de licences et de connexion de compte facultative. Il détermine quelles options sont déverrouillées (voir Réglages expliqués). Freemius peut afficher ses propres écrans ou avis dans l’administration : un écran de licence (avec un lien pour continuer avec la version gratuite) et un écran d’adhésion avec un bouton Skip, dont le texte indique que l’extension fonctionne quand même si vous passez cette étape. Ce que le SDK collecte est décrit sur ces écrans et dans %s. Le code de Fast Index lui-même n’envoie que des adresses à Google, comme décrit dans la première question."
+
+#: includes/class-fast-index-help-content.php:539
+msgid "the Freemius privacy policy"
+msgstr "la politique de confidentialité de Freemius"
+
+#: includes/class-fast-index-help-content.php:544
+msgid "Does Fast Index slow down saving posts?"
+msgstr "Fast Index ralentit-il l’enregistrement des articles ?"
+
+#: includes/class-fast-index-help-content.php:545
+msgid "No. Saving a post only queues a scheduled task. The request to Google is made later by WP-Cron, with a time limit of 15 seconds, and a batch of old posts stops after about 20 seconds."
+msgstr "Non. Enregistrer un article ne fait que mettre une tâche planifiée en file d’attente. La requête vers Google est effectuée plus tard par WP-Cron, avec une limite de temps de 15 secondes, et un lot d’anciens articles s’arrête au bout d’environ 20 secondes."
+
+#: includes/class-fast-index-help-content.php:566
+msgid "Read the Troubleshooting entry that matches the code in History, and the FAQ."
+msgstr "Lisez l’entrée de Diagnostic qui correspond au code affiché dans l’Historique, ainsi que la FAQ."
+
+#: includes/class-fast-index-help-content.php:567
+msgid "On the settings screen, look at the last answer shown next to each key."
+msgstr "Sur l’écran des réglages, regardez la dernière réponse affichée à côté de chaque clé."
+
+#: includes/class-fast-index-help-content.php:568
+msgid "In Search Console, check that the service account is an Owner of a property that matches your site address exactly."
+msgstr "Dans Search Console, vérifiez que le compte de service est Propriétaire d’une propriété qui correspond exactement à l’adresse de votre site."
+
+#: includes/class-fast-index-help-content.php:569
+msgid "If WP_DEBUG_LOG is on, look in wp-content/debug.log for lines that mention fast-index."
+msgstr "Si WP_DEBUG_LOG est activé, cherchez dans wp-content/debug.log les lignes qui mentionnent fast-index."
+
+#: includes/class-fast-index-help-content.php:570
+msgid "Search the support forum for your question first."
+msgstr "Cherchez d’abord votre question dans le forum de support."
+
+#: includes/class-fast-index-help-content.php:571
+msgid "When you write, say what you expected and what happened, and paste the system information below. Never post your JSON key file or any part of the private key."
+msgstr "Quand vous écrivez, indiquez ce que vous attendiez et ce qui s’est passé, et collez les informations système ci-dessous. Ne publiez jamais votre fichier de clé JSON ni aucune partie de la clé privée."
+
+#: includes/class-fast-index-help-content.php:583
+msgid "Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen."
+msgstr "Choisissez ce que Fast Index envoie à Google et téléversez la clé du compte de service. Chaque option est expliquée sous son champ et dans Réglages expliqués, sur l’écran Aide et FAQ."
+
+#: includes/class-fast-index-help-content.php:584
+msgid "Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting."
+msgstr "Affiche les totaux et les dernières notifications avec la réponse de Google. 200 OK signifie que Google a accepté la notification ; cela ne veut pas dire que la page est indexée. Les autres codes sont expliqués sous Diagnostic."
+
+#: includes/class-fast-index-help-content.php:585
+msgid "Sends one batch of old posts now, within the daily number set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour."
+msgstr "Envoie maintenant un lot d’anciens articles, dans la limite du nombre quotidien défini sur l’écran des réglages. Le lot a une taille aléatoire ; un envoi peut donc ne rien envoyer. Le même lot s’exécute aussi chaque heure."
+
+#: includes/class-fast-index-help-content.php:586
+msgid "Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support."
+msgstr "Installation pas à pas, explication de chaque réglage, diagnostic des problèmes, questions fréquentes et informations système à joindre lorsque vous demandez de l’aide."
+
+#: includes/class-fast-index-help-content.php:591
+msgid "About this screen"
+msgstr "À propos de cet écran"
+
+#: includes/class-fast-index-help-content.php:592
+#: view/settings.php:239
+msgid "Open Help & FAQ"
+msgstr "Ouvrir Aide et FAQ"
+
+#: includes/class-fast-index-help-content.php:602
+msgid "For more information:"
+msgstr "Pour plus d’informations :"
+
+#: includes/class-fast-index-help-content.php:604
+msgid "Support forum"
+msgstr "Forum de support"
+
+#: includes/class-fast-index-help-content.php:627
+msgid "(external link, opens in a new tab)"
+msgstr "(lien externe, s’ouvre dans un nouvel onglet)"
+
+#: includes/class-fast-index-help.php:95
+msgid "System info copied."
+msgstr "Informations système copiées."
+
+#: includes/class-fast-index-help.php:96
+msgid "System info selected. Press Ctrl+C (Cmd+C on a Mac) to copy it."
+msgstr "Informations système sélectionnées. Appuyez sur Ctrl+C (Cmd+C sur un Mac) pour les copier."
+
+#: includes/class-fast-index-help.php:137
+msgid "Yes"
+msgstr "Oui"
+
+#: includes/class-fast-index-help.php:138
+msgid "No"
+msgstr "Non"
+
+#: includes/class-fast-index-help.php:142
+msgid "Fast Index version"
+msgstr "Version de Fast Index"
+
+#: includes/class-fast-index-help.php:146
+msgid "WordPress version"
+msgstr "Version de WordPress"
+
+#: includes/class-fast-index-help.php:150
+msgid "PHP version"
+msgstr "Version de PHP"
+
+#: includes/class-fast-index-help.php:154
+msgid "Multisite"
+msgstr "Multisite"
+
+#: includes/class-fast-index-help.php:158
+msgid "Site language"
+msgstr "Langue du site"
+
+#: includes/class-fast-index-help.php:162
+msgid "OpenSSL available"
+msgstr "OpenSSL disponible"
+
+#: includes/class-fast-index-help.php:166
+msgid "WP-Cron disabled (DISABLE_WP_CRON)"
+msgstr "WP-Cron désactivé (DISABLE_WP_CRON)"
+
+#: includes/class-fast-index-help.php:170
+msgid "Premium plan active"
+msgstr "Offre premium active"
+
+#: includes/class-fast-index-help.php:174
+msgid "Status setting"
+msgstr "Réglage État"
+
+#: includes/class-fast-index-help.php:175
+#: view/settings.php:52
+msgid "Passive"
+msgstr "Passif"
+
+#: includes/class-fast-index-help.php:178
+msgid "Post types enabled"
+msgstr "Types de publication activés"
+
+#: includes/class-fast-index-help.php:182
+msgid "Stored service account keys"
+msgstr "Clés de compte de service enregistrées"
+
+#: includes/class-fast-index-help.php:186
+msgid "Keys available now (not resting)"
+msgstr "Clés disponibles actuellement (hors pause)"
+
+#: includes/class-fast-index-help.php:190
+msgid "Last answer for each key"
+msgstr "Dernière réponse pour chaque clé"
+
+#: includes/class-fast-index-help.php:194
+msgid "Next hourly old-post run"
+msgstr "Prochain envoi horaire d’anciens articles"
+
+#: includes/class-fast-index-help.php:195
+msgid "Not scheduled"
+msgstr "Non planifié"
+
+#: includes/class-fast-index-help.php:198
+msgid "Sent in the last 24 hours"
+msgstr "Envoyés au cours des dernières 24 heures"
+
+#: includes/class-fast-index-help.php:202
+msgid "Posts waiting"
+msgstr "Articles en attente"
+
+#: includes/class-fast-index-help.php:206
+msgid "Last notification"
+msgstr "Dernière notification"
+
+#. translators: 1: number of the key in the list, 2: last answer from Google.
+#: includes/class-fast-index-help.php:246
+#, php-format
+msgid "Key %1$d: %2$s"
+msgstr "Clé %1$d : %2$s"
+
+#: includes/class-fast-index-help.php:248
+#: view/settings.php:179
+msgid "Not used yet"
+msgstr "Pas encore utilisée"
+
+#: includes/class-fast-index-help.php:264
+#: view/history.php:55
+msgid "Nothing was sent yet."
+msgstr "Rien n’a encore été envoyé."
+
+#: includes/class-fast-index-key-upload.php:62
+#: includes/class-fast-index-key-upload.php:76
+msgid "The file could not be uploaded."
+msgstr "Le fichier n’a pas pu être téléversé."
+
+#: includes/class-fast-index-log.php:64
+msgid "Fast Index Logs"
+msgstr "Journaux Fast Index"
+
+#: includes/class-fast-index-log.php:65
+msgid "Fast Index Log"
+msgstr "Journal Fast Index"
+
+#: includes/class-fast-index-notices.php:223
+msgid "Fast Index:"
+msgstr "Fast Index :"
+
+#: includes/class-fast-index-notices.php:224
+msgid "In earlier versions, service account key files were stored in a publicly accessible folder; for security, we recommend creating a new key in Google Cloud and revoking the old one."
+msgstr "Dans les versions précédentes, les fichiers de clé de compte de service étaient stockés dans un dossier accessible publiquement ; par sécurité, nous recommandons de créer une nouvelle clé dans Google Cloud et de révoquer l’ancienne."
+
+#: includes/class-fast-index-notices.php:240
+msgid "Fast Index could not finish moving your service account keys to the database."
+msgstr "Fast Index n’a pas pu terminer le déplacement de vos clés de compte de service vers la base de données."
+
+#: includes/class-fast-index-notices.php:268
+msgid "Do not show this again"
+msgstr "Ne plus afficher"
+
+#: includes/class-fast-index-notices.php:278
+msgid "an unknown account"
+msgstr "un compte inconnu"
+
+#. translators: %s: service account email.
+#: includes/class-fast-index-notices.php:283
+#, php-format
+msgid "The key file of %s was not found. Upload the key again."
+msgstr "Le fichier de clé de %s est introuvable. Téléversez de nouveau la clé."
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:286
+#, php-format
+msgid "The key file of %1$s (uploads/%2$s) could not be read. Upload the key again, then delete the old file."
+msgstr "Le fichier de clé de %1$s (uploads/%2$s) n’a pas pu être lu. Téléversez de nouveau la clé, puis supprimez l’ancien fichier."
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:289
+#, php-format
+msgid "The key file of %1$s (uploads/%2$s) is not a valid service account key. Upload the key again, then delete the old file."
+msgstr "Le fichier de clé de %1$s (uploads/%2$s) n’est pas une clé de compte de service valide. Téléversez de nouveau la clé, puis supprimez l’ancien fichier."
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:292
+#, php-format
+msgid "The key of %1$s was moved, but the old file uploads/%2$s could not be deleted. Delete this file now: it can be downloaded by anyone."
+msgstr "La clé de %1$s a été déplacée, mais l’ancien fichier uploads/%2$s n’a pas pu être supprimé. Supprimez ce fichier maintenant : il peut être téléchargé par n’importe qui."
+
+#. translators: 1: service account email, 2: file name.
+#: includes/class-fast-index-notices.php:295
+#, php-format
+msgid "The key file of %1$s (%2$s) is not inside the uploads folder and was left untouched. Upload the key again, then delete the old file."
+msgstr "Le fichier de clé de %1$s (%2$s) n’est pas dans le dossier des téléversements et n’a pas été modifié. Téléversez de nouveau la clé, puis supprimez l’ancien fichier."
+
+#: includes/class-fast-index-settings.php:187
+msgid "Choose a valid status."
+msgstr "Choisissez un état valide."
+
+#: includes/class-fast-index-settings.php:191
+msgid "Select at least one post type."
+msgstr "Sélectionnez au moins un type de publication."
+
+#. translators: %s: highest accepted number.
+#: includes/class-fast-index-settings.php:196
+#, php-format
+msgid "The daily number of old posts must be a whole number from 0 to %s."
+msgstr "Le nombre quotidien d’anciens articles doit être un nombre entier de 0 à %s."
+
+#: view/help.php:18
+msgid "Everything you need to set up Fast Index and to solve the most common problems. Please read it before you write to support: the answer is most often here."
+msgstr "Tout ce qu’il faut pour configurer Fast Index et résoudre les problèmes les plus courants. Lisez cette page avant d’écrire au support : la réponse s’y trouve le plus souvent."
+
+#: view/help.php:20
+msgid "Help sections"
+msgstr "Sections d’aide"
+
+#: view/help.php:56
+#: view/help.php:65
+msgid "Setting"
+msgstr "Réglage"
+
+#: view/help.php:57
+#: view/help.php:66
+msgid "What it does"
+msgstr "Ce que cela fait"
+
+#: view/help.php:58
+#: view/help.php:67
+msgid "Default"
+msgstr "Par défaut"
+
+#: view/help.php:59
+#: view/help.php:68
+msgid "Change it when"
+msgstr "À modifier quand"
+
+#: view/help.php:80
+msgid "Find what you see, then read why it happens and what to do."
+msgstr "Repérez ce que vous voyez, puis lisez pourquoi cela se produit et quoi faire."
+
+#: view/help.php:86
+msgid "Why it happens:"
+msgstr "Pourquoi cela se produit :"
+
+#: view/help.php:87
+msgid "What to do:"
+msgstr "Que faire :"
+
+#: view/help.php:111
+msgid "Before you write to support, please go through this list:"
+msgstr "Avant d’écrire au support, passez en revue cette liste :"
+
+#: view/help.php:118
+msgid "System info"
+msgstr "Informations système"
+
+#: view/help.php:120
+msgid "Read-only facts about your site that help us answer. They contain no keys and no email addresses."
+msgstr "Informations en lecture seule sur votre site qui nous aident à répondre. Elles ne contiennent ni clés ni adresses e-mail."
+
+#: view/help.php:124
+msgid "Copy system info"
+msgstr "Copier les infos système"
+
+#: view/help.php:129
+msgid "Open the Fast Index support forum on WordPress.org"
+msgstr "Ouvrir le forum de support de Fast Index sur WordPress.org"
+
+#: view/history.php:15
+msgid "Updated"
+msgstr "Mis à jour"
+
+#: view/history.php:16
+msgid "Deleted"
+msgstr "Supprimé"
+
+#: view/history.php:21
+msgid "Simple Report"
+msgstr "Rapport simplifié"
+
+#: view/history.php:26
+msgid "Total Sent"
+msgstr "Total envoyé"
+
+#: view/history.php:27
+msgid "Total Waiting"
+msgstr "Total en attente"
+
+#: view/history.php:28
+msgid "Sent Today"
+msgstr "Envoyés aujourd’hui"
+
+#: view/history.php:47
+msgid "Title"
+msgstr "Titre"
+
+#: view/history.php:48
+msgid "Date"
+msgstr "Date"
+
+#: view/history.php:49
+msgid "Send Status"
+msgstr "État de l’envoi"
+
+#: view/history.php:50
+msgid "Post"
+msgstr "Article"
+
+#: view/history.php:73
+msgid "GO POST"
+msgstr "VOIR L’ARTICLE"
+
+#: view/history.php:79
+msgid "Pagination"
+msgstr "Pagination"
+
+#: view/history.php:82
+msgid "Previous"
+msgstr "Précédent"
+
+#: view/history.php:85
+msgid "Next"
+msgstr "Suivant"
+
+#: view/run.php:16
+msgid "Sends one batch of old posts now, within the daily limit set on the settings page. The same batch also runs every hour."
+msgstr "Envoie maintenant un lot d’anciens articles, dans la limite quotidienne définie sur la page des réglages. Le même lot s’exécute aussi chaque heure."
+
+#: view/run.php:21
+msgid "Send now"
+msgstr "Envoyer maintenant"
+
+#: view/run.php:29
+msgid "There are no posts to send now. Check your settings and the daily limit."
+msgstr "Il n’y a aucun article à envoyer pour le moment. Vérifiez vos réglages et la limite quotidienne."
+
+#: view/settings.php:16
+msgid "Publish"
+msgstr "Publier"
+
+#: view/settings.php:17
+msgid "Edit"
+msgstr "Modifier"
+
+#: view/settings.php:18
+msgid "Trash"
+msgstr "Corbeille"
+
+#: view/settings.php:47
+msgid "Important choice for the plugin work"
+msgstr "Choix important pour le fonctionnement de l’extension"
+
+#: view/settings.php:61
+msgid "Select minimum one option"
+msgstr "Sélectionnez au moins une option"
+
+#: view/settings.php:80
+msgid "How many old contents should be sent per day?"
+msgstr "Combien d’anciens contenus envoyer par jour ?"
+
+#: view/settings.php:95
+msgid "Which status happen should content be sent?"
+msgstr "Dans quels cas le contenu doit-il être envoyé ?"
+
+#: view/settings.php:114
+msgid "Select which you want to exclude"
+msgstr "Sélectionnez ce que vous souhaitez exclure"
+
+#: view/settings.php:133
+msgid "Delete all plugin data (settings, keys and log) when the plugin is deleted. This cannot be undone."
+msgstr "Supprimer toutes les données de l’extension (réglages, clés et journal) lorsqu’elle est supprimée. Cette action est irréversible."
+
+#: view/settings.php:143
+msgid "Rate Us on WordPress"
+msgstr "Évaluez-nous sur WordPress"
+
+#. translators: %s: ID of the service account key.
+#: view/settings.php:174
+#, php-format
+msgid "Key ID: %s"
+msgstr "ID de la clé : %s"
+
+#: view/settings.php:184
+msgid "Delete"
+msgstr "Supprimer"
+
+#: view/settings.php:202
+msgid "The key file is read and stored in the database; it is not saved in the uploads folder. Only the client email and the key ID are shown here."
+msgstr "Le fichier de clé est lu et enregistré dans la base de données ; il n’est pas enregistré dans le dossier des téléversements. Seuls l’adresse e-mail du client et l’ID de la clé sont affichés ici."
+
+#: view/settings.php:210
+msgid "If you wanna upload multiple and more service account"
+msgstr "Pour téléverser plusieurs comptes de service"
+
+#: view/settings.php:237
+msgid "Setting up for the first time, or something does not work? Step-by-step instructions, an explanation of every setting, solutions to common problems and answers to frequently asked questions are in Help & FAQ."
+msgstr "Première configuration, ou quelque chose ne fonctionne pas ? Des instructions pas à pas, l’explication de chaque réglage, des solutions aux problèmes courants et les réponses aux questions fréquentes se trouvent dans Aide et FAQ."
+
+#: view/settings.php:246
+msgid "Fast Index sends your addresses to the Google Indexing API. A 200 answer means Google accepted the notification; Google does not promise to index the page."
+msgstr "Fast Index envoie vos adresses à la Google Indexing API. Une réponse 200 signifie que Google a accepté la notification ; Google ne promet pas d’indexer la page."
