@@ -33,6 +33,7 @@
 	"scripts": {
 		"lint": "phpcs -ps",
 		"lint:fix": "phpcbf",
-		"test": "phpunit"
+		"test": "phpunit",
+		"package": "bash bin/package.sh"
 	}
 }

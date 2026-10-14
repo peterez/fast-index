@@ -27,3 +27,9 @@ AGENTS.md
 *.log
 .DS_Store
 .wordpress-org
+# Premium module: only in the premium package (bin/package.sh), never on WordPress.org.
+includes/premium
+# Release tooling and its output.
+bin
+dist
+DEVELOPMENT.md
