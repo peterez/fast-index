@@ -75,3 +75,13 @@
 	}
 
 	
+	#fi .fast-index-choice {
+		display: inline-block;
+		margin-right: 25px;
+		margin-bottom: 15px;
+	}
+
+	#fi .fast-index-inline-form {
+		display: inline;
+		margin-left: 10px;
+	}

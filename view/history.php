@@ -1,86 +1,90 @@
+<?php
+/**
+ * History screen.
+ *
+ * Expects $fast_index_view from Fast_Index_Admin::render_history().
+ *
+ * @package FastIndex
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+$fast_index_stats = $fast_index_view['stats'];
+$fast_index_page  = (int) $fast_index_view['page'];
+$fast_index_types = array(
+	Fast_Index_Google_Client::TYPE_UPDATED => __( 'Updated', 'fast-index' ),
+	Fast_Index_Google_Client::TYPE_DELETED => __( 'Deleted', 'fast-index' ),
+);
+?>
 <div id="fi" class="content-area">
 
-    <h1 class="title"><?php esc_attr_e('Simple Report',"fast-index"); ?></h1>
+	<h1 class="title"><?php esc_html_e( 'Simple Report', 'fast-index' ); ?></h1>
 
-    <table class="table table-striped wp-list-table widefat fixed striped table-view-list posts"
-           style="width:100%">
-        <thead>
-        <tr>
-            <th><?php esc_attr_e('Total Sent',"fast-index"); ?></th>
-            <th><?php esc_attr_e('Total Waiting',"fast-index"); ?></th>
-            <th><?php esc_attr_e('Sent Today',"fast-index"); ?></th>
-        </tr>
-        </thead>
-        <tbody class="the-list">
-        <tr>
-            <td><?php echo esc_attr($totalSent);?></td>
-            <td><?php echo esc_attr($totalWaitingSubmit);?></td>
-            <td><?php echo esc_attr($totalSubmitToday);?></td>
-        </tr>
+	<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts">
+		<thead>
+		<tr>
+			<th scope="col"><?php esc_html_e( 'Total Sent', 'fast-index' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Total Waiting', 'fast-index' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Sent Today', 'fast-index' ); ?></th>
+		</tr>
+		</thead>
+		<tbody class="the-list">
+		<tr>
+			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['sent'] ) ); ?></td>
+			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['waiting'] ) ); ?></td>
+			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['today'] ) ); ?></td>
+		</tr>
+		</tbody>
+	</table>
 
-        </tbody>
+	<br>
+	<h1 class="title"><?php esc_html_e( 'History', 'fast-index' ); ?></h1>
+	<br>
 
-    </table>
+	<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts">
+		<thead>
+		<tr>
+			<th scope="col"><?php esc_html_e( 'Title', 'fast-index' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Date', 'fast-index' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Send Status', 'fast-index' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Post', 'fast-index' ); ?></th>
+		</tr>
+		</thead>
+		<tbody class="the-list">
+		<?php if ( array() === $fast_index_view['entries'] ) : ?>
+			<tr><td colspan="4"><?php esc_html_e( 'Nothing was sent yet.', 'fast-index' ); ?></td></tr>
+		<?php endif; ?>
+		<?php foreach ( $fast_index_view['entries'] as $fast_index_entry ) : ?>
+			<tr>
+				<td class="title column-title column-primary page-title">
+					<strong>
+						<?php if ( $fast_index_entry['post_id'] > 0 && get_post( $fast_index_entry['post_id'] ) ) : ?>
+							<a class="row-title" href="<?php echo esc_url( (string) get_edit_post_link( $fast_index_entry['post_id'] ) ); ?>"><?php echo esc_html( $fast_index_entry['title'] ); ?></a>
+						<?php else : ?>
+							<?php echo esc_html( $fast_index_entry['title'] ); ?>
+						<?php endif; ?>
+					</strong>
+				</td>
+				<td class="date column-date">
+					<?php echo esc_html( isset( $fast_index_types[ $fast_index_entry['type'] ] ) ? $fast_index_types[ $fast_index_entry['type'] ] : $fast_index_entry['type'] ); ?><br>
+					<?php echo esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $fast_index_entry['timestamp'] ) ); ?>
+				</td>
+				<td><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?></td>
+				<td><a class="row-title" href="<?php echo esc_url( $fast_index_entry['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'GO POST', 'fast-index' ); ?></a></td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
 
-
-    <br>
-    <h1 class="title"><?php esc_attr_e('History',"fast-index"); ?></h1>
-    <br>
-
-    <table class="table table-striped wp-list-table widefat fixed striped table-view-list posts"
-           style="width:100%">
-        <thead>
-        <tr>
-            <th><?php esc_attr_e('Title',"fast-index"); ?></th>
-            <th><?php esc_attr_e('Date',"fast-index"); ?></th>
-            <th><?php esc_attr_e('Send Status',"fast-index"); ?></th>
-            <th><?php esc_attr_e('Post',"fast-index"); ?></th>
-        </tr>
-        </thead>
-        <tbody class="the-list">
-        <?php foreach ($logs as $item) {
-            ?>
-            <tr >
-                <td class="title column-title has-row-actions column-primary page-title">
-                    <strong><a class="row-title"
-                               href="post.php?post=<?php echo esc_attr($item['post_parent']) ?>&action=edit"
-                            ><?php echo esc_attr($item['post_title']) ?></a></strong>
-
-                </td>
-                <td class="date column-date" data-colname="Date">Sended<br><?php echo esc_attr($item['post_date']) ?></td>
-                <td><?php esc_attr_e('OK',"fast-index"); ?></td>
-                <td><a class="row-title" href="<?php echo esc_attr($item['post_content']) ?>" target="_blank"><?php esc_attr_e('GO POST',"fast-index"); ?></a></td>
-            </tr>
-
-        <?php } ?>
-
-        </tbody>
-    </table>
-
-
-    <?php
-    $page = intval(sanitize_text_field($_REQUEST['page']));
-    $pn = intval(sanitize_text_field($_REQUEST['pn']));
-
-    $pureUrl = "admin.php?page=" . $page;
-    $oldPn = $pn - 1;
-    $newPn = $pn + 1;
-    ?>
-    <nav aria-label="<?php echo _("Pagination") ?>">
-        <ul class="pagination mt-3">
-            <?php if ($pn >= 1) { ?>
-                <li class="page-item"><a class="page-link"
-                                         href="<?php echo $pureUrl . "&pn=" . $oldPn ?>"><?php _e("Previous") ?></a>
-                </li>
-            <?php } ?>
-            <?php if (count($logs) >= 20) { ?>
-                <li class="page-item"><a class="page-link"
-                                         href="<?php echo $pureUrl . "&pn=" . $newPn ?>"><?php _e("Next") ?></a>
-                </li>
-            <?php } ?>
-        </ul>
-    </nav>
-
+	<nav aria-label="<?php esc_attr_e( 'Pagination', 'fast-index' ); ?>">
+		<ul class="pagination mt-3">
+			<?php if ( $fast_index_page >= 1 ) : ?>
+				<li class="page-item"><a class="page-link" href="<?php echo esc_url( add_query_arg( 'pn', $fast_index_page - 1, $fast_index_view['base_url'] ) ); ?>"><?php esc_html_e( 'Previous', 'fast-index' ); ?></a></li>
+			<?php endif; ?>
+			<?php if ( $fast_index_view['has_next'] ) : ?>
+				<li class="page-item"><a class="page-link" href="<?php echo esc_url( add_query_arg( 'pn', $fast_index_page + 1, $fast_index_view['base_url'] ) ); ?>"><?php esc_html_e( 'Next', 'fast-index' ); ?></a></li>
+			<?php endif; ?>
+		</ul>
+	</nav>
 
 </div>
-
