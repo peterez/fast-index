@@ -1,0 +1,18 @@
+# Dependencies (restored with composer install / npm ci).
+/vendor/
+/node_modules/
+
+# Build and release output.
+/build/
+/dist/
+*.zip
+
+# Local tooling and environment.
+.phpunit.result.cache
+.phpcs-cache
+.env
+github.txt
+*.log
+.DS_Store
+.idea/
+.vscode/
