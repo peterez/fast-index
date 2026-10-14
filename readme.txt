@@ -36,8 +36,8 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 * Background sending through WP-Cron, with a time limit for each request.
 * History screen with a summary (sent in total, waiting, sent today) and the answer of Google for every notification.
 * Optional hourly batches of old published posts under a daily limit, and a Send Old Posts Now button.
-* More than one service account key: when Google answers 401, 403 or 429 for a key, that key rests for six hours and the next one is tried.
-* Notifications that cannot be sent because no key is usable are listed in History as Not sent and are sent when a key is ready.
+* More than one service account key: when Google answers 401, 403 or 429 for a key, that key is paused for six hours and the next one is tried.
+* A notification that cannot be sent is listed in History as Not sent. Without a key or without OpenSSL it is only recorded; while every key is paused it waits and is sent when a key is ready again.
 * Choice of post types and of categories to leave out.
 * Service account keys are stored in the database, never in a file. The screens show only the email address and the key ID.
 * Help & FAQ screen with step-by-step Google Cloud setup, an explanation of every setting, troubleshooting and system information.
@@ -89,11 +89,11 @@ Yes. Set a daily limit under Daily Limit for Old Posts. Every hour Fast Index se
 
 = How many URLs can I send per day? =
 
-Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count. Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it lets that key rest for six hours. Quota page: https://developers.google.com/search/apis/indexing-api/v3/quota-pricing
+Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count. Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it pauses that key for six hours. Quota page: https://developers.google.com/search/apis/indexing-api/v3/quota-pricing
 
 = Can I use more than one service account? =
 
-With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked. Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.
+With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not paused, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key is paused for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without pausing a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked. Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.
 
 = Where is my service account key stored, and is it safe? =
 
@@ -183,9 +183,9 @@ What leaves your site is described under External services: post addresses and s
 * Changed: keys are stored in the database. On the first load after the update the key files of version 2.x are moved there and deleted. A notice recommends creating a new key and deleting the old one in Google Cloud. If you go back to 2.2 you must upload the key again.
 * Changed: sending runs in the background through WP-Cron, so saving a post is faster.
 * Changed: trashing or deleting a published post sends URL_DELETED when the Trash option is on.
-* Changed: when Google answers 401, 403 or 429, the key rests for six hours and the next key is tried.
+* Changed: when Google answers 401, 403 or 429, the key is paused for six hours and the next key is tried.
 * Changed: failed attempts are recorded in History too.
-* New: notifications that cannot be sent because no key is usable show as Not sent in History and are sent when a key is ready (the newest event for each address, up to 200, for up to three days).
+* New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit.
 * Changed: deactivating the plugin only removes its scheduled tasks. A new uninstall routine keeps your data by default and deletes it, on every site of a network, when Delete data on uninstall is on.
 * Changed: the History and Send Old Posts Now screens have new addresses (`fast-index-history` and `fast-index-run`).

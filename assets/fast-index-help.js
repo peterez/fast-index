@@ -2,7 +2,7 @@
  * Help & FAQ screen of Fast Index.
  *
  * - "Copy system info": copies the read-only text; when the Clipboard API is missing or refused,
- *   the text is selected so it can be copied by hand.
+ *   the text field is shown and selected so it can be copied by hand.
  * - Opens the <details> element that an address like #fi-help-faq-quota points at.
  */
 ( function () {
@@ -21,6 +21,9 @@
 	function selectText( field, button ) {
 		var done = false;
 
+		// The field is out of sight and hidden from assistive technology until the person has to copy by hand.
+		field.classList.add( 'fi-help-sysinfo-source--shown' );
+		field.removeAttribute( 'aria-hidden' );
 		field.focus();
 		field.select();
 

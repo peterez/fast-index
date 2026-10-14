@@ -51,7 +51,9 @@ $fast_index_events   = array(
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_ACTIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_ACTIVE ); ?>><?php esc_html_e( 'Active', 'fast-index' ); ?></option>
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_PASSIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_PASSIVE ); ?>><?php esc_html_e( 'Passive', 'fast-index' ); ?></option>
 								</select>
-								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'status' ) ); ?></p>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'status' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
 							</td>
 						</tr>
 
@@ -70,7 +72,9 @@ $fast_index_events   = array(
 										<?php echo esc_html( $fast_index_label ); ?>
 									</label>
 								<?php endforeach; ?>
-								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'post_type' ) ); ?></p>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'post_type' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
 							</td>
 						</tr>
 
@@ -85,7 +89,9 @@ $fast_index_events   = array(
 								<?php else : ?>
 									<input id="fast-index-old-posts" class="regular-text licenceAlert" type="text" value="0" readonly disabled />
 								<?php endif; ?>
-								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'old_post_number' ) ); ?></p>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'old_post_number' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
 							</td>
 						</tr>
 
@@ -104,7 +110,9 @@ $fast_index_events   = array(
 										<?php echo esc_html( $fast_index_label ); ?>
 									</label>
 								<?php endforeach; ?>
-								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'post_status' ) ); ?></p>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'post_status' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
 							</td>
 						</tr>
 
@@ -123,7 +131,9 @@ $fast_index_events   = array(
 										<?php echo esc_html( $fast_index_category->name ); ?>
 									</label>
 								<?php endforeach; ?>
-								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'exclude_category' ) ); ?></p>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'exclude_category' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
 							</td>
 						</tr>
 
@@ -134,7 +144,9 @@ $fast_index_events   = array(
 							</td>
 							<td>
 								<input id="fast-index-delete-data" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
-								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'delete_data' ) ); ?></p>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'delete_data' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
 							</td>
 						</tr>
 
@@ -176,7 +188,7 @@ $fast_index_events   = array(
 									</small>
 								</td>
 								<td class="insideTd">
-									<?php echo esc_html( null === $fast_index_account['status'] ? __( 'Not used yet', 'fast-index' ) : Fast_Index_Admin::status_label( $fast_index_account['status'] ) ); ?>
+									<bdi dir="auto"><?php echo esc_html( null === $fast_index_account['status'] ? __( 'Not used yet', 'fast-index' ) : Fast_Index_Admin::status_label( $fast_index_account['status'] ) ); ?></bdi>
 									<form method="post" class="fast-index-inline-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 										<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::DELETE ); ?>" />
 										<input type="hidden" name="fast_index_account" value="<?php echo esc_attr( $fast_index_account['id'] ); ?>" />

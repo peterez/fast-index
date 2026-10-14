@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php foreach ( $fast_index_view['results'] as $fast_index_result ) : ?>
 				<tr>
 					<td><a href="<?php echo esc_url( $fast_index_result['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $fast_index_result['url'] ); ?></a></td>
-					<td><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_result['code'] ) ); ?></td>
+					<td><bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_result['code'] ) ); ?></bdi></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>

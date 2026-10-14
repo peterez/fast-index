@@ -63,7 +63,13 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 					<?php foreach ( $fast_index_view['settings'] as $fast_index_setting ) : ?>
 						<tr id="<?php echo esc_attr( 'fi-help-setting-' . $fast_index_setting['id'] ); ?>">
 							<th scope="row" data-label="<?php esc_attr_e( 'Setting', 'fast-index' ); ?>"><?php echo esc_html( $fast_index_setting['name'] ); ?></th>
-							<td data-label="<?php esc_attr_e( 'What it does', 'fast-index' ); ?>"><?php echo wp_kses( $fast_index_setting['what'], $fast_index_allowed ); ?></td>
+							<td data-label="<?php esc_attr_e( 'What it does', 'fast-index' ); ?>">
+								<p class="fi-help-what"><?php echo wp_kses( $fast_index_setting['what'], $fast_index_allowed ); ?></p>
+								<?php if ( ! empty( $fast_index_setting['note'] ) ) : ?>
+									<?php /* A paragraph of its own, not a sentence joined with a space (Japanese writes none). */ ?>
+									<p class="fi-help-what"><?php echo esc_html( $fast_index_setting['note'] ); ?></p>
+								<?php endif; ?>
+							</td>
 							<td data-label="<?php esc_attr_e( 'Default', 'fast-index' ); ?>"><?php echo esc_html( $fast_index_setting['default'] ); ?></td>
 							<td data-label="<?php esc_attr_e( 'Change it when', 'fast-index' ); ?>"><?php echo wp_kses( $fast_index_setting['when'], $fast_index_allowed ); ?></td>
 						</tr>
@@ -115,7 +121,7 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 			<?php endforeach; ?>
 		</ol>
 
-		<h3><?php esc_html_e( 'System info', 'fast-index' ); ?></h3>
+		<h3 id="fi-help-system-info-title"><?php esc_html_e( 'System info', 'fast-index' ); ?></h3>
 		<p id="fi-help-system-info-note"><?php esc_html_e( 'Read-only facts about your site that help us answer. They contain no keys and no email addresses.', 'fast-index' ); ?></p>
 		<?php /* Label and value are separate isolated elements, so each side keeps its own direction on right-to-left screens. */ ?>
 		<dl class="fi-help-sysinfo" aria-describedby="fi-help-system-info-note">
@@ -126,8 +132,8 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 				</div>
 			<?php endforeach; ?>
 		</dl>
-		<?php /* The same facts as plain text, one line each: the source of the copy button. Hidden from view and from assistive technology. */ ?>
-		<textarea id="fi-help-system-info" class="fi-help-sysinfo-source" rows="<?php echo esc_attr( (string) ( substr_count( $fast_index_view['system_info'], "\n" ) + 1 ) ); ?>" readonly="readonly" tabindex="-1" aria-hidden="true"><?php echo esc_textarea( $fast_index_view['system_info'] ); ?></textarea>
+		<?php /* The same facts as plain text, one line each: the source of the copy button. Hidden from view and from assistive technology until the copy button has to select it. */ ?>
+		<textarea id="fi-help-system-info" class="fi-help-sysinfo-source" rows="<?php echo esc_attr( (string) ( substr_count( $fast_index_view['system_info'], "\n" ) + 1 ) ); ?>" aria-labelledby="fi-help-system-info-title" readonly="readonly" tabindex="-1" aria-hidden="true"><?php echo esc_textarea( $fast_index_view['system_info'] ); ?></textarea>
 		<p>
 			<button type="button" class="button" data-fast-index-copy="fi-help-system-info"><?php esc_html_e( 'Copy system info', 'fast-index' ); ?></button>
 			<span class="fi-help-copy-status" role="status" aria-live="polite"></span>

@@ -70,7 +70,8 @@ $fast_index_types = array(
 					<?php echo esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $fast_index_entry['timestamp'] ) ); ?>
 				</td>
 				<td class="fi-history-status<?php echo $fast_index_entry['code'] < 0 ? ' fi-history-status--not-sent' : ''; ?>">
-					<?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?>
+					<?php /* Isolated, so the code and its name keep their order on right-to-left screens ("200 OK", not "OK 200"). */ ?>
+					<bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?></bdi>
 					<?php if ( $fast_index_entry['retry'] ) : ?>
 						<br><span class="description fi-history-retry"><?php echo esc_html( Fast_Index_Admin::retry_note() ); ?></span>
 					<?php endif; ?>

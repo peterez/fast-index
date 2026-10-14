@@ -164,6 +164,12 @@ test.describe( 'Fast Index help', () => {
 		} );
 		expect( selection ).toEqual( { start: 0, end: selection.length, length: selection.length } );
 		expect( selection.length ).toBeGreaterThan( 50 );
+
+		// The field is out of sight until now: it is shown, so that the selection can be seen and copied by hand.
+		const field = page.locator( '#fi-help-system-info' );
+		await expect( field ).toBeVisible();
+		await expect( field ).not.toHaveAttribute( 'aria-hidden', /.*/ );
+		expect( ( await field.boundingBox() ).width ).toBeGreaterThan( 200 );
 	} );
 
 	test( 'every plugin screen has a help tab that links to the help page', async ( { page } ) => {

@@ -190,7 +190,7 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 		$this->assertStringContainsString( 'WP-Cron disabled (DISABLE_WP_CRON): ', $text );
 		$this->assertStringContainsString( 'Stored service account keys: 1', $text );
 		$this->assertStringContainsString( 'Key 1: 403 Forbidden', $text );
-		$this->assertStringContainsString( 'Keys available now (not resting): 0', $text );
+		$this->assertStringContainsString( 'Keys available now (not paused): 0', $text );
 		$this->assertStringContainsString( ', URL_UPDATED, 200 OK', $text );
 
 		foreach ( array( $text, $html ) as $output ) {
@@ -284,5 +284,59 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 			$this->assertNotSame( '', Fast_Index_Help_Content::field_description( $field ), $field );
 			$this->assertStringContainsString( esc_html( Fast_Index_Help_Content::field_description( $field ) ), $html, $field );
 		}
+	}
+
+	/**
+	 * HTTP status names stay as Google and WordPress write them; they are not translated.
+	 *
+	 * @return void
+	 */
+	public function test_status_labels_keep_http_names() {
+		$this->assertSame( '200 OK', Fast_Index_Admin::status_label( 200 ) );
+		$this->assertSame( '429 Too Many Requests', Fast_Index_Admin::status_label( 429 ) );
+		$this->assertSame( '403 Forbidden', Fast_Index_Admin::status_label( 403 ) );
+
+		// In running text the status is isolated, so right-to-left languages do not show "OK 200".
+		$steps = Fast_Index_Help_Content::getting_started_steps();
+		$last  = end( $steps );
+		$this->assertStringContainsString( '<strong><bdi dir="ltr">200 OK</bdi></strong>', $last['text'] );
+		$this->assertSame( wp_kses( $last['text'], Fast_Index_Help_Content::allowed_html() ), $last['text'] );
+	}
+
+	/**
+	 * The premium plan sentence is its own paragraph, never joined to the description with a space.
+	 *
+	 * @return void
+	 */
+	public function test_premium_sentence_is_a_separate_paragraph() {
+		foreach ( array( 'post_type', 'old_post_number', 'post_status', 'exclude_category' ) as $field ) {
+			$this->assertStringNotContainsString( 'In this version', Fast_Index_Help_Content::field_description( $field ), $field );
+			$this->assertSame(
+				array( Fast_Index_Help_Content::field_description( $field ), Fast_Index_Help_Content::premium_note( $field ) ),
+				Fast_Index_Help_Content::field_notes( $field ),
+				$field
+			);
+		}
+
+		$this->assertSame( array( Fast_Index_Help_Content::field_description( 'status' ) ), Fast_Index_Help_Content::field_notes( 'status' ) );
+
+		foreach ( Fast_Index_Help_Content::settings() as $setting ) {
+			$this->assertStringNotContainsString( 'In this version', wp_strip_all_tags( $setting['what'] ), $setting['id'] );
+		}
+
+		foreach ( Fast_Index_Help_Content::faq() as $item ) {
+			$this->assertStringNotContainsString( '. In this version', wp_strip_all_tags( $item['answer'] ), $item['id'] );
+		}
+	}
+
+	/**
+	 * The copy fallback selects a field that the page can show: the textarea has a name and starts hidden.
+	 *
+	 * @return void
+	 */
+	public function test_copy_fallback_field_is_named() {
+		$this->login_as( 'administrator' );
+
+		$this->assertMatchesRegularExpression( '/<textarea id="fi-help-system-info" class="fi-help-sysinfo-source"[^>]*aria-labelledby="fi-help-system-info-title"[^>]*aria-hidden="true">/', self::render_help() );
 	}
 }

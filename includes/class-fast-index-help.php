@@ -93,7 +93,7 @@ class Fast_Index_Help {
 			'window.fastIndexHelp = ' . wp_json_encode(
 				array(
 					'copied'   => __( 'System info copied.', 'fast-index' ),
-					'selected' => __( 'System info selected. Press Ctrl+C (Cmd+C on a Mac) to copy it.', 'fast-index' ),
+					'selected' => __( 'System info is selected in the box above. Press Ctrl+C (Cmd+C on a Mac) to copy it.', 'fast-index' ),
 				)
 			) . ';',
 			'before'
@@ -184,7 +184,7 @@ class Fast_Index_Help {
 				'value' => (string) count( $accounts ),
 			),
 			array(
-				'label' => __( 'Keys available now (not resting)', 'fast-index' ),
+				'label' => __( 'Keys available now (not paused)', 'fast-index' ),
 				'value' => (string) count( Fast_Index_Accounts::available() ),
 			),
 			array(

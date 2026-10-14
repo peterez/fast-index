@@ -241,7 +241,7 @@ class Fast_Index_Admin {
 		}
 
 		if ( Fast_Index_Submitter::RESTING === $code ) {
-			return __( 'Not sent: every key was resting', 'fast-index' );
+			return __( 'Not sent: every key was paused', 'fast-index' );
 		}
 
 		if ( Fast_Index_Submitter::UNSUPPORTED === $code ) {
@@ -252,10 +252,7 @@ class Fast_Index_Admin {
 			return __( 'No answer from Google', 'fast-index' );
 		}
 
-		if ( 200 === $code ) {
-			return '200 ' . __( 'OK', 'fast-index' );
-		}
-
+		// HTTP status names are not translated: "200 OK" reads like "403 Forbidden" and "429 Too Many Requests".
 		return trim( $code . ' ' . get_status_header_desc( $code ) );
 	}
 

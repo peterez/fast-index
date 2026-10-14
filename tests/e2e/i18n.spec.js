@@ -177,6 +177,31 @@ async function checkScreen( page, locale, view, po, projectName, prefix ) {
 		expect( menu, locale + ' admin menu: "' + po.get( id ) + '"' ).toContain( norm( po.get( id ) ) );
 	}
 
+	// No entry of the plugin menu leaves one or two characters alone on its last line (a long Japanese label used to
+	// drop its last character). A longer label may wrap between words.
+	if ( 'mobile' !== projectName ) {
+		const orphans = await page.evaluate( () => Array.from( document.querySelectorAll( '#adminmenu .wp-submenu a[href*="page=fast-index"]' ) ).map( ( link ) => {
+			const walker = document.createTreeWalker( link, NodeFilter.SHOW_TEXT );
+			const tops = [];
+			let node = walker.nextNode();
+			while ( node ) {
+				for ( let i = 0; i < node.nodeValue.length; i++ ) {
+					if ( /\S/.test( node.nodeValue[ i ] ) ) {
+						const range = document.createRange();
+						range.setStart( node, i );
+						range.setEnd( node, i + 1 );
+						tops.push( Math.round( range.getBoundingClientRect().top ) );
+					}
+				}
+				node = walker.nextNode();
+			}
+			const last = Math.max( ...tops );
+			return { label: link.textContent.trim(), onLastLine: tops.filter( ( top ) => top === last ).length, lines: new Set( tops ).size };
+		} ) );
+		expect( orphans.length, locale + ' plugin menu entries' ).toBeGreaterThanOrEqual( 3 );
+		expect( orphans.filter( ( entry ) => entry.lines > 1 && entry.onLastLine <= 2 ), locale + ' menu entries with a last line of one or two characters' ).toEqual( [] );
+	}
+
 	// Right to left: in the system info list the label is on the right, its value on the left of it; Japanese
 	// breaks lines between phrases (where the browser supports it).
 	if ( 'help' === view && 'rtl' === dir && 'mobile' !== projectName ) {
@@ -185,6 +210,32 @@ async function checkScreen( page, locale, view, po, projectName, prefix ) {
 			value: row.querySelector( 'dd' ).getBoundingClientRect().left,
 		} ) );
 		expect( sides.label, locale + ' system info: label right of the value' ).toBeGreaterThan( sides.value );
+	}
+	// Right to left: a status like "200 OK" keeps its order in the History table ("OK 200" would be wrong).
+	// (Phone width: WordPress hides the columns after the first in a list table, so only the desktop run can look.)
+	if ( 'history' === view && 'rtl' === dir && 'mobile' !== projectName ) {
+		const order = await page.evaluate( () => {
+			const cell = Array.from( document.querySelectorAll( '.fi-history-status' ) ).find( ( c ) => /^\s*200 OK/.test( c.textContent ) );
+			if ( ! cell ) {
+				return null;
+			}
+			const walker = document.createTreeWalker( cell, NodeFilter.SHOW_TEXT );
+			let node = walker.nextNode();
+			while ( node && ! /200 OK/.test( node.nodeValue ) ) {
+				node = walker.nextNode();
+			}
+			const at = ( from, to ) => {
+				const range = document.createRange();
+				range.setStart( node, from );
+				range.setEnd( node, to );
+				return range.getBoundingClientRect().left;
+			};
+			const start = node.nodeValue.indexOf( '200 OK' );
+			return { code: at( start, start + 3 ), name: at( start + 4, start + 6 ), isolated: !! cell.querySelector( 'bdi' ) };
+		} );
+		expect( order, locale + ' History has a 200 OK row' ).not.toBeNull();
+		expect( order.isolated, locale + ' status in a bdi element' ).toBe( true );
+		expect( order.code, locale + ' History: "200" left of "OK"' ).toBeLessThan( order.name );
 	}
 	if ( 'ja' === locale ) {
 		const phrases = await page.evaluate( () => ( {

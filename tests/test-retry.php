@@ -254,7 +254,8 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 		( new Fast_Index_Admin() )->render_history();
 		$html = (string) ob_get_clean();
 
-		$this->assertStringContainsString( 'Not sent: every key was resting', $html );
+		// The status is an isolated element, so a code and its name keep their order on right-to-left screens.
+		$this->assertStringContainsString( '<bdi dir="auto">Not sent: every key was paused</bdi>', $html );
 		$this->assertStringContainsString( Fast_Index_Admin::retry_note(), $html );
 		$this->assertStringContainsString( 'fi-history-status--not-sent', $html );
 	}
