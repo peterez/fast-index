@@ -115,20 +115,37 @@ class Fast_Index_Installer {
 	/**
 	 * Sets up the current site: data upgrade and scheduled events.
 	 *
+	 * Used on activation and for new sites. It does not look at wp_installing():
+	 * wpmu_create_blog() leaves that flag on after the new site's tables exist.
+	 *
 	 * @return void
 	 */
 	public static function install_site() {
-		self::maybe_upgrade();
+		self::upgrade_site();
 		Fast_Index_Cron::schedule();
 	}
 
 	/**
-	 * Runs pending upgrade steps for the current site. Cheap when the site is up to date.
+	 * Runs pending upgrade steps for the current site on a normal request.
+	 * Cheap when the site is up to date. Skipped while WordPress itself is being installed.
 	 *
 	 * @return void
 	 */
 	public static function maybe_upgrade() {
-		if ( wp_installing() || ! self::needs_upgrade() ) {
+		if ( wp_installing() ) {
+			return;
+		}
+
+		self::upgrade_site();
+	}
+
+	/**
+	 * Applies pending upgrade steps under a lock.
+	 *
+	 * @return void
+	 */
+	private static function upgrade_site() {
+		if ( ! self::needs_upgrade() ) {
 			return;
 		}
 

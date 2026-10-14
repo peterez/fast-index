@@ -49,6 +49,25 @@ class Fast_Index_Test_Multisite extends Fast_Index_Test_Case {
 	}
 
 	/**
+	 * A site added in Network Admin (wpmu_create_blog() keeps wp_installing() on) is set up too.
+	 *
+	 * @return void
+	 */
+	public function test_site_added_in_network_admin_is_set_up() {
+		self::network_activate();
+
+		$blog_id = wpmu_create_blog( WP_TESTS_DOMAIN, '/fast-index-network-admin/', 'Network admin site', 1 );
+		wp_installing( false );
+
+		$this->assertIsInt( $blog_id );
+
+		switch_to_blog( $blog_id );
+		$this->assertSame( FAST_INDEX_DB_VERSION, get_option( Fast_Index_Installer::DB_VERSION_OPTION ) );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::BACKLOG_HOOK ) );
+		restore_current_blog();
+	}
+
+	/**
 	 * Without network activation a new site is left alone.
 	 *
 	 * @return void
