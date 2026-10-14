@@ -146,7 +146,7 @@
     #--------------------------------------------------------------------------------
 
     if ( ! defined( 'WP_FS__IS_HTTP_REQUEST' ) ) {
-        define( 'WP_FS__IS_HTTP_REQUEST', isset( $_SERVER['HTTP_HOST'] ) );
+        define( 'WP_FS__IS_HTTP_REQUEST', isset( $_SERVER['HTTP_HOST'] ) && isset( $_SERVER['REQUEST_METHOD'] ) );
     }
 
     if ( ! defined( 'WP_FS__IS_HTTPS' ) ) {
@@ -208,6 +208,10 @@
     }
     if ( ! defined( 'WP_FS__API_SANDBOX_ADDRESS_LOCALHOST' ) ) {
         define( 'WP_FS__API_SANDBOX_ADDRESS_LOCALHOST', 'http://sandbox-api.freemius:8080' );
+    }
+
+    if ( ! defined( 'WP_FS__API_TIMEOUT' ) ) {
+        define( 'WP_FS__API_TIMEOUT', 30 );
     }
 
     // Set API address for local testing.
