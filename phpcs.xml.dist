@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ruleset name="Fast Index"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpcodesniffer.com/phpcs.xsd">
+
+	<description>WordPress.org-ready coding standards for Fast Index.</description>
+
+	<!-- What to scan. -->
+	<file>.</file>
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="./"/>
+	<arg name="parallel" value="8"/>
+	<arg name="colors"/>
+	<arg value="ps"/>
+
+	<!-- Never scan third-party or generated code. The Freemius SDK is bundled third-party code. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/freemius-sdk/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- PHP compatibility: lowest PHP version the plugin supports (Requires PHP header). -->
+	<config name="testVersion" value="7.4-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Lowest WordPress version the plugin supports (Requires at least header). -->
+	<config name="minimum_wp_version" value="5.6"/>
+
+	<!-- Full WordPress standard (Core + Extra + Docs + input validation + direct DB query + slow query checks). -->
+	<rule ref="WordPress"/>
+
+	<!-- Text domain must equal the plugin slug. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="fast-index"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Unique prefixes (4+ characters). figi_fs is the Freemius accessor name generated for this plugin and kept for compatibility. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="fast_index"/>
+				<element value="Fast_Index"/>
+				<element value="FAST_INDEX"/>
+				<element value="figi_fs"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- PHPUnit collects tests/test-*.php (WordPress test suite convention), so test class files cannot be named class-*.php. -->
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>/tests/test-*.php</exclude-pattern>
+	</rule>
+</ruleset>

@@ -1,0 +1,38 @@
+{
+	"name": "cultdevops/fast-index",
+	"description": "Development tools (coding standards and tests) for the Fast Index WordPress plugin.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "^3.0@alpha",
+		"phpunit/phpunit": "^9.6",
+		"wp-coding-standards/wpcs": "^3.4.1",
+		"yoast/phpunit-polyfills": "^1.1"
+	},
+	"minimum-stability": "alpha",
+	"prefer-stable": true,
+	"autoload": {
+		"classmap": [
+			"includes/"
+		]
+	},
+	"config": {
+		"platform": {
+			"php": "7.4.33"
+		},
+		"optimize-autoloader": true,
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"lint": "phpcs -ps",
+		"lint:fix": "phpcbf",
+		"test": "phpunit"
+	}
+}
