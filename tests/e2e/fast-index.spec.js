@@ -5,60 +5,8 @@
  *   PLUGIN=fast-index tools/e2e/node_modules/.bin/playwright test -c tools/e2e/playwright.config.js
  * Google is never called: a local mu-plugin answers the Google endpoints during QA.
  */
-const crypto = require( 'crypto' );
-const { execFileSync } = require( 'child_process' );
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
-
-const SITE_URL = process.env.WP_URL;
-const IS_MULTISITE = /wordpress-ms/.test( SITE_URL );
-
-/**
- * Runs WP-CLI against the site under test (state set-up and checks only).
- *
- * @param {string[]} args WP-CLI arguments.
- * @return {string} Output.
- */
-function wp( args ) {
-	const target = [
-		'--path=' + ( IS_MULTISITE ? '/home/samet/wordpress-ms' : '/home/samet/wordpress' ),
-		// PHP CLI has no OPcache, so every set-up call compiles the bundled Freemius SDK again and its
-		// PHP 8.4 deprecation notices (third-party code) would land in the debug.log this suite checks.
-		// Only messages from freemius-sdk/ are dropped; the plugin's own messages are still logged.
-		'--exec=set_error_handler( function ( $no, $str, $file ) { return false !== strpos( (string) $file, "/fast-index/freemius-sdk/" ); } );',
-	];
-	if ( IS_MULTISITE ) {
-		target.push( '--url=' + SITE_URL );
-	}
-	return execFileSync( '/home/samet/.local/bin/wp', target.concat( args ), {
-		encoding: 'utf8',
-		stdio: [ 'ignore', 'pipe', 'ignore' ],
-	} ).trim();
-}
-
-/**
- * Builds a service account key file in memory. The key is generated for the test and never stored.
- *
- * @param {string} email Client email.
- * @param {string} keyId Key ID.
- * @return {{privateKey: string, buffer: Buffer}} Key and file body.
- */
-function serviceAccountFile( email, keyId ) {
-	const { privateKey } = crypto.generateKeyPairSync( 'rsa', {
-		modulusLength: 2048,
-		privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
-		publicKeyEncoding: { type: 'spki', format: 'pem' },
-	} );
-	const body = {
-		type: 'service_account',
-		project_id: 'fast-index-e2e',
-		private_key_id: keyId,
-		private_key: privateKey,
-		client_email: email,
-		client_id: '100000000000000000002',
-		token_uri: 'https://oauth2.googleapis.com/token',
-	};
-	return { privateKey, buffer: Buffer.from( JSON.stringify( body ) ) };
-}
+const { wp, serviceAccountFile } = require( './helpers' );
 
 const SETTINGS = admin( 'admin.php?page=fast-index' );
 const HISTORY = admin( 'admin.php?page=fast-index-history' );

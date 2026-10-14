@@ -1,0 +1,114 @@
+/*
+ * Help & FAQ screen. Plain WordPress admin styling on purpose; logical properties keep it correct in RTL.
+ */
+.fast-index-help .fi-help-lead {
+	max-width: 70em;
+}
+
+.fast-index-help .card {
+	max-width: none;
+	margin-block-start: 20px;
+	padding-block: 1px 16px;
+	padding-inline: 20px;
+}
+
+.fast-index-help .fi-help-nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.fast-index-help .fi-help-nav a {
+	display: inline-block;
+	padding: 6px 0;
+	font-weight: 600;
+}
+
+.fast-index-help .fi-help-section {
+	scroll-margin-block-start: 48px;
+}
+
+.fast-index-help .fi-help-steps {
+	margin-inline-start: 1.5em;
+}
+
+.fast-index-help .fi-help-steps h3 {
+	margin-block: 1em 0.3em;
+}
+
+.fast-index-help .fi-help-steps p,
+.fast-index-help .fi-help-item__body p {
+	max-width: 70em;
+}
+
+.fast-index-help .fi-help-item {
+	border: 1px solid #c3c4c7;
+	background: #fff;
+	margin-block-end: 8px;
+}
+
+.fast-index-help .fi-help-item summary {
+	cursor: pointer;
+	padding: 10px 12px;
+	font-weight: 600;
+}
+
+.fast-index-help .fi-help-item[open] summary {
+	border-block-end: 1px solid #dcdcde;
+}
+
+.fast-index-help .fi-help-item__body {
+	padding-block: 0;
+	padding-inline: 12px;
+}
+
+.fast-index-help .fi-help-table-wrap {
+	overflow-x: auto;
+}
+
+.fast-index-help .fi-help-table th,
+.fast-index-help .fi-help-table td {
+	vertical-align: top;
+	text-align: start;
+}
+
+.fast-index-help #fi-help-system-info {
+	font-family: Consolas, Monaco, monospace;
+	direction: ltr;
+	text-align: left;
+}
+
+.fast-index-help .fi-help-copy-status {
+	margin-inline-start: 10px;
+}
+
+.fast-index-help code {
+	overflow-wrap: anywhere;
+}
+
+@media screen and (max-width: 782px) {
+	.fast-index-help .card {
+		padding-inline: 12px;
+	}
+
+	/* The four columns become stacked blocks, each cell labelled from its data-label. */
+	.fast-index-help .fi-help-table thead {
+		display: none;
+	}
+
+	.fast-index-help .fi-help-table tr,
+	.fast-index-help .fi-help-table th,
+	.fast-index-help .fi-help-table td {
+		display: block;
+		width: auto;
+	}
+
+	.fast-index-help .fi-help-table td::before {
+		content: attr(data-label);
+		display: block;
+		font-weight: 600;
+	}
+}

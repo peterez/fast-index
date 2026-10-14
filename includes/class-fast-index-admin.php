@@ -54,6 +54,7 @@ class Fast_Index_Admin {
 		add_action( 'admin_menu', array( $this, 'add_menu' ), 99999999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
+		( new Fast_Index_Help() )->register_hooks();
 		( new Fast_Index_Admin_Actions() )->register_hooks();
 		( new Fast_Index_Notices() )->register_hooks();
 	}
@@ -64,13 +65,17 @@ class Fast_Index_Admin {
 	 * @return void
 	 */
 	public function add_menu() {
+		$help  = new Fast_Index_Help();
 		$hooks = array(
-			add_menu_page( __( 'Fast Index', 'fast-index' ), __( 'Fast Index', 'fast-index' ), 'manage_options', self::SLUG, array( $this, 'render_settings' ) ),
-			add_submenu_page( self::SLUG, __( 'History', 'fast-index' ), __( 'History', 'fast-index' ), 'manage_options', self::SLUG_HISTORY, array( $this, 'render_history' ) ),
-			add_submenu_page( self::SLUG, __( 'Send Old Posts Now', 'fast-index' ), __( 'Send Old Posts Now', 'fast-index' ), 'manage_options', self::SLUG_RUN, array( $this, 'render_run' ) ),
+			'settings' => add_menu_page( __( 'Fast Index', 'fast-index' ), __( 'Fast Index', 'fast-index' ), 'manage_options', self::SLUG, array( $this, 'render_settings' ) ),
+			'history'  => add_submenu_page( self::SLUG, __( 'History', 'fast-index' ), __( 'History', 'fast-index' ), 'manage_options', self::SLUG_HISTORY, array( $this, 'render_history' ) ),
+			'run'      => add_submenu_page( self::SLUG, __( 'Send Old Posts Now', 'fast-index' ), __( 'Send Old Posts Now', 'fast-index' ), 'manage_options', self::SLUG_RUN, array( $this, 'render_run' ) ),
+			'help'     => add_submenu_page( self::SLUG, __( 'Help & FAQ', 'fast-index' ), __( 'Help & FAQ', 'fast-index' ), 'manage_options', Fast_Index_Help::SLUG, array( $help, 'render' ) ),
 		);
 
 		self::$page_hooks = array_values( array_filter( array_map( 'strval', $hooks ) ) );
+
+		$help->register_screens( $hooks );
 	}
 
 	/**

@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $fast_index_settings = $fast_index_view['settings'];
 $fast_index_premium  = $fast_index_view['premium'];
+$fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 $fast_index_events   = array(
 	'publish' => __( 'Publish', 'fast-index' ),
 	'edit'    => __( 'Edit', 'fast-index' ),
@@ -50,6 +51,7 @@ $fast_index_events   = array(
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_ACTIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_ACTIVE ); ?>><?php esc_html_e( 'Active', 'fast-index' ); ?></option>
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_PASSIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_PASSIVE ); ?>><?php esc_html_e( 'Passive', 'fast-index' ); ?></option>
 								</select>
+								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'status' ) ); ?></p>
 							</td>
 						</tr>
 
@@ -68,6 +70,7 @@ $fast_index_events   = array(
 										<?php echo esc_html( $fast_index_label ); ?>
 									</label>
 								<?php endforeach; ?>
+								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'post_type' ) ); ?></p>
 							</td>
 						</tr>
 
@@ -82,6 +85,7 @@ $fast_index_events   = array(
 								<?php else : ?>
 									<input id="fast-index-old-posts" class="regular-text licenceAlert" type="text" value="0" readonly disabled />
 								<?php endif; ?>
+								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'old_post_number' ) ); ?></p>
 							</td>
 						</tr>
 
@@ -100,6 +104,7 @@ $fast_index_events   = array(
 										<?php echo esc_html( $fast_index_label ); ?>
 									</label>
 								<?php endforeach; ?>
+								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'post_status' ) ); ?></p>
 							</td>
 						</tr>
 
@@ -118,6 +123,7 @@ $fast_index_events   = array(
 										<?php echo esc_html( $fast_index_category->name ); ?>
 									</label>
 								<?php endforeach; ?>
+								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'exclude_category' ) ); ?></p>
 							</td>
 						</tr>
 
@@ -128,6 +134,7 @@ $fast_index_events   = array(
 							</td>
 							<td>
 								<input id="fast-index-delete-data" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
+								<p class="description"><?php echo esc_html( Fast_Index_Help_Content::field_description( 'delete_data' ) ); ?></p>
 							</td>
 						</tr>
 
@@ -224,88 +231,19 @@ $fast_index_events   = array(
 
 		<div class="pw50">
 
-			<h1 class="title"><?php esc_html_e( 'Guideline', 'fast-index' ); ?></h1>
+			<h1 class="title"><?php esc_html_e( 'Help & FAQ', 'fast-index' ); ?></h1>
 
 			<div>
-
-				<h3>1- <?php esc_html_e( 'What means 200, 429, 403 and 401 codes?', 'fast-index' ); ?></h3>
+				<p><?php esc_html_e( 'Setting up for the first time, or something does not work? Step-by-step instructions, an explanation of every setting, solutions to common problems and answers to frequently asked questions are in Help & FAQ.', 'fast-index' ); ?></p>
 				<p>
-					<?php
-					$fast_index_codes = array(
-						200 => __( "It's means working and ready", 'fast-index' ),
-						429 => __( "Too many requests are thrown and when it's 24 hours it starts again", 'fast-index' ),
-						401 => __( "It means that the service account you have installed is not authorized or authorized as 'owner' in your webmaster tools account", 'fast-index' ),
-						403 => __( "It means the request page is forbidden. Check your site url. Htpps or Http it's important.", 'fast-index' ),
-					);
-
-					foreach ( $fast_index_codes as $fast_index_code => $fast_index_text ) :
-						?>
-						<b>
-						<?php
-						/* translators: %d: HTTP status code. */
-						echo esc_html( sprintf( __( 'Code %d', 'fast-index' ), $fast_index_code ) );
-						?>
-						</b>; <?php echo esc_html( $fast_index_text ); ?><br />
+					<a class="button button-primary" href="<?php echo esc_url( $fast_index_help_url ); ?>"><?php esc_html_e( 'Open Help & FAQ', 'fast-index' ); ?></a>
+				</p>
+				<ul>
+					<?php foreach ( Fast_Index_Help_Content::sections() as $fast_index_section => $fast_index_section_title ) : ?>
+						<li><a href="<?php echo esc_url( $fast_index_help_url . '#fi-help-' . $fast_index_section ); ?>"><?php echo esc_html( $fast_index_section_title ); ?></a></li>
 					<?php endforeach; ?>
-				</p>
-				<p>
-					<b><?php esc_html_e( "Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, check your webmaster tools owners", 'fast-index' ); ?></b>
-				</p>
-				<hr />
-				<br />
-				<h3>2- <?php esc_html_e( 'Settings', 'fast-index' ); ?></h3>
-				<p>
-					<b><?php esc_html_e( 'Status', 'fast-index' ); ?></b>: <?php esc_html_e( "If you don't use set as passive", 'fast-index' ); ?>
-					<br />
-					<b><?php esc_html_e( 'Post Types', 'fast-index' ); ?></b>: <?php esc_html_e( 'Define the when you make post action which one post types will send to google. If you add new post type or added from plugin it will be shown in here', 'fast-index' ); ?>
-					<br />
-					<b><?php esc_html_e( 'Daily Old Content Post', 'fast-index' ); ?></b>: <?php esc_html_e( 'If you wanna sent to google your old posts type the your daily limit. Every service account has daily 200 limit and you have to split your limits daily new post and old posts', 'fast-index' ); ?>
-					<br>
-					<b><?php esc_html_e( 'Post Status', 'fast-index' ); ?></b>: <?php esc_html_e( "It's means which post status trigger the this plugin", 'fast-index' ); ?>
-				</p>
-				<hr />
-				<br />
-				<h3>3- <?php esc_html_e( 'Is it legal?', 'fast-index' ); ?></h3>
-				<p><?php esc_html_e( "Totally is legal. It's google service and working with google API. If you upload too much service account it's can be defined a spam. Just watch out for this", 'fast-index' ); ?></p>
-				<hr />
-				<br />
-				<h3>4- <?php esc_html_e( 'How work WordPress Cron Job ( Daily Old Content Post )?', 'fast-index' ); ?></h3>
-				<p><?php esc_html_e( 'The task list is triggered when someone logs into the site at or after the specified hours. These tasks will never be triggered if no one accesses your site. If no one visits your site during the day, log in to your site for once and the task list will be triggered automatically', 'fast-index' ); ?></p>
-				<hr />
-				<br />
-				<h3>5- <?php esc_html_e( 'Mass Service Account creating and upload', 'fast-index' ); ?></h3>
-				<p>
-					<b><?php esc_html_e( 'Note', 'fast-index' ); ?></b>: <?php esc_html_e( '1 Google account can create minimum 12 google cloud projects. Every google cloud project can enable Indexing API Service and every services has 200 daily limit. It\'s means you can send 2400 url to google. If you do same steps with your another google account you will get more 2400 limit and you 4800 url to google daily', 'fast-index' ); ?>
-				</p>
-				<p>
-					<?php
-					$fast_index_steps = array(
-						1 => __( 'Go Link', 'fast-index' ),
-						2 => __( 'Create Project and Select', 'fast-index' ),
-						3 => __( 'Create Service Account and make authorized you created email on service account', 'fast-index' ),
-						4 => __( 'Add as owner on your webmaster tools', 'fast-index' ),
-						5 => __( 'Go your wordpress admin dashboard and open Fast Index settings page and upload your service account JSON', 'fast-index' ),
-					);
-
-					foreach ( $fast_index_steps as $fast_index_step => $fast_index_text ) :
-						?>
-						<b>
-						<?php
-						/* translators: %d: step number. */
-						echo esc_html( sprintf( __( 'Step %d', 'fast-index' ), $fast_index_step ) );
-						?>
-						</b>: <?php echo esc_html( $fast_index_text ); ?>
-						<?php if ( 1 === $fast_index_step ) : ?>
-							<a target="_blank" rel="noopener noreferrer" href="https://console.cloud.google.com/">https://console.cloud.google.com/</a>
-						<?php endif; ?>
-						<br>
-					<?php endforeach; ?>
-				</p>
-				<p><?php esc_html_e( 'Watch Video', 'fast-index' ); ?> : <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/RsJA66b5884">https://youtu.be/RsJA66b5884</a></p>
-				<p>
-					<iframe style="padding: 10px; border: 1px dotted #666; border-radius: 3px;" width="560" height="315" src="https://www.youtube.com/embed/RsJA66b5884" title="<?php esc_attr_e( 'YouTube video player', 'fast-index' ); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				</p>
-
+				</ul>
+				<p class="description"><?php esc_html_e( 'Fast Index sends your addresses to the Google Indexing API. A 200 answer means Google accepted the notification; Google does not promise to index the page.', 'fast-index' ); ?></p>
 			</div>
 
 		</div>

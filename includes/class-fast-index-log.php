@@ -284,6 +284,25 @@ class Fast_Index_Log {
 	}
 
 	/**
+	 * The newest log entry, successful or not.
+	 *
+	 * @return array|null Display fields (see page()), null when nothing was logged yet.
+	 */
+	public static function latest() {
+		$posts = get_posts(
+			array(
+				'post_type'   => self::POST_TYPE,
+				'post_status' => array( self::STATUS_SENT, self::STATUS_FAILED ),
+				'numberposts' => 1,
+				'orderby'     => 'ID',
+				'order'       => 'DESC',
+			)
+		);
+
+		return array() === $posts ? null : self::entry( $posts[0] );
+	}
+
+	/**
 	 * Display fields of one log entry.
 	 *
 	 * @param WP_Post $post Log post.

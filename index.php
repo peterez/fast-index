@@ -42,6 +42,8 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-lock.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-migration.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-notices.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-installer.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-help-content.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-help.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin-actions.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-plugin.php';
