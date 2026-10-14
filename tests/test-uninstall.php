@@ -114,21 +114,67 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * The uninstall.php file itself runs the routine.
+	 * There is no uninstall.php (it would keep WordPress from calling the Freemius uninstall hook). The routine is
+	 * attached to the Freemius after_uninstall action, to the core uninstall action of the plugin file as a fallback,
+	 * and registered as the uninstall callback on activation; it runs once per request.
 	 *
 	 * @return void
 	 */
-	public function test_uninstall_file_runs_the_routine() {
+	public function test_uninstall_runs_once_through_the_hooks() {
+		$this->assertFileDoesNotExist( dirname( __DIR__ ) . '/uninstall.php' );
+
+		$basename = plugin_basename( FAST_INDEX_FILE );
+		$callback = array( 'Fast_Index_Uninstaller', 'run_once' );
+
+		$this->assertSame( 20, has_action( 'uninstall_' . $basename, $callback ) );
+		$this->assertNotFalse( figi_fs()->has_filter( 'after_uninstall', $callback ) );
+
+		delete_option( 'uninstall_plugins' );
+		Fast_Index_Installer::activate( false );
+		$registered = (array) get_option( 'uninstall_plugins' );
+		$this->assertSame( $callback, $registered[ $basename ] );
+
 		$this->seed( true );
+		$reflection = new ReflectionProperty( 'Fast_Index_Uninstaller', 'done' );
+		$reflection->setAccessible( true );
+		$reflection->setValue( null, false );
 
-		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Core constant that uninstall.php checks.
-			define( 'WP_UNINSTALL_PLUGIN', 'fast-index/index.php' );
-		}
+		do_action( 'uninstall_' . $basename ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core hook that WordPress fires when the plugin is deleted.
+		wp_cache_flush();
+		$this->assertFalse( get_option( Fast_Index_Settings::OPTION ) );
 
-		include dirname( __DIR__ ) . '/uninstall.php';
+		// A second call in the same request does nothing.
+		$this->seed( true );
+		Fast_Index_Uninstaller::run_once();
+		wp_cache_flush();
+		$this->assertIsArray( get_option( Fast_Index_Settings::OPTION ) );
+
+		$reflection->setValue( null, false );
+	}
+
+	/**
+	 * Deleting one copy while the other one (free or premium package) is active removes nothing: both use the same
+	 * data.
+	 *
+	 * @return void
+	 */
+	public function test_uninstall_waits_while_the_other_copy_is_active() {
+		$this->seed( true );
+		$reflection = new ReflectionProperty( 'Fast_Index_Uninstaller', 'done' );
+		$reflection->setAccessible( true );
+		$reflection->setValue( null, false );
+
+		$active = get_option( 'active_plugins' );
+		update_option( 'active_plugins', array( 'fast-index-premium/index.php' ) );
+
+		$this->assertTrue( Fast_Index_Uninstaller::other_copy_is_active() );
+		Fast_Index_Uninstaller::run_once();
 		wp_cache_flush();
 
-		$this->assertFalse( get_option( Fast_Index_Settings::OPTION ) );
+		$this->assertIsArray( get_option( Fast_Index_Settings::OPTION ) );
+		$this->assertCount( 1, Fast_Index_Accounts::all() );
+
+		update_option( 'active_plugins', $active );
+		$reflection->setValue( null, false );
 	}
 }

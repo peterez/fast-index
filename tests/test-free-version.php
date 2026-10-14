@@ -65,7 +65,7 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 	public function test_free_code_has_no_license_check_or_lock() {
 		$root  = dirname( __DIR__ );
 		$files = array_merge(
-			array( $root . '/index.php', $root . '/uninstall.php' ),
+			array( $root . '/index.php' ),
 			glob( $root . '/includes/*.php' ),
 			glob( $root . '/view/*.php' ),
 			glob( $root . '/assets/*.js' ),

@@ -18,6 +18,9 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       fast-index
  * Domain Path:       /languages
+ *
+ * Read by the Freemius deployment: a free version that Freemius builds from the premium package leaves this out.
+ * @fs_premium_only /includes/premium/
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -55,6 +58,7 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-help-content.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-help.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-admin-actions.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-uninstaller.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-freemius.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-plugin.php';
 
@@ -85,11 +89,14 @@ if ( ! function_exists( 'figi_fs' ) ) {
 }
 
 figi_fs();
-figi_fs()->add_filter( 'plugin_icon', array( 'Fast_Index_Freemius', 'icon' ) );
+Fast_Index_Freemius::register_hooks();
 do_action( 'figi_fs_loaded' );
 
 register_activation_hook( FAST_INDEX_FILE, array( 'Fast_Index_Installer', 'activate' ) );
 register_deactivation_hook( FAST_INDEX_FILE, array( 'Fast_Index_Installer', 'deactivate' ) );
+// Deleting the plugin: WordPress loads this file and fires this action. Fallback for the Freemius after_uninstall
+// action (see Fast_Index_Uninstaller); the routine runs once either way.
+add_action( 'uninstall_' . plugin_basename( FAST_INDEX_FILE ), array( 'Fast_Index_Uninstaller', 'run_once' ), 20 );
 
 add_action( 'plugins_loaded', array( new Fast_Index_Plugin(), 'run' ) );
 

@@ -54,6 +54,10 @@ class Fast_Index_Installer {
 	 * @return void
 	 */
 	public static function activate( $network_wide = false ) {
+		// Lets WordPress run the clean-up when the plugin is deleted. Freemius replaces this callback with its own
+		// when the plugin is deactivated in the admin; both end in Fast_Index_Uninstaller::run_once().
+		register_uninstall_hook( FAST_INDEX_FILE, array( 'Fast_Index_Uninstaller', 'run_once' ) );
+
 		if ( ! is_multisite() || ! $network_wide ) {
 			self::install_site();
 			return;

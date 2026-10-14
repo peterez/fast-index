@@ -2,8 +2,11 @@
 /**
  * Clean-up when the plugin is deleted.
  *
- * Used only by uninstall.php. The rest of the plugin is not loaded then, so this class
- * names every option, event and post type itself.
+ * The plugin has no uninstall.php: with that file WordPress would never call the uninstall hook of the Freemius
+ * SDK, so Freemius could not record the uninstall (Freemius documentation, "uninstall.php File"). WordPress loads
+ * index.php instead and fires uninstall_fast-index/index.php; run_once() is attached to the Freemius
+ * after_uninstall action and, as a fallback, to that core action. This class names every option, event and post
+ * type itself.
  *
  * @package FastIndex
  */
@@ -22,6 +25,24 @@ class Fast_Index_Uninstaller {
 	 * Sites handled per batch on multisite.
 	 */
 	const BATCH_SIZE = 100;
+
+	/**
+	 * Plugin files of the free version and of the premium package (Freemius installs the premium package in its
+	 * own folder). Data is shared, so nothing is removed while the other copy is active.
+	 */
+	const PLUGIN_FILES = array( 'fast-index/index.php', 'fast-index-premium/index.php' );
+
+	/**
+	 * User meta holding the notices a user dismissed (see Fast_Index_Upgrade).
+	 */
+	const USER_META = 'fast_index_dismissed_notices';
+
+	/**
+	 * Whether the clean-up already ran in this request.
+	 *
+	 * @var bool
+	 */
+	private static $done = false;
 
 	/**
 	 * Scheduled events of every version.
@@ -45,7 +66,45 @@ class Fast_Index_Uninstaller {
 			'fast_index_db_version',
 			'fast_index_notice_key_rotation',
 			'fast_index_migration_issues',
+			'fast_index_first_use',
+			'fast_index_first_success',
 		);
+	}
+
+	/**
+	 * Uninstall callback. Runs at most once per request: from the Freemius after_uninstall action, from the core
+	 * uninstall_fast-index/index.php action (when Freemius did not run it, for example without a logged-in user
+	 * in WP-CLI) or from the uninstall hook registered on activation. Does nothing while the other copy of the
+	 * plugin (free or premium) is still active, because both use the same data.
+	 *
+	 * @return void
+	 */
+	public static function run_once() {
+		if ( self::$done || self::other_copy_is_active() ) {
+			return;
+		}
+
+		self::$done = true;
+		self::run();
+	}
+
+	/**
+	 * Whether the free version or the premium package is still active on this site or on the network.
+	 *
+	 * @return bool
+	 */
+	public static function other_copy_is_active() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		foreach ( self::PLUGIN_FILES as $file ) {
+			if ( is_plugin_active( $file ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -55,11 +114,14 @@ class Fast_Index_Uninstaller {
 	 */
 	public static function run() {
 		if ( ! is_multisite() ) {
-			self::uninstall_site();
+			if ( self::uninstall_site() ) {
+				self::remove_user_meta();
+			}
 			return;
 		}
 
 		$offset = 0;
+		$kept   = false;
 
 		do {
 			$site_ids = get_sites(
@@ -72,7 +134,7 @@ class Fast_Index_Uninstaller {
 
 			foreach ( $site_ids as $site_id ) {
 				switch_to_blog( (int) $site_id );
-				self::uninstall_site();
+				$kept = ! self::uninstall_site() || $kept;
 				restore_current_blog();
 			}
 
@@ -82,12 +144,17 @@ class Fast_Index_Uninstaller {
 
 		// Network-wide upgrade progress is temporary data.
 		delete_site_option( 'fast_index_network_upgrade' );
+
+		// Users belong to the network: their dismissed notices go once no site keeps Fast Index data.
+		if ( ! $kept ) {
+			self::remove_user_meta();
+		}
 	}
 
 	/**
 	 * Cleans the current site.
 	 *
-	 * @return void
+	 * @return bool Whether all plugin data of the site was removed ("delete data" on).
 	 */
 	public static function uninstall_site() {
 		self::remove_temporary_data();
@@ -96,7 +163,7 @@ class Fast_Index_Uninstaller {
 		$settings = get_option( 'fast_index_options', array() );
 
 		if ( ! is_array( $settings ) || empty( $settings['delete_data'] ) ) {
-			return;
+			return false;
 		}
 
 		self::remove_log();
@@ -104,6 +171,17 @@ class Fast_Index_Uninstaller {
 		foreach ( self::options() as $option ) {
 			delete_option( $option );
 		}
+
+		return true;
+	}
+
+	/**
+	 * Removes the dismissed-notice record of every user.
+	 *
+	 * @return void
+	 */
+	private static function remove_user_meta() {
+		delete_metadata( 'user', 0, self::USER_META, '', true );
 	}
 
 	/**

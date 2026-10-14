@@ -44,6 +44,7 @@ class Fast_Index_Plugin {
 	public function init() {
 		// Bundled translations in /languages; translate.wordpress.org packs load on their own.
 		load_plugin_textdomain( 'fast-index', false, dirname( plugin_basename( FAST_INDEX_FILE ) ) . '/languages' );
+		Fast_Index_Freemius::translate_texts();
 
 		Fast_Index_Log::register_post_type();
 		Fast_Index_Settings::register();

@@ -117,7 +117,8 @@ class Fast_Index_Test_Package extends Fast_Index_Test_Case {
 
 		$this->assertContains( 'fast-index/index.php', $paths );
 		$this->assertContains( 'fast-index/readme.txt', $paths );
-		$this->assertContains( 'fast-index/uninstall.php', $paths );
+		$this->assertContains( 'fast-index/includes/class-fast-index-uninstaller.php', $paths );
+		$this->assertNotContains( 'fast-index/uninstall.php', $paths, 'Freemius cannot record an uninstall when uninstall.php exists.' );
 		$this->assertContains( 'fast-index/freemius-sdk/start.php', $paths );
 		$this->assertContains( 'fast-index/assets/fast-index-icon.png', $paths );
 
@@ -150,6 +151,9 @@ class Fast_Index_Test_Package extends Fast_Index_Test_Case {
 		}
 
 		$this->assertSame( array(), array_diff( $org, $premium ), 'The premium package has every file of the free one.' );
+
+		// A free version that the Freemius deployment builds from the premium package leaves the module out too.
+		$this->assertStringContainsString( '@fs_premium_only /includes/premium/', (string) file_get_contents( dirname( __DIR__ ) . '/index.php' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads a local file in a test.
 		$this->assert_no_development_files( $premium );
 	}
 }
