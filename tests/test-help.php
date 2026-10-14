@@ -30,10 +30,6 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 	public function test_readme_faq_matches_help_faq() {
 		$file = dirname( __DIR__ ) . '/readme.txt';
 
-		if ( ! file_exists( $file ) ) {
-			$file = dirname( __DIR__ ) . '/README.txt';
-		}
-
 		$text = str_replace( "\r\n", "\n", (string) file_get_contents( $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads a local file in a test.
 		$this->assertStringContainsString( '== Frequently Asked Questions ==', $text );
 

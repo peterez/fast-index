@@ -18,7 +18,11 @@ msgstr ""
 "X-Domain: fast-index\n"
 
 #. Plugin Name of the plugin
-#: index.php includes/class-fast-index-admin.php:70
+#: index.php
+msgid "Fast Index for Google Indexing API"
+msgstr "Fast Index for Google Indexing API"
+
+#: includes/class-fast-index-admin.php:70
 msgid "Fast Index"
 msgstr "Fast Index"
 

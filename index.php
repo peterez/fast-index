@@ -7,7 +7,7 @@
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       Fast Index
+ * Plugin Name:       Fast Index for Google Indexing API
  * Description:       Sends new, updated and deleted posts to the Google Indexing API so Google can crawl them sooner.
  * Version:           3.0.0
  * Requires at least: 5.6

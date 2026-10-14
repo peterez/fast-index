@@ -16,6 +16,9 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: index.php
+msgid "Fast Index for Google Indexing API"
+msgstr ""
+
 #: includes/class-fast-index-admin.php:70
 msgid "Fast Index"
 msgstr ""
