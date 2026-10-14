@@ -118,6 +118,7 @@ class Fast_Index_Help {
 			'faq'         => Fast_Index_Help_Content::faq(),
 			'checklist'   => Fast_Index_Help_Content::support_checklist(),
 			'system_info' => self::system_info_text(),
+			'system_rows' => self::system_info(),
 			'support_url' => Fast_Index_Help_Content::URL_SUPPORT,
 		);
 

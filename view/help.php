@@ -116,10 +116,18 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 		</ol>
 
 		<h3><?php esc_html_e( 'System info', 'fast-index' ); ?></h3>
-		<p>
-			<label for="fi-help-system-info"><?php esc_html_e( 'Read-only facts about your site that help us answer. They contain no keys and no email addresses.', 'fast-index' ); ?></label>
-		</p>
-		<textarea id="fi-help-system-info" class="large-text code" rows="<?php echo esc_attr( (string) ( substr_count( $fast_index_view['system_info'], "\n" ) + 1 ) ); ?>" readonly="readonly"><?php echo esc_textarea( $fast_index_view['system_info'] ); ?></textarea>
+		<p id="fi-help-system-info-note"><?php esc_html_e( 'Read-only facts about your site that help us answer. They contain no keys and no email addresses.', 'fast-index' ); ?></p>
+		<?php /* Label and value are separate isolated elements, so each side keeps its own direction on right-to-left screens. */ ?>
+		<dl class="fi-help-sysinfo" aria-describedby="fi-help-system-info-note">
+			<?php foreach ( $fast_index_view['system_rows'] as $fast_index_row ) : ?>
+				<div class="fi-help-sysinfo__row">
+					<dt><bdi dir="auto"><?php echo esc_html( $fast_index_row['label'] ); ?></bdi></dt>
+					<dd><bdi dir="auto"><?php echo esc_html( $fast_index_row['value'] ); ?></bdi></dd>
+				</div>
+			<?php endforeach; ?>
+		</dl>
+		<?php /* The same facts as plain text, one line each: the source of the copy button. Hidden from view and from assistive technology. */ ?>
+		<textarea id="fi-help-system-info" class="fi-help-sysinfo-source" rows="<?php echo esc_attr( (string) ( substr_count( $fast_index_view['system_info'], "\n" ) + 1 ) ); ?>" readonly="readonly" tabindex="-1" aria-hidden="true"><?php echo esc_textarea( $fast_index_view['system_info'] ); ?></textarea>
 		<p>
 			<button type="button" class="button" data-fast-index-copy="fi-help-system-info"><?php esc_html_e( 'Copy system info', 'fast-index' ); ?></button>
 			<span class="fi-help-copy-status" role="status" aria-live="polite"></span>

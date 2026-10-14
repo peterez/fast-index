@@ -113,6 +113,15 @@ test.describe( 'Fast Index help', () => {
 		expect( text ).toContain( wp( [ 'eval', 'echo get_locale();' ] ) );
 		// One line per fact, "label: value".
 		expect( text.split( '\n' ).length ).toBeGreaterThanOrEqual( 15 );
+
+		// The same facts are shown as a list, label and value each in its own isolated element, so that the
+		// screen keeps the order right in right-to-left languages (the copied plain text stays as it is).
+		const rows = page.locator( '.fi-help-sysinfo__row' );
+		await expect( rows ).toHaveCount( text.split( '\n' ).length );
+		await expect( rows.first().locator( 'dt bdi' ) ).toHaveCount( 1 );
+		await expect( rows.first().locator( 'dd bdi' ) ).toHaveCount( 1 );
+		// The plain-text copy for the copy button is out of sight.
+		expect( ( await box.boundingBox() ).width ).toBeLessThanOrEqual( 2 );
 		expect( text ).not.toContain( '@' );
 
 		const html = await page.content();

@@ -177,6 +177,25 @@ async function checkScreen( page, locale, view, po, projectName, prefix ) {
 		expect( menu, locale + ' admin menu: "' + po.get( id ) + '"' ).toContain( norm( po.get( id ) ) );
 	}
 
+	// Right to left: in the system info list the label is on the right, its value on the left of it; Japanese
+	// breaks lines between phrases (where the browser supports it).
+	if ( 'help' === view && 'rtl' === dir && 'mobile' !== projectName ) {
+		const sides = await page.locator( '.fi-help-sysinfo__row' ).first().evaluate( ( row ) => ( {
+			label: row.querySelector( 'dt' ).getBoundingClientRect().left,
+			value: row.querySelector( 'dd' ).getBoundingClientRect().left,
+		} ) );
+		expect( sides.label, locale + ' system info: label right of the value' ).toBeGreaterThan( sides.value );
+	}
+	if ( 'ja' === locale ) {
+		const phrases = await page.evaluate( () => ( {
+			supported: CSS.supports( 'word-break', 'auto-phrase' ),
+			value: getComputedStyle( document.querySelector( '#fi, .fast-index-help' ) ).wordBreak,
+		} ) );
+		if ( phrases.supported ) {
+			expect( phrases.value, 'ja word-break' ).toBe( 'auto-phrase' );
+		}
+	}
+
 	// No horizontal scroll bar.
 	const w = await widths( page );
 	expect( w.scroll, locale + ' ' + view + ' (' + projectName + ') scrollWidth ' + w.scroll + ' > clientWidth ' + w.client ).toBeLessThanOrEqual( w.client + 1 );

@@ -75,10 +75,49 @@
 	text-align: start;
 }
 
-.fast-index-help #fi-help-system-info {
+.fast-index-help .fi-help-sysinfo {
+	margin: 0;
+	border: 1px solid #c3c4c7;
+	background: #fff;
+}
+
+.fast-index-help .fi-help-sysinfo__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px 16px;
+	padding-block: 6px;
+	padding-inline: 12px;
+}
+
+.fast-index-help .fi-help-sysinfo__row + .fi-help-sysinfo__row {
+	border-block-start: 1px solid #f0f0f1;
+}
+
+.fast-index-help .fi-help-sysinfo dt {
+	flex: 0 0 15em;
+	max-width: 100%;
+	font-weight: 600;
+}
+
+.fast-index-help .fi-help-sysinfo dd {
+	flex: 1 1 14em;
+	min-width: 0;
+	margin: 0;
 	font-family: Consolas, Monaco, monospace;
+	overflow-wrap: anywhere;
+}
+
+/* The plain-text copy of the system info stays in the page for the copy button, out of sight. */
+.fast-index-help .fi-help-sysinfo-source {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
 	direction: ltr;
-	text-align: left;
 }
 
 .fast-index-help .fi-help-copy-status {
@@ -87,6 +126,12 @@
 
 .fast-index-help code {
 	overflow-wrap: anywhere;
+}
+
+/* Japanese has no spaces between words: break lines between phrases, not inside a word (Chromium; other browsers keep their default). */
+.fast-index-help:lang(ja) {
+	word-break: auto-phrase;
+	line-break: strict;
 }
 
 @media screen and (max-width: 782px) {

@@ -85,3 +85,9 @@
 		display: inline;
 		margin-left: 10px;
 	}
+
+	/* Japanese has no spaces between words: break lines between phrases, not inside a word (Chromium; other browsers keep their default). */
+	#fi.content-area:lang(ja) {
+		word-break: auto-phrase;
+		line-break: strict;
+	}
