@@ -1,0 +1,539 @@
+# Copyright (C) 2026 Samet AKIN
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Fast Index 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-14T12:56:12+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: fast-index\n"
+
+#. Plugin Name of the plugin
+#: index.php
+#: includes/class-fast-index-admin.php:68
+msgid "Fast Index"
+msgstr ""
+
+#. Description of the plugin
+#: index.php
+msgid "Sends new, updated and deleted posts to the Google Indexing API so Google can crawl them sooner."
+msgstr ""
+
+#. Author of the plugin
+#: index.php
+msgid "Samet AKIN"
+msgstr ""
+
+#. Author URI of the plugin
+#: index.php
+msgid "https://www.linkedin.com/in/samet-akin/"
+msgstr ""
+
+#: includes/class-fast-index-accounts.php:222
+#: includes/class-fast-index-key-upload.php:70
+msgid "The file is empty or too large to be a service account key."
+msgstr ""
+
+#: includes/class-fast-index-accounts.php:228
+msgid "The file is not valid JSON."
+msgstr ""
+
+#: includes/class-fast-index-accounts.php:232
+msgid "The file is not a Google service account key."
+msgstr ""
+
+#: includes/class-fast-index-accounts.php:238
+msgid "The key does not contain a valid client email."
+msgstr ""
+
+#: includes/class-fast-index-accounts.php:244
+msgid "The key does not contain a valid private key."
+msgstr ""
+
+#: includes/class-fast-index-admin-actions.php:86
+msgid "Settings saved."
+msgstr ""
+
+#: includes/class-fast-index-admin-actions.php:111
+#: includes/class-fast-index-key-upload.php:66
+msgid "Choose a .json key file."
+msgstr ""
+
+#: includes/class-fast-index-admin-actions.php:137
+msgid "The service account key was deleted."
+msgstr ""
+
+#: includes/class-fast-index-admin-actions.php:139
+msgid "The service account key was not found."
+msgstr ""
+
+#. translators: 1: uploaded file name, 2: reason the file was rejected.
+#: includes/class-fast-index-admin-actions.php:198
+#, php-format
+msgid "%1$s: %2$s"
+msgstr ""
+
+#. translators: %s: service account email.
+#: includes/class-fast-index-admin-actions.php:209
+#, php-format
+msgid "The key of %s was saved."
+msgstr ""
+
+#: includes/class-fast-index-admin-actions.php:218
+msgid "Sorry, you are not allowed to do that."
+msgstr ""
+
+#: includes/class-fast-index-admin.php:69
+#: view/history.php:41
+msgid "History"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:70
+#: view/run.php:14
+msgid "Send Old Posts Now"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:109
+#: view/settings.php:205
+msgid "Please upgrade to premium"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:235
+msgid "No service account available"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:239
+msgid "OpenSSL is missing"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:243
+msgid "No answer from Google"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:247
+msgid "OK"
+msgstr ""
+
+#: includes/class-fast-index-admin.php:281
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: includes/class-fast-index-google-client.php:121
+msgid "Unknown notification type."
+msgstr ""
+
+#: includes/class-fast-index-google-client.php:192
+#: includes/class-fast-index-google-client.php:341
+msgid "Google sent an unexpected response."
+msgstr ""
+
+#: includes/class-fast-index-google-client.php:236
+msgid "The private key of the service account could not be read."
+msgstr ""
+
+#: includes/class-fast-index-google-client.php:242
+msgid "The request to Google could not be signed."
+msgstr ""
+
+#: includes/class-fast-index-google-client.php:254
+msgid "The PHP OpenSSL extension is not available, so requests to Google cannot be signed. Ask your hosting provider to enable OpenSSL for PHP."
+msgstr ""
+
+#: includes/class-fast-index-google-client.php:329
+msgid "Could not connect to Google."
+msgstr ""
+
+#. translators: %d: HTTP status code returned by Google.
+#: includes/class-fast-index-google-client.php:367
+#, php-format
+msgid "Google answered with HTTP status %d."
+msgstr ""
+
+#: includes/class-fast-index-key-upload.php:62
+#: includes/class-fast-index-key-upload.php:76
+msgid "The file could not be uploaded."
+msgstr ""
+
+#: includes/class-fast-index-log.php:64
+msgid "Fast Index Logs"
+msgstr ""
+
+#: includes/class-fast-index-log.php:65
+msgid "Fast Index Log"
+msgstr ""
+
+#: includes/class-fast-index-notices.php:223
+msgid "Fast Index:"
+msgstr ""
+
+#: includes/class-fast-index-notices.php:224
+msgid "In earlier versions, service account key files were stored in a publicly accessible folder; for security, we recommend creating a new key in Google Cloud and revoking the old one."
+msgstr ""
+
+#: includes/class-fast-index-notices.php:240
+msgid "Fast Index could not finish moving your service account keys to the database."
+msgstr ""
+
+#: includes/class-fast-index-notices.php:268
+msgid "Do not show this again"
+msgstr ""
+
+#: includes/class-fast-index-notices.php:278
+msgid "an unknown account"
+msgstr ""
+
+#. translators: %s: service account email.
+#: includes/class-fast-index-notices.php:283
+#, php-format
+msgid "The key file of %s was not found. Upload the key again."
+msgstr ""
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:286
+#, php-format
+msgid "The key file of %1$s (uploads/%2$s) could not be read. Upload the key again, then delete the old file."
+msgstr ""
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:289
+#, php-format
+msgid "The key file of %1$s (uploads/%2$s) is not a valid service account key. Upload the key again, then delete the old file."
+msgstr ""
+
+#. translators: 1: service account email, 2: file path inside the uploads folder.
+#: includes/class-fast-index-notices.php:292
+#, php-format
+msgid "The key of %1$s was moved, but the old file uploads/%2$s could not be deleted. Delete this file now: it can be downloaded by anyone."
+msgstr ""
+
+#. translators: 1: service account email, 2: file name.
+#: includes/class-fast-index-notices.php:295
+#, php-format
+msgid "The key file of %1$s (%2$s) is not inside the uploads folder and was left untouched. Upload the key again, then delete the old file."
+msgstr ""
+
+#: includes/class-fast-index-settings.php:187
+msgid "Choose a valid status."
+msgstr ""
+
+#: includes/class-fast-index-settings.php:191
+msgid "Select at least one post type."
+msgstr ""
+
+#. translators: %s: highest accepted number.
+#: includes/class-fast-index-settings.php:196
+#, php-format
+msgid "The daily number of old posts must be a whole number from 0 to %s."
+msgstr ""
+
+#: view/history.php:15
+msgid "Updated"
+msgstr ""
+
+#: view/history.php:16
+msgid "Deleted"
+msgstr ""
+
+#: view/history.php:21
+msgid "Simple Report"
+msgstr ""
+
+#: view/history.php:26
+msgid "Total Sent"
+msgstr ""
+
+#: view/history.php:27
+msgid "Total Waiting"
+msgstr ""
+
+#: view/history.php:28
+msgid "Sent Today"
+msgstr ""
+
+#: view/history.php:47
+msgid "Title"
+msgstr ""
+
+#: view/history.php:48
+msgid "Date"
+msgstr ""
+
+#: view/history.php:49
+msgid "Send Status"
+msgstr ""
+
+#: view/history.php:50
+msgid "Post"
+msgstr ""
+
+#: view/history.php:55
+msgid "Nothing was sent yet."
+msgstr ""
+
+#: view/history.php:73
+msgid "GO POST"
+msgstr ""
+
+#: view/history.php:79
+msgid "Pagination"
+msgstr ""
+
+#: view/history.php:82
+msgid "Previous"
+msgstr ""
+
+#: view/history.php:85
+msgid "Next"
+msgstr ""
+
+#: view/run.php:16
+msgid "Sends one batch of old posts now, within the daily limit set on the settings page. The same batch also runs every hour."
+msgstr ""
+
+#: view/run.php:21
+msgid "Send now"
+msgstr ""
+
+#: view/run.php:29
+msgid "There are no posts to send now. Check your settings and the daily limit."
+msgstr ""
+
+#: view/settings.php:15
+msgid "Publish"
+msgstr ""
+
+#: view/settings.php:16
+msgid "Edit"
+msgstr ""
+
+#: view/settings.php:17
+msgid "Trash"
+msgstr ""
+
+#: view/settings.php:32
+#: view/settings.php:256
+msgid "Settings"
+msgstr ""
+
+#: view/settings.php:45
+#: view/settings.php:258
+msgid "Status"
+msgstr ""
+
+#: view/settings.php:46
+msgid "Important choice for the plugin work"
+msgstr ""
+
+#: view/settings.php:50
+msgid "Active"
+msgstr ""
+
+#: view/settings.php:51
+msgid "Passive"
+msgstr ""
+
+#: view/settings.php:58
+#: view/settings.php:260
+msgid "Post Types"
+msgstr ""
+
+#: view/settings.php:59
+msgid "Select minimum one option"
+msgstr ""
+
+#: view/settings.php:76
+msgid "Daily Old Content Post?"
+msgstr ""
+
+#: view/settings.php:77
+msgid "How many old contents should be sent per day?"
+msgstr ""
+
+#: view/settings.php:90
+#: view/settings.php:264
+msgid "Post Status"
+msgstr ""
+
+#: view/settings.php:91
+msgid "Which status happen should content be sent?"
+msgstr ""
+
+#: view/settings.php:108
+msgid "Exclude Categories"
+msgstr ""
+
+#: view/settings.php:109
+msgid "Select which you want to exclude"
+msgstr ""
+
+#: view/settings.php:126
+msgid "Delete data on uninstall"
+msgstr ""
+
+#: view/settings.php:127
+msgid "Delete all plugin data (settings, keys and log) when the plugin is deleted. This cannot be undone."
+msgstr ""
+
+#: view/settings.php:136
+msgid "Rate Us on WordPress"
+msgstr ""
+
+#: view/settings.php:143
+msgid "Save"
+msgstr ""
+
+#: view/settings.php:151
+msgid "Upload Google Service Account Json"
+msgstr ""
+
+#. translators: %s: ID of the service account key.
+#: view/settings.php:167
+#, php-format
+msgid "Key ID: %s"
+msgstr ""
+
+#: view/settings.php:172
+msgid "Not used yet"
+msgstr ""
+
+#: view/settings.php:177
+msgid "Delete"
+msgstr ""
+
+#: view/settings.php:192
+msgid "Choose Json File/s"
+msgstr ""
+
+#: view/settings.php:195
+msgid "The key file is read and stored in the database; it is not saved in the uploads folder. Only the client email and the key ID are shown here."
+msgstr ""
+
+#: view/settings.php:203
+msgid "If you wanna upload multiple and more service account"
+msgstr ""
+
+#: view/settings.php:214
+msgid "Upload key"
+msgstr ""
+
+#: view/settings.php:227
+msgid "Guideline"
+msgstr ""
+
+#: view/settings.php:231
+msgid "What means 200, 429, 403 and 401 codes?"
+msgstr ""
+
+#: view/settings.php:235
+msgid "It's means working and ready"
+msgstr ""
+
+#: view/settings.php:236
+msgid "Too many requests are thrown and when it's 24 hours it starts again"
+msgstr ""
+
+#: view/settings.php:237
+msgid "It means that the service account you have installed is not authorized or authorized as 'owner' in your webmaster tools account"
+msgstr ""
+
+#: view/settings.php:238
+msgid "It means the request page is forbidden. Check your site url. Htpps or Http it's important."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: view/settings.php:246
+#, php-format
+msgid "Code %d"
+msgstr ""
+
+#: view/settings.php:252
+msgid "Note : If you see 200 or 429 don't do anything. If you see 401 or 4xx codes, check your webmaster tools owners"
+msgstr ""
+
+#: view/settings.php:258
+msgid "If you don't use set as passive"
+msgstr ""
+
+#: view/settings.php:260
+msgid "Define the when you make post action which one post types will send to google. If you add new post type or added from plugin it will be shown in here"
+msgstr ""
+
+#: view/settings.php:262
+msgid "Daily Old Content Post"
+msgstr ""
+
+#: view/settings.php:262
+msgid "If you wanna sent to google your old posts type the your daily limit. Every service account has daily 200 limit and you have to split your limits daily new post and old posts"
+msgstr ""
+
+#: view/settings.php:264
+msgid "It's means which post status trigger the this plugin"
+msgstr ""
+
+#: view/settings.php:268
+msgid "Is it legal?"
+msgstr ""
+
+#: view/settings.php:269
+msgid "Totally is legal. It's google service and working with google API. If you upload too much service account it's can be defined a spam. Just watch out for this"
+msgstr ""
+
+#: view/settings.php:272
+msgid "How work WordPress Cron Job ( Daily Old Content Post )?"
+msgstr ""
+
+#: view/settings.php:273
+msgid "The task list is triggered when someone logs into the site at or after the specified hours. These tasks will never be triggered if no one accesses your site. If no one visits your site during the day, log in to your site for once and the task list will be triggered automatically"
+msgstr ""
+
+#: view/settings.php:276
+msgid "Mass Service Account creating and upload"
+msgstr ""
+
+#: view/settings.php:278
+msgid "Note"
+msgstr ""
+
+#: view/settings.php:278
+msgid "1 Google account can create minimum 12 google cloud projects. Every google cloud project can enable Indexing API Service and every services has 200 daily limit. It's means you can send 2400 url to google. If you do same steps with your another google account you will get more 2400 limit and you 4800 url to google daily"
+msgstr ""
+
+#: view/settings.php:283
+msgid "Go Link"
+msgstr ""
+
+#: view/settings.php:284
+msgid "Create Project and Select"
+msgstr ""
+
+#: view/settings.php:285
+msgid "Create Service Account and make authorized you created email on service account"
+msgstr ""
+
+#: view/settings.php:286
+msgid "Add as owner on your webmaster tools"
+msgstr ""
+
+#: view/settings.php:287
+msgid "Go your wordpress admin dashboard and open Fast Index settings page and upload your service account JSON"
+msgstr ""
+
+#. translators: %d: step number.
+#: view/settings.php:295
+#, php-format
+msgid "Step %d"
+msgstr ""
+
+#: view/settings.php:304
+msgid "Watch Video"
+msgstr ""
+
+#: view/settings.php:306
+msgid "YouTube video player"
+msgstr ""
