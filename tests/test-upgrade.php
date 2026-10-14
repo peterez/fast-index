@@ -142,6 +142,26 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 	}
 
 	/**
+	 * On phone screens WordPress shows only the primary column of a list table: the History rows have the title as
+	 * primary column, a toggle button and column names for the other cells.
+	 *
+	 * @return void
+	 */
+	public function test_history_rows_open_on_phone_screens() {
+		$this->login_as( 'administrator' );
+		$post = self::factory()->post->create();
+		Fast_Index_Log::add( $post, get_permalink( $post ), 200, Fast_Index_Google_Client::TYPE_UPDATED );
+
+		$html = self::render( 'render_history' );
+
+		$this->assertStringContainsString( '<th scope="col" class="manage-column column-title column-primary">', $html );
+		$this->assertSame( 1, substr_count( $html, '<button type="button" class="toggle-row">' ) );
+		$this->assertStringContainsString( 'data-colname="Date"', $html );
+		$this->assertStringContainsString( 'data-colname="Send Status"', $html );
+		$this->assertStringContainsString( 'data-colname="Post"', $html );
+	}
+
+	/**
 	 * A key of another account replaces the only key of the free version; the message says so and where several
 	 * keys come from. The same account gives the usual message.
 	 *

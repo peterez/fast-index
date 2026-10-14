@@ -195,3 +195,11 @@
 		margin: 8px 0 0;
 	}
 
+	@media screen and (max-width: 782px) {
+
+		/* History: WordPress hides every column but the title; the toggle-row button opens a row. */
+		#fi .fi-history .column-primary .toggle-row {
+			top: 6px;
+		}
+
+	}
