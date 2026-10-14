@@ -69,7 +69,12 @@ $fast_index_types = array(
 					<?php echo esc_html( isset( $fast_index_types[ $fast_index_entry['type'] ] ) ? $fast_index_types[ $fast_index_entry['type'] ] : $fast_index_entry['type'] ); ?><br>
 					<?php echo esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $fast_index_entry['timestamp'] ) ); ?>
 				</td>
-				<td><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?></td>
+				<td class="fi-history-status<?php echo $fast_index_entry['code'] < 0 ? ' fi-history-status--not-sent' : ''; ?>">
+					<?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?>
+					<?php if ( $fast_index_entry['retry'] ) : ?>
+						<br><span class="description fi-history-retry"><?php echo esc_html( Fast_Index_Admin::retry_note() ); ?></span>
+					<?php endif; ?>
+				</td>
 				<td><a class="row-title" href="<?php echo esc_url( $fast_index_entry['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'View Post', 'fast-index' ); ?></a></td>
 			</tr>
 		<?php endforeach; ?>

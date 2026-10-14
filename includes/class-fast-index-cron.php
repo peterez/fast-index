@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * - fast_index_submit_url: one queued notification (single event, queued on post save).
  * - fast_index_process_backlog: hourly batch of old posts (the "daily old content" setting).
+ * - fast_index_retry: notifications that wait for a resting key (single event, Fast_Index_Retry).
  */
 class Fast_Index_Cron {
 
@@ -43,10 +44,12 @@ class Fast_Index_Cron {
 	public function register_hooks() {
 		add_action( self::SUBMIT_HOOK, array( $this, 'run_submit' ), 10, 3 );
 		add_action( self::BACKLOG_HOOK, array( $this, 'run_backlog' ) );
+		add_action( Fast_Index_Retry::HOOK, array( 'Fast_Index_Retry', 'run' ) );
 	}
 
 	/**
-	 * Schedules the recurring backlog event once. Called on activation and upgrade.
+	 * Schedules the recurring backlog event once, and the notifications that were waiting for a key
+	 * when the plugin was deactivated. Called on activation and upgrade.
 	 *
 	 * @return void
 	 */
@@ -54,6 +57,8 @@ class Fast_Index_Cron {
 		if ( ! wp_next_scheduled( self::BACKLOG_HOOK ) ) {
 			wp_schedule_event( time() + 5 * MINUTE_IN_SECONDS, self::BACKLOG_RECURRENCE, self::BACKLOG_HOOK );
 		}
+
+		Fast_Index_Retry::resume();
 	}
 
 	/**
@@ -64,6 +69,7 @@ class Fast_Index_Cron {
 	public static function unschedule() {
 		wp_unschedule_hook( self::SUBMIT_HOOK );
 		wp_unschedule_hook( self::BACKLOG_HOOK );
+		wp_unschedule_hook( Fast_Index_Retry::HOOK );
 		wp_unschedule_hook( self::LEGACY_HOOK );
 	}
 
@@ -80,7 +86,8 @@ class Fast_Index_Cron {
 	}
 
 	/**
-	 * Sends one queued notification.
+	 * Sends one queued notification. When no key can take it, History says why and, if every key
+	 * rests, the notification waits for the first key (Fast_Index_Retry).
 	 *
 	 * @param string $url     Absolute URL.
 	 * @param string $type    Notification type.
@@ -92,15 +99,16 @@ class Fast_Index_Cron {
 			return;
 		}
 
-		( new Fast_Index_Submitter() )->submit( $url, $type, absint( $post_id ) );
+		Fast_Index_Retry::deliver( $url, $type, absint( $post_id ) );
 	}
 
 	/**
-	 * Sends one batch of old posts.
+	 * Hourly run: checks the notifications waiting for a key, then sends one batch of old posts.
 	 *
 	 * @return void
 	 */
 	public function run_backlog() {
+		Fast_Index_Retry::maintain();
 		Fast_Index_Backlog::run();
 	}
 }

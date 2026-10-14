@@ -204,6 +204,10 @@ class Fast_Index_Help {
 				'value' => (string) $stats['waiting'],
 			),
 			array(
+				'label' => __( 'Notifications waiting for a key', 'fast-index' ),
+				'value' => (string) Fast_Index_Log::count_held(),
+			),
+			array(
 				'label' => __( 'Last notification', 'fast-index' ),
 				'value' => self::last_notification(),
 			),

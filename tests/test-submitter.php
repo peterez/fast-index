@@ -102,7 +102,7 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		$this->assertSame( 0, Fast_Index_Log::count_sent() );
 
 		// Both accounts rest for six hours: the next URL is not attempted.
-		$this->assertSame( Fast_Index_Submitter::NO_ACCOUNT, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED', $post ) );
+		$this->assertSame( Fast_Index_Submitter::RESTING, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED', $post ) );
 		$this->assertContains( $post, Fast_Index_Log::backlog_ids( Fast_Index_Settings::get(), 10 ) );
 	}
 

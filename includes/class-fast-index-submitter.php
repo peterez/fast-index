@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 class Fast_Index_Submitter {
 
 	/**
-	 * Result: no account is available (none stored, or all resting).
+	 * Result: no account is stored.
 	 */
 	const NO_ACCOUNT = -1;
 
@@ -25,6 +25,11 @@ class Fast_Index_Submitter {
 	 * Result: this PHP cannot sign requests (OpenSSL missing).
 	 */
 	const UNSUPPORTED = -2;
+
+	/**
+	 * Result: accounts are stored, but every one of them is resting after an error.
+	 */
+	const RESTING = -3;
 
 	/**
 	 * Result: no HTTP status (connection failure or unexpected answer).
@@ -40,21 +45,67 @@ class Fast_Index_Submitter {
 	 * @return int 200 on success, the last HTTP status on failure, or one of the class constants.
 	 */
 	public function submit( $url, $type, $post_id = 0 ) {
+		$result = $this->send( $url, $type, $post_id );
+
+		return $result['code'];
+	}
+
+	/**
+	 * Sends a notification and logs the attempt. Nothing is logged when no attempt was possible.
+	 *
+	 * @param string $url     Absolute URL.
+	 * @param string $type    URL_UPDATED or URL_DELETED.
+	 * @param int    $post_id Post the URL belongs to, 0 when unknown.
+	 * @return array Keys: code (as submit()), log_id (history entry of the attempt, 0 when nothing was
+	 *               sent) and retry (true when no key could take the notification because every key
+	 *               rests, before or after this attempt, so a later attempt may succeed).
+	 */
+	public function send( $url, $type, $post_id = 0 ) {
 		if ( ! Fast_Index_Google_Client::is_supported() ) {
-			return self::UNSUPPORTED;
+			return self::result( self::UNSUPPORTED );
+		}
+
+		if ( array() === Fast_Index_Accounts::all() ) {
+			return self::result( self::NO_ACCOUNT );
 		}
 
 		$accounts = Fast_Index_Accounts::available();
 
 		if ( array() === $accounts ) {
-			return self::NO_ACCOUNT;
+			return self::result( self::RESTING, 0, true );
 		}
 
-		$code = $this->send_with_accounts( $accounts, $url, $type );
+		$code   = $this->send_with_accounts( $accounts, $url, $type );
+		$log_id = Fast_Index_Log::add( $post_id, $url, $code, $type );
 
-		Fast_Index_Log::add( $post_id, $url, $code, $type );
+		// Every key that was tried answered with an account error and rests now.
+		return self::result( $code, $log_id, 200 !== $code && array() === Fast_Index_Accounts::available() );
+	}
 
-		return $code;
+	/**
+	 * Whether a result code means that no request was made.
+	 *
+	 * @param int $code Result code.
+	 * @return bool
+	 */
+	public static function is_not_sent( $code ) {
+		return in_array( (int) $code, array( self::NO_ACCOUNT, self::UNSUPPORTED, self::RESTING ), true );
+	}
+
+	/**
+	 * Builds the result of send().
+	 *
+	 * @param int  $code   Result code.
+	 * @param int  $log_id History entry ID.
+	 * @param bool $retry  Whether a later attempt may succeed.
+	 * @return array
+	 */
+	private static function result( $code, $log_id = 0, $retry = false ) {
+		return array(
+			'code'   => (int) $code,
+			'log_id' => (int) $log_id,
+			'retry'  => (bool) $retry,
+		);
 	}
 
 	/**

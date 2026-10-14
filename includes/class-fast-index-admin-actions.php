@@ -205,6 +205,9 @@ class Fast_Index_Admin_Actions {
 			Fast_Index_Accounts::replace_all( $account );
 		}
 
+		// Notifications that waited for a key go out with the next scheduled-task run.
+		Fast_Index_Retry::resume();
+
 		/* translators: %s: service account email. */
 		Fast_Index_Admin::flash( 'success', sprintf( __( 'The key of %s was saved.', 'fast-index' ), $account['client_email'] ) );
 	}

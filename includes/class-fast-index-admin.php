@@ -237,11 +237,15 @@ class Fast_Index_Admin {
 		$code = (int) $code;
 
 		if ( Fast_Index_Submitter::NO_ACCOUNT === $code ) {
-			return __( 'No service account available', 'fast-index' );
+			return __( 'Not sent: no service account key', 'fast-index' );
+		}
+
+		if ( Fast_Index_Submitter::RESTING === $code ) {
+			return __( 'Not sent: every key was resting', 'fast-index' );
 		}
 
 		if ( Fast_Index_Submitter::UNSUPPORTED === $code ) {
-			return __( 'OpenSSL is missing', 'fast-index' );
+			return __( 'Not sent: OpenSSL is missing', 'fast-index' );
 		}
 
 		if ( Fast_Index_Submitter::NO_RESPONSE === $code ) {
@@ -253,6 +257,15 @@ class Fast_Index_Admin {
 		}
 
 		return trim( $code . ' ' . get_status_header_desc( $code ) );
+	}
+
+	/**
+	 * Note under the status of a History entry that waits for a key.
+	 *
+	 * @return string
+	 */
+	public static function retry_note() {
+		return __( 'Fast Index tries again when a key is ready.', 'fast-index' );
 	}
 
 	/**

@@ -36,6 +36,7 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-google-client.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-log.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-submitter.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-backlog.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-retry.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-cron.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-post-watcher.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-lock.php';

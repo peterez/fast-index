@@ -12,7 +12,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * A log entry is a fi_log post whose parent is the submitted post. Published entries
  * mark a successful submission (2.x wrote only these); draft entries record failures
- * such as quota errors (HTTP 429). Only published entries count as "sent".
+ * such as quota errors (HTTP 429) and notifications that could not be sent at all (no key,
+ * every key resting, no OpenSSL; negative codes). Only published entries count as "sent".
+ *
+ * A draft entry that carries META_RETRY waits in the retry queue (Fast_Index_Retry).
  */
 class Fast_Index_Log {
 
@@ -40,6 +43,16 @@ class Fast_Index_Log {
 	 * Meta key of the notification type.
 	 */
 	const META_TYPE = '_fast_index_type';
+
+	/**
+	 * Meta key marking an entry whose notification waits for a key: Unix time the wait began.
+	 */
+	const META_RETRY = '_fast_index_retry';
+
+	/**
+	 * Draft entries of one post looked at when a newer entry for the same address arrives.
+	 */
+	const SUPERSEDE_LOOKUP = 50;
 
 	/**
 	 * Entries per history page.
@@ -75,11 +88,13 @@ class Fast_Index_Log {
 	}
 
 	/**
-	 * Adds a log entry.
+	 * Adds a log entry. The newest event of an address wins: earlier entries of the same post and
+	 * address leave the retry queue, and an entry for a notification that could not be sent replaces
+	 * the earlier entry of that kind, so History keeps one such line per address.
 	 *
 	 * @param int    $post_id Submitted post, 0 when unknown.
 	 * @param string $url     Submitted URL.
-	 * @param int    $code    HTTP status (200 on success).
+	 * @param int    $code    HTTP status (200 on success) or a Fast_Index_Submitter constant.
 	 * @param string $type    Notification type.
 	 * @return int Log entry ID, 0 on failure.
 	 */
@@ -108,7 +123,134 @@ class Fast_Index_Log {
 
 		delete_transient( self::STATS_TRANSIENT );
 
-		return is_wp_error( $log_id ) ? 0 : (int) $log_id;
+		if ( is_wp_error( $log_id ) ) {
+			return 0;
+		}
+
+		self::supersede( $post_id, esc_url_raw( $url ), (int) $log_id, Fast_Index_Submitter::is_not_sent( $code ) );
+
+		return (int) $log_id;
+	}
+
+	/**
+	 * Marks an entry as waiting for a key.
+	 *
+	 * @param int $log_id Log entry ID.
+	 * @param int $since  Unix time the notification started to wait.
+	 * @return void
+	 */
+	public static function hold( $log_id, $since ) {
+		update_post_meta( (int) $log_id, self::META_RETRY, (int) $since );
+	}
+
+	/**
+	 * Takes an entry out of the retry queue. The entry stays in History.
+	 *
+	 * @param int $log_id Log entry ID.
+	 * @return void
+	 */
+	public static function release( $log_id ) {
+		delete_post_meta( (int) $log_id, self::META_RETRY );
+	}
+
+	/**
+	 * Entries waiting for a key, oldest first.
+	 *
+	 * @param int  $limit  Maximum number of entries.
+	 * @param int  $offset Entries to skip, counted from the newest one when $newest is true.
+	 * @param bool $newest Newest first instead of oldest first.
+	 * @return array[] Keys: id, post_id, url, type, since.
+	 */
+	public static function held( $limit, $offset = 0, $newest = false ) {
+		$posts = get_posts(
+			array(
+				'post_type'   => self::POST_TYPE,
+				'post_status' => self::STATUS_FAILED,
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- At most Fast_Index_Retry::MAX entries carry the key; runs in cron or after a key upload.
+				'meta_key'    => self::META_RETRY,
+				'numberposts' => max( 1, absint( $limit ) ),
+				'offset'      => absint( $offset ),
+				'orderby'     => 'ID',
+				'order'       => $newest ? 'DESC' : 'ASC',
+			)
+		);
+		$rows  = array();
+
+		foreach ( $posts as $post ) {
+			$type   = (string) get_post_meta( $post->ID, self::META_TYPE, true );
+			$rows[] = array(
+				'id'      => (int) $post->ID,
+				'post_id' => (int) $post->post_parent,
+				'url'     => (string) $post->post_content,
+				'type'    => '' === $type ? Fast_Index_Google_Client::TYPE_UPDATED : $type,
+				'since'   => (int) get_post_meta( $post->ID, self::META_RETRY, true ),
+			);
+		}
+
+		return $rows;
+	}
+
+	/**
+	 * Number of entries waiting for a key.
+	 *
+	 * @return int
+	 */
+	public static function count_held() {
+		$query = new WP_Query(
+			array(
+				'post_type'              => self::POST_TYPE,
+				'post_status'            => self::STATUS_FAILED,
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- At most Fast_Index_Retry::MAX entries carry the key.
+				'meta_key'               => self::META_RETRY,
+				'fields'                 => 'ids',
+				'posts_per_page'         => 1,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+			)
+		);
+
+		return (int) $query->found_posts;
+	}
+
+	/**
+	 * Applies "the newest event of an address wins" to the older draft entries of a post.
+	 *
+	 * @param int    $post_id  Post ID; nothing happens for 0.
+	 * @param string $url      Address as stored.
+	 * @param int    $new_id   The entry just added.
+	 * @param bool   $not_sent Whether the new entry is a notification that could not be sent.
+	 * @return void
+	 */
+	private static function supersede( $post_id, $url, $new_id, $not_sent ) {
+		$post_id = absint( $post_id );
+
+		if ( 0 === $post_id ) {
+			return;
+		}
+
+		$older = get_posts(
+			array(
+				'post_type'   => self::POST_TYPE,
+				'post_status' => self::STATUS_FAILED,
+				'post_parent' => $post_id,
+				'numberposts' => self::SUPERSEDE_LOOKUP,
+				'orderby'     => 'ID',
+				'order'       => 'DESC',
+			)
+		);
+
+		foreach ( $older as $entry ) {
+			if ( $entry->ID === $new_id || $entry->ID > $new_id || $entry->post_content !== $url ) {
+				continue;
+			}
+
+			if ( $not_sent && Fast_Index_Submitter::is_not_sent( get_post_meta( $entry->ID, self::META_CODE, true ) ) ) {
+				wp_delete_post( $entry->ID, true );
+				continue;
+			}
+
+			self::release( $entry->ID );
+		}
 	}
 
 	/**
@@ -320,6 +462,7 @@ class Fast_Index_Log {
 			// Entries written by 2.x have no meta: they were all successful URL_UPDATED requests.
 			'code'      => '' === $code ? 200 : (int) $code,
 			'type'      => '' === $type ? Fast_Index_Google_Client::TYPE_UPDATED : (string) $type,
+			'retry'     => '' !== get_post_meta( $post->ID, self::META_RETRY, true ),
 		);
 	}
 

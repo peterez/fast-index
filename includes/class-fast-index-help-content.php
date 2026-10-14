@@ -391,12 +391,28 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'openssl',
 				'symptom' => sprintf(
-					/* translators: %s: status text "OpenSSL is missing". */
+					/* translators: %s: status text "Not sent: OpenSSL is missing". */
 					__( 'A red notice says the PHP OpenSSL extension is not available, or the status "%s"', 'fast-index' ),
-					__( 'OpenSSL is missing', 'fast-index' )
+					Fast_Index_Admin::status_label( Fast_Index_Submitter::UNSUPPORTED )
 				),
-				'cause'   => esc_html__( 'Fast Index signs its requests to Google with OpenSSL. PHP without OpenSSL cannot do that, so nothing can be sent. While OpenSSL is missing, nothing is written to History.', 'fast-index' ),
-				'fix'     => esc_html__( 'Ask your hosting provider to enable the OpenSSL extension for the PHP version your site uses. The system information below shows whether OpenSSL is available.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index signs its requests to Google with OpenSSL. PHP without OpenSSL cannot do that, so nothing can be sent. Each notification appears in History with this status and is not sent later.', 'fast-index' ),
+				'fix'     => esc_html__( 'Ask your hosting provider to enable the OpenSSL extension for the PHP version your site uses. The system information below shows whether OpenSSL is available. Then save the posts that should reach Google again; if old-post sending is on, the hourly batches also pick up posts that never reached Google.', 'fast-index' ),
+			),
+			array(
+				'id'      => 'not-sent',
+				'symptom' => sprintf(
+					/* translators: 1: status text "Not sent: no service account key", 2: status text "Not sent: every key was resting". */
+					__( 'History shows "%1$s" or "%2$s"', 'fast-index' ),
+					Fast_Index_Admin::status_label( Fast_Index_Submitter::NO_ACCOUNT ),
+					Fast_Index_Admin::status_label( Fast_Index_Submitter::RESTING )
+				),
+				'cause'   => sprintf(
+					/* translators: 1: note shown under a waiting notification, 2: largest number of waiting notifications. */
+					esc_html__( 'No key is stored on the settings screen, or every stored key rests for six hours because Google answered 401, 403 or 429. Without a key the notification is only recorded. While every key rests, the notification waits, and History shows "%1$s" under it: it is sent when the first key is ready again, or soon after you upload a key. For each address only the newest event waits; at most %2$s notifications wait, for up to three days.', 'fast-index' ),
+					esc_html( Fast_Index_Admin::retry_note() ),
+					esc_html( number_format_i18n( Fast_Index_Retry::MAX ) )
+				),
+				'fix'     => esc_html__( 'Upload a key on the settings screen. For a resting key, read the entry for its code above. A post that Google has not accepted yet counts as Total Waiting on the History screen: save it again to send it, or turn on old-post sending so that the hourly batches pick it up.', 'fast-index' ),
 			),
 			array(
 				'id'      => 'wp-cron',
@@ -412,8 +428,8 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'nothing-in-history',
 				'symptom' => __( 'A post is missing from History', 'fast-index' ),
-				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in an excluded category, or when it is not published. Nothing is written to History, and the notification is not repeated, when no key is stored, when every key is resting after an error, or when OpenSSL is missing.', 'fast-index' ),
-				'fix'     => esc_html__( 'Check the settings above. On the settings screen each key shows the last answer from Google; a key in 401, 403 or 429 rests for six hours. After you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in an excluded category, or when it is not published. Nothing is written to History then.', 'fast-index' ),
+				'fix'     => esc_html__( 'Check the settings above. Changing a setting does not send earlier saves: after you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
 			),
 			array(
 				'id'      => 'old-posts',

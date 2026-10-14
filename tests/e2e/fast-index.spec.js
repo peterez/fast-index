@@ -133,6 +133,54 @@ test.describe( 'Fast Index admin', () => {
 		await expect( page.locator( '.pagination a[href*="pn=1"]' ) ).toBeVisible();
 	} );
 
+	test( 'a notification that no key can take is shown as not sent, and waits only for a resting key', async ( { page } ) => {
+		// Labels in the language of the site under test (English, Turkish or Arabic).
+		const label = ( constant ) => wp( [ 'eval', 'echo Fast_Index_Admin::status_label( Fast_Index_Submitter::' + constant + ' );' ] );
+		const note = wp( [ 'eval', 'echo Fast_Index_Admin::retry_note();' ] );
+		// Runs the queued notification of a post at once, as WP-Cron would.
+		const runQueued = ( id ) => wp( [ 'eval', '$a = array( get_permalink( ' + id + ' ), "URL_UPDATED", ' + id + ' ); $t = wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $a ); if ( $t ) { wp_unschedule_event( $t, Fast_Index_Cron::SUBMIT_HOOK, $a ); } do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $a );' ] );
+		const row = ( title ) => page.locator( '#fi table' ).nth( 1 ).locator( 'tbody tr', { hasText: title } );
+		const stamp = Date.now();
+
+		wp( [ 'option', 'update', 'fast_index_options', '{"status":"1","post_type":{"post":"1"},"post_status":{"publish":"1"}}', '--format=json' ] );
+		wp( [ 'eval', 'foreach ( array_keys( Fast_Index_Accounts::all() ) as $id ) { Fast_Index_Accounts::delete( $id ); }' ] );
+
+		// No key: History says so, and nothing waits.
+		const noKey = 'E2E no key ' + stamp;
+		runQueued( wp( [ 'post', 'create', '--post_title=' + noKey, '--post_status=publish', '--porcelain' ] ) );
+		await page.goto( HISTORY );
+		await expect( row( noKey ) ).toHaveCount( 1 );
+		await expect( row( noKey ).locator( '.fi-history-status--not-sent' ) ).toContainText( label( 'NO_ACCOUNT' ) );
+		await expect( row( noKey ).locator( '.fi-history-retry' ) ).toHaveCount( 0 );
+		expect( wp( [ 'eval', 'echo Fast_Index_Log::count_held();' ] ) ).toBe( '0' );
+
+		// Every key rests: History says so, and the notification waits for the end of the rest.
+		wp( [ 'eval', '$k = openssl_pkey_new( array( "private_key_bits" => 2048, "private_key_type" => OPENSSL_KEYTYPE_RSA ) ); openssl_pkey_export( $k, $pem ); $id = Fast_Index_Accounts::save( array( "client_email" => "e2e-resting@fast-index-e2e.iam.gserviceaccount.com", "private_key" => $pem, "private_key_id" => "e2eresting" ) ); Fast_Index_Accounts::set_status( $id, 429 );' ] );
+		const resting = 'E2E resting ' + stamp;
+		const restingId = wp( [ 'post', 'create', '--post_title=' + resting, '--post_status=publish', '--porcelain' ] );
+		runQueued( restingId );
+		await page.goto( HISTORY );
+		await expect( row( resting ).locator( '.fi-history-status--not-sent' ) ).toContainText( label( 'RESTING' ) );
+		await expect( row( resting ).locator( '.fi-history-retry' ) ).toHaveText( note );
+		expect( wp( [ 'eval', 'echo Fast_Index_Log::count_held();' ] ) ).toBe( '1' );
+		expect( Number( wp( [ 'eval', 'echo wp_next_scheduled( Fast_Index_Retry::HOOK ) - time();' ] ) ) ).toBeGreaterThan( 5 * 3600 );
+
+		// A key upload sends the waiting notification with the next scheduled-task run.
+		const { buffer } = serviceAccountFile( 'e2e-fresh@fast-index-e2e.iam.gserviceaccount.com', 'e2efresh0123456789abcdef0123456789abcdef' );
+		await page.goto( SETTINGS );
+		await page.setInputFiles( '#fast-index-key-files', { name: 'fresh.json', mimeType: 'application/json', buffer } );
+		await page.click( 'form[enctype="multipart/form-data"] input[type="submit"]' );
+		await expect( page.locator( '.notice-success' ) ).toHaveCount( 1 );
+		expect( Number( wp( [ 'eval', 'echo wp_next_scheduled( Fast_Index_Retry::HOOK ) - time();' ] ) ) ).toBeLessThanOrEqual( 0 );
+
+		wp( [ 'eval', 'wp_unschedule_hook( Fast_Index_Retry::HOOK ); do_action( Fast_Index_Retry::HOOK );' ] );
+		await page.goto( HISTORY );
+		await expect( row( resting ) ).toHaveCount( 2 );
+		await expect( row( resting ).first() ).toContainText( '200' );
+		await expect( row( resting ).locator( '.fi-history-retry' ) ).toHaveCount( 0 );
+		expect( wp( [ 'eval', 'echo Fast_Index_Log::count_held();' ] ) ).toBe( '0' );
+	} );
+
 	test( 'manual run answers without errors', async ( { page } ) => {
 		await page.goto( RUN );
 		await page.click( '#fi input[type="submit"]' );

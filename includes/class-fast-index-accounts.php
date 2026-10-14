@@ -75,14 +75,54 @@ class Fast_Index_Accounts {
 		$available = array();
 
 		foreach ( self::all() as $id => $account ) {
-			$status = get_transient( self::STATUS_TRANSIENT_PREFIX . $id );
-
-			if ( false === $status || 200 === (int) $status ) {
+			if ( 0 === self::rest_end( $id ) ) {
 				$available[ $id ] = $account;
 			}
 		}
 
 		return $available;
+	}
+
+	/**
+	 * When the first stored account can be used again.
+	 *
+	 * @return int Unix time: now when an account is available, the earliest end of a rest when
+	 *             every account rests, 0 when no account is stored.
+	 */
+	public static function next_ready_time() {
+		$next = 0;
+
+		foreach ( array_keys( self::all() ) as $id ) {
+			$end = self::rest_end( $id );
+
+			if ( 0 === $end ) {
+				return time();
+			}
+
+			$next = 0 === $next ? $end : min( $next, $end );
+		}
+
+		return $next;
+	}
+
+	/**
+	 * End of an account's rest.
+	 *
+	 * @param string $id Account ID.
+	 * @return int Unix time, 0 when the account is not resting.
+	 */
+	private static function rest_end( $id ) {
+		$status = get_transient( self::STATUS_TRANSIENT_PREFIX . $id );
+
+		if ( false === $status ) {
+			return 0;
+		}
+
+		// Values written before the end time was stored hold only the code; their rest ends within STATUS_TTL.
+		$code = is_array( $status ) && isset( $status['code'] ) ? (int) $status['code'] : (int) $status;
+		$end  = is_array( $status ) && isset( $status['until'] ) ? (int) $status['until'] : time() + self::STATUS_TTL;
+
+		return 200 === $code || $end <= time() ? 0 : $end;
 	}
 
 	/**
@@ -177,7 +217,14 @@ class Fast_Index_Accounts {
 	 * @return void
 	 */
 	public static function set_status( $id, $code ) {
-		set_transient( self::STATUS_TRANSIENT_PREFIX . $id, (int) $code, self::STATUS_TTL );
+		set_transient(
+			self::STATUS_TRANSIENT_PREFIX . $id,
+			array(
+				'code'  => (int) $code,
+				'until' => time() + self::STATUS_TTL,
+			),
+			self::STATUS_TTL
+		);
 		self::remember_status( $id, $code );
 	}
 
