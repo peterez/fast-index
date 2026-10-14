@@ -27,6 +27,45 @@ This file is for developers. It is not part of either release package (`.distign
 | `fast_index_history_stats` | filter | History "Total Waiting" without excluded categories |
 | `fast_index_premium_loaded` | action | fired by the module once it is loaded |
 
+## Freemius (SDK 2.13.4)
+
+`freemius-sdk/` is the unchanged 2.13.4 tag of github.com/Freemius/wordpress-sdk. `Fast_Index_Freemius::config()` and
+`Fast_Index_Freemius::register_hooks()` hold every setting:
+
+- `is_premium` = the module file exists; `has_premium_version`, `has_paid_plans`, `is_org_compliant` and
+  `enable_anonymous` (Skip) are true. The menu has no contact form and no support link.
+- `show_trial` and `show_affiliate_program_notice` are off, and `show_admin_notice` hides the trial and affiliate
+  notices: Freemius would show them on every admin screen.
+- `should_hide_site_admin_settings_on_network_activation_mode` is off: after a network activation every site keeps
+  its menu and shows the opt-in screen (with Skip) instead of "Cannot load fast-index".
+- `plugin_icon` points to `assets/fast-index-icon.png`, so the SDK never downloads an icon into its folder.
+- `Fast_Index_Freemius::translate_texts()` (on `init`) replaces the Upgrade, Pricing, Skip and Allow & Continue
+  texts with the plugin's translated strings, because Help & FAQ names them.
+
+Measured on a clean install of the WordPress.org package (every outgoing request logged and blocked): no request to
+Freemius before the opt-in choice or after Skip; opening Upgrade makes one server request to
+`api.freemius.com/v1/plugins/11893/pricing.json` without site data; Allow & Continue posts the opt-in data from the
+browser to `wp.freemius.com`; no Freemius update hook is attached. The readme's External services section describes
+this; measure again after an SDK update.
+
+## Uninstall
+
+There is no `uninstall.php`: WordPress would then never call the Freemius uninstall hook, and the Freemius deployment
+rejects packages that have one. `Fast_Index_Uninstaller::run_once()` is attached to the Freemius `after_uninstall`
+action, to the core `uninstall_fast-index/index.php` action (priority 20, for WP-CLI without a user) and registered
+with `register_uninstall_hook()` on activation. It runs once per request and does nothing while the other copy (free
+or premium) is active.
+
+## Where the free version points to the premium plan
+
+All in `Fast_Index_Upgrade` (KARARLAR (20), (21)), only on the Fast Index screens and only while the module is not
+loaded: the Premium box with a Free / Premium table, a "Premium" hint (`<details>`) next to Post Types, Post Events
+and the key upload, the History line with the real number of published posts Google has not accepted, the message
+when a new key replaces the only key, Settings and Upgrade links on the Plugins screen, a thank-you notice after the
+first accepted notification (with a review request, no reward) and an offer notice seven days after the first setup.
+Each notice is shown until the user dismisses it (user meta `fast_index_dismissed_notices`). No discount text: add
+one only for a real Freemius coupon.
+
 ## Building the release packages
 
 ```bash
@@ -61,6 +100,10 @@ with `Fast_Index_Test_Case::with_premium()`.
 ## Release order
 
 1. `composer package`.
-2. Upload `dist/fast-index-premium-<version>.zip` to the Freemius dashboard first, so licensed sites can get the
-   premium package before the WordPress.org update reaches them.
+2. Freemius dashboard (product 11893): make sure a Free plan exists next to the paid plans (without it Freemius
+   builds no free version and an opt-in from the free version was answered with "Invalid license key"). Then
+   Deployment > Add new version > upload `dist/fast-index-premium-<version>.zip` and release it, so licensed sites can
+   get the premium package before the WordPress.org update reaches them. Freemius reads `@fs_premium_only` in
+   `index.php`, so a free version it builds also leaves `includes/premium/` out; the WordPress.org release still
+   uses our own package.
 3. Then release `dist/fast-index-<version>.zip` (its content) to WordPress.org SVN.

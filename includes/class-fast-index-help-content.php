@@ -615,6 +615,17 @@ class Fast_Index_Help_Content {
 				'answer'   => esc_html__( 'No. Fast Index talks only to the Google Indexing API.', 'fast-index' ),
 			),
 			array(
+				'id'       => 'premium-features',
+				'question' => __( 'What does the premium plan add?', 'fast-index' ),
+				'answer'   => esc_html__( 'The free version is not limited in time or in the number of notifications. It notifies Google when a post is published, keeps a History of Google\'s answers and includes Help & FAQ.', 'fast-index' )
+					. '</p><p>' . esc_html( Fast_Index_Upgrade::summary() )
+					. '</p><p>' . sprintf(
+						/* translators: %s: menu entry "Upgrade". */
+						esc_html__( 'The premium plan is a separate package, sold through Freemius. The Premium box on the settings screen compares both versions, and %s in the Fast Index menu shows the plans and prices.', 'fast-index' ),
+						self::strong( __( 'Upgrade', 'fast-index' ) )
+					),
+			),
+			array(
 				'id'       => 'premium',
 				'question' => __( 'How do I get the premium plan, and how do I install it?', 'fast-index' ),
 				'answer'   => sprintf(
@@ -629,8 +640,10 @@ class Fast_Index_Help_Content {
 				'id'       => 'freemius',
 				'question' => __( 'What is Freemius, and do I have to connect an account?', 'fast-index' ),
 				'answer'   => sprintf(
-					/* translators: %s: link to the Freemius privacy policy. */
-					__( 'Fast Index includes the Freemius SDK, a service for licenses and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question.', 'fast-index' ),
+					/* translators: 1: button "Skip", 2: button "Allow & Continue", 3: link to the Freemius privacy policy. */
+					__( 'No. Fast Index includes the Freemius SDK, which sells the premium plan and manages its licenses. The free version has no license screen. The first time you open Fast Index, Freemius shows an opt-in screen. If you choose %1$s, nothing is sent to Freemius and Fast Index works the same. If you choose %2$s, your browser sends what that screen lists to Freemius: your name and email address, the site address and title, the language, the WordPress, PHP, plugin and SDK versions, and later the list of your plugins and themes. Opening Upgrade loads the plans from Freemius without any site data, and choosing a plan opens the Freemius checkout. See %3$s.', 'fast-index' ),
+					self::strong( _x( 'Skip', 'Button of the Freemius opt-in screen', 'fast-index' ) ),
+					self::strong( _x( 'Allow & Continue', 'Button of the Freemius opt-in screen', 'fast-index' ) ),
 					self::ext( 'https://freemius.com/privacy/', __( 'the Freemius privacy policy', 'fast-index' ) )
 				),
 			),
