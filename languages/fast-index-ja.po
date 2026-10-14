@@ -5,21 +5,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-14T15:24:17+00:00\n"
-"PO-Revision-Date: 2026-10-14 15:47+0000\n"
+"POT-Creation-Date: 2026-10-14T16:55:18+00:00\n"
+"PO-Revision-Date: 2026-10-14 17:00+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Fast Index translation build\n"
 "X-Domain: fast-index\n"
 
 #. Plugin Name of the plugin
-#: index.php
-#: includes/class-fast-index-admin.php:70
+#: index.php includes/class-fast-index-admin.php:70
 msgid "Fast Index"
 msgstr "Fast Index"
 
@@ -93,37 +92,36 @@ msgid "Sorry, you are not allowed to do that."
 msgstr "この操作を行う権限がありません。"
 
 #: includes/class-fast-index-admin.php:71
-#: includes/class-fast-index-help-content.php:210
-#: view/history.php:41
+#: includes/class-fast-index-help-content.php:210 view/history.php:41
 msgid "History"
 msgstr "履歴"
 
 #: includes/class-fast-index-admin.php:72
-#: view/run.php:14
+#: includes/class-fast-index-help-content.php:503 view/run.php:14
 msgid "Send Old Posts Now"
 msgstr "過去の投稿を今すぐ送信"
 
 #: includes/class-fast-index-admin.php:73
-#: includes/class-fast-index-help-content.php:603
-#: view/help.php:16
+#: includes/class-fast-index-help-content.php:628 view/help.php:16
 #: view/settings.php:234
 msgid "Help & FAQ"
 msgstr "ヘルプとFAQ"
 
 #: includes/class-fast-index-admin.php:114
-#: view/settings.php:212
-msgid "Please upgrade to premium"
-msgstr "プレミアムにアップグレード"
+msgid "This option needs the premium plan. Go to the upgrade page?"
+msgstr "このオプションにはプレミアムプランが必要です。アップグレードのページに移動しますか？"
 
 #: includes/class-fast-index-admin.php:240
 msgid "No service account available"
 msgstr "利用できるサービスアカウントがありません"
 
 #: includes/class-fast-index-admin.php:244
+#: includes/class-fast-index-help-content.php:396
 msgid "OpenSSL is missing"
 msgstr "OpenSSLがありません"
 
 #: includes/class-fast-index-admin.php:248
+#: includes/class-fast-index-help-content.php:386
 msgid "No answer from Google"
 msgstr "Googleから応答がありません"
 
@@ -191,11 +189,11 @@ msgstr "サポートが必要ですか？"
 #. translators: 1: quoted sentence from Google's documentation, 2: link to that documentation.
 #: includes/class-fast-index-help-content.php:117
 #, php-format
-msgid "Please read this first. Google says: %1$s For other pages, Google may accept a notification, but nothing in its documentation promises that the page will be crawled or indexed sooner. See the FAQ and Google's documentation: %2$s."
+msgid "Read this first. Google says: %1$s For other pages, Google may accept a notification, but nothing in its documentation promises that the page will be crawled or indexed sooner. See the FAQ and Google's documentation: %2$s."
 msgstr "最初にお読みください。Googleは次のように述べています。%1$s それ以外のページについては、Googleが通知を受け付けることはありますが、ページが早くクロールまたはインデックスされると約束する記述はGoogleのドキュメントにありません。FAQとGoogleのドキュメントもご確認ください（%2$s）。"
 
 #: includes/class-fast-index-help-content.php:118
-#: includes/class-fast-index-help-content.php:461
+#: includes/class-fast-index-help-content.php:477
 msgid "\"The Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject.\""
 msgstr "「Indexing APIは、JobPostingまたはVideoObjectに埋め込まれたBroadcastEventを含むページのクロールにのみ使用できます。」"
 
@@ -292,7 +290,7 @@ msgid "Open Search Console and choose the verified property of your site: a Doma
 msgstr "Search Consoleを開き、サイトの確認済みプロパティを選択します。ドメインプロパティか、httpsやwwwを含めてサイトのアドレスと完全に一致するURLプレフィックスプロパティです。%1$s、%2$sの順に進んで%3$sをクリックし、サービスアカウントのメールアドレス（JSONファイルの%6$sの値で、.iam.gserviceaccount.comで終わります）を入力して、権限として%4$sを選択します。Googleの説明は%5$sにあります。"
 
 #: includes/class-fast-index-help-content.php:176
-#: view/settings.php:33
+msgctxt "Menu entry in Google Search Console"
 msgid "Settings"
 msgstr "設定"
 
@@ -316,25 +314,22 @@ msgstr "Search Consoleヘルプ"
 msgid "Upload the key to Fast Index"
 msgstr "キーをFast Indexにアップロードする"
 
-#. translators: 1: heading on the settings screen, 2: file button label, 3: submit button label.
+#. translators: 1: heading on the settings screen, 2: label of the file field, 3: submit button label.
 #: includes/class-fast-index-help-content.php:188
 #, php-format
 msgid "Open the Fast Index settings. Under %1$s choose the .json file (%2$s) and click %3$s. The screen then lists the email address and key ID of the key. The private key is stored in your database and is never shown."
 msgstr "Fast Indexの設定を開きます。%1$sで.jsonファイル（%2$s）を選択し、%3$sをクリックします。すると、画面にキーのメールアドレスとキーIDが一覧表示されます。秘密鍵はデータベースに保存され、表示されることはありません。"
 
 #: includes/class-fast-index-help-content.php:189
-#: includes/class-fast-index-help-content.php:287
-#: view/settings.php:158
-msgid "Upload Google Service Account Json"
-msgstr "GoogleサービスアカウントのJSONをアップロード"
+#: includes/class-fast-index-help-content.php:287 view/settings.php:158
+msgid "Upload Google Service Account Key"
+msgstr "Googleサービスアカウントのキーをアップロード"
 
-#: includes/class-fast-index-help-content.php:190
-#: view/settings.php:199
-msgid "Choose Json File/s"
-msgstr "JSONファイルを選択"
+#: includes/class-fast-index-help-content.php:190 view/settings.php:199
+msgid "JSON Key File"
+msgstr "JSONキーファイル"
 
-#: includes/class-fast-index-help-content.php:191
-#: view/settings.php:221
+#: includes/class-fast-index-help-content.php:191 view/settings.php:221
 msgid "Upload key"
 msgstr "キーをアップロード"
 
@@ -349,26 +344,22 @@ msgid "In the settings keep %1$s on %2$s, check the %3$s to send and click %4$s.
 msgstr "設定で%1$sを%2$sのままにし、送信する%3$sにチェックを入れて%4$sをクリックします。各オプションについては「設定の説明」で説明しています。"
 
 #: includes/class-fast-index-help-content.php:199
-#: includes/class-fast-index-help-content.php:239
-#: view/settings.php:46
+#: includes/class-fast-index-help-content.php:239 view/settings.php:46
 msgid "Status"
 msgstr "ステータス"
 
 #: includes/class-fast-index-help-content.php:200
 #: includes/class-fast-index-help-content.php:242
-#: includes/class-fast-index-help.php:175
-#: view/settings.php:51
+#: includes/class-fast-index-help.php:175 view/settings.php:51
 msgid "Active"
 msgstr "有効"
 
 #: includes/class-fast-index-help-content.php:201
-#: includes/class-fast-index-help-content.php:247
-#: view/settings.php:60
+#: includes/class-fast-index-help-content.php:247 view/settings.php:60
 msgid "Post Types"
 msgstr "投稿タイプ"
 
-#: includes/class-fast-index-help-content.php:202
-#: view/settings.php:150
+#: includes/class-fast-index-help-content.php:202 view/settings.php:150
 msgid "Save"
 msgstr "保存"
 
@@ -413,41 +404,39 @@ msgid "Check another type when its pages should be sent too, for example a custo
 msgstr "求人情報やライブ動画を扱うカスタム投稿タイプなど、ほかのタイプのページも送信したい場合は、そのタイプにチェックを入れます。"
 
 #: includes/class-fast-index-help-content.php:255
-#: view/settings.php:79
-msgid "Daily Old Content Post?"
-msgstr "過去の投稿の1日あたり送信数"
+#: includes/class-fast-index-help-content.php:502 view/settings.php:79
+msgid "Daily Limit for Old Posts"
+msgstr "過去の投稿の1日の上限"
 
 #: includes/class-fast-index-help-content.php:257
-msgid "Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The number counts every successful notification of the last 24 hours, new posts included, and can be 0 to 10,000. Each batch is a random number from 0 to a third of the daily number, so some hours send nothing."
-msgstr "Googleがこのサイトから一度も受け付けていない公開済みの投稿を、新しい順に、毎時間少しずつバッチで送信します。この数値には、新規投稿を含め、直近24時間のすべての成功した通知が含まれ、0から10,000までの値を指定できます。各バッチの件数は、0から1日の数値の3分の1までのランダムな数なので、何も送信されない時間帯もあります。"
+msgid "Sends published posts that Google has never accepted from this site, newest first, in small batches every hour. The limit counts every successful notification of the last 24 hours, new posts included, and can be set from 0 to 10,000. Each batch is a random number from 0 to a third of the daily limit, so some hours send nothing."
+msgstr "Googleがこのサイトから一度も受け付けていない公開済みの投稿を、新しい順に、毎時間少しずつバッチで送信します。この上限には、新規投稿を含め、直近24時間のすべての成功した通知が含まれ、0から10,000までの値を指定できます。各バッチの件数は、0から1日の上限の3分の1までのランダムな数なので、何も送信されない時間帯もあります。"
 
 #: includes/class-fast-index-help-content.php:258
 msgid "0 (off)"
 msgstr "0（オフ）"
 
 #: includes/class-fast-index-help-content.php:259
-msgid "Turn it on after your new posts are sent correctly. Keep the number low enough to leave room for new posts within Google's daily quota (see the FAQ)."
-msgstr "新しい投稿が正しく送信されることを確認してからオンにしてください。Googleの1日の割り当て（FAQを参照）の範囲内で、新しい投稿の余裕が残るように、数値を低めにしてください。"
+msgid "Turn it on after your new posts are sent correctly. Keep the limit low enough to leave room for new posts within Google's daily quota (see the FAQ)."
+msgstr "新しい投稿が正しく送信されることを確認してからオンにしてください。Googleの1日の割り当て（FAQを参照）の範囲内で、新しい投稿の余裕が残るように、上限を低めにしてください。"
 
-#: includes/class-fast-index-help-content.php:263
-#: view/settings.php:94
-msgid "Post Status"
-msgstr "投稿ステータス"
+#: includes/class-fast-index-help-content.php:263 view/settings.php:94
+msgid "Post Events"
+msgstr "投稿のイベント"
 
 #: includes/class-fast-index-help-content.php:265
 msgid "Publish: a post becomes published. Edit: a post that is already published is saved again. Trash: a published post is moved to the trash or deleted, and Google is told that the address was removed. Changing a published post back to draft or private is not sent."
 msgstr "公開：投稿が公開される。編集：すでに公開済みの投稿が再度保存される。ゴミ箱：公開済みの投稿がゴミ箱に移動または削除され、アドレスが削除されたことがGoogleに通知される。公開済みの投稿を下書きや非公開に戻した場合は送信されません。"
 
 #: includes/class-fast-index-help-content.php:266
-msgid "Publish (Edit is also on by default with the premium plan)"
-msgstr "公開（プレミアムプランでは「編集」もデフォルトでオン）"
+msgid "Publish and Edit. The free plan keeps only Publish once you save the settings."
+msgstr "公開と編集です。無料プランでは、設定を保存すると「公開」だけが残ります。"
 
 #: includes/class-fast-index-help-content.php:267
 msgid "Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal."
 msgstr "変更したコンテンツを再クロールさせたい場合は「編集」をオンにします。削除したページを通知したい場合は「ゴミ箱」をオンにします。削除を送信する際、Googleはそのアドレスがすでに404または410を返すか、noindexタグが付いていることを求めています。"
 
-#: includes/class-fast-index-help-content.php:271
-#: view/settings.php:113
+#: includes/class-fast-index-help-content.php:271 view/settings.php:113
 msgid "Exclude Categories"
 msgstr "除外するカテゴリー"
 
@@ -464,7 +453,7 @@ msgid "Use it for content you do not want Google to hear about, for example inte
 msgstr "内部向けや重複したコンテンツなど、Googleに知らせたくないコンテンツに使用します。"
 
 #: includes/class-fast-index-help-content.php:279
-#: view/settings.php:132
+#: includes/class-fast-index-help-content.php:535 view/settings.php:132
 msgid "Delete data on uninstall"
 msgstr "アンインストール時にデータを削除"
 
@@ -505,7 +494,7 @@ msgid "How many old posts may be sent per day, in small hourly batches. 0 turns 
 msgstr "過去の投稿を1日に何件まで、1時間ごとの小さなバッチで送信するかを指定します。0にするとオフになります。"
 
 #: includes/class-fast-index-help-content.php:311
-msgid "Publish: a post goes live. Edit: a live post is saved again. Trash: a live post is trashed or deleted."
+msgid "Publish: a post is published. Edit: a published post is saved again. Trash: a published post is moved to the trash or deleted."
 msgstr "公開：投稿が公開される。編集：公開中の投稿が再度保存される。ゴミ箱：公開中の投稿がゴミ箱に移動または削除される。"
 
 #: includes/class-fast-index-help-content.php:313
@@ -574,328 +563,348 @@ msgid "The quota of Google is used up. Google's default is 200 publish requests 
 msgstr "Googleの割り当てを使い切りました。Googleのデフォルトは、Google Cloudプロジェクトごとに1日200件の公開リクエストです（%s）。新規・変更・削除されたアドレスはすべてカウントされ、同じプロジェクトのすべてのキーが同じ割り当てを共有します。"
 
 #: includes/class-fast-index-help-content.php:373
-#: includes/class-fast-index-help-content.php:491
+#: includes/class-fast-index-help-content.php:512
 msgid "quota page"
 msgstr "割り当てのページ"
 
 #. translators: %s: link to Google's quota page.
 #: includes/class-fast-index-help-content.php:377
 #, php-format
-msgid "Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily number of old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality."
-msgstr "待ってください。Fast Indexはキーを6時間休止させ、その間は他のキーを試します。過去の投稿の1日あたりの数を減らし、一括インポート中はFast Indexを「停止」にしてください。さらに必要な場合は、%sでGoogleに割り当ての追加を依頼してください。Googleは、割り当てがドキュメントの品質に基づいて増減することがあると記載しています。"
+msgid "Wait: Fast Index lets the key rest for six hours and tries your other keys meanwhile. Lower the daily limit for old posts, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on %s; Google notes that quota may increase or decrease based on document quality."
+msgstr "待ってください。Fast Indexはキーを6時間休止させ、その間は他のキーを試します。過去の投稿の1日の上限を下げ、一括インポート中はFast Indexを「停止」にしてください。さらに必要な場合は、%sでGoogleに割り当ての追加を依頼してください。Googleは、割り当てがドキュメントの品質に基づいて増減することがあると記載しています。"
 
 #: includes/class-fast-index-help-content.php:378
 msgid "the quota page"
 msgstr "割り当てのページ"
 
-#: includes/class-fast-index-help-content.php:383
-msgid "\"No answer from Google\", or a 5xx code"
-msgstr "「Googleから応答がありません」、または5xxコード"
+#. translators: %s: status text "No answer from Google".
+#: includes/class-fast-index-help-content.php:385
+#, php-format
+msgid "\"%s\", or a 5xx code"
+msgstr "「%s」、または5xxコード"
 
-#: includes/class-fast-index-help-content.php:384
+#: includes/class-fast-index-help-content.php:388
 msgid "Your server could not reach Google within 15 seconds (firewall, DNS or a slow connection), Google had a temporary problem, or its answer could not be read. These answers do not make a key rest."
 msgstr "サーバーが15秒以内にGoogleに到達できなかった（ファイアウォール、DNS、低速な接続）、Googleに一時的な問題があった、または応答を読み取れなかった可能性があります。これらの応答でキーが休止することはありません。"
 
-#: includes/class-fast-index-help-content.php:385
+#: includes/class-fast-index-help-content.php:389
 msgid "Allow outgoing HTTPS requests to oauth2.googleapis.com and indexing.googleapis.com, and try again later. Saving or publishing another post sends a new notification."
 msgstr "oauth2.googleapis.comとindexing.googleapis.comへの外向きのHTTPSリクエストを許可し、後でもう一度お試しください。別の投稿を保存または公開すると、新しい通知が送信されます。"
 
-#: includes/class-fast-index-help-content.php:389
-msgid "A red notice says the PHP OpenSSL extension is not available, or the status \"OpenSSL is missing\""
-msgstr "PHPのOpenSSL拡張機能が利用できないという赤い通知、またはステータス「OpenSSLがありません」"
+#. translators: %s: status text "OpenSSL is missing".
+#: includes/class-fast-index-help-content.php:395
+#, php-format
+msgid "A red notice says the PHP OpenSSL extension is not available, or the status \"%s\""
+msgstr "PHPのOpenSSL拡張機能が利用できないという赤い通知、またはステータス「%s」"
 
-#: includes/class-fast-index-help-content.php:390
+#: includes/class-fast-index-help-content.php:398
 msgid "Fast Index signs its requests to Google with OpenSSL. PHP without OpenSSL cannot do that, so nothing can be sent. While OpenSSL is missing, nothing is written to History."
 msgstr "Fast IndexはGoogleへのリクエストにOpenSSLで署名します。OpenSSLのないPHPでは署名できないため、何も送信できません。OpenSSLがない間、履歴には何も書き込まれません。"
 
-#: includes/class-fast-index-help-content.php:391
+#: includes/class-fast-index-help-content.php:399
 msgid "Ask your hosting provider to enable the OpenSSL extension for the PHP version your site uses. The system information below shows whether OpenSSL is available."
 msgstr "サイトで使用しているPHPバージョンでOpenSSL拡張機能を有効にするよう、ホスティング会社に依頼してください。下のシステム情報で、OpenSSLが利用可能かどうかを確認できます。"
 
-#: includes/class-fast-index-help-content.php:395
+#: includes/class-fast-index-help-content.php:403
 msgid "Posts are published but nothing appears in History, or it appears much later"
 msgstr "投稿は公開されたのに履歴に何も表示されない、または表示がかなり遅れる"
 
-#: includes/class-fast-index-help-content.php:396
+#: includes/class-fast-index-help-content.php:404
 msgid "Fast Index queues each notification as a WordPress scheduled task (WP-Cron), so saving a post never waits for Google. WP-Cron runs when someone visits the site. If wp-config.php sets DISABLE_WP_CRON to true, WordPress does not start it, and the queue only moves when a real cron job calls wp-cron.php. Sites with very few visits can run late too."
 msgstr "Fast Indexは、各通知をWordPressのスケジュールされたタスク（WP-Cron）としてキューに入れるため、投稿の保存でGoogleを待つことはありません。WP-Cronは誰かがサイトにアクセスしたときに実行されます。wp-config.phpでDISABLE_WP_CRONがtrueに設定されている場合、WordPressはWP-Cronを開始せず、実際のcronジョブがwp-cron.phpを呼び出したときだけキューが進みます。アクセスがごく少ないサイトでも遅れることがあります。"
 
 #. translators: 1: example cron line, 2: example WP-CLI command.
-#: includes/class-fast-index-help-content.php:399
+#: includes/class-fast-index-help-content.php:407
 #, php-format
 msgid "If you disabled WP-Cron on purpose, set up a real cron job on your server that runs every 5 minutes, for example %1$s or, with WP-CLI, %2$s. Otherwise remove DISABLE_WP_CRON from wp-config.php. The system information below shows whether it is set."
 msgstr "WP-Cronを意図的に無効にした場合は、サーバーで5分ごとに実行される実際のcronジョブを設定してください。例：%1$s、WP-CLIを使う場合は%2$s。そうでない場合は、wp-config.phpからDISABLE_WP_CRONを削除してください。設定されているかどうかは、下のシステム情報で確認できます。"
 
-#: includes/class-fast-index-help-content.php:406
+#: includes/class-fast-index-help-content.php:414
 msgid "A post is missing from History"
 msgstr "履歴に投稿が表示されない"
 
-#: includes/class-fast-index-help-content.php:407
+#: includes/class-fast-index-help-content.php:415
 msgid "Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in an excluded category, or when it is not published. Nothing is written to History, and the notification is not repeated, when no key is stored, when every key is resting after an error, or when OpenSSL is missing."
 msgstr "Fast Indexは、ステータスが「停止」の場合、投稿タイプまたはイベント（公開、編集、ゴミ箱）にチェックが入っていない場合、除外するカテゴリーに属している場合、または公開済みでない場合に、投稿をスキップします。キーが保存されていない場合、すべてのキーがエラーの後で休止中の場合、またはOpenSSLがない場合は、履歴には何も書き込まれず、通知も再送されません。"
 
-#: includes/class-fast-index-help-content.php:408
+#: includes/class-fast-index-help-content.php:416
 msgid "Check the settings above. On the settings screen each key shows the last answer from Google; a key in 401, 403 or 429 rests for six hours. After you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches."
 msgstr "上の設定を確認してください。設定画面では、各キーにGoogleからの最新の応答が表示されます。401、403、429になったキーは6時間休止します。原因を解決した後、投稿をもう一度保存すると送信されます。過去の投稿の送信がオンの場合、Googleに届いていない投稿は毎時間のバッチでも拾われます。"
 
-#: includes/class-fast-index-help-content.php:412
-msgid "\"There are no posts to send now\", or old posts are not sent"
-msgstr "「今すぐ送信する投稿はありません」、または過去の投稿が送信されない"
+#. translators: %s: message of the Send Old Posts Now screen.
+#: includes/class-fast-index-help-content.php:422
+#, php-format
+msgid "Old posts are not sent, or the message \"%s\" appears"
+msgstr "過去の投稿が送信されない、またはメッセージ「%s」が表示される"
 
-#: includes/class-fast-index-help-content.php:413
-msgid "The daily number is 0, Status is Passive, the daily number was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance."
-msgstr "1日の数値が0、ステータスが「停止」、直近24時間で1日の数値にすでに達した（新しい投稿もカウントされます）、利用できるキーがない、または対象の投稿がすべて送信済みです。各バッチのサイズはランダムなため、偶然に実行結果が空になることもあります。"
+#: includes/class-fast-index-help-content.php:423 view/run.php:29
+msgid "There are no posts to send now. Check your settings and the daily limit."
+msgstr "今すぐ送信する投稿はありません。設定と1日の上限を確認してください。"
 
-#: includes/class-fast-index-help-content.php:414
-msgid "Check the daily number and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own."
-msgstr "履歴画面で1日の数値とカウンターを確認してください（「待機中の合計」は、Googleにまだ受け付けられていない投稿の数を示します）。後でバッチをもう一度実行してください。バッチは1時間ごとに自動でも実行されます。"
+#: includes/class-fast-index-help-content.php:425
+msgid "The daily limit is 0, Status is Passive, the daily limit was already reached in the last 24 hours (new posts count too), no key is available, or every eligible post was sent. Each batch has a random size, so a run can also be empty by chance."
+msgstr "1日の上限が0、ステータスが「停止」、直近24時間で1日の上限にすでに達した（新しい投稿もカウントされます）、利用できるキーがない、または対象の投稿がすべて送信済みです。各バッチのサイズはランダムなため、偶然に実行結果が空になることもあります。"
 
-#: includes/class-fast-index-help-content.php:418
-msgid "A notice about keys stored in a public folder, or \"Fast Index could not finish moving your service account keys\""
-msgstr "公開フォルダーに保存されたキーに関する通知、または「Fast Indexはサービスアカウントキーをデータベースへ移動する処理を完了できませんでした」"
+#: includes/class-fast-index-help-content.php:426
+msgid "Check the daily limit and the counters on the History screen (Total Waiting shows how many posts have not been accepted by Google yet). Run the batch again later; it also runs every hour on its own."
+msgstr "履歴画面で1日の上限とカウンターを確認してください（「待機中の合計」は、Googleにまだ受け付けられていない投稿の数を示します）。後でバッチをもう一度実行してください。バッチは1時間ごとに自動でも実行されます。"
 
-#: includes/class-fast-index-help-content.php:419
+#. translators: %s: title of the second notice.
+#: includes/class-fast-index-help-content.php:432
+#, php-format
+msgid "A notice about keys stored in a public folder, or \"%s\""
+msgstr "公開フォルダーに保存されたキーに関する通知、または「%s」"
+
+#: includes/class-fast-index-help-content.php:433
+#: includes/class-fast-index-notices.php:240
+msgid "Fast Index could not finish moving your service account keys to the database."
+msgstr "Fast Indexはサービスアカウントキーをデータベースへ移動する処理を完了できませんでした。"
+
+#: includes/class-fast-index-help-content.php:435
 msgid "Version 2.x saved key files in the uploads folder, where anyone who knew the address could download them. Version 3 moves each key into the database and deletes the file. The first notice recommends replacing those keys. The second notice means one file could not be read, found or deleted; it names the file."
 msgstr "バージョン2.xはキーファイルをuploadsフォルダーに保存していたため、アドレスを知っている人なら誰でもダウンロードできました。バージョン3は各キーをデータベースに移動し、ファイルを削除します。1つ目の通知は、それらのキーの交換をおすすめするものです。2つ目の通知は、1つのファイルを読み取れなかった、見つからなかった、または削除できなかったことを意味し、そのファイル名が表示されます。"
 
-#: includes/class-fast-index-help-content.php:420
+#: includes/class-fast-index-help-content.php:436
 msgid "Create a new JSON key in Google Cloud, upload it on the settings screen (the same email address replaces the stored key), then delete the old key on the Keys tab of the service account in Google Cloud. If a file could not be deleted, delete it from the uploads folder yourself. Both notices have a link that hides them for good."
 msgstr "Google Cloudで新しいJSONキーを作成し、設定画面でアップロードし（同じメールアドレスのキーは保存済みのキーを置き換えます）、その後Google Cloudのサービスアカウントの「鍵」タブで古いキーを削除してください。ファイルを削除できなかった場合は、uploadsフォルダーから自分で削除してください。どちらの通知にも、通知を完全に非表示にするリンクがあります。"
 
-#: includes/class-fast-index-help-content.php:424
+#: includes/class-fast-index-help-content.php:440
 msgid "On a multisite network, one site sends and another does not"
 msgstr "マルチサイトネットワークで、あるサイトは送信するのに別のサイトは送信しない"
 
-#: includes/class-fast-index-help-content.php:425
+#: includes/class-fast-index-help-content.php:441
 msgid "Settings, keys, history and the schedule belong to each site. Network activation sets up every site, but a key uploaded on one site is not shared with the others, and Fast Index has no network admin screen."
 msgstr "設定、キー、履歴、スケジュールはサイトごとに保持されます。ネットワーク有効化はすべてのサイトを設定しますが、1つのサイトでアップロードしたキーはほかのサイトと共有されず、Fast Indexにはネットワーク管理画面がありません。"
 
-#: includes/class-fast-index-help-content.php:426
+#: includes/class-fast-index-help-content.php:442
 msgid "Open Fast Index on each site and upload a key there. The same key file may be used on several sites. Their notifications then share the quota of the key's Google Cloud project."
 msgstr "各サイトでFast Indexを開き、そこでキーをアップロードしてください。同じキーファイルを複数のサイトで使用できます。その場合、それらのサイトの通知は、キーのGoogle Cloudプロジェクトの割り当てを共有します。"
 
-#: includes/class-fast-index-help-content.php:430
+#: includes/class-fast-index-help-content.php:446
 msgid "An option is locked, or asks me to upgrade to premium"
 msgstr "オプションがロックされている、またはプレミアムへのアップグレードを求められる"
 
-#: includes/class-fast-index-help-content.php:431
+#: includes/class-fast-index-help-content.php:447
 msgid "In this version, some options need the premium plan. Settings explained says which ones. Fast Index uses Freemius for the plan."
 msgstr "このバージョンでは、一部のオプションにプレミアムプランが必要です。どのオプションかは「設定の説明」に記載しています。Fast Indexはプランの管理にFreemiusを使用しています。"
 
-#: includes/class-fast-index-help-content.php:432
+#: includes/class-fast-index-help-content.php:448
 msgid "Use the free options, or see the FAQ entry about Freemius."
 msgstr "無料のオプションを使うか、FAQのFreemiusに関する項目をご覧ください。"
 
-#: includes/class-fast-index-help-content.php:446
+#: includes/class-fast-index-help-content.php:462
 msgid "What does Fast Index send to Google?"
 msgstr "Fast IndexはGoogleに何を送信しますか？"
 
 #. translators: 1: notification type "URL_UPDATED", 2: notification type "URL_DELETED", 3: link to Google's privacy policy.
-#: includes/class-fast-index-help-content.php:449
+#: includes/class-fast-index-help-content.php:465
 #, php-format
 msgid "Only the address (URL) of a post and the kind of notification: %1$s when a post is published or changed, %2$s when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. Your own History keeps the title, address and Google's answer in your database. See also %3$s."
 msgstr "投稿のアドレス（URL）と通知の種類だけです。投稿が公開または変更されたときは%1$s、削除されたときは%2$sです。タイトル、コンテンツ、訪問者、データベースは送信されません。誰がリクエストしているかを証明するため、Fast IndexはサービスアカウントのメールアドレスとキーIDを含む署名付きリクエストも送信しますが、秘密鍵そのものがサイトの外に出ることはありません。リクエストの送信先はoauth2.googleapis.comとindexing.googleapis.comです。お使いのサイトの「履歴」には、タイトル、アドレス、Googleの応答がデータベースに保存されます。%3$sもご覧ください。"
 
-#: includes/class-fast-index-help-content.php:452
+#: includes/class-fast-index-help-content.php:468
 msgid "Google's privacy policy"
 msgstr "Googleのプライバシーポリシー"
 
-#: includes/class-fast-index-help-content.php:457
+#: includes/class-fast-index-help-content.php:473
 msgid "Will Google index every page I publish right away?"
 msgstr "公開したページはすべてGoogleがすぐにインデックスしますか？"
 
 #. translators: 1: quoted sentence from Google's documentation, 2: link to Google's documentation.
-#: includes/class-fast-index-help-content.php:460
+#: includes/class-fast-index-help-content.php:476
 #, php-format
 msgid "No, and Fast Index cannot promise it. Google says: %1$s For other pages, such as ordinary posts or products, Google may accept the notification and answer 200, but its documentation does not promise that the page will be crawled or indexed, or that this happens sooner. A 200 only means that, in Google's words, it \"may try to recrawl this URL soon\". Google also checks every submission for spam and may revoke access for abuse. Keep your sitemap and Search Console as they are. Details: %2$s."
 msgstr "いいえ。Fast Indexもそれを約束できません。Googleは次のように述べています。%1$s 通常の投稿や商品など、それ以外のページについては、Googleが通知を受け付けて200を返すことはありますが、ドキュメントには、そのページがクロールまたはインデックスされること、あるいはそれが早まることを約束する記述はありません。200が意味するのは、Googleの言葉を借りれば「このURLをまもなく再クロールする可能性がある」ということだけです。Googleはまた、すべての送信内容をスパムについてチェックし、不正使用があればアクセスを取り消すことがあります。サイトマップとSearch Consoleは今のまま維持してください。詳細：%2$s。"
 
-#: includes/class-fast-index-help-content.php:462
+#: includes/class-fast-index-help-content.php:478
 msgid "Using the Indexing API"
 msgstr "Indexing APIの使用"
 
-#: includes/class-fast-index-help-content.php:467
+#: includes/class-fast-index-help-content.php:483
 msgid "Which post types does Fast Index send?"
 msgstr "Fast Indexはどの投稿タイプを送信しますか？"
 
-#: includes/class-fast-index-help-content.php:468
+#: includes/class-fast-index-help-content.php:484
 msgid "Every public post type of your site except media attachments can be chosen in the settings: posts, pages and custom types. Only published content is sent; drafts, pending and private posts are not. By default only Posts are checked."
 msgstr "設定では、メディア添付ファイルを除くサイトのすべての公開投稿タイプ（投稿、固定ページ、カスタムタイプ）を選択できます。送信されるのは公開済みのコンテンツのみで、下書き、レビュー待ち、非公開の投稿は送信されません。デフォルトでは「投稿」だけにチェックが入っています。"
 
-#: includes/class-fast-index-help-content.php:472
+#: includes/class-fast-index-help-content.php:488
 msgid "What happens when I trash or delete a post?"
 msgstr "投稿をゴミ箱に移動または削除するとどうなりますか？"
 
 #. translators: 1: notification type "URL_DELETED", 2: link to Google's documentation.
-#: includes/class-fast-index-help-content.php:475
+#: includes/class-fast-index-help-content.php:491
 #, php-format
 msgid "If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as %1$s with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal (%2$s)."
 msgstr "設定で「ゴミ箱」にチェックが入っている場合、公開済みの投稿をゴミ箱に移動した場合、またはゴミ箱を経由せずに削除した場合は、それまでのアドレスで%1$sとして通知されます。その後ゴミ箱から完全に削除しても、それ以上は何も送信されません。公開済みの投稿を下書きや非公開に変更しても通知されません。削除を送信する際、Googleはそのアドレスが404または410を返すか、noindexタグが付いていることを求めています（%2$s）。"
 
-#: includes/class-fast-index-help-content.php:477
+#: includes/class-fast-index-help-content.php:493
 msgid "Google's documentation"
 msgstr "Googleのドキュメント"
 
-#: includes/class-fast-index-help-content.php:482
+#: includes/class-fast-index-help-content.php:498
 msgid "Can Fast Index send my old posts?"
 msgstr "Fast Indexは過去の投稿を送信できますか？"
 
-#: includes/class-fast-index-help-content.php:483
-msgid "Yes. Set a daily number under Daily Old Content Post. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily number is reached. The number counts all successful notifications of the last 24 hours. \"Send Old Posts Now\" runs one batch immediately, and History shows how many posts are still waiting. Keep the number within Google's daily quota."
-msgstr "はい。「過去の投稿の1日あたり送信数」に1日の数値を設定します。Fast Indexは毎時間、Googleがまだ受け付けていない公開済みの投稿を新しい順に、ランダムな少量のバッチで送信し、1日の数値に達するまで続けます。この数値は、直近24時間のすべての成功した通知をカウントします。「過去の投稿を今すぐ送信」を押すと、1回分のバッチがすぐに実行され、「履歴」にはまだ待機している投稿の数が表示されます。数値はGoogleの1日の割り当ての範囲内に収めてください。"
+#. translators: 1: setting name "Daily Limit for Old Posts", 2: menu entry "Send Old Posts Now".
+#: includes/class-fast-index-help-content.php:501
+#, php-format
+msgid "Yes. Set a daily limit under %1$s. Every hour Fast Index sends a small random batch of published posts that Google has not accepted yet, newest first, until the daily limit is reached. The limit counts all successful notifications of the last 24 hours. %2$s runs one batch immediately, and History shows how many posts are still waiting. Keep the limit within Google's daily quota."
+msgstr "はい。%1$sに1日の上限を設定します。Fast Indexは毎時間、Googleがまだ受け付けていない公開済みの投稿を新しい順に、ランダムな少量のバッチで送信し、1日の上限に達するまで続けます。この上限は、直近24時間のすべての成功した通知をカウントします。%2$sを押すと、1回分のバッチがすぐに実行され、「履歴」にはまだ待機している投稿の数が表示されます。上限はGoogleの1日の割り当ての範囲内に収めてください。"
 
-#: includes/class-fast-index-help-content.php:487
+#: includes/class-fast-index-help-content.php:508
 msgid "How many URLs can I send per day?"
 msgstr "1日に送信できるURLの数はいくつですか？"
 
 #. translators: %s: link to Google's quota page.
-#: includes/class-fast-index-help-content.php:490
+#: includes/class-fast-index-help-content.php:511
 #, php-format
 msgid "Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count (%s). Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it lets that key rest for six hours."
 msgstr "Googleのデフォルトは、Google Cloudプロジェクトごとに1日200件の公開リクエストで、更新と削除の両方の通知がカウントされます（%s）。Googleは、これを超える利用には承認が必要であり、割り当てはドキュメントの品質に基づいて増減することがあると述べています。Fast Indexは割り当てを事前に把握できません。Googleが429を返すと、そのキーを6時間休止させます。"
 
-#: includes/class-fast-index-help-content.php:496
+#: includes/class-fast-index-help-content.php:517
 msgid "Can I use more than one service account?"
 msgstr "複数のサービスアカウントを使用できますか？"
 
 #. translators: %s: link to Google's quickstart page.
-#: includes/class-fast-index-help-content.php:499
+#: includes/class-fast-index-help-content.php:520
 #, php-format
-msgid "With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Please note: Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it."
+msgid "With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not resting, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key rests for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without resting a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it."
 msgstr "プレミアムプランでは複数のキーをアップロードできます。通知ごとに、Fast Indexは休止中でないキーの中からランダムな順序で1つを選びます。Googleが401、403、429を返した場合（またはキーが拒否された場合）、そのキーは6時間休止し、次のキーが試されます。その他のエラー（400、5xx、応答なしなど）では、キーを休止させずに試行を終了します。ご注意ください。Googleの割り当てはキーごとではなくプロジェクトごとにカウントされるため、同じプロジェクトのキーは1日200件を共有します。またGoogleは、複数のアカウントの使用による利用割り当ての超過を含め、APIを不正に使用しようとするとアクセスが取り消される場合があると記載しています（%s）。追加のキーは、信頼性の向上や、別々のプロジェクトにあるサイトのために使い、さらに必要な場合はGoogleに割り当ての追加を依頼してください。"
 
-#: includes/class-fast-index-help-content.php:500
+#: includes/class-fast-index-help-content.php:521
 msgid "quickstart"
 msgstr "クイックスタート"
 
-#: includes/class-fast-index-help-content.php:505
+#: includes/class-fast-index-help-content.php:526
 msgid "Where is my service account key stored, and is it safe?"
 msgstr "サービスアカウントのキーはどこに保存されますか？安全ですか？"
 
-#: includes/class-fast-index-help-content.php:506
+#: includes/class-fast-index-help-content.php:527
 msgid "The key is kept in your WordPress database (an option that is not loaded on every request). It is never written to the uploads folder or any other file, and the screens show only the email address and key ID. Because the service account is an Owner of your Search Console property, treat the key like a password. If it may have leaked, delete the key in Google Cloud and remove the service account from the users of your Search Console property."
 msgstr "キーはWordPressのデータベースに保存されます（リクエストごとには読み込まれないオプション）。uploadsフォルダーなどのファイルには書き込まれず、画面にはメールアドレスとキーIDだけが表示されます。サービスアカウントはSearch Consoleプロパティのオーナーなので、キーはパスワードと同様に扱ってください。漏えいした可能性がある場合は、Google Cloudでキーを削除し、Search Consoleプロパティのユーザーからサービスアカウントを削除してください。"
 
-#: includes/class-fast-index-help-content.php:510
+#: includes/class-fast-index-help-content.php:531
 msgid "What happens to my data if I deactivate or delete Fast Index?"
 msgstr "Fast Indexを無効化または削除した場合、データはどうなりますか？"
 
-#: includes/class-fast-index-help-content.php:511
-msgid "Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If \"Delete data on uninstall\" was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there."
-msgstr "無効化するとスケジュールされたタスクは削除されますが、それ以外はすべて保持されます。プラグインを削除すると一時データ（キューのタスク、キャッシュ、ロック）は削除されますが、デフォルトでは設定、キー、履歴は保持されるため、再インストールすると続きから使えます。プラグインを削除する前に「アンインストール時にデータを削除」にチェックを入れていた場合は、設定、キー、履歴もネットワークのすべてのサイトで削除されます。Freemiusが保持する記録には影響せず、キーはGoogle Cloudで削除するまで有効なままです。"
+#. translators: %s: setting name "Delete data on uninstall".
+#: includes/class-fast-index-help-content.php:534
+#, php-format
+msgid "Deactivating removes the scheduled tasks and keeps everything else. Deleting the plugin removes temporary data (queued tasks, caches, locks) and, by default, keeps your settings, keys and history, so a reinstall continues where you left off. If %s was checked before you deleted the plugin, settings, keys and history are removed too, on every site of a network. Records kept by Freemius are not touched, and the key stays valid in Google Cloud until you delete it there."
+msgstr "無効化するとスケジュールされたタスクは削除されますが、それ以外はすべて保持されます。プラグインを削除すると一時データ（キューのタスク、キャッシュ、ロック）は削除されますが、デフォルトでは設定、キー、履歴は保持されるため、再インストールすると続きから使えます。プラグインを削除する前に%sにチェックを入れていた場合は、設定、キー、履歴もネットワークのすべてのサイトで削除されます。Freemiusが保持する記録には影響せず、キーはGoogle Cloudで削除するまで有効なままです。"
 
-#: includes/class-fast-index-help-content.php:515
+#: includes/class-fast-index-help-content.php:540
 msgid "I am upgrading from version 2.2. What happens to my keys?"
 msgstr "バージョン2.2からアップグレードします。キーはどうなりますか？"
 
-#: includes/class-fast-index-help-content.php:516
+#: includes/class-fast-index-help-content.php:541
 msgid "On the first page load after the update, Fast Index reads each key file that version 2.x saved in the uploads folder, checks it, stores it in the database and deletes the file. Your settings and history are kept, and the old ten-minute scheduled task is replaced by an hourly one. Earlier versions kept the files in a folder that anyone could reach, so a notice recommends creating new keys and deleting the old ones in Google Cloud (see Troubleshooting). If a file cannot be moved, a notice names it, and you can upload that key again."
 msgstr "更新後の最初のページ読み込み時に、Fast Indexはバージョン2.xがuploadsフォルダーに保存した各キーファイルを読み取って検証し、データベースに保存してファイルを削除します。設定と履歴は保持され、以前の10分間隔のスケジュールタスクは1時間ごとのタスクに置き換えられます。以前のバージョンでは誰でもアクセスできるフォルダーにファイルを保存していたため、新しいキーを作成してGoogle Cloudで古いキーを削除するよう勧める通知が表示されます（「トラブルシューティング」を参照）。ファイルを移動できない場合は通知でそのファイルが示されるので、そのキーをもう一度アップロードできます。"
 
-#: includes/class-fast-index-help-content.php:520
+#: includes/class-fast-index-help-content.php:545
 msgid "Does Fast Index work on multisite?"
 msgstr "Fast Indexはマルチサイトで動作しますか？"
 
-#: includes/class-fast-index-help-content.php:521
+#: includes/class-fast-index-help-content.php:546
 msgid "Yes. You can activate it for the whole network or for single sites; sites created later are set up automatically after a network activation. Settings, keys, history and the schedule belong to each site, so upload a key on every site that should send. There is no network admin screen."
 msgstr "はい。ネットワーク全体でも個別のサイトでも有効化できます。ネットワーク有効化の後に作成されたサイトは自動的に設定されます。設定、キー、履歴、スケジュールはサイトごとに保持されるため、送信するすべてのサイトでキーをアップロードしてください。ネットワーク管理画面はありません。"
 
-#: includes/class-fast-index-help-content.php:525
+#: includes/class-fast-index-help-content.php:550
 msgid "Does Fast Index work on multilingual sites?"
 msgstr "Fast Indexは多言語サイトで動作しますか？"
 
-#: includes/class-fast-index-help-content.php:526
+#: includes/class-fast-index-help-content.php:551
 msgid "Fast Index does not read language plugins. It sends the address that WordPress gives for the post that was saved, so a translation that is stored as its own post is sent when that post changes. The service account must be an Owner of a Search Console property that covers the addresses of every language, for example a Domain property. The plugin's own screens follow the language of your site or user profile."
 msgstr "Fast Indexは言語プラグインを読み取りません。保存された投稿についてWordPressが返すアドレスを送信するため、独立した投稿として保存されている翻訳は、その投稿が変更されたときに送信されます。サービスアカウントは、すべての言語のアドレスをカバーするSearch Consoleプロパティ（たとえばドメインプロパティ）のオーナーである必要があります。プラグイン自体の画面は、サイトまたはユーザープロフィールの言語に従います。"
 
-#: includes/class-fast-index-help-content.php:530
+#: includes/class-fast-index-help-content.php:555
 msgid "Does Fast Index support Bing or IndexNow?"
 msgstr "Fast IndexはBingやIndexNowに対応していますか？"
 
-#: includes/class-fast-index-help-content.php:531
+#: includes/class-fast-index-help-content.php:556
 msgid "No. Fast Index talks only to the Google Indexing API."
 msgstr "いいえ。Fast IndexはGoogle Indexing APIとのみ通信します。"
 
-#: includes/class-fast-index-help-content.php:535
+#: includes/class-fast-index-help-content.php:560
 msgid "What is Freemius, and do I have to connect an account?"
 msgstr "Freemiusとは何ですか？アカウントを接続する必要はありますか？"
 
 #. translators: %s: link to the Freemius privacy policy.
-#: includes/class-fast-index-help-content.php:538
+#: includes/class-fast-index-help-content.php:563
 #, php-format
-msgid "Fast Index includes the Freemius SDK, a service for licences and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question."
+msgid "Fast Index includes the Freemius SDK, a service for licenses and optional account connection. It decides which options are unlocked (see Settings explained). Freemius may show its own screens or notices in the admin: a license screen (with a link to continue with the free version) and an opt-in screen with a Skip button, whose text says that the plugin still works if you skip. What the SDK collects is described on those screens and in %s. The code of Fast Index itself sends only addresses to Google, as described in the first question."
 msgstr "Fast Indexには、ライセンスと任意のアカウント接続のためのサービスであるFreemius SDKが含まれています。どのオプションが利用可能になるかは、このSDKが決めます（「設定の説明」を参照）。Freemiusは、管理画面に独自の画面や通知を表示することがあります。ライセンス画面（無料版で続行するリンク付き）と、スキップボタンのあるオプトイン画面で、そこにはスキップしてもプラグインは動作すると書かれています。SDKが収集する内容は、それらの画面と%sに記載されています。Fast Index自体のコードがGoogleに送信するのはアドレスだけです（最初の質問で説明したとおりです）。"
 
-#: includes/class-fast-index-help-content.php:539
+#: includes/class-fast-index-help-content.php:564
 msgid "the Freemius privacy policy"
 msgstr "Freemiusのプライバシーポリシー"
 
-#: includes/class-fast-index-help-content.php:544
+#: includes/class-fast-index-help-content.php:569
 msgid "Does Fast Index slow down saving posts?"
 msgstr "Fast Indexで投稿の保存が遅くなりますか？"
 
-#: includes/class-fast-index-help-content.php:545
+#: includes/class-fast-index-help-content.php:570
 msgid "No. Saving a post only queues a scheduled task. The request to Google is made later by WP-Cron, with a time limit of 15 seconds, and a batch of old posts stops after about 20 seconds."
 msgstr "いいえ。投稿を保存するときは、スケジュールされたタスクをキューに入れるだけです。Googleへのリクエストは後でWP-Cronが15秒の制限時間で行い、過去の投稿のバッチは約20秒で停止します。"
 
-#: includes/class-fast-index-help-content.php:566
+#: includes/class-fast-index-help-content.php:591
 msgid "Read the Troubleshooting entry that matches the code in History, and the FAQ."
 msgstr "履歴に表示されたコードに対応する「トラブルシューティング」の項目とFAQをお読みください。"
 
-#: includes/class-fast-index-help-content.php:567
+#: includes/class-fast-index-help-content.php:592
 msgid "On the settings screen, look at the last answer shown next to each key."
 msgstr "設定画面で、各キーの横に表示されている最新の応答を確認してください。"
 
-#: includes/class-fast-index-help-content.php:568
+#: includes/class-fast-index-help-content.php:593
 msgid "In Search Console, check that the service account is an Owner of a property that matches your site address exactly."
 msgstr "Search Consoleで、サービスアカウントがサイトのアドレスと完全に一致するプロパティのオーナーであることを確認してください。"
 
-#: includes/class-fast-index-help-content.php:569
+#: includes/class-fast-index-help-content.php:594
 msgid "If WP_DEBUG_LOG is on, look in wp-content/debug.log for lines that mention fast-index."
 msgstr "WP_DEBUG_LOGがオンの場合は、wp-content/debug.logでfast-indexに言及している行を探してください。"
 
-#: includes/class-fast-index-help-content.php:570
+#: includes/class-fast-index-help-content.php:595
 msgid "Search the support forum for your question first."
 msgstr "まずサポートフォーラムで質問内容を検索してください。"
 
-#: includes/class-fast-index-help-content.php:571
+#: includes/class-fast-index-help-content.php:596
 msgid "When you write, say what you expected and what happened, and paste the system information below. Never post your JSON key file or any part of the private key."
 msgstr "問い合わせるときは、期待していたことと実際に起きたことを伝え、下のシステム情報を貼り付けてください。JSONキーファイルや秘密鍵の一部は絶対に投稿しないでください。"
 
-#: includes/class-fast-index-help-content.php:583
+#: includes/class-fast-index-help-content.php:608
 msgid "Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen."
 msgstr "Fast IndexがGoogleに送信する内容を選択し、サービスアカウントキーをアップロードします。各オプションについては、フィールドの下と、「ヘルプとFAQ」画面の「設定の説明」で説明しています。"
 
-#: includes/class-fast-index-help-content.php:584
+#: includes/class-fast-index-help-content.php:609
 msgid "Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting."
 msgstr "合計と、Googleからの応答付きの最新の通知を表示します。200 OKは、Googleが通知を受け付けたことを意味し、ページがインデックスされたという意味ではありません。それ以外のコードについては「トラブルシューティング」で説明しています。"
 
-#: includes/class-fast-index-help-content.php:585
-msgid "Sends one batch of old posts now, within the daily number set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour."
-msgstr "設定画面で設定した1日の数値の範囲内で、過去の投稿の1回分のバッチを今すぐ送信します。バッチのサイズはランダムなため、何も送信されないこともあります。同じバッチは1時間ごとにも実行されます。"
+#: includes/class-fast-index-help-content.php:610
+msgid "Sends one batch of old posts now, within the daily limit set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour."
+msgstr "設定画面で設定した1日の上限の範囲内で、過去の投稿の1回分のバッチを今すぐ送信します。バッチのサイズはランダムなため、何も送信されないこともあります。同じバッチは1時間ごとにも実行されます。"
 
-#: includes/class-fast-index-help-content.php:586
+#: includes/class-fast-index-help-content.php:611
 msgid "Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support."
 msgstr "ステップごとのセットアップ手順、すべての設定の説明、トラブルシューティング、よくある質問、サポートを依頼するときに添付するシステム情報です。"
 
-#: includes/class-fast-index-help-content.php:591
+#: includes/class-fast-index-help-content.php:616
 msgid "About this screen"
 msgstr "この画面について"
 
-#: includes/class-fast-index-help-content.php:592
-#: view/settings.php:239
+#: includes/class-fast-index-help-content.php:617 view/settings.php:239
 msgid "Open Help & FAQ"
 msgstr "ヘルプとFAQを開く"
 
-#: includes/class-fast-index-help-content.php:602
+#: includes/class-fast-index-help-content.php:627
 msgid "For more information:"
 msgstr "詳しくは次をご覧ください："
 
-#: includes/class-fast-index-help-content.php:604
+#: includes/class-fast-index-help-content.php:629
 msgid "Support forum"
 msgstr "サポートフォーラム"
 
-#: includes/class-fast-index-help-content.php:627
+#: includes/class-fast-index-help-content.php:652
 msgid "(external link, opens in a new tab)"
 msgstr "（外部リンク、新しいタブで開きます）"
 
@@ -951,8 +960,7 @@ msgstr "プレミアムプランが有効"
 msgid "Status setting"
 msgstr "ステータス設定"
 
-#: includes/class-fast-index-help.php:175
-#: view/settings.php:52
+#: includes/class-fast-index-help.php:175 view/settings.php:52
 msgid "Passive"
 msgstr "停止"
 
@@ -998,13 +1006,11 @@ msgstr "最新の通知"
 msgid "Key %1$d: %2$s"
 msgstr "キー%1$d：%2$s"
 
-#: includes/class-fast-index-help.php:248
-#: view/settings.php:179
+#: includes/class-fast-index-help.php:248 view/settings.php:179
 msgid "Not used yet"
 msgstr "未使用"
 
-#: includes/class-fast-index-help.php:264
-#: view/history.php:55
+#: includes/class-fast-index-help.php:264 view/history.php:55
 msgid "Nothing was sent yet."
 msgstr "まだ何も送信されていません。"
 
@@ -1014,12 +1020,12 @@ msgid "The file could not be uploaded."
 msgstr "ファイルをアップロードできませんでした。"
 
 #: includes/class-fast-index-log.php:64
-msgid "Fast Index Logs"
-msgstr "Fast Indexログ"
+msgid "Fast Index History"
+msgstr "Fast Indexの履歴"
 
 #: includes/class-fast-index-log.php:65
-msgid "Fast Index Log"
-msgstr "Fast Indexログ"
+msgid "Fast Index History Entry"
+msgstr "Fast Indexの履歴エントリー"
 
 #: includes/class-fast-index-notices.php:223
 msgid "Fast Index:"
@@ -1028,10 +1034,6 @@ msgstr "Fast Index："
 #: includes/class-fast-index-notices.php:224
 msgid "In earlier versions, service account key files were stored in a publicly accessible folder; for security, we recommend creating a new key in Google Cloud and revoking the old one."
 msgstr "以前のバージョンでは、サービスアカウントのキーファイルが公開アクセス可能なフォルダーに保存されていました。セキュリティのため、Google Cloudで新しいキーを作成し、古いキーを取り消すことをおすすめします。"
-
-#: includes/class-fast-index-notices.php:240
-msgid "Fast Index could not finish moving your service account keys to the database."
-msgstr "Fast Indexはサービスアカウントキーをデータベースへ移動する処理を完了できませんでした。"
 
 #: includes/class-fast-index-notices.php:268
 msgid "Do not show this again"
@@ -1075,41 +1077,37 @@ msgstr "%1$sのキーファイル（%2$s）はuploadsフォルダーの外にあ
 msgid "Choose a valid status."
 msgstr "有効なステータスを選択してください。"
 
-#: includes/class-fast-index-settings.php:191
+#: includes/class-fast-index-settings.php:191 view/settings.php:61
 msgid "Select at least one post type."
 msgstr "投稿タイプを1つ以上選択してください。"
 
 #. translators: %s: highest accepted number.
 #: includes/class-fast-index-settings.php:196
 #, php-format
-msgid "The daily number of old posts must be a whole number from 0 to %s."
-msgstr "過去の投稿の1日あたりの数は、0から%sまでの整数で指定してください。"
+msgid "The daily limit for old posts must be a whole number from 0 to %s."
+msgstr "過去の投稿の1日の上限は、0から%sまでの整数で指定してください。"
 
 #: view/help.php:18
-msgid "Everything you need to set up Fast Index and to solve the most common problems. Please read it before you write to support: the answer is most often here."
+msgid "Everything you need to set up Fast Index and to solve the most common problems. Read it before you write to support: the answer is most often here."
 msgstr "Fast Indexのセットアップと、よくある問題の解決に必要な情報をまとめています。サポートに問い合わせる前にお読みください。答えはたいていここにあります。"
 
 #: view/help.php:20
 msgid "Help sections"
 msgstr "ヘルプのセクション"
 
-#: view/help.php:56
-#: view/help.php:65
+#: view/help.php:56 view/help.php:65
 msgid "Setting"
 msgstr "設定"
 
-#: view/help.php:57
-#: view/help.php:66
+#: view/help.php:57 view/help.php:66
 msgid "What it does"
 msgstr "機能"
 
-#: view/help.php:58
-#: view/help.php:67
+#: view/help.php:58 view/help.php:67
 msgid "Default"
 msgstr "デフォルト"
 
-#: view/help.php:59
-#: view/help.php:68
+#: view/help.php:59 view/help.php:68
 msgid "Change it when"
 msgstr "変更するタイミング"
 
@@ -1126,7 +1124,7 @@ msgid "What to do:"
 msgstr "対処法："
 
 #: view/help.php:111
-msgid "Before you write to support, please go through this list:"
+msgid "Before you write to support, go through this list:"
 msgstr "サポートに問い合わせる前に、次のリストをご確認ください。"
 
 #: view/help.php:118
@@ -1154,8 +1152,8 @@ msgid "Deleted"
 msgstr "削除済み"
 
 #: view/history.php:21
-msgid "Simple Report"
-msgstr "簡易レポート"
+msgid "Summary"
+msgstr "概要"
 
 #: view/history.php:26
 msgid "Total Sent"
@@ -1186,8 +1184,8 @@ msgid "Post"
 msgstr "投稿"
 
 #: view/history.php:73
-msgid "GO POST"
-msgstr "投稿へ"
+msgid "View Post"
+msgstr "投稿を表示"
 
 #: view/history.php:79
 msgid "Pagination"
@@ -1202,16 +1200,12 @@ msgid "Next"
 msgstr "次へ"
 
 #: view/run.php:16
-msgid "Sends one batch of old posts now, within the daily limit set on the settings page. The same batch also runs every hour."
-msgstr "設定ページで設定した1日の上限の範囲内で、過去の投稿の1回分のバッチを今すぐ送信します。同じバッチは1時間ごとにも実行されます。"
+msgid "Sends one batch of old posts now, within the daily limit set on the settings screen. The same batch also runs every hour."
+msgstr "設定画面で設定した1日の上限の範囲内で、過去の投稿の1回分のバッチを今すぐ送信します。同じバッチは1時間ごとにも実行されます。"
 
 #: view/run.php:21
 msgid "Send now"
 msgstr "今すぐ送信"
-
-#: view/run.php:29
-msgid "There are no posts to send now. Check your settings and the daily limit."
-msgstr "今すぐ送信する投稿はありません。設定と1日の上限を確認してください。"
 
 #: view/settings.php:16
 msgid "Publish"
@@ -1225,33 +1219,34 @@ msgstr "編集"
 msgid "Trash"
 msgstr "ゴミ箱"
 
-#: view/settings.php:47
-msgid "Important choice for the plugin work"
-msgstr "プラグインの動作にとって重要な選択"
+#: view/settings.php:33
+msgctxt "Heading of the Fast Index settings screen"
+msgid "Settings"
+msgstr "設定"
 
-#: view/settings.php:61
-msgid "Select minimum one option"
-msgstr "1つ以上のオプションを選択してください"
+#: view/settings.php:47
+msgid "Switch sending on or off."
+msgstr "送信のオンとオフを切り替えます。"
 
 #: view/settings.php:80
-msgid "How many old contents should be sent per day?"
-msgstr "過去のコンテンツを1日に何件送信しますか？"
+msgid "Number of old posts to send per day."
+msgstr "1日に送信する過去の投稿の件数です。"
 
 #: view/settings.php:95
-msgid "Which status happen should content be sent?"
-msgstr "どのステータスのときにコンテンツを送信しますか？"
+msgid "Notify Google when a post is published, edited or trashed."
+msgstr "投稿が公開、編集、ゴミ箱への移動のいずれかになったときに、Googleへ通知します。"
 
 #: view/settings.php:114
-msgid "Select which you want to exclude"
-msgstr "除外するものを選択してください"
+msgid "Select the categories to exclude."
+msgstr "除外するカテゴリーを選択してください。"
 
 #: view/settings.php:133
-msgid "Delete all plugin data (settings, keys and log) when the plugin is deleted. This cannot be undone."
-msgstr "プラグインの削除時に、すべてのプラグインデータ（設定、キー、ログ）を削除します。この操作は元に戻せません。"
+msgid "Delete all plugin data (settings, keys and history) when the plugin is deleted. This cannot be undone."
+msgstr "プラグインの削除時に、すべてのプラグインデータ（設定、キー、履歴）を削除します。この操作は元に戻せません。"
 
 #: view/settings.php:143
-msgid "Rate Us on WordPress"
-msgstr "WordPressで評価する"
+msgid "Rate Fast Index on WordPress.org"
+msgstr "Fast IndexをWordPress.orgで評価する"
 
 #. translators: %s: ID of the service account key.
 #: view/settings.php:174
@@ -1264,12 +1259,12 @@ msgid "Delete"
 msgstr "削除"
 
 #: view/settings.php:202
-msgid "The key file is read and stored in the database; it is not saved in the uploads folder. Only the client email and the key ID are shown here."
-msgstr "キーファイルは読み取られてデータベースに保存され、uploadsフォルダーには保存されません。ここに表示されるのはクライアントのメールアドレスとキーIDだけです。"
+msgid "The key file is read and stored in the database; it is not saved in the uploads folder. Only the email address and the key ID are shown here."
+msgstr "キーファイルは読み取られてデータベースに保存され、uploadsフォルダーには保存されません。ここに表示されるのはメールアドレスとキーIDだけです。"
 
-#: view/settings.php:210
-msgid "If you wanna upload multiple and more service account"
-msgstr "複数のサービスアカウントをアップロードする場合"
+#: view/settings.php:212
+msgid "Upgrade to Premium"
+msgstr "プレミアムにアップグレード"
 
 #: view/settings.php:237
 msgid "Setting up for the first time, or something does not work? Step-by-step instructions, an explanation of every setting, solutions to common problems and answers to frequently asked questions are in Help & FAQ."
