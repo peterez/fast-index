@@ -342,8 +342,22 @@
 	color: var(--cdo-text-muted);
 }
 
+.cdo-ui .cdo-card > :first-child {
+	margin-block-start: 0;
+}
+
 .cdo-ui .cdo-card > :last-child {
 	margin-block-end: 0;
+}
+
+.cdo-ui .cdo-card > h2 {
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* An introduction paragraph between the band and the first block. */
+.cdo-ui > .cdo-description {
+	margin: 0 0 var(--cdo-gap);
 }
 
 /* A card whose content is a table: the table meets the card edge. */
