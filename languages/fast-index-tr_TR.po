@@ -2482,7 +2482,7 @@ msgstr ""
 
 #: includes/class-fast-index-upgrade.php:246 view/settings.php:289
 msgid "Rate Fast Index on WordPress.org"
-msgstr "Fast Index'i WordPress.org'da değerlendir"
+msgstr "Fast Index'i WordPress.org'da değerlendirin"
 
 #: includes/class-fast-index-upgrade.php:252
 msgctxt "Title of the notice about the premium plan"
@@ -2611,8 +2611,9 @@ msgid ""
 "checks 24 and 72 hours after sending."
 msgstr ""
 "Premium plan bir Dizin durumu sütunu ekler: Google'ın kabul ettiği her "
-"adresin dizine eklenip eklenmediğini Search Console'a sorar; bir Denetle "
-"düğmesi ve gönderimden 24 ve 72 saat sonra otomatik denetimlerle."
+"adresin dizine eklenip eklenmediğini Search Console'a sorar. Bir Denetle "
+"düğmesi vardır; otomatik denetimler gönderimden 24 ve 72 saat sonra "
+"yapılır."
 
 #: includes/class-fast-index-upgrade.php:353
 msgid ""
