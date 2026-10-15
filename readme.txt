@@ -277,4 +277,4 @@ What leaves your site is described under External services: post addresses and s
 == Upgrade Notice ==
 
 = 3.0.0 =
-Security release: keys move from a public uploads folder to the database. Create a new Google key afterwards and delete the old one. Pages, custom post types and edit, trash and delete notifications are free; old-post batches, excluded categories and backup keys come in the premium package from Freemius.
+Security release: keys move from a public uploads folder to the database; create a new Google key and delete the old one. Pages, custom post types, edits, deletions, IndexNow and sending by hand are now free. Old-post batches and the other premium options need the premium package.
