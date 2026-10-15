@@ -16,7 +16,7 @@
 /* ------------------------------------------------------------------ Tokens */
 
 .cdo-ui {
-	/* Brand: ink and the three family accents. Accents are used on ink only (contrast 7.5:1 or more). */
+	/* Brand: ink and the three family accents. Accents are used on ink only (contrast 7.4:1 or more; on white they fail). */
 	--cdo-ink: #1d2b4f;
 	--cdo-ink-raised: #283a66;
 	--cdo-on-ink: #fff;
