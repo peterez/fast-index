@@ -214,12 +214,14 @@ class Fast_Index_Admin {
 	 *
 	 * @param string $title Screen title, plain text.
 	 * @param string $lead  Optional one-line introduction, plain text.
+	 * @param bool   $help  Whether the band links to Help & FAQ (not on Help & FAQ itself).
 	 * @return void
 	 */
-	public static function render_band( $title, $lead = '' ) {
+	public static function render_band( $title, $lead = '', $help = true ) {
 		$fast_index_band = array(
-			'title' => (string) $title,
-			'lead'  => (string) $lead,
+			'title'    => (string) $title,
+			'lead'     => (string) $lead,
+			'help_url' => $help ? admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG ) : '',
 		);
 
 		include FAST_INDEX_PATH . 'view/partial-band.php';

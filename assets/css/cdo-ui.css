@@ -146,9 +146,38 @@
 	color: var(--cdo-on-ink);
 }
 
+/* Help link and plan, at the end of the brand line. */
+.cdo-ui .cdo-band__meta {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-1) var(--cdo-space-4);
+	margin-inline-start: auto;
+}
+
+.cdo-ui .cdo-band__help {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	min-height: 24px;
+	color: var(--cdo-on-ink);
+	text-decoration: none;
+}
+
+.cdo-ui .cdo-band__help:hover {
+	color: var(--cdo-on-ink);
+	text-decoration: underline;
+}
+
+.cdo-ui .cdo-band__help .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+	color: var(--cdo-accent);
+}
+
 .cdo-ui .cdo-band__plan {
 	display: inline-block;
-	margin-inline-start: auto;
 	padding-inline: var(--cdo-space-2);
 	border: 1px solid var(--cdo-accent);
 	border-radius: var(--cdo-radius-pill);
@@ -481,6 +510,77 @@
 	margin-inline-start: var(--cdo-space-3);
 }
 
+/* Stacked form: label above the field, two columns from 783 px. Used where a form is not a settings table. */
+.cdo-ui .cdo-fields {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--cdo-space-5) var(--cdo-gap);
+	margin: 0;
+}
+
+.cdo-ui .cdo-field {
+	min-width: 0;
+}
+
+.cdo-ui .cdo-field[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-field--full {
+	grid-column: 1 / -1;
+}
+
+.cdo-ui .cdo-field > label:first-child,
+.cdo-ui .cdo-field__label {
+	display: block;
+	margin: 0 0 var(--cdo-space-2);
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-field input[type="text"],
+.cdo-ui .cdo-field input[type="number"],
+.cdo-ui .cdo-field select {
+	width: 100%;
+	max-width: 100%;
+}
+
+.cdo-ui .cdo-field select[multiple] {
+	height: auto;
+}
+
+.cdo-ui .cdo-field .description {
+	margin-block: var(--cdo-space-2) 0;
+	color: var(--cdo-text-muted);
+}
+
+/* A destructive action in a dialog: red, with the same size as the other buttons. */
+.cdo-ui .button.cdo-button--danger,
+.cdo-ui .button.cdo-button--danger:hover,
+.cdo-ui .button.cdo-button--danger:focus {
+	border-color: var(--cdo-error-text);
+	background: var(--cdo-error-text);
+	color: #fff;
+}
+
+.cdo-ui .button.cdo-button--danger:hover {
+	border-color: #8a2424;
+	background: #8a2424;
+}
+
+/* Icons inside core buttons sit on the text line. */
+.cdo-ui .button .dashicons {
+	width: 18px;
+	height: 18px;
+	margin-block-start: 4px;
+	font-size: 18px;
+	vertical-align: top;
+}
+
+.cdo-ui .button-small .dashicons {
+	margin-block-start: 2px;
+}
+
 /* Danger zone row: a quiet separator above a destructive choice. */
 .cdo-ui .cdo-form-table tr.cdo-row--danger > th {
 	color: var(--cdo-error-text);
@@ -639,7 +739,9 @@
 	overflow-wrap: anywhere;
 }
 
+/* A wide table scrolls inside its card, never the page; positioned so screen-reader text stays inside too. */
 .cdo-ui .cdo-scroll {
+	position: relative;
 	overflow-x: auto;
 }
 
@@ -813,6 +915,10 @@
 	margin: var(--cdo-space-4) 0 0;
 }
 
+.cdo-ui .cdo-stack > .notice.inline {
+	margin: 0;
+}
+
 /* Inline notices inside cards keep the card's spacing. */
 .cdo-ui .cdo-card .notice.inline {
 	margin: 0 0 var(--cdo-space-4);
@@ -826,10 +932,13 @@
 
 /* ------------------------------------------------------------------ Premium */
 
-/* The Premium box: one per settings screen, plain, with an honest Free / Premium table. */
+/* A card that starts a task or carries the plan: an ink rule on top. */
+.cdo-ui .cdo-card--accent,
 .cdo-ui .cdo-premium {
 	border-block-start: 4px solid var(--cdo-ink);
 }
+
+/* The Premium box: one per settings screen, plain, with an honest Free / Premium table. */
 
 .cdo-ui .cdo-premium .cdo-card__title::after {
 	content: "";
@@ -1302,7 +1411,8 @@
 
 .cdo-ui .cdo-tiles {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	/* At most four in a row (a divisor of the 12-column grid), at least 240 px wide. */
+	grid-template-columns: repeat(auto-fit, minmax(max(240px, calc((100% - 3 * var(--cdo-gap)) / 4)), 1fr));
 	gap: var(--cdo-gap);
 }
 
@@ -1318,18 +1428,25 @@
 }
 
 .cdo-ui .cdo-tile__icon {
-	width: 32px;
-	height: 32px;
-	border-radius: var(--cdo-radius-m);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: var(--cdo-radius-l);
 	background: var(--cdo-ink);
-	color: var(--cdo-on-ink);
+	color: var(--cdo-accent);
 	font-size: 20px;
-	line-height: 32px;
-	text-align: center;
 }
 
-.cdo-ui .cdo-tile__icon::before {
-	line-height: 32px;
+.cdo-ui .cdo-tile__icon.dashicons {
+	width: 36px;
+	height: 36px;
+	font-size: 20px;
+}
+
+.cdo-ui .cdo-tile__icon.dashicons::before {
+	line-height: 36px;
 }
 
 .cdo-ui .cdo-tile h2,
@@ -1362,6 +1479,10 @@
 @media screen and (max-width: 782px) {
 	.cdo-ui {
 		--cdo-gap: 16px;
+	}
+
+	.cdo-ui .cdo-fields {
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.cdo-ui .cdo-band {

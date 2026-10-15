@@ -13,7 +13,7 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 ?>
 <div class="wrap fast-index-help cdo-ui cdo-ui--fast-index">
 
-	<?php Fast_Index_Admin::render_band( __( 'Help & FAQ', 'fast-index' ), __( 'Everything you need to set up Fast Index and to solve the most common problems. Read it before you write to support: the answer is most often here.', 'fast-index' ) ); ?>
+	<?php Fast_Index_Admin::render_band( __( 'Help & FAQ', 'fast-index' ), __( 'Everything you need to set up Fast Index and to solve the most common problems. Read it before you write to support: the answer is most often here.', 'fast-index' ), false ); ?>
 
 	<nav class="fi-help-nav cdo-help-nav" aria-label="<?php esc_attr_e( 'Help sections', 'fast-index' ); ?>">
 		<ul>
