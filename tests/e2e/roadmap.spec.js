@@ -239,6 +239,9 @@ test.describe( 'Fast Index 3.0.0', () => {
 		expect( ( await file.text() ).trim() ).toBe( key );
 		expect( file.headers()[ 'content-type' ] ).toContain( 'text/plain' );
 		expect( file.headers()[ 'x-robots-tag' ] ).toContain( 'noindex' );
+		// SEC-FI-07: no content sniffing, short cache time.
+		expect( file.headers()[ 'x-content-type-options' ] ).toBe( 'nosniff' );
+		expect( file.headers()[ 'cache-control' ] ).toContain( 'max-age=300' );
 
 		resetRequests();
 		const on = quietPost( 'E2E roadmap on ' + STAMP, 'post' );
