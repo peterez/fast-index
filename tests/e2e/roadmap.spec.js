@@ -132,12 +132,24 @@ test.describe( 'Fast Index 3.0.0', () => {
 		test.info().annotations.push( { type: 'allow-console', description: 'Transition was aborted because of invalid state' } );
 	} );
 
+	// The tests look for the slug of their posts in History and in the queue and fetch the IndexNow key file by its
+	// address. Both need a pretty permalink structure, so a site that has none (the WordPress 5.6 install) gets one
+	// for the run and goes back to its own at the end; the structure the site had is not part of what is tested.
+	let plainStructure = false;
+
 	test.beforeAll( () => {
+		plainStructure = '' === wp( [ 'eval', 'echo get_option( "permalink_structure" );' ] );
+		if ( plainStructure ) {
+			wp( [ 'eval', 'global $wp_rewrite; $wp_rewrite->set_permalink_structure( "/%postname%/" ); flush_rewrite_rules( false );' ] );
+		}
 		cleanUp();
 	} );
 
 	test.afterAll( () => {
 		cleanUp();
+		if ( plainStructure ) {
+			wp( [ 'eval', 'global $wp_rewrite; $wp_rewrite->set_permalink_structure( "" ); flush_rewrite_rules( false );' ] );
+		}
 	} );
 
 	test( 'FI-R01: a 429 pauses every key until the quota resets, and History says the notification waits', async ( { page } ) => {

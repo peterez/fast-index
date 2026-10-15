@@ -94,9 +94,16 @@ test.describe( 'Fast Index premium plan', () => {
 
 	test( 'the Upgrade page is part of the plugin, without an iframe', async ( { page } ) => {
 		test.skip( PREMIUM, 'The premium module is loaded.' );
+		// The browser loads the Freemius checkout script once the plans are drawn (readme, External services); nothing else
+		// from Freemius, and nothing from Google Analytics.
 		const external = [];
+		const analytics = [];
 		page.on( 'request', ( request ) => {
-			if ( /freemius\.com/.test( new URL( request.url() ).host ) ) {
+			const url = new URL( request.url() );
+			if ( /(^|\.)google-analytics\.com$/.test( url.host ) ) {
+				analytics.push( request.url() );
+			}
+			if ( /freemius\.com$/.test( url.host ) && ! ( 'checkout.freemius.com' === url.host && '/checkout.js' === url.pathname ) ) {
 				external.push( request.url() );
 			}
 		} );
@@ -109,7 +116,8 @@ test.describe( 'Fast Index premium plan', () => {
 		await expect( page.locator( '#fs_pricing_wrapper' ) ).toHaveCount( 1 );
 		await expect( page.locator( 'iframe' ) ).toHaveCount( 0 );
 		await page.waitForLoadState( 'networkidle' );
-		expect( external, 'the browser loads nothing from Freemius' ).toEqual( [] );
+		expect( external, 'the browser loads nothing from Freemius except checkout.js' ).toEqual( [] );
+		expect( analytics, 'no request to Google Analytics' ).toEqual( [] );
 		// SEC-FI-01: the guard runs before the pricing script, and no Google Analytics script is on the page.
 		expect( await page.locator( 'script#freemius-pricing-js-before' ).textContent() ).toContain( 'google-analytics' );
 		await expect( page.locator( 'script[src*="google-analytics.com"]' ) ).toHaveCount( 0 );
