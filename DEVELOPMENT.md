@@ -103,7 +103,8 @@ WordPress 6.2). Weeks without any History entry send nothing; the setting `weekl
 
 Measured on a clean install of the WordPress.org package (every outgoing request logged and blocked): no request to
 Freemius before the opt-in choice or after Skip; opening Upgrade makes one server request to
-`api.freemius.com/v1/plugins/11893/pricing.json` without site data; Allow & Continue posts the opt-in data from the
+`api.freemius.com/v1/plugins/11893/pricing.json` without site data, and once the plans are drawn the browser loads
+`checkout.freemius.com/checkout.js` (Google Analytics is blocked, see above); Allow & Continue posts the opt-in data from the
 browser to `wp.freemius.com`; no Freemius update hook is attached. The readme's External services section describes
 this; measure again after an SDK update.
 

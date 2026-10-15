@@ -110,6 +110,9 @@ test.describe( 'Fast Index premium plan', () => {
 		await expect( page.locator( 'iframe' ) ).toHaveCount( 0 );
 		await page.waitForLoadState( 'networkidle' );
 		expect( external, 'the browser loads nothing from Freemius' ).toEqual( [] );
+		// SEC-FI-01: the guard runs before the pricing script, and no Google Analytics script is on the page.
+		expect( await page.locator( 'script#freemius-pricing-js-before' ).textContent() ).toContain( 'google-analytics' );
+		await expect( page.locator( 'script[src*="google-analytics.com"]' ) ).toHaveCount( 0 );
 
 		// The menu entry leads to the same page (single site; after a network activation it is in the network admin).
 		if ( ! IS_MULTISITE ) {
