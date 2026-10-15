@@ -175,9 +175,14 @@ class Fast_Index_Freemius {
 	 * Plugin icon shown on the Freemius screens. A local file, so the SDK never downloads an icon or writes
 	 * one into the plugin folder.
 	 *
+	 * Freemius turns the path into an address only below the plugins folder, so the path goes through that folder
+	 * even when the plugin folder is a symbolic link to a place outside it.
+	 *
 	 * @return string Absolute path.
 	 */
 	public static function icon() {
-		return FAST_INDEX_PATH . 'assets/fast-index-icon.png';
+		$path = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( FAST_INDEX_FILE ) ) . '/assets/fast-index-icon.png';
+
+		return file_exists( $path ) ? $path : FAST_INDEX_PATH . 'assets/fast-index-icon.png';
 	}
 }
