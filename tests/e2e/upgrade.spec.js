@@ -64,17 +64,21 @@ test.describe( 'Fast Index premium plan', () => {
 		await expect( card.locator( 'a.button' ) ).toHaveAttribute( 'href', PRICING );
 		expect( await card.innerText(), 'no discount or deadline' ).not.toMatch( /\d+\s?%|\d+\s?(day|hour)s?\b/i );
 
-		// The hints are a badge that opens a short text with the upgrade link; not a control of a setting.
+		// The hints are a badge that opens a short text with the upgrade link; not a control of a setting: the old
+		// posts and the excluded categories (named in their own rows, without a field) and the key upload.
 		const hints = page.locator( 'details.fi-premium-hint' );
 		await expect( hints ).toHaveCount( 3 );
+		await expect( page.locator( 'tr.fi-premium-row details.fi-premium-hint' ) ).toHaveCount( 2 );
 		const first = hints.first();
 		await expect( first.locator( 'p' ) ).toBeHidden();
 		await first.locator( 'summary' ).click();
 		await expect( first.locator( 'p' ) ).toBeVisible();
 		await expect( first.locator( 'p a' ) ).toHaveAttribute( 'href', PRICING );
-		// The post type hint names a post type of this site: Pages exist on every site.
-		const pages = wp( [ 'eval', 'echo get_post_type_object( "page" )->label;' ] );
-		await expect( first.locator( 'p' ) ).toContainText( pages );
+
+		// History: one badge next to the heading (index status), not an empty column.
+		await page.goto( HISTORY );
+		await expect( page.locator( '.fi-index-status-hint details.fi-premium-hint' ) ).toHaveCount( 1 );
+		await expect( page.locator( 'th.column-fi-index' ) ).toHaveCount( 0 );
 	} );
 
 	test( 'the Upgrade page is part of the plugin, without an iframe', async ( { page } ) => {
@@ -139,10 +143,10 @@ test.describe( 'Fast Index premium plan', () => {
 		await page.goto( HISTORY );
 		const waiting = ( await page.locator( '#fi table' ).first().locator( 'tbody td' ).nth( 1 ).innerText() ).trim();
 		expect( Number( waiting.replace( /\D/g, '' ) ) ).toBeGreaterThan( 0 );
-		const line = page.locator( '.fi-upgrade-line' );
+		const line = page.locator( '.fi-upgrade-line[data-notice="history_waiting"]' );
 		await expect( line ).toBeVisible();
 		await expect( line ).toContainText( waiting );
-		await expect( line.locator( 'a' ) ).toHaveAttribute( 'href', PRICING );
+		await expect( line.locator( 'a[href*="page=fast-index-pricing"]' ) ).toHaveCount( 1 );
 
 		wp( [ 'post', 'delete', postId, '--force' ] );
 		wp( [ 'eval', 'delete_transient( "fast_index_stats" );' ] );
@@ -264,6 +268,7 @@ test.describe( 'Fast Index premium plan', () => {
 		await expect( page.locator( '#adminmenu a[href*="page=fast-index-run"]' ) ).toHaveCount( 1 );
 
 		await page.goto( HISTORY );
-		await expect( page.locator( '.fi-upgrade-line' ) ).toHaveCount( 0 );
+		await expect( page.locator( '.fi-upgrade-line, .fi-index-status-hint, details.fi-premium-hint' ) ).toHaveCount( 0 );
+		await expect( page.locator( 'th.column-fi-index' ) ).toHaveCount( 1 );
 	} );
 } );

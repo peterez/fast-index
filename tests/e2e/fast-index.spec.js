@@ -120,7 +120,15 @@ test.describe( 'Fast Index admin', () => {
 		if ( ! PREMIUM ) {
 			await expect( page.locator( 'input[name^="fast_index_options[exclude_category]"]' ) ).toHaveCount( 0 );
 		}
-		await expect( page.locator( 'input[name^="fast_index_options[post_status]"]' ) ).toHaveCount( PREMIUM ? 3 : 1 );
+		// Since 3.0.0 the free version sends every event and post type itself; the premium options are named with a
+		// Premium badge in the free version, never as fields.
+		await expect( page.locator( 'input[name^="fast_index_options[post_status]"]' ) ).toHaveCount( 3 );
+		expect( await page.locator( 'input[name^="fast_index_options[post_type]"]' ).count() ).toBeGreaterThanOrEqual( 2 );
+		await expect( page.locator( 'tr.fi-premium-row' ) ).toHaveCount( PREMIUM ? 0 : 2 );
+		await expect( page.locator( 'tr.fi-premium-row input, tr.fi-premium-row select' ) ).toHaveCount( 0 );
+		await expect( page.locator( '#fast-index-indexnow' ) ).not.toBeChecked();
+		await expect( page.locator( '#fast-index-eligible-only' ) ).not.toBeChecked();
+		await expect( page.locator( '#fast-index-sc-property, #fast-index-weekly-report' ) ).toHaveCount( PREMIUM ? 2 : 0 );
 	} );
 
 	test( 'history pagination links work', async ( { page } ) => {

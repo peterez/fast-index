@@ -49,8 +49,8 @@ const SETTINGS_TITLE = 'Heading of the Fast Index settings screen\u0004Settings'
 // differently from English in every bundled language, except where noted in the .po by an identical text).
 // The settings screen of the copy under test: with the premium module its rows, without it the Premium box.
 const SETTINGS_STRINGS = PREMIUM
-	? [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Daily Limit for Old Posts', 'Post Events', 'Exclude Categories', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ' ]
-	: [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Post Events', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ', 'Heading of the box about the premium plan\u0004Premium', 'The premium plan is a separate package. What each version does:', 'Column of the comparison table\u0004Free', 'Notification when a post is published', 'Old posts in hourly batches, within a daily limit you set', 'Upgrade to Premium', 'Badge next to a setting that the premium plan extends\u0004Premium' ];
+	? [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Daily Limit for Old Posts', 'Post Events', 'Supported Pages Only', 'Also send to IndexNow', 'Exclude Categories', 'Search Console Property', 'Weekly Email Report', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ' ]
+	: [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Post Events', 'Supported Pages Only', 'Also send to IndexNow', 'Daily Limit for Old Posts', 'Exclude Categories', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ', 'Heading of the box about the premium plan\u0004Premium', 'The premium plan is a separate package. What each version does:', 'Column of the comparison table\u0004Free', 'Notifications to Google when content is published, updated, trashed or deleted', 'Old posts in hourly batches, within a daily limit you set', 'Weekly email report', 'Upgrade to Premium', 'Badge next to a setting that the premium plan extends\u0004Premium' ];
 const SCREENS = {
 	settings: {
 		path: SETTINGS,
@@ -58,7 +58,7 @@ const SCREENS = {
 	},
 	history: {
 		path: HISTORY,
-		strings: [ 'Summary', 'Total Sent', 'Total Waiting', 'Sent Today', 'Title', 'Date', 'Send Status', 'View Post', 'Next' ],
+		strings: [ 'Summary', 'Total Sent', 'Total Waiting', 'Sent Today', 'Title', 'Date', 'Channel', 'History filter: every channel\u0004All', 'Send Status', 'View Post', 'Next' ].concat( PREMIUM ? [ 'Index Status', 'Accepted by Google, last 30 days', 'Checked in Search Console' ] : [ 'Index Status' ] ),
 	},
 	help: {
 		path: HELP,
