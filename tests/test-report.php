@@ -133,6 +133,7 @@ class Fast_Index_Test_Report extends Fast_Index_Test_Case {
 		);
 		update_user_meta( $admin, 'locale', 'de_DE' );
 		update_option( 'admin_email', 'owner@example.org' );
+		reset_phpmailer_instance(); // WordPress itself mails about the changed administration address.
 		Fast_Index_Log::add( 0, home_url( '/a/' ), 200, 'URL_UPDATED' );
 
 		$before = get_locale();
