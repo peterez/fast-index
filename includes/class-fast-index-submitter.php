@@ -8,11 +8,13 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Picks accounts in random order, rests accounts that fail and logs the outcome.
+ * Sends with the main key, pauses keys that fail and logs the outcome.
  *
- * Account errors (quota 429, 401, 403, or a rejected key at the token endpoint) rest the
- * account for six hours and the next account is tried. Request errors (other 4xx) and
- * Google or network outages (5xx, no answer) stop the attempt without resting accounts.
+ * - A rejected key (401, 403, or a 4xx answer at the token endpoint) is paused for six hours, and the next key in
+ *   use (a backup key of the premium plan) is tried.
+ * - A quota answer (429) ends the attempt: every key is paused until Google resets the daily quota, and no other
+ *   key is tried. Google counts the quota for each project and forbids using several accounts to get past it.
+ * - Request errors (other 4xx) and Google or network outages (5xx, no answer) end the attempt without a pause.
  */
 class Fast_Index_Submitter {
 
@@ -27,7 +29,7 @@ class Fast_Index_Submitter {
 	const UNSUPPORTED = -2;
 
 	/**
-	 * Result: accounts are stored, but every one of them is resting after an error.
+	 * Result: accounts are stored, but every one of them is paused (rejected key or daily quota).
 	 */
 	const RESTING = -3;
 
@@ -58,7 +60,7 @@ class Fast_Index_Submitter {
 	 * @param int    $post_id Post the URL belongs to, 0 when unknown.
 	 * @return array Keys: code (as submit()), log_id (history entry of the attempt, 0 when nothing was
 	 *               sent) and retry (true when no key could take the notification because every key
-	 *               rests, before or after this attempt, so a later attempt may succeed).
+	 *               is paused, before or after this attempt, so a later attempt may succeed).
 	 */
 	public function send( $url, $type, $post_id = 0 ) {
 		if ( ! Fast_Index_Google_Client::is_supported() ) {
@@ -78,7 +80,7 @@ class Fast_Index_Submitter {
 		$code   = $this->send_with_accounts( $accounts, $url, $type );
 		$log_id = Fast_Index_Log::add( $post_id, $url, $code, $type );
 
-		// Every key that was tried answered with an account error and rests now.
+		// Every key that was tried was rejected, or the daily quota is used up: every key is paused now.
 		return self::result( $code, $log_id, 200 !== $code && array() === Fast_Index_Accounts::available() );
 	}
 
@@ -109,37 +111,58 @@ class Fast_Index_Submitter {
 	}
 
 	/**
-	 * Whether an error belongs to the account (so another account may succeed).
+	 * Whether an error says that Google rejected the key, so a backup key may succeed.
 	 *
 	 * @param WP_Error $error Error returned by the client.
 	 * @return bool
 	 */
-	public static function is_account_error( WP_Error $error ) {
+	public static function is_rejected_key( WP_Error $error ) {
 		$status = Fast_Index_Google_Client::error_status( $error );
+
+		if ( self::is_quota_error( $error ) ) {
+			return false;
+		}
 
 		if ( 'token' === Fast_Index_Google_Client::error_context( $error ) ) {
 			return $status >= 400 && $status < 500;
 		}
 
-		return in_array( $status, array( 401, 403, 429 ), true );
+		return in_array( $status, array( 401, 403 ), true );
 	}
 
 	/**
-	 * Tries the accounts in random order until one succeeds or an error is not account related.
+	 * Whether an error says that the quota is used up. No other key may be tried then.
 	 *
-	 * @param array[] $accounts Available accounts keyed by ID.
+	 * @param WP_Error $error Error returned by the client.
+	 * @return bool
+	 */
+	public static function is_quota_error( WP_Error $error ) {
+		return 429 === Fast_Index_Google_Client::error_status( $error );
+	}
+
+	/**
+	 * Whether an error pauses a key: a rejected key or the quota.
+	 *
+	 * @param WP_Error $error Error returned by the client.
+	 * @return bool
+	 */
+	public static function is_account_error( WP_Error $error ) {
+		return self::is_rejected_key( $error ) || self::is_quota_error( $error );
+	}
+
+	/**
+	 * Sends with the main key; a backup key is tried only when Google rejected the key before it.
+	 *
+	 * @param array[] $accounts Available accounts keyed by ID, main key first.
 	 * @param string  $url      Absolute URL.
 	 * @param string  $type     Notification type.
 	 * @return int
 	 */
 	private function send_with_accounts( array $accounts, $url, $type ) {
-		$ids  = array_keys( $accounts );
 		$code = self::NO_RESPONSE;
 
-		shuffle( $ids );
-
-		foreach ( $ids as $id ) {
-			$result = ( new Fast_Index_Google_Client( $accounts[ $id ] ) )->publish( $url, $type );
+		foreach ( $accounts as $id => $account ) {
+			$result = ( new Fast_Index_Google_Client( $account ) )->publish( $url, $type );
 
 			if ( ! is_wp_error( $result ) ) {
 				Fast_Index_Accounts::set_status( $id, 200 );
@@ -148,7 +171,14 @@ class Fast_Index_Submitter {
 
 			$code = Fast_Index_Google_Client::error_status( $result );
 
-			if ( ! self::is_account_error( $result ) ) {
+			if ( self::is_quota_error( $result ) ) {
+				// The quota belongs to the project, not to the key: every key waits for the reset.
+				Fast_Index_Accounts::remember_status( $id, $code );
+				Fast_Index_Accounts::pause_for_quota();
+				return $code;
+			}
+
+			if ( ! self::is_rejected_key( $result ) ) {
 				return $code;
 			}
 

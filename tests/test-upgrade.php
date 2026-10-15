@@ -178,7 +178,8 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 
 		$this->assertCount( 1, Fast_Index_Accounts::all() );
 		$this->assertStringContainsString( 'replaced the key of first@example-project.iam.gserviceaccount.com', $messages[0]['message'] );
-		$this->assertStringContainsString( 'several keys', $messages[0]['message'] );
+		$this->assertStringContainsString( 'backup keys', $messages[0]['message'] );
+		$this->assertStringContainsString( 'never to get past the daily quota', $messages[0]['message'] );
 		$this->assertSame( admin_url( 'admin.php?page=fast-index-pricing' ), $messages[0]['link_url'] );
 
 		Fast_Index_Admin_Actions::store_account( Fast_Index_Accounts::parse_key_json( self::key_json( 'second@example-project.iam.gserviceaccount.com', 'second' ) ), false );

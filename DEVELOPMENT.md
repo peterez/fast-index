@@ -17,7 +17,7 @@ This file is for developers. It is not part of either release package (`.distign
 | `fast_index_post_type_choices` | filter | every public post type except attachments |
 | `fast_index_post_events` | filter | Edit and Trash |
 | `fast_index_default_settings` | filter | Publish + Edit for sites that never saved the settings |
-| `fast_index_use_several_keys` | filter | several service account keys |
+| `fast_index_use_several_keys` | filter | backup service account keys (main key first; a backup only after 401/403, never after 429) |
 | `fast_index_should_notify` | filter | excluded categories |
 | `fast_index_sanitize_settings` / `fast_index_validate_settings` | filter | daily limit and categories |
 | `fast_index_settings_rows` | action | settings rows of the daily limit and the categories |

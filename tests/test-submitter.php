@@ -49,11 +49,12 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Premium: a quota error rests the account and the next account sends the URL.
+	 * FI-R01, premium: a 429 on the main key pauses every key until the quota resets; the backup key is not tried,
+	 * and History says that the daily quota was reached.
 	 *
 	 * @return void
 	 */
-	public function test_quota_error_moves_to_next_account() {
+	public function test_quota_error_pauses_every_key_and_tries_no_backup() {
 		$this->with_premium();
 
 		$first  = $this->add_account( 'one@example-project.iam.gserviceaccount.com', 'one' );
@@ -62,26 +63,108 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		$this->publish_codes = array( 429, 200 );
 		$this->fake_google();
 
-		$post = self::factory()->post->create();
-		$code = ( new Fast_Index_Submitter() )->submit( 'https://example.org/a/', 'URL_UPDATED', $post );
+		$post      = self::factory()->post->create();
+		$submitter = new Fast_Index_Submitter();
+		$before    = time();
 
-		$this->assertSame( 200, $code );
+		$this->assertSame( 429, $submitter->submit( 'https://example.org/a/', 'URL_UPDATED', $post ) );
 
-		$statuses = Fast_Index_Accounts::statuses();
-		sort( $statuses );
-		$this->assertSame( array( 200, 429 ), $statuses );
-		$this->assertCount( 1, Fast_Index_Accounts::available() );
+		// One token request and one publish request, both with the main key.
+		$this->assertCount( 1, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
+		$tokens = $this->requests_to( Fast_Index_Google_Client::TOKEN_URL );
+		$this->assertCount( 1, $tokens );
+		$this->assertSame( 'one@example-project.iam.gserviceaccount.com', self::jwt_issuer( $tokens[0] ) );
+		$this->assertSame( array( $first => 429 ), Fast_Index_Accounts::statuses(), 'The backup key was never used.' );
+
+		// Every key waits for the reset at midnight Pacific Time.
+		$reset = Fast_Index_Accounts::quota_reset_time( $before );
+		$this->assertSame( array(), Fast_Index_Accounts::available() );
+		$this->assertSame( $reset, Fast_Index_Accounts::quota_pause_end() );
+		$this->assertSame( $reset, Fast_Index_Accounts::paused_until( $second ) );
+		$this->assertSame( $reset, Fast_Index_Accounts::next_ready_time() );
+		$this->assertSame( Fast_Index_Submitter::RESTING, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED', $post ) );
+		$this->assertCount( 1, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ), 'Nothing is tried during the pause.' );
 
 		$entries = self::log_entries();
 		$this->assertCount( 1, $entries );
-		$this->assertSame( Fast_Index_Log::STATUS_SENT, $entries[0]['status'] );
-		$this->assertSame( 200, $entries[0]['code'] );
-		$this->assertContains( $first, array_keys( Fast_Index_Accounts::all() ) );
-		$this->assertContains( $second, array_keys( Fast_Index_Accounts::all() ) );
+		$this->assertSame( Fast_Index_Log::STATUS_FAILED, $entries[0]['status'] );
+		$this->assertSame( 429, $entries[0]['code'] );
+
+		$this->login_as( 'administrator' );
+		ob_start();
+		( new Fast_Index_Admin() )->render_history();
+		$html = (string) ob_get_clean();
+		$this->assertStringContainsString( 'Daily quota reached', $html );
+		$this->assertStringContainsString( 'fi-history-note', $html );
 	}
 
 	/**
-	 * Premium: when every account is out of quota the 429 is logged and the accounts rest.
+	 * FI-R01, premium: when Google rejects the main key (403), the key is paused and the backup key sends.
+	 *
+	 * @return void
+	 */
+	public function test_rejected_main_key_tries_the_backup() {
+		$this->with_premium();
+
+		$first  = $this->add_account( 'one@example-project.iam.gserviceaccount.com', 'one' );
+		$second = $this->add_account( 'two@example-project.iam.gserviceaccount.com', 'two' );
+
+		$this->publish_codes = array( 403, 200 );
+		$this->fake_google();
+
+		$post = self::factory()->post->create();
+		$this->assertSame( 200, ( new Fast_Index_Submitter() )->submit( 'https://example.org/a/', 'URL_UPDATED', $post ) );
+
+		$tokens = $this->requests_to( Fast_Index_Google_Client::TOKEN_URL );
+		$this->assertCount( 2, $tokens );
+		$this->assertSame( 'one@example-project.iam.gserviceaccount.com', self::jwt_issuer( $tokens[0] ) );
+		$this->assertSame( 'two@example-project.iam.gserviceaccount.com', self::jwt_issuer( $tokens[1] ) );
+		$this->assertSame(
+			array(
+				$first  => 403,
+				$second => 200,
+			),
+			Fast_Index_Accounts::statuses()
+		);
+		$this->assertSame( array( $second ), array_keys( Fast_Index_Accounts::available() ), 'The rejected key is paused.' );
+		$this->assertSame( 0, Fast_Index_Accounts::quota_pause_end() );
+		$this->assertSame( Fast_Index_Log::STATUS_SENT, self::log_entries()[0]['status'] );
+
+		// A 401 on the main key works the same way; the main key is always tried first.
+		Fast_Index_Accounts::delete( $first );
+		$third = $this->add_account( 'three@example-project.iam.gserviceaccount.com', 'three' );
+		$this->assertSame( array( $second, $third ), array_keys( Fast_Index_Accounts::available() ) );
+	}
+
+	/**
+	 * The quota resets at the next midnight Pacific Time, in summer and in winter time.
+	 *
+	 * @return void
+	 */
+	public function test_quota_reset_is_midnight_pacific_time() {
+		// 2026-07-01 10:00 UTC = 03:00 PDT (UTC-7): next reset 2026-07-02 00:00 PDT = 07:00 UTC.
+		$this->assertSame( gmmktime( 7, 0, 0, 7, 2, 2026 ), Fast_Index_Accounts::quota_reset_time( gmmktime( 10, 0, 0, 7, 1, 2026 ) ) );
+		// 2026-01-15 07:59 UTC = 23:59 PST (UTC-8) on the 14th: next reset 2026-01-15 00:00 PST = 08:00 UTC.
+		$this->assertSame( gmmktime( 8, 0, 0, 1, 15, 2026 ), Fast_Index_Accounts::quota_reset_time( gmmktime( 7, 59, 0, 1, 15, 2026 ) ) );
+		// Exactly at midnight the next reset is a day later.
+		$this->assertSame( gmmktime( 8, 0, 0, 1, 16, 2026 ), Fast_Index_Accounts::quota_reset_time( gmmktime( 8, 0, 0, 1, 15, 2026 ) ) );
+	}
+
+	/**
+	 * Client email in the signed JWT of a token request.
+	 *
+	 * @param array $request Request recorded by the fake Google endpoint.
+	 * @return string
+	 */
+	private static function jwt_issuer( array $request ) {
+		$parts  = explode( '.', (string) $request['args']['body']['assertion'] );
+		$claims = json_decode( base64_decode( strtr( $parts[1], '-_', '+/' ) ), true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Reads a JWT in a test.
+
+		return (string) $claims['iss'];
+	}
+
+	/**
+	 * Premium: when the daily quota is used up the 429 is logged once and every key waits.
 	 *
 	 * @return void
 	 */
@@ -98,6 +181,7 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		$submitter = new Fast_Index_Submitter();
 
 		$this->assertSame( 429, $submitter->submit( 'https://example.org/a/', 'URL_UPDATED', $post ) );
+		$this->assertCount( 1, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
 
 		$entries = self::log_entries();
 		$this->assertCount( 1, $entries );
@@ -105,7 +189,7 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		$this->assertSame( 429, $entries[0]['code'] );
 		$this->assertSame( 0, Fast_Index_Log::count_sent() );
 
-		// Both accounts rest for six hours: the next URL is not attempted.
+		// Every key waits for the quota reset: the next URL is not attempted.
 		$this->assertSame( Fast_Index_Submitter::RESTING, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED', $post ) );
 		$this->assertContains( $post, Fast_Index_Premium_Backlog::ids( Fast_Index_Settings::get(), 10 ) );
 	}
@@ -166,6 +250,7 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 
 		$this->assertSame( array( $first ), array_keys( Fast_Index_Accounts::in_use() ) );
 		$this->assertSame( 429, $submitter->submit( 'https://example.org/a/', 'URL_UPDATED' ) );
+		$this->assertGreaterThan( time(), Fast_Index_Accounts::quota_pause_end() );
 		$this->assertCount( 1, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
 		$this->assertSame( array( $first => 429 ), Fast_Index_Accounts::statuses() );
 		$this->assertSame( Fast_Index_Submitter::RESTING, $submitter->submit( 'https://example.org/b/', 'URL_UPDATED' ) );

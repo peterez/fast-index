@@ -378,7 +378,7 @@ class Fast_Index_Help_Content {
 			case 'exclude_category':
 				return __( 'This setting is part of the premium plan, a separate package.', 'fast-index' );
 			case 'service_account':
-				return __( 'The free version uses one key, and a new upload replaces it. Several keys are part of the premium plan, a separate package.', 'fast-index' );
+				return __( 'The free version uses one key, and a new upload replaces it. Backup keys are part of the premium plan, a separate package.', 'fast-index' );
 			default:
 				return '';
 		}
@@ -417,7 +417,7 @@ class Fast_Index_Help_Content {
 				),
 				'fix'     => sprintf(
 					/* translators: %s: link to Google's quota page. */
-					__( 'Wait: Fast Index pauses the key for six hours. If the premium plan keeps several keys, the others are tried meanwhile. Lower the daily limit for old posts if you use it, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on the %s; Google notes that quota may increase or decrease based on document quality.', 'fast-index' ),
+					__( 'Wait for the reset: Fast Index pauses every key until Google resets the daily quota at midnight Pacific Time, and the notifications that could not be sent wait until then. No other key is tried, because Google counts the quota for each project and does not allow extra accounts to get past it; uploading another key does not end the pause. Lower the daily limit for old posts if you use it, and turn Fast Index to Passive during bulk imports. If you need more, ask Google for more quota on the %s; Google notes that quota may increase or decrease based on document quality.', 'fast-index' ),
 					self::ext( self::URL_QUOTA, __( 'quota page', 'fast-index' ) )
 				),
 			),
@@ -451,7 +451,7 @@ class Fast_Index_Help_Content {
 				),
 				'cause'   => sprintf(
 					/* translators: 1: note shown under a waiting notification, 2: largest number of waiting notifications. */
-					esc_html__( 'No key is stored on the settings screen, or every stored key is paused for six hours because Google answered 401, 403 or 429. Without a key the notification is only recorded. While every key is paused, the notification waits, and History shows "%1$s" under it: it is sent when the first key is ready again, or soon after you upload a key. For each address only the newest event waits; at most %2$s notifications wait, for up to three days.', 'fast-index' ),
+					esc_html__( 'No key is stored on the settings screen, or every stored key is paused: for six hours after Google rejected it (401 or 403), or until midnight Pacific Time after the daily quota was used up (429). Without a key the notification is only recorded. While every key is paused, the notification waits, and History shows "%1$s" under it: it is sent when the first key is ready again, or soon after you upload a key. For each address only the newest event waits; at most %2$s notifications wait, for up to three days.', 'fast-index' ),
 					esc_html( Fast_Index_Admin::retry_note() ),
 					esc_html( number_format_i18n( Fast_Index_Retry::MAX ) )
 				),
@@ -567,7 +567,7 @@ class Fast_Index_Help_Content {
 				'question' => __( 'How many URLs can I send per day?', 'fast-index' ),
 				'answer'   => sprintf(
 					/* translators: %s: link to Google's quota page. */
-					__( 'Google\'s default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count (%s). Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it pauses that key for six hours.', 'fast-index' ),
+					__( 'Google\'s default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count (%s). Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it pauses every key until the quota resets at midnight Pacific Time, and the notifications that could not be sent wait until then.', 'fast-index' ),
 					self::ext( self::URL_QUOTA, __( 'quota page', 'fast-index' ) )
 				),
 			),
@@ -576,7 +576,7 @@ class Fast_Index_Help_Content {
 				'question' => __( 'Can I use more than one service account?', 'fast-index' ),
 				'answer'   => sprintf(
 					/* translators: %s: link to Google's quickstart page. */
-					__( 'With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not paused, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key is paused for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without pausing a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked (%s). Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.', 'fast-index' ),
+					__( 'With the premium plan you can upload backup keys. Fast Index always sends with the main key, the first one in the list. Only when Google rejects it (401 or 403, or the key is refused) is that key paused for six hours and the next key tried. A 429 answer means the daily quota is used up: every key is then paused until the quota resets at midnight Pacific Time, and no other key is tried. Other errors (such as 400, 5xx or no answer) end the attempt without pausing a key. Google counts quota for each project, not for each key, and writes that attempts to abuse the API, including the use of multiple accounts or other means to exceed usage quotas, may result in access being revoked (%s). Ask Google for more quota if you need it.', 'fast-index' ),
 					self::ext( self::URL_QUICKSTART, __( 'quickstart', 'fast-index' ) )
 				),
 			),

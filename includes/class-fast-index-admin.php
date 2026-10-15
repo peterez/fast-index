@@ -276,22 +276,51 @@ class Fast_Index_Admin {
 	}
 
 	/**
+	 * Reason printed under the status of a History entry, for answers whose code alone does not say what happens.
+	 *
+	 * @param int $code HTTP status or a Fast_Index_Submitter constant.
+	 * @return string Plain text; empty when the status needs no note.
+	 */
+	public static function status_note( $code ) {
+		if ( 429 === (int) $code ) {
+			return __( 'Daily quota reached: every key is paused until Google resets the quota at midnight Pacific Time.', 'fast-index' );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Date and time a key's pause ends, in the site's format.
+	 *
+	 * @param int $timestamp Unix time.
+	 * @return string
+	 */
+	public static function pause_label( $timestamp ) {
+		/* translators: %s: date and time. */
+		return sprintf( __( 'Paused until %s', 'fast-index' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) $timestamp ) );
+	}
+
+	/**
 	 * Display rows of the stored keys. The private key is never part of them.
 	 *
-	 * @return array[] Each: id, email, key_id, status (last HTTP status or null), in_use.
+	 * @return array[] Each: id, email, key_id, status (last HTTP status or null), in_use, main (the key that is
+	 *                 tried first), paused_until (Unix time, 0 when the key can be used now).
 	 */
 	private static function account_rows() {
 		$statuses = Fast_Index_Accounts::statuses();
 		$in_use   = Fast_Index_Accounts::in_use();
+		$main     = array_key_first( $in_use );
 		$rows     = array();
 
 		foreach ( Fast_Index_Accounts::all() as $id => $account ) {
 			$rows[] = array(
-				'id'     => $id,
-				'email'  => $account['client_email'],
-				'key_id' => $account['private_key_id'],
-				'status' => isset( $statuses[ $id ] ) ? $statuses[ $id ] : null,
-				'in_use' => isset( $in_use[ $id ] ),
+				'id'           => $id,
+				'email'        => $account['client_email'],
+				'key_id'       => $account['private_key_id'],
+				'status'       => isset( $statuses[ $id ] ) ? $statuses[ $id ] : null,
+				'in_use'       => isset( $in_use[ $id ] ),
+				'main'         => $main === $id,
+				'paused_until' => isset( $in_use[ $id ] ) ? Fast_Index_Accounts::paused_until( $id ) : 0,
 			);
 		}
 

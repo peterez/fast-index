@@ -35,7 +35,7 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 * Notification (URL_UPDATED) when a post is published.
 * Background sending through WP-Cron, with a time limit for each request.
 * History screen with a summary (sent in total, waiting, sent today) and the answer of Google for every notification.
-* When Google answers 401, 403 or 429, the key is paused for six hours instead of being tried again and again.
+* When Google rejects the key (401 or 403), it is paused for six hours. When the daily quota is used up (429), every key is paused until Google resets the quota at midnight Pacific Time, and no other key is tried.
 * A notification that cannot be sent is listed in History as Not sent. Without a key or without OpenSSL it is only recorded; while the key is paused it waits and is sent when the key is ready again.
 * The service account key is stored in the database, never in a file. The screens show only the email address and the key ID.
 * Help & FAQ screen with step-by-step Google Cloud setup, an explanation of every setting, troubleshooting and system information.
@@ -51,7 +51,7 @@ The free version is not limited in time or in the number of notifications, and i
 * Notifications when a published post is edited (URL_UPDATED), trashed or deleted (URL_DELETED).
 * Old posts sent in small hourly batches, within a daily limit you set, and a Send Old Posts Now screen.
 * Categories whose posts are never sent.
-* Several service account keys: when Google pauses one, the next one is tried.
+* Backup service account keys, used only when Google rejects the main key (401 or 403). They are never used to get past the daily quota.
 
 To get it, open Fast Index > Upgrade, or click Upgrade to Premium in the Premium box of the settings screen; on a network activation the plans page is in the network admin. After the purchase Freemius emails you the premium package (a .zip file) and a license key. Upload the package under Plugins > Add New > Upload Plugin, activate it and enter the key; Freemius deactivates the free version. Your settings, keys and history are kept. Settings of these options that an earlier version saved are kept by the free version, unused, and the premium package uses them again.
 
@@ -101,11 +101,11 @@ This setting is part of the premium plan, a separate package.
 
 = How many URLs can I send per day? =
 
-Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count. Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it pauses that key for six hours. Quota page: https://developers.google.com/search/apis/indexing-api/v3/quota-pricing
+Google's default is 200 publish requests per day for each Google Cloud project; notifications of both kinds, updated and removed, count. Google says larger usage needs its approval and that quota may increase or decrease based on document quality. Fast Index does not know your quota in advance: when Google answers 429 it pauses every key until the quota resets at midnight Pacific Time, and the notifications that could not be sent wait until then. Quota page: https://developers.google.com/search/apis/indexing-api/v3/quota-pricing
 
 = Can I use more than one service account? =
 
-With the premium plan you can upload several keys. For each notification Fast Index picks one of the keys that are not paused, in random order. If Google answers 401, 403 or 429 (or refuses the key), that key is paused for six hours and the next one is tried. Other errors (such as 400, 5xx or no answer) end the attempt without pausing a key. Note that Google counts quota for each project, not for each key, so keys from the same project share the same 200 per day. Google also writes that attempts to abuse the API, including the use of multiple accounts to exceed usage quotas, may result in access being revoked. Use extra keys for reliability or for sites in separate projects, and ask Google for more quota if you need it.
+With the premium plan you can upload backup keys. Fast Index always sends with the main key, the first one in the list. Only when Google rejects it (401 or 403, or the key is refused) is that key paused for six hours and the next key tried. A 429 answer means the daily quota is used up: every key is then paused until the quota resets at midnight Pacific Time, and no other key is tried. Other errors (such as 400, 5xx or no answer) end the attempt without pausing a key. Google counts quota for each project, not for each key, and writes that attempts to abuse the API, including the use of multiple accounts or other means to exceed usage quotas, may result in access being revoked: https://developers.google.com/search/apis/indexing-api/v3/quickstart Ask Google for more quota if you need it.
 
 = Where is my service account key stored, and is it safe? =
 
@@ -135,7 +135,7 @@ No. Fast Index talks only to the Google Indexing API.
 
 The free version is not limited in time or in the number of notifications. It notifies Google when a post is published, keeps a History of Google's answers and includes Help & FAQ.
 
-The premium plan adds pages and custom post types, notifications for edits and removals, hourly batches of old posts, excluded categories and several service account keys.
+The premium plan adds pages and custom post types, notifications for edits and removals, hourly batches of old posts, excluded categories and backup service account keys.
 
 The premium plan is a separate package, sold through Freemius. The Premium box on the settings screen compares both versions, and Upgrade in the Fast Index menu shows the plans and prices.
 
@@ -206,13 +206,13 @@ What leaves your site is described under External services: post addresses and s
 * Changed: the bundled Google API client was replaced by a small client that uses the WordPress HTTP API and a signed request. TLS verification is always on.
 * Changed: keys are stored in the database. On the first load after the update the key files of version 2.x are moved there and deleted. A notice recommends creating a new key and deleting the old one in Google Cloud. If you go back to 2.2 you must upload the key again.
 * Changed: sending runs in the background through WP-Cron, so saving a post is faster.
-* Changed: the free version from WordPress.org contains no premium code and no locked option, and it has no license check. It sends Posts when they are published, with one key. Pages and custom post types, notifications for edits and removals, old-post batches, excluded categories and several keys are in the premium package, sold through Freemius. Settings of these options saved by an earlier version are kept, unused, and the premium package uses them again.
+* Changed: the free version from WordPress.org contains no premium code and no locked option, and it has no license check. It sends Posts when they are published, with one key. Pages and custom post types, notifications for edits and removals, old-post batches, excluded categories and backup keys are in the premium package, sold through Freemius. Settings of these options saved by an earlier version are kept, unused, and the premium package uses them again.
 * Fixed: on a site that never saved the settings, edits were sent although the settings screen showed Publish only.
 * Fixed: a new installation no longer opens on a Freemius license screen. The Freemius opt-in screen has a Skip button, and Fast Index works the same either way. After a network activation the sites no longer answer "Cannot load fast-index" before the network admin chooses, and after the choice in the network admin the settings of the main site open.
 * Changed: Freemius SDK 2.13.4. It sends nothing before you opt in (the previous SDK contacted Freemius on activation), its plans page is part of the plugin instead of an iframe, and it no longer writes a plugin icon into its own folder.
 * New: the settings screen compares the free and premium versions, History says how many published posts Google has not accepted yet, and the Plugins screen has Settings and Upgrade links.
 * Changed: trashing or deleting a published post sends URL_DELETED when the Trash option of the premium package is on.
-* Changed: when Google answers 401, 403 or 429, the key is paused for six hours; with several keys (premium package) the next key is tried.
+* Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).

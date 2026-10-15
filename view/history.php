@@ -89,6 +89,9 @@ $fast_index_types = array(
 				<td class="column-fi-status fi-history-status<?php echo $fast_index_entry['code'] < 0 ? ' fi-history-status--not-sent' : ''; ?>" data-colname="<?php echo esc_attr( $fast_index_columns['status'] ); ?>">
 					<?php /* Isolated, so the code and its name keep their order on right-to-left screens ("200 OK", not "OK 200"). */ ?>
 					<bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?></bdi>
+					<?php if ( '' !== Fast_Index_Admin::status_note( $fast_index_entry['code'] ) ) : ?>
+						<br><span class="description fi-history-note"><?php echo esc_html( Fast_Index_Admin::status_note( $fast_index_entry['code'] ) ); ?></span>
+					<?php endif; ?>
 					<?php if ( $fast_index_entry['retry'] ) : ?>
 						<br><span class="description fi-history-retry"><?php echo esc_html( Fast_Index_Admin::retry_note() ); ?></span>
 					<?php endif; ?>

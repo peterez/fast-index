@@ -228,7 +228,7 @@ class Fast_Index_Upgrade {
 	 * @return string
 	 */
 	public static function summary() {
-		return __( 'The premium plan adds pages and custom post types, notifications for edits and removals, hourly batches of old posts, excluded categories and several service account keys.', 'fast-index' );
+		return __( 'The premium plan adds pages and custom post types, notifications for edits and removals, hourly batches of old posts, excluded categories and backup service account keys.', 'fast-index' );
 	}
 
 	/**
@@ -271,7 +271,7 @@ class Fast_Index_Upgrade {
 			array(
 				'label'   => __( 'Service account keys', 'fast-index' ),
 				'free'    => __( 'One', 'fast-index' ),
-				'premium' => __( 'Several; when Google pauses one, the next one is tried', 'fast-index' ),
+				'premium' => __( 'A main key and backup keys; a backup key is used only when Google rejects the main key', 'fast-index' ),
 			),
 		);
 	}
@@ -296,7 +296,7 @@ class Fast_Index_Upgrade {
 			case 'post_status':
 				return __( 'The premium plan also notifies Google when a published post is edited, trashed or deleted.', 'fast-index' );
 			case 'keys':
-				return __( 'The free version sends with one key. The premium plan keeps several keys and tries the next one when Google pauses a key.', 'fast-index' );
+				return __( 'The free version uses one key. The premium plan can also keep backup keys: a backup key is used only when Google rejects the main key (401 or 403), never to get past the daily quota.', 'fast-index' );
 			default:
 				return '';
 		}

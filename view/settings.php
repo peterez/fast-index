@@ -176,8 +176,13 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 								<td class="insideTd">
 									<?php if ( ! $fast_index_view['several_keys'] && count( $fast_index_view['accounts'] ) > 1 ) : ?>
 										<small class="fi-key-use"><?php echo esc_html( $fast_index_account['in_use'] ? __( 'Used for sending', 'fast-index' ) : __( 'Kept, not used by this version', 'fast-index' ) ); ?></small><br>
+									<?php elseif ( $fast_index_view['several_keys'] && count( $fast_index_view['accounts'] ) > 1 ) : ?>
+										<small class="fi-key-use"><?php echo esc_html( $fast_index_account['main'] ? __( 'Main key', 'fast-index' ) : __( 'Backup key: used only when Google rejects the key before it', 'fast-index' ) ); ?></small><br>
 									<?php endif; ?>
 									<bdi dir="auto"><?php echo esc_html( null === $fast_index_account['status'] ? __( 'Not used yet', 'fast-index' ) : Fast_Index_Admin::status_label( $fast_index_account['status'] ) ); ?></bdi>
+									<?php if ( $fast_index_account['paused_until'] > 0 ) : ?>
+										<br><small class="fi-key-paused"><?php echo esc_html( Fast_Index_Admin::pause_label( $fast_index_account['paused_until'] ) ); ?></small>
+									<?php endif; ?>
 									<form method="post" class="fast-index-inline-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 										<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::DELETE ); ?>" />
 										<input type="hidden" name="fast_index_account" value="<?php echo esc_attr( $fast_index_account['id'] ); ?>" />

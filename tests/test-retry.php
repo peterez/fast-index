@@ -123,11 +123,13 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Ends every rest, as if six hours had passed.
+	 * Ends every pause, as if six hours had passed and the daily quota had been reset.
 	 *
 	 * @return void
 	 */
 	private static function end_rests() {
+		delete_transient( Fast_Index_Accounts::QUOTA_TRANSIENT );
+
 		foreach ( array_keys( Fast_Index_Accounts::all() ) as $id ) {
 			set_transient(
 				Fast_Index_Accounts::STATUS_TRANSIENT_PREFIX . $id,

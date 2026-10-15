@@ -14,7 +14,14 @@ defined( 'ABSPATH' ) || exit;
  * the private key never leaves this option and the HTTP client.
  *
  * The free version sends with one key: the first stored key. Keys stored after it (saved by the premium
- * module, which keeps several) are kept but not used until the module uses them again.
+ * module, which keeps backup keys) are kept but not used until the module uses them again.
+ *
+ * Two kinds of pause:
+ * - A key that Google rejects (401, 403, or a 4xx answer at the token endpoint) is paused for STATUS_TTL. A backup
+ *   key may then take over.
+ * - A 429 answer means the daily quota is used up. Google counts the quota for each project and forbids using
+ *   several accounts to get past it, so every key is paused until the quota resets at midnight Pacific Time
+ *   (QUOTA_TRANSIENT). No other key is tried meanwhile.
  */
 class Fast_Index_Accounts {
 
@@ -37,6 +44,16 @@ class Fast_Index_Accounts {
 	 * How long a failing account is skipped, in seconds (six hours, as in 2.x).
 	 */
 	const STATUS_TTL = 21600;
+
+	/**
+	 * Transient holding the end of the quota pause of every key (Unix time).
+	 */
+	const QUOTA_TRANSIENT = 'fast_index_quota_paused';
+
+	/**
+	 * Time zone of Google's daily quota reset ("The daily quota resets at midnight Pacific Time").
+	 */
+	const QUOTA_TIME_ZONE = 'America/Los_Angeles';
 
 	/**
 	 * Largest accepted key file, in bytes. Google key files are about 2.4 KB.
@@ -95,12 +112,16 @@ class Fast_Index_Accounts {
 	}
 
 	/**
-	 * Accounts in use that are not resting after an error.
+	 * Accounts in use that are not paused, main key first. None while the daily quota is used up.
 	 *
 	 * @return array[]
 	 */
 	public static function available() {
 		$available = array();
+
+		if ( self::quota_pause_end() > 0 ) {
+			return $available;
+		}
 
 		foreach ( self::in_use() as $id => $account ) {
 			if ( 0 === self::rest_end( $id ) ) {
@@ -114,8 +135,8 @@ class Fast_Index_Accounts {
 	/**
 	 * When the first account in use can be used again.
 	 *
-	 * @return int Unix time: now when an account is available, the earliest end of a rest when
-	 *             every account rests, 0 when no account is stored.
+	 * @return int Unix time: now when an account is available, the end of the quota pause or the earliest
+	 *             end of a key's pause otherwise, 0 when no account is stored.
 	 */
 	public static function next_ready_time() {
 		$next = 0;
@@ -124,13 +145,65 @@ class Fast_Index_Accounts {
 			$end = self::rest_end( $id );
 
 			if ( 0 === $end ) {
-				return time();
+				$next = time();
+				break;
 			}
 
 			$next = 0 === $next ? $end : min( $next, $end );
 		}
 
-		return $next;
+		return 0 === $next ? 0 : max( $next, self::quota_pause_end() );
+	}
+
+	/**
+	 * Until when a key is paused: by its own pause or by the quota pause of every key.
+	 *
+	 * @param string $id Account ID.
+	 * @return int Unix time, 0 when the key can be used now.
+	 */
+	public static function paused_until( $id ) {
+		return max( self::rest_end( (string) $id ), self::quota_pause_end() );
+	}
+
+	/**
+	 * Pauses every key until Google resets the daily quota. Called after a 429 answer.
+	 *
+	 * @param int $now Unix time of the answer.
+	 * @return int Unix time when the pause ends.
+	 */
+	public static function pause_for_quota( $now = 0 ) {
+		$now   = $now > 0 ? (int) $now : time();
+		$until = self::quota_reset_time( $now );
+
+		set_transient( self::QUOTA_TRANSIENT, $until, max( 1, $until - $now ) );
+
+		return $until;
+	}
+
+	/**
+	 * End of the quota pause.
+	 *
+	 * @return int Unix time, 0 when the quota is not paused.
+	 */
+	public static function quota_pause_end() {
+		$until = (int) get_transient( self::QUOTA_TRANSIENT );
+
+		return $until > time() ? $until : 0;
+	}
+
+	/**
+	 * The next midnight Pacific Time after a moment: when Google resets the daily quota.
+	 *
+	 * @param int $now Unix time.
+	 * @return int Unix time.
+	 */
+	public static function quota_reset_time( $now ) {
+		$date = new DateTime( '@' . (int) $now );
+		$date->setTimezone( new DateTimeZone( self::QUOTA_TIME_ZONE ) );
+		$date->setTime( 0, 0, 0 );
+		$date->modify( '+1 day' );
+
+		return $date->getTimestamp();
 	}
 
 	/**
@@ -247,7 +320,7 @@ class Fast_Index_Accounts {
 	}
 
 	/**
-	 * Records the last HTTP status of an account. Any status other than 200 rests the account.
+	 * Records the last HTTP status of an account. Any status other than 200 pauses the account for STATUS_TTL.
 	 *
 	 * @param string $id   Account ID.
 	 * @param int    $code HTTP status code.
