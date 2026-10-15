@@ -43,15 +43,26 @@ $fast_index_types = array(
 		</tbody>
 	</table>
 
-	<?php if ( '' !== $fast_index_view['waiting_line'] ) : ?>
-		<p class="fi-upgrade-line">
-			<?php echo esc_html( $fast_index_view['waiting_line'] ); ?>
-			<a href="<?php echo esc_url( $fast_index_view['upgrade_url'] ); ?>"><?php esc_html_e( 'See the premium plan', 'fast-index' ); ?></a>
-		</p>
-	<?php endif; ?>
+	<?php foreach ( $fast_index_view['upgrade'] as $fast_index_line ) : ?>
+		<?php /* Inline, so WordPress does not move it to the top; the close button and the link remember the choice for this user. */ ?>
+		<div class="notice notice-info inline is-dismissible fast-index-notice fi-upgrade-line" data-notice="<?php echo esc_attr( $fast_index_line['notice'] ); ?>" data-dismiss-url="<?php echo esc_url( Fast_Index_Notices::dismiss_url( $fast_index_line['notice'] ) ); ?>">
+			<p>
+				<?php echo esc_html( $fast_index_line['text'] ); ?>
+				<a href="<?php echo esc_url( $fast_index_view['upgrade_url'] ); ?>"><?php esc_html_e( 'See the premium plan', 'fast-index' ); ?></a>
+			</p>
+			<p><a href="<?php echo esc_url( Fast_Index_Notices::dismiss_url( $fast_index_line['notice'] ) ); ?>"><?php esc_html_e( 'Do not show this again', 'fast-index' ); ?></a></p>
+		</div>
+	<?php endforeach; ?>
 
 	<br>
 	<h1 class="title"><?php esc_html_e( 'History', 'fast-index' ); ?></h1>
+
+	<?php if ( '' !== $fast_index_view['hint'] ) : ?>
+		<div class="fi-index-status-hint">
+			<b><?php esc_html_e( 'Index status', 'fast-index' ); ?></b>
+			<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hint'], $fast_index_view['upgrade_url'] ); ?>
+		</div>
+	<?php endif; ?>
 
 	<?php /* Channel filter: every channel, Google or IndexNow. */ ?>
 	<ul class="subsubsub fi-channel-filter">

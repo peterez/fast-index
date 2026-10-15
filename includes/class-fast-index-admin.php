@@ -183,17 +183,18 @@ class Fast_Index_Admin {
 		$base_url = admin_url( 'admin.php?page=' . self::SLUG_HISTORY );
 
 		$fast_index_view = array(
-			'stats'        => $stats,
-			'entries'      => $log['entries'],
-			'page'         => $page,
-			'has_next'     => $log['has_next'],
-			'channel'      => $channel,
-			'channels'     => self::channel_names(),
-			'base_url'     => '' === $channel ? $base_url : add_query_arg( 'channel', $channel, $base_url ),
-			'filter_url'   => $base_url,
-			'indexnow'     => Fast_Index_IndexNow::is_enabled( $settings ) || $stats['indexnow_today'] > 0,
-			'waiting_line' => Fast_Index_Upgrade::waiting_line( $stats['waiting'] ),
-			'upgrade_url'  => Fast_Index_Upgrade::upgrade_url(),
+			'stats'       => $stats,
+			'entries'     => $log['entries'],
+			'page'        => $page,
+			'has_next'    => $log['has_next'],
+			'channel'     => $channel,
+			'channels'    => self::channel_names(),
+			'base_url'    => '' === $channel ? $base_url : add_query_arg( 'channel', $channel, $base_url ),
+			'filter_url'  => $base_url,
+			'indexnow'    => Fast_Index_IndexNow::is_enabled( $settings ) || $stats['indexnow_today'] > 0,
+			'upgrade'     => Fast_Index_Upgrade::history_lines( $stats, get_current_user_id() ),
+			'upgrade_url' => Fast_Index_Upgrade::upgrade_url(),
+			'hint'        => Fast_Index_Upgrade::is_offered() ? Fast_Index_Upgrade::hint( 'index_status' ) : '',
 		);
 
 		include FAST_INDEX_PATH . 'view/history.php';
@@ -388,12 +389,14 @@ class Fast_Index_Admin {
 	/**
 	 * The "Premium" hints of the settings screen, by section.
 	 *
-	 * @return array Keys: keys (plain text) and url (upgrade page).
+	 * @return array Keys: old_posts, exclude_category, keys (plain text) and url (upgrade page).
 	 */
 	private static function hints() {
 		return array(
-			'keys' => Fast_Index_Upgrade::hint( 'keys' ),
-			'url'  => Fast_Index_Upgrade::upgrade_url(),
+			'old_posts'        => Fast_Index_Upgrade::hint( 'old_posts' ),
+			'exclude_category' => Fast_Index_Upgrade::hint( 'exclude_category' ),
+			'keys'             => Fast_Index_Upgrade::hint( 'keys' ),
+			'url'              => Fast_Index_Upgrade::upgrade_url(),
 		);
 	}
 

@@ -192,9 +192,36 @@
 		color: #50575e;
 	}
 
-	/* One line on History about posts that Google has not accepted yet. */
+	/* History lines about the premium plan: inline notices that the user can dismiss. */
 	#fi .fi-upgrade-line {
 		margin: 8px 0 0;
+	}
+
+	/* What the premium plan adds in place of a setting: its name and a badge, no field. */
+	#fi .fi-premium-row td {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	/* Index status (premium) next to the History heading. */
+	#fi .fi-index-status-hint {
+		margin: 8px 0 4px;
+	}
+
+	/* IndexNow key file address: long, may break anywhere. */
+	#fi .fi-indexnow-key a {
+		overflow-wrap: anywhere;
+	}
+
+	/* History: the channel filter sits under the heading. */
+	#fi .fi-channel-filter {
+		float: none;
+		margin: 4px 0 8px;
+	}
+
+	/* Paused key: until when. */
+	#fi .fi-key-paused {
+		color: #50575e;
 	}
 
 	@media screen and (max-width: 782px) {

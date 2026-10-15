@@ -537,7 +537,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'premium-options',
 				'symptom' => __( 'The settings screen has no option for old posts or excluded categories', 'fast-index' ),
-				'cause'   => esc_html__( 'These options are part of the premium plan, which is a separate package. The free version from WordPress.org does not contain their code, so nothing on the screen is locked; the options are simply not there. Settings explained says which options belong to the premium plan.', 'fast-index' ),
+				'cause'   => esc_html__( 'These options are part of the premium plan, which is a separate package. The free version from WordPress.org does not contain their code, so nothing on the screen is locked: in their place the settings screen shows only their name and a Premium badge that explains what they do. Settings explained says which options belong to the premium plan.', 'fast-index' ),
 				'fix'     => esc_html__( 'Read the Premium box on the settings screen and the FAQ entry about the premium plan. If you bought the plan, install the premium package as that entry describes.', 'fast-index' ),
 			),
 		);

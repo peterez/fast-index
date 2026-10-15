@@ -351,12 +351,13 @@ class Fast_Index_Log {
 	 * Counters for the history page, cached for ten minutes.
 	 *
 	 * @param array $settings Clean settings.
-	 * @return int[] Keys: sent, waiting, today (Google), indexnow_today (IndexNow successes of the last 24 hours).
+	 * @return int[] Keys: sent, waiting, today (Google), indexnow_today (IndexNow successes of the last 24 hours),
+	 *               accepted_30d (different addresses Google accepted in the last 30 days).
 	 */
 	public static function stats( array $settings ) {
 		$cached = get_transient( self::STATS_TRANSIENT );
 
-		if ( is_array( $cached ) && isset( $cached['sent'], $cached['waiting'], $cached['today'], $cached['indexnow_today'] ) ) {
+		if ( is_array( $cached ) && isset( $cached['sent'], $cached['waiting'], $cached['today'], $cached['indexnow_today'], $cached['accepted_30d'] ) ) {
 			return $cached;
 		}
 
@@ -365,12 +366,13 @@ class Fast_Index_Log {
 			'waiting'        => self::count_waiting( $settings ),
 			'today'          => self::count_sent_since( time() - DAY_IN_SECONDS ),
 			'indexnow_today' => self::count_sent_since( time() - DAY_IN_SECONDS, self::INDEXNOW_POST_TYPE ),
+			'accepted_30d'   => self::count_accepted_addresses( time() - 30 * DAY_IN_SECONDS ),
 		);
 
 		/**
 		 * Filters the History counters before they are cached.
 		 *
-		 * @param int[] $stats    Keys: sent, waiting, today, indexnow_today.
+		 * @param int[] $stats    Keys: sent, waiting, today, indexnow_today, accepted_30d.
 		 * @param array $settings Clean settings.
 		 */
 		$filtered = apply_filters( 'fast_index_history_stats', $stats, $settings );
@@ -428,6 +430,28 @@ class Fast_Index_Log {
 		);
 
 		return (int) $query->found_posts;
+	}
+
+	/**
+	 * Number of different addresses Google accepted since a moment. Compared in UTC.
+	 *
+	 * @param int $since Unix timestamp.
+	 * @return int
+	 */
+	public static function count_accepted_addresses( $since ) {
+		global $wpdb;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- COUNT(DISTINCT) has no WP_Query equivalent; the result is cached by stats(), every value is a placeholder.
+		$count = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(DISTINCT post_content) FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s AND post_date_gmt >= %s",
+				self::POST_TYPE,
+				self::STATUS_SENT,
+				gmdate( 'Y-m-d H:i:s', (int) $since )
+			)
+		);
+
+		return (int) $count;
 	}
 
 	/**

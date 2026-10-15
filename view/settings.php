@@ -130,6 +130,22 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							</td>
 						</tr>
 
+						<?php if ( isset( $fast_index_view['hints']['old_posts'], $fast_index_view['hints']['exclude_category'] ) ) : ?>
+							<?php /* What the premium plan adds here: a name and a badge that explains it, no field. */ ?>
+							<tr class="fi-premium-row">
+								<td colspan="2">
+									<b><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></b>
+									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['old_posts'], $fast_index_view['hints']['url'] ); ?>
+								</td>
+							</tr>
+							<tr class="fi-premium-row">
+								<td colspan="2">
+									<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b>
+									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['exclude_category'], $fast_index_view['hints']['url'] ); ?>
+								</td>
+							</tr>
+						<?php endif; ?>
+
 						<?php
 						/**
 						 * Fires inside the settings form table, before the "Delete data on uninstall" row. Print whole

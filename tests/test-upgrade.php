@@ -100,8 +100,21 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 
 		$html = self::render( 'render_settings' );
 
-		$this->assertSame( 1, substr_count( $html, '<details class="fi-premium-hint">' ) );
-		$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( 'keys' ) ), $html );
+		// Old posts, excluded categories and backup keys: a name and a badge each, never a field.
+		$this->assertSame( 3, substr_count( $html, '<details class="fi-premium-hint">' ) );
+		$this->assertSame( 2, substr_count( $html, 'class="fi-premium-row"' ) );
+		foreach ( array( 'old_posts', 'exclude_category', 'keys' ) as $section ) {
+			$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( $section ) ), $html, $section );
+		}
+		$this->assertStringNotContainsString( 'old_post_number', $html );
+		$this->assertStringNotContainsString( 'exclude_category]', $html );
+
+		// History: the index status badge, next to the heading; no column without data.
+		$history = self::render( 'render_history' );
+		$this->assertSame( 1, substr_count( $history, '<details class="fi-premium-hint">' ) );
+		$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( 'index_status' ) ), $history );
+		$this->assertStringNotContainsString( 'column-fi-index', $history );
+
 		$this->assertSame( '', Fast_Index_Upgrade::hint( 'post_type' ) );
 		$this->assertSame( '', Fast_Index_Upgrade::hint( 'post_status' ) );
 		$this->assertSame( '', Fast_Index_Upgrade::hint( 'unknown' ) );
@@ -129,6 +142,58 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 		$this->assertStringContainsString( '3 published posts have not been accepted by Google yet.', $html );
 		$this->assertSame( '', Fast_Index_Upgrade::waiting_line( 0 ) );
 		$this->assertStringStartsWith( '1 published post has', Fast_Index_Upgrade::waiting_line( 1 ) );
+	}
+
+	/**
+	 * FI-R05: the second History line counts the different addresses Google accepted in the last 30 days and
+	 * appears from 10 on; each line stays dismissed for the user who dismissed it, and is dismissible.
+	 *
+	 * @return void
+	 */
+	public function test_history_lines_follow_real_numbers_and_stay_dismissed() {
+		$this->fake_freemius( false );
+		$user = $this->login_as( 'administrator' );
+
+		// Nine addresses, one of them twice, and an old one and a refused one that do not count.
+		for ( $i = 0; $i < 9; $i++ ) {
+			Fast_Index_Log::add( 0, home_url( '/accepted-' . $i . '/' ), 200, 'URL_UPDATED' );
+		}
+		Fast_Index_Log::add( 0, home_url( '/accepted-0/' ), 200, 'URL_UPDATED' );
+		Fast_Index_Log::add( 0, home_url( '/refused/' ), 403, 'URL_UPDATED' );
+		Fast_Index_Log::add_indexnow( 0, home_url( '/indexnow-only/' ), 200, 'URL_UPDATED' );
+		$old = Fast_Index_Log::add( 0, home_url( '/old/' ), 200, 'URL_UPDATED' );
+		wp_update_post(
+			array(
+				'ID'            => $old,
+				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', time() - 31 * DAY_IN_SECONDS ),
+				'post_date'     => gmdate( 'Y-m-d H:i:s', time() - 31 * DAY_IN_SECONDS ),
+			)
+		);
+		Fast_Index_Log::flush_stats();
+
+		$this->assertSame( 9, Fast_Index_Log::stats( Fast_Index_Settings::get() )['accepted_30d'] );
+		$this->assertStringNotContainsString( 'data-notice="history_accepted"', self::render( 'render_history' ) );
+
+		Fast_Index_Log::add( 0, home_url( '/accepted-9/' ), 200, 'URL_UPDATED' );
+		$html = self::render( 'render_history' );
+
+		$this->assertStringContainsString( 'data-notice="history_accepted"', $html );
+		$this->assertStringContainsString( 'Google accepted 10 addresses in the last 30 days.', $html );
+		$this->assertStringContainsString( 'is-dismissible', $html );
+		$this->assertStringContainsString( 'action=fast_index_dismiss_notice', $html );
+
+		self::factory()->post->create_many( 2 );
+		Fast_Index_Log::flush_stats();
+		$this->assertStringContainsString( 'data-notice="history_waiting"', self::render( 'render_history' ) );
+
+		// Dismissed for this user, for good; another administrator still sees both.
+		Fast_Index_Notices::dismiss( Fast_Index_Upgrade::NOTICE_HISTORY_ACCEPTED );
+		Fast_Index_Notices::dismiss( Fast_Index_Upgrade::NOTICE_HISTORY_WAITING );
+		$this->assertArrayHasKey( Fast_Index_Upgrade::NOTICE_HISTORY_ACCEPTED, get_user_meta( $user, Fast_Index_Upgrade::USER_META, true ) );
+		$this->assertStringNotContainsString( 'fi-upgrade-line', self::render( 'render_history' ) );
+
+		$this->login_as( 'administrator' );
+		$this->assertCount( 2, Fast_Index_Upgrade::history_lines( Fast_Index_Log::stats( Fast_Index_Settings::get() ), get_current_user_id() ) );
 	}
 
 	/**
@@ -333,10 +398,19 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 
 		$this->assertFalse( Fast_Index_Upgrade::is_offered() );
 
+		for ( $i = 0; $i < 12; $i++ ) {
+			Fast_Index_Log::add( 0, home_url( '/premium-' . $i . '/' ), 200, 'URL_UPDATED' );
+		}
+		delete_option( Fast_Index_Upgrade::FIRST_SUCCESS_OPTION );
+
 		$settings = self::render( 'render_settings' );
+		$history  = self::render( 'render_history' );
 		$this->assertStringNotContainsString( 'fi-premium-card', $settings );
 		$this->assertStringNotContainsString( 'fi-premium-hint', $settings );
-		$this->assertStringNotContainsString( 'fi-upgrade-line', self::render( 'render_history' ) );
+		$this->assertStringNotContainsString( 'fi-premium-row', $settings );
+		$this->assertStringNotContainsString( 'fi-upgrade-line', $history );
+		$this->assertStringNotContainsString( 'fi-premium-hint', $history );
+		$this->assertSame( array(), Fast_Index_Upgrade::history_lines( Fast_Index_Log::stats( Fast_Index_Settings::get() ), $user ) );
 		$this->assertArrayNotHasKey( 'upgrade', Fast_Index_Upgrade::action_links( array( 'upgrade' => 'x' ) ) );
 		$this->assertSame( '', Fast_Index_Upgrade::due_notice( $user, time() ) );
 

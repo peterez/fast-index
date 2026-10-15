@@ -8,16 +8,20 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Every place where the free version mentions the premium plan, so they stay honest and in one file:
+ * Every place where the free version mentions the premium plan, so they stay honest and in one file
+ * (KARARLAR (20), (21), roadmap section 2.4):
  *
  * - the Premium box of the settings screen with a Free / Premium comparison,
- * - a "Premium" hint next to the settings sections that the premium plan extends,
- * - one line on the History screen with the real number of published posts that Google has not accepted yet,
+ * - a "Premium" hint (a <details> badge, no field) for old posts, excluded categories and backup keys on the
+ *   settings screen, and for the index status on the History screen,
+ * - two History lines, each with a real number and each until the user dismisses it: published posts that
+ *   Google has not accepted yet (N > 0), and addresses Google accepted in the last 30 days (M >= 10),
  * - an explanation when a new key replaces the only key of the free version,
+ * - one line in the result of a bulk action that selected more items than are sent at a time,
  * - "Settings" and "Upgrade" links on the Plugins screen,
- * - two notices, on the Fast Index screens only and each until the user dismisses it: a thank-you after Google
- *   accepted a notification (with a review request without any reward), and an offer one week after the plugin
- *   was first set up.
+ * - two notices, on the Fast Index screens only and each until the user dismisses it: a thank-you after Google or
+ *   IndexNow accepted a notification (with a review request without any reward), and an offer one week after the
+ *   plugin was first set up.
  *
  * Nothing here locks, hides or slows down a feature of the free version, and no text speaks of a discount or a
  * deadline. While the premium module is loaded none of the offers is shown.
@@ -53,6 +57,21 @@ class Fast_Index_Upgrade {
 	 * Notice: the premium plan, one week after the first setup.
 	 */
 	const NOTICE_OFFER = 'premium_offer';
+
+	/**
+	 * History line: published posts that Google has not accepted yet.
+	 */
+	const NOTICE_HISTORY_WAITING = 'history_waiting';
+
+	/**
+	 * History line: addresses Google accepted in the last 30 days.
+	 */
+	const NOTICE_HISTORY_ACCEPTED = 'history_accepted';
+
+	/**
+	 * Fewest accepted addresses of the last 30 days before the History line about the index status is shown.
+	 */
+	const ACCEPTED_MIN = 10;
 
 	/**
 	 * Seconds between the first setup and the offer notice.
@@ -161,7 +180,7 @@ class Fast_Index_Upgrade {
 	 * @return string[]
 	 */
 	public static function notice_names() {
-		return array( self::NOTICE_SUCCESS, self::NOTICE_OFFER );
+		return array( self::NOTICE_SUCCESS, self::NOTICE_OFFER, self::NOTICE_HISTORY_WAITING, self::NOTICE_HISTORY_ACCEPTED );
 	}
 
 	/**
@@ -304,11 +323,17 @@ class Fast_Index_Upgrade {
 	/**
 	 * Text of the "Premium" hint next to a settings section.
 	 *
-	 * @param string $section keys.
+	 * @param string $section old_posts, exclude_category, index_status or keys.
 	 * @return string Plain text; empty for an unknown section.
 	 */
 	public static function hint( $section ) {
 		switch ( $section ) {
+			case 'old_posts':
+				return __( 'The premium plan sends published posts that Google has not accepted yet in hourly batches, within a daily limit you set, and adds a Send Old Posts Now screen.', 'fast-index' );
+			case 'exclude_category':
+				return __( 'The premium plan can leave out every post of the categories you choose, for new, changed, removed and old posts.', 'fast-index' );
+			case 'index_status':
+				return __( 'The premium plan adds an Index status column: it asks Search Console whether each address Google accepted is indexed, with a Check button and automatic checks 24 and 72 hours after sending.', 'fast-index' );
 			case 'keys':
 				return __( 'The free version uses one key. The premium plan can also keep backup keys: a backup key is used only when Google rejects the main key (401 or 403), never to get past the daily quota.', 'fast-index' );
 			default:
@@ -337,6 +362,61 @@ class Fast_Index_Upgrade {
 		}
 
 		echo '</p></details>';
+	}
+
+	/**
+	 * The History lines about the premium plan that a user has not dismissed.
+	 *
+	 * @param int[] $stats   History counters (Fast_Index_Log::stats()).
+	 * @param int   $user_id User ID.
+	 * @return array[] Each: notice (name), text (plain text). Empty while the premium plan is not offered.
+	 */
+	public static function history_lines( array $stats, $user_id ) {
+		$dismissed = self::dismissed( $user_id );
+		$lines     = array();
+		$waiting   = self::waiting_line( isset( $stats['waiting'] ) ? $stats['waiting'] : 0 );
+		$accepted  = self::accepted_line( isset( $stats['accepted_30d'] ) ? $stats['accepted_30d'] : 0 );
+
+		if ( '' !== $waiting && ! isset( $dismissed[ self::NOTICE_HISTORY_WAITING ] ) ) {
+			$lines[] = array(
+				'notice' => self::NOTICE_HISTORY_WAITING,
+				'text'   => $waiting,
+			);
+		}
+
+		if ( '' !== $accepted && ! isset( $dismissed[ self::NOTICE_HISTORY_ACCEPTED ] ) ) {
+			$lines[] = array(
+				'notice' => self::NOTICE_HISTORY_ACCEPTED,
+				'text'   => $accepted,
+			);
+		}
+
+		return $lines;
+	}
+
+	/**
+	 * The History line about addresses Google accepted in the last 30 days.
+	 *
+	 * @param int $accepted Real number of different accepted addresses.
+	 * @return string Plain text; empty below ACCEPTED_MIN or while the offer is not shown.
+	 */
+	public static function accepted_line( $accepted ) {
+		$accepted = (int) $accepted;
+
+		if ( $accepted < self::ACCEPTED_MIN || ! self::is_offered() ) {
+			return '';
+		}
+
+		return sprintf(
+			/* translators: %s: number of addresses. */
+			_n(
+				'Google accepted %s address in the last 30 days. The premium plan can check in Search Console whether it is indexed.',
+				'Google accepted %s addresses in the last 30 days. The premium plan can check in Search Console whether they are indexed.',
+				$accepted,
+				'fast-index'
+			),
+			number_format_i18n( $accepted )
+		);
 	}
 
 	/**
