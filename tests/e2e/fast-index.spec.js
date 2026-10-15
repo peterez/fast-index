@@ -193,6 +193,8 @@ test.describe( 'Fast Index admin', () => {
 		await page.goto( SETTINGS );
 		await page.setInputFiles( '#fast-index-key-files', { name: 'fresh.json', mimeType: 'application/json', buffer } );
 		await page.click( 'form[enctype="multipart/form-data"] input[type="submit"]' );
+		// The new key in the list: the upload request has finished (a success notice alone may be an older one).
+		await expect( page.locator( '.fast-index-accounts' ) ).toContainText( 'e2e-fresh@fast-index-e2e.iam.gserviceaccount.com' );
 		await expect( page.locator( '.notice-success:not(.fi-upgrade-notice)' ) ).toHaveCount( 1 );
 		expect( Number( wp( [ 'eval', 'echo wp_next_scheduled( Fast_Index_Retry::HOOK ) - time();' ] ) ) ).toBeLessThanOrEqual( 0 );
 
