@@ -213,6 +213,11 @@
 		overflow-wrap: anywhere;
 	}
 
+	/* History: the title of a removed post is its address, which has no space to break at on a phone. */
+	#fi .fi-history .column-title strong {
+		overflow-wrap: anywhere;
+	}
+
 	/* History: the channel filter sits under the heading. */
 	#fi .fi-channel-filter {
 		float: none;
