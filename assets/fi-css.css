@@ -127,12 +127,14 @@
 		margin: 0 0 12px;
 	}
 
+	/* On a phone the card is narrow: a phrase may break where it has to (Japanese keeps phrases whole otherwise). */
 	#fi .fi-compare th,
 	#fi .fi-compare td {
 		padding: 6px 8px;
 		border-bottom: 1px solid #f0f0f1;
 		text-align: start;
 		vertical-align: top;
+		overflow-wrap: anywhere;
 	}
 
 	#fi .fi-compare thead th {
