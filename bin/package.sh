@@ -60,13 +60,18 @@ PREMIUM_ZIP="$OUT/$SLUG-premium-$VERSION.zip"
 ( cd "$WORK" && "$WP" dist-archive "$WORK/org/$SLUG" "$ORG_ZIP" --plugin-dirname="$SLUG" --force --quiet )
 ( cd "$WORK" && "$WP" dist-archive "$WORK/premium/$SLUG" "$PREMIUM_ZIP" --plugin-dirname="$SLUG" --force --quiet )
 
+# The file lists go to files first: with pipefail, "unzip | grep -q" fails whenever grep stops reading early (unzip
+# gets SIGPIPE), which would hide a premium path or report a present module as missing.
+unzip -Z1 "$ORG_ZIP" > "$WORK/org.list"
+unzip -Z1 "$PREMIUM_ZIP" > "$WORK/premium.list"
+
 # Only the bundled Freemius SDK may have "premium" in a file name (its own templates).
-if unzip -Z1 "$ORG_ZIP" | grep -v "^$SLUG/freemius-sdk/" | grep -qi 'premium'; then
+if grep -v "^$SLUG/freemius-sdk/" "$WORK/org.list" | grep -i 'premium' > /dev/null; then
 	echo "package.sh: $ORG_ZIP contains a premium path" >&2
 	exit 1
 fi
 
-if ! unzip -Z1 "$PREMIUM_ZIP" | grep -qx "$SLUG/includes/premium/class-fast-index-premium.php"; then
+if ! grep -qx "$SLUG/includes/premium/class-fast-index-premium.php" "$WORK/premium.list"; then
 	echo "package.sh: $PREMIUM_ZIP has no premium module" >&2
 	exit 1
 fi
