@@ -523,7 +523,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'nothing-in-history',
 				'symptom' => __( 'A post is missing from History', 'fast-index' ),
-				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written, and while Supported Pages Only is checked, pages without JobPosting or BroadcastEvent data get no Google entry.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, when it is password protected, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written, and while Supported Pages Only is checked, pages without JobPosting or BroadcastEvent data get no Google entry.', 'fast-index' ),
 				'fix'     => esc_html__( 'Check the settings above. Changing a setting does not send earlier saves: after you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
 			),
 			array(

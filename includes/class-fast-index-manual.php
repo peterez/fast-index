@@ -10,7 +10,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * "Notify search engines": a row action and a bulk action on the list screens of the post types Fast Index sends.
  *
- * - Only published posts are sent, and only by a user who can edit each of them (edit_post, checked per post).
+ * - Only published posts that are not password protected are sent, and only by a user who can edit each of them
+ *   (edit_post, checked per post).
  *   The row action carries its own nonce; the bulk action is checked by core (bulk-posts) before it reaches
  *   handle_bulk().
  * - At most MAX posts are sent at a time, in the order of the list. Google gets them one by one within
@@ -190,11 +191,12 @@ class Fast_Index_Manual {
 	 * @return array The stored result (see the keys below).
 	 */
 	public static function send( array $post_ids ) {
-		$ids      = array_values( array_unique( array_filter( array_map( 'absint', $post_ids ) ) ) );
-		$types    = self::post_types();
-		$items    = array();
-		$skipped  = 0;
-		$selected = count( $ids );
+		$ids       = array_values( array_unique( array_filter( array_map( 'absint', $post_ids ) ) ) );
+		$types     = self::post_types();
+		$items     = array();
+		$skipped   = 0;
+		$protected = 0;
+		$selected  = count( $ids );
 
 		foreach ( array_slice( $ids, 0, self::MAX ) as $post_id ) {
 			$post = get_post( $post_id );
@@ -202,6 +204,11 @@ class Fast_Index_Manual {
 
 			if ( ! $post instanceof WP_Post || 'publish' !== $post->post_status || ! in_array( $post->post_type, $types, true ) || ! current_user_can( 'edit_post', $post_id ) || ! Fast_Index_Post_Watcher::is_http_url( $url ) ) {
 				++$skipped;
+				continue;
+			}
+
+			if ( Fast_Index_Post_Watcher::is_protected( $post ) ) {
+				++$protected;
 				continue;
 			}
 
@@ -217,6 +224,7 @@ class Fast_Index_Manual {
 			'selected'          => $selected,
 			'over_limit'        => max( 0, $selected - self::MAX ),
 			'skipped'           => $skipped,
+			'protected'         => $protected,
 			'google_accepted'   => null === $sent ? 0 : $sent['google']['accepted'],
 			'google_failed'     => null === $sent ? 0 : $sent['google']['failed'],
 			'queued'            => null === $sent ? 0 : $sent['queued'],
@@ -266,6 +274,11 @@ class Fast_Index_Manual {
 			$lines[] = sprintf( _n( '%s selected item was not sent: it is not published, its post type is not checked in the settings, or you cannot edit it.', '%s selected items were not sent: they are not published, their post type is not checked in the settings, or you cannot edit them.', $result['skipped'], 'fast-index' ), number_format_i18n( $result['skipped'] ) );
 		}
 
+		if ( ! empty( $result['protected'] ) ) {
+			/* translators: %s: number of selected items. */
+			$lines[] = sprintf( _n( '%s selected item is password protected and was not sent.', '%s selected items are password protected and were not sent.', $result['protected'], 'fast-index' ), number_format_i18n( $result['protected'] ) );
+		}
+
 		if ( $result['over_limit'] > 0 ) {
 			/* translators: 1: most items sent at a time, 2: number of selected items. */
 			$lines[] = sprintf( __( 'Up to %1$s items are sent at a time: the first %1$s of the %2$s selected items were handled, the others were not sent.', 'fast-index' ), number_format_i18n( self::MAX ), number_format_i18n( $result['selected'] ) );
@@ -297,7 +310,7 @@ class Fast_Index_Manual {
 		}
 
 		$lines   = self::result_lines( $result );
-		$failed  = $result['google_failed'] > 0 || ( $result['indexnow_sent'] > 0 && ! $result['indexnow_accepted'] ) || $result['skipped'] > 0 || $result['over_limit'] > 0;
+		$failed  = $result['google_failed'] > 0 || ( $result['indexnow_sent'] > 0 && ! $result['indexnow_accepted'] ) || $result['skipped'] > 0 || ! empty( $result['protected'] ) || $result['over_limit'] > 0;
 		$type    = $failed ? 'warning' : 'success';
 		$history = admin_url( 'admin.php?page=' . Fast_Index_Admin::SLUG_HISTORY );
 

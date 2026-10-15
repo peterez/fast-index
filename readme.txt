@@ -33,7 +33,7 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 
 **Features**
 
-* Notifications for every public post type (posts, pages, custom post types such as products or job listings): URL_UPDATED when content is published or updated, URL_DELETED when it is trashed or deleted. You choose the post types and the events.
+* Notifications for every public post type (posts, pages, custom post types such as products or job listings): URL_UPDATED when content is published or updated, URL_DELETED when it is trashed or deleted. You choose the post types and the events. Password-protected posts are never sent.
 * IndexNow, off by default: the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and the other search engines that take part. Fast Index creates the key and answers the key file itself, without a file on disk.
 * History marks pages with JobPosting or BroadcastEvent data, the kinds Google supports, as Eligible for Google Indexing API. An option sends only those pages to Google; IndexNow still gets the others.
 * Sending by hand: a Notify search engines row action and bulk action in the post lists, up to 100 items at a time, with the result on the same screen.
@@ -243,6 +243,7 @@ What leaves your site is described under External services: post addresses and s
 * Changed: Freemius SDK 2.13.4. It sends nothing before you opt in (the previous SDK contacted Freemius on activation), its plans page is part of the plugin instead of an iframe and loads no Google Analytics, and it no longer writes a plugin icon into its own folder.
 * New: the settings screen compares the free and premium versions, History says how many published posts Google has not accepted yet, and the Plugins screen has Settings and Upgrade links.
 * Changed: trashing or deleting a published post sends URL_DELETED when the Trash event is checked.
+* Changed: password-protected posts are never sent to Google or IndexNow: not when they are published, changed or trashed, not by hand and not in the old-post batches, and they do not count as waiting.
 * Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
 * New: IndexNow, off by default. When you turn it on, the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines. Fast Index creates a key for each site and answers the key file at /{key}.txt without a file. History has a Channel column and a filter.
 * New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen.

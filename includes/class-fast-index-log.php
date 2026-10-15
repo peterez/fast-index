@@ -459,7 +459,8 @@ class Fast_Index_Log {
 	}
 
 	/**
-	 * Number of published posts of the enabled types that were never sent successfully.
+	 * Number of published posts of the enabled types that were never sent successfully. Password-protected posts are
+	 * never sent, so they never wait.
 	 *
 	 * @param array $settings Clean settings.
 	 * @return int
@@ -481,6 +482,7 @@ class Fast_Index_Log {
 			$wpdb->prepare(
 				"SELECT COUNT(*) FROM {$wpdb->posts} AS p
 				WHERE p.post_status = 'publish'
+				AND p.post_password = ''
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
 				AND ( %d = 0 OR p.post_content LIKE %s OR p.post_content LIKE %s )",
