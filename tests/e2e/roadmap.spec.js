@@ -47,7 +47,7 @@ function storeKey() {
  * @return {void}
  */
 function runQueue() {
-	wp( [ 'eval', 'foreach ( (array) _get_cron_array() as $ts => $hooks ) { if ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ) { continue; } foreach ( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { if ( false === strpos( (string) $event["args"][0], "e2e-roadmap" ) ) { continue; } wp_unschedule_event( $ts, Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); } }' ] );
+	wp( [ 'eval', 'foreach ( Fast_Index_Queue::items( 100000 ) as $i ) { if ( false === strpos( $i["url"], "e2e-roadmap" ) || null === Fast_Index_Queue::take( $i["url"] ) ) { continue; } Fast_Index_Notifier::deliver( $i["url"], $i["type"], $i["post_id"] ); }' ] );
 }
 
 /**
@@ -111,7 +111,7 @@ function quietPost( title, type, content ) {
  * @return {void}
  */
 function cleanUp() {
-	wp( [ 'eval', '$o = get_option( "fast_index_options" ); update_option( "fast_index_options", array_merge( (array) $o, array( "status" => "2" ) ) ); foreach ( get_posts( array( "post_type" => array( "post", "page" ), "post_status" => array( "any", "trash" ), "numberposts" => -1, "fields" => "ids", "s" => "E2E roadmap" ) ) as $id ) { wp_delete_post( $id, true ); } foreach ( array( "e2e-roadmap", "E2E roadmap" ) as $s ) { foreach ( get_posts( array( "post_type" => Fast_Index_Log::post_types(), "post_status" => "any", "numberposts" => -1, "fields" => "ids", "s" => $s ) ) as $id ) { wp_delete_post( $id, true ); } } foreach ( (array) _get_cron_array() as $ts => $hooks ) { foreach ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ? array() : $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { if ( false !== strpos( (string) $event["args"][0], "e2e-roadmap" ) ) { wp_unschedule_event( $ts, Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); } } } wp_unschedule_hook( Fast_Index_Retry::HOOK ); delete_transient( Fast_Index_Accounts::QUOTA_TRANSIENT ); delete_transient( "fast_index_stats" ); delete_option( "fast_index_qa_requests" ); delete_option( "fast_index_qa_urls" ); delete_option( "fast_index_indexnow_key" ); delete_option( "fast_index_first_indexnow" ); delete_option( "fast_index_inspection_usage" ); delete_transient( "fast_index_sc_property" ); delete_user_meta( ' + USER_ID + ', "fast_index_dismissed_notices" ); delete_user_meta( ' + USER_ID + ', "edit_post_per_page" ); foreach ( array_keys( Fast_Index_Accounts::all() ) as $id ) { Fast_Index_Accounts::delete( $id ); }' ] );
+	wp( [ 'eval', '$o = get_option( "fast_index_options" ); update_option( "fast_index_options", array_merge( (array) $o, array( "status" => "2" ) ) ); foreach ( get_posts( array( "post_type" => array( "post", "page" ), "post_status" => array( "any", "trash" ), "numberposts" => -1, "fields" => "ids", "s" => "E2E roadmap" ) ) as $id ) { wp_delete_post( $id, true ); } foreach ( array( "e2e-roadmap", "E2E roadmap" ) as $s ) { foreach ( get_posts( array( "post_type" => Fast_Index_Log::post_types(), "post_status" => "any", "numberposts" => -1, "fields" => "ids", "s" => $s ) ) as $id ) { wp_delete_post( $id, true ); } } foreach ( Fast_Index_Queue::items( 100000 ) as $i ) { if ( false !== strpos( $i["url"], "e2e-roadmap" ) ) { Fast_Index_Queue::take( $i["url"] ); } } wp_unschedule_hook( Fast_Index_Retry::HOOK ); delete_transient( Fast_Index_Accounts::QUOTA_TRANSIENT ); delete_transient( "fast_index_stats" ); delete_option( "fast_index_qa_requests" ); delete_option( "fast_index_qa_urls" ); delete_option( "fast_index_indexnow_key" ); delete_option( "fast_index_first_indexnow" ); delete_option( "fast_index_inspection_usage" ); delete_transient( "fast_index_sc_property" ); delete_user_meta( ' + USER_ID + ', "fast_index_dismissed_notices" ); delete_user_meta( ' + USER_ID + ', "edit_post_per_page" ); foreach ( array_keys( Fast_Index_Accounts::all() ) as $id ) { Fast_Index_Accounts::delete( $id ); }' ] );
 	settings( { post_type: { post: '1' }, post_status: { publish: '1', edit: '1' } } );
 }
 
@@ -320,7 +320,7 @@ test.describe( 'Fast Index 3.0.0', () => {
 		storeKey();
 		wp( [ 'eval', 'for ( $i = 0; $i < 101; $i++ ) { wp_insert_post( array( "post_title" => "E2E roadmap bulk ' + STAMP + ' " . $i, "post_status" => "publish" ) ); }' ] );
 		settings( {} );
-		wp( [ 'eval', 'foreach ( (array) _get_cron_array() as $ts => $hooks ) { foreach ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ? array() : $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { if ( false !== strpos( (string) $event["args"][0], "e2e-roadmap" ) ) { wp_unschedule_event( $ts, Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); } } } update_user_meta( ' + USER_ID + ', "edit_post_per_page", 150 );' ] );
+		wp( [ 'eval', 'foreach ( Fast_Index_Queue::items( 100000 ) as $i ) { if ( false !== strpos( $i["url"], "e2e-roadmap" ) ) { Fast_Index_Queue::take( $i["url"] ); } } update_user_meta( ' + USER_ID + ', "edit_post_per_page", 150 );' ] );
 		resetRequests();
 
 		await page.goto( admin( 'edit.php?s=' + encodeURIComponent( 'E2E roadmap bulk ' + STAMP ) ) );
@@ -337,10 +337,10 @@ test.describe( 'Fast Index 3.0.0', () => {
 		}
 		// Google within the time budget, the rest of the first 100 queued; the 101st is not sent.
 		const slug = 'e2e-roadmap-bulk-' + STAMP;
-		const queued = Number( wp( [ 'eval', '$n = 0; foreach ( (array) _get_cron_array() as $hooks ) { foreach ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ? array() : $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { $n += false !== strpos( $event["args"][0], "' + slug + '" ) ? 1 : 0; } } echo $n;' ] ) );
+		const queued = Number( wp( [ 'eval', '$n = 0; foreach ( Fast_Index_Queue::items( 100000 ) as $i ) { $n += false !== strpos( $i["url"], "' + slug + '" ) ? 1 : 0; } echo $n;' ] ) );
 		expect( hits( 'indexing.googleapis.com', [ new RegExp( slug ) ] ) + queued ).toBe( 100 );
 
-		wp( [ 'eval', 'foreach ( (array) _get_cron_array() as $ts => $hooks ) { foreach ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ? array() : $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { if ( false !== strpos( (string) $event["args"][0], "e2e-roadmap" ) ) { wp_unschedule_event( $ts, Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); } } }' ] );
+		wp( [ 'eval', 'foreach ( Fast_Index_Queue::items( 100000 ) as $i ) { if ( false !== strpos( $i["url"], "e2e-roadmap" ) ) { Fast_Index_Queue::take( $i["url"] ); } }' ] );
 	} );
 
 	test( 'FI-R05: no nudge outside the Fast Index screens; the History lines have real numbers and stay dismissed', async ( { page } ) => {

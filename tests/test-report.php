@@ -67,7 +67,7 @@ class Fast_Index_Test_Report extends Fast_Index_Test_Case {
 	 */
 	public function test_report_has_the_numbers_of_history() {
 		$posts = self::factory()->post->create_many( 4 );
-		wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
+		self::clear_queue();
 
 		Fast_Index_Log::add( $posts[0], get_permalink( $posts[0] ), 200, 'URL_UPDATED' );
 		Fast_Index_Log::add( $posts[1], get_permalink( $posts[1] ), 200, 'URL_UPDATED' );

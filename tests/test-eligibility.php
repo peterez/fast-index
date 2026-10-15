@@ -116,7 +116,7 @@ class Fast_Index_Test_Eligibility extends Fast_Index_Test_Case {
 		$this->assertSame( 1, Fast_Index_Log::count_waiting( Fast_Index_Settings::get() ), 'Only the job page waits for Google.' );
 
 		foreach ( array( $plain, $job ) as $id ) {
-			do_action( Fast_Index_Cron::SUBMIT_HOOK, get_permalink( $id ), 'URL_UPDATED', $id );
+			self::run_queued_url( get_permalink( $id ) );
 		}
 
 		$publish = $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL );
@@ -127,7 +127,7 @@ class Fast_Index_Test_Eligibility extends Fast_Index_Test_Case {
 
 		// Off: every page goes to Google again.
 		update_option( Fast_Index_Settings::OPTION, array( 'post_type' => array( 'post' => '1' ) ) );
-		do_action( Fast_Index_Cron::SUBMIT_HOOK, get_permalink( $plain ), 'URL_UPDATED', $plain );
+		Fast_Index_Notifier::deliver( get_permalink( $plain ), 'URL_UPDATED', $plain );
 		$this->assertCount( 2, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
 	}
 

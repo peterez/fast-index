@@ -60,7 +60,7 @@ class Fast_Index_Test_Premium_Module extends Fast_Index_Test_Case {
 
 		$post_id = self::factory()->post->create( array( 'post_status' => 'publish' ) );
 		$url     = get_permalink( $post_id );
-		wp_clear_scheduled_hook( Fast_Index_Cron::SUBMIT_HOOK, array( $url, 'URL_UPDATED', $post_id ) );
+		Fast_Index_Queue::take( $url );
 
 		wp_update_post(
 			array(
@@ -68,7 +68,7 @@ class Fast_Index_Test_Premium_Module extends Fast_Index_Test_Case {
 				'post_content' => 'Changed.',
 			)
 		);
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( $url, 'URL_UPDATED', $post_id ) ), 'Edit is sent.' );
+		$this->assertTrue( self::is_queued( $url, 'URL_UPDATED', $post_id ), 'Edit is sent.' );
 		$this->assertSame( 1, did_action( 'fast_index_premium_loaded' ) > 0 ? 1 : 0 );
 
 		$page = self::factory()->post->create(
@@ -77,7 +77,7 @@ class Fast_Index_Test_Premium_Module extends Fast_Index_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( get_permalink( $page ), 'URL_UPDATED', $page ) ), 'Pages are sent.' );
+		$this->assertTrue( self::is_queued( get_permalink( $page ), 'URL_UPDATED', $page ), 'Pages are sent.' );
 
 		$this->login_as( 'administrator' );
 		ob_start();
@@ -145,7 +145,7 @@ class Fast_Index_Test_Premium_Module extends Fast_Index_Test_Case {
 		$this->fake_google();
 
 		$old = self::factory()->post->create_many( 3 );
-		wp_clear_scheduled_hook( Fast_Index_Cron::SUBMIT_HOOK );
+		self::clear_queue();
 		update_option(
 			Fast_Index_Settings::OPTION,
 			array(

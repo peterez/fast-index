@@ -276,4 +276,56 @@ abstract class Fast_Index_Test_Case extends WP_UnitTestCase {
 		$_POST[ $field ]    = $nonce;
 		$_REQUEST[ $field ] = $nonce;
 	}
+
+	/**
+	 * Queued notifications as argument lists (url, type, post ID), oldest first.
+	 *
+	 * @return array[]
+	 */
+	protected static function queued_args() {
+		$args = array();
+
+		foreach ( Fast_Index_Queue::items( 100000 ) as $item ) {
+			$args[] = array( $item['url'], $item['type'], $item['post_id'] );
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Whether a notification is queued.
+	 *
+	 * @param string $url     Address.
+	 * @param string $type    Notification type.
+	 * @param int    $post_id Post ID.
+	 * @return bool
+	 */
+	protected static function is_queued( $url, $type, $post_id ) {
+		return in_array( array( $url, $type, (int) $post_id ), self::queued_args(), true );
+	}
+
+	/**
+	 * Takes the queued notification of an address and sends it, as a run of the queue would (both channels).
+	 *
+	 * @param string $url Address.
+	 * @return array|null Result of Fast_Index_Notifier::deliver(), null when the address was not queued.
+	 */
+	protected static function run_queued_url( $url ) {
+		$item = Fast_Index_Queue::take( $url );
+
+		return null === $item ? null : Fast_Index_Notifier::deliver( $item['url'], $item['type'], $item['post_id'] );
+	}
+
+	/**
+	 * Empties the queue.
+	 *
+	 * @return void
+	 */
+	protected static function clear_queue() {
+		foreach ( Fast_Index_Queue::items( 100000 ) as $item ) {
+			Fast_Index_Queue::take( $item['url'] );
+		}
+
+		wp_unschedule_hook( Fast_Index_Queue::HOOK );
+	}
 }

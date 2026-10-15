@@ -263,7 +263,8 @@ class Fast_Index_Test_Migration extends Fast_Index_Test_Case {
 
 		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		$this->assertFalse( wp_next_scheduled( 'fiDailyCronHook' ) );
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( 'https://example.org/a/', 'URL_UPDATED', 1 ) ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Queue::HOOK ) );
+		$this->assertSame( 1, Fast_Index_Queue::count(), 'Deactivation keeps the queue.' );
 		$this->assertCount( 1, Fast_Index_Accounts::all() );
 		$this->assertIsArray( get_option( Fast_Index_Settings::OPTION ) );
 

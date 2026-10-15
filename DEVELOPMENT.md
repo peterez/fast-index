@@ -39,13 +39,26 @@ the Edit and Trash events itself):
 | `fast_index_send_to_google` | filter | whether a notification goes to Google; IndexNow is decided by its setting |
 | `fast_index_is_eligible` | filter | whether a post has JobPosting or BroadcastEvent data (saved content and WP Job Manager by default) |
 
+## Queue
+
+Saving a post never sends anything. `Fast_Index_Post_Watcher` adds the address to `Fast_Index_Queue`: one row per
+address in the options table (`fast_index_queue_` + md5 of the address, autoload off, written with one
+`INSERT ... ON DUPLICATE KEY UPDATE`; the newest event of an address wins and keeps its place). One single event,
+`fast_index_process_queue`, sends at most 100 addresses per run within 20 seconds: Google one by one, IndexNow the whole
+batch in one request (`Fast_Index_Notifier::deliver_many()`). A run claims a row by deleting it, so two runs never send
+the same address. While rows are left the next run is planned right away; after a Google outage (no answer or 5xx)
+the rest waits five minutes. A 5,000-post import therefore adds 5,000 small rows and at most one event, and the
+autoloaded `cron` option keeps its size. The 3.0.0 development builds planned one `fast_index_submit_url` event per
+address; `Fast_Index_Queue::adopt_legacy_events()` moves such events into the queue on activation, on upgrade, in the
+hourly run and when one of them runs. Deactivation keeps the rows; deleting the plugin removes them.
+
 ## IndexNow
 
 `Fast_Index_IndexNow` is off until the user checks "Also send to IndexNow". Then a 32-character key is created per
 site (option `fast_index_indexnow_key`, not autoloaded), `parse_request` answers `{home}/{key}.txt` with the key
 (no file, no rewrite rule; `keyLocation` is always sent, so a sub-directory site covers its own addresses), and
-`Fast_Index_Notifier` sends every queued notification to `https://api.indexnow.org/indexnow` in the same cron run as
-Google. History entries of IndexNow are posts of the type `fast_index_now_log`, so the Google counters, the old-post
+`Fast_Index_Notifier` sends the queued notifications to `https://api.indexnow.org/indexnow` in the same cron run as
+Google, one request per batch. History entries of IndexNow are posts of the type `fast_index_now_log`, so the Google counters, the old-post
 batches and the retry queue (all on `fi_log`) never see them. 200 and 202 are successes; nothing is retried.
 
 ## Index status (premium)

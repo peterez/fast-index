@@ -157,7 +157,7 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 		// Defaults (never saved): Publish and Edit of Posts.
 		$post_id = self::factory()->post->create( array( 'post_status' => 'publish' ) );
 		$url     = get_permalink( $post_id );
-		$this->assertSame( array( array( $url, 'URL_UPDATED', $post_id ) ), self::queued(), 'Publish is sent.' );
+		$this->assertSame( array( array( $url, 'URL_UPDATED', $post_id ) ), self::queued_args(), 'Publish is sent.' );
 		self::clear_queue();
 
 		wp_update_post(
@@ -166,7 +166,7 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 				'post_content' => 'Changed.',
 			)
 		);
-		$this->assertSame( array( array( $url, 'URL_UPDATED', $post_id ) ), self::queued(), 'Edit is sent.' );
+		$this->assertSame( array( array( $url, 'URL_UPDATED', $post_id ) ), self::queued_args(), 'Edit is sent.' );
 		self::clear_queue();
 
 		update_option(
@@ -193,7 +193,7 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 			)
 		);
 		$page_url = get_permalink( $page );
-		$this->assertSame( array( array( $page_url, 'URL_UPDATED', $page ) ), self::queued(), 'A page is sent.' );
+		$this->assertSame( array( array( $page_url, 'URL_UPDATED', $page ) ), self::queued_args(), 'A page is sent.' );
 		self::clear_queue();
 
 		$job = self::factory()->post->create(
@@ -202,19 +202,19 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		$this->assertSame( array( array( get_permalink( $job ), 'URL_UPDATED', $job ) ), self::queued(), 'A custom post type is sent.' );
+		$this->assertSame( array( array( get_permalink( $job ), 'URL_UPDATED', $job ) ), self::queued_args(), 'A custom post type is sent.' );
 		self::clear_queue();
 
 		wp_trash_post( $page );
 		$this->assertStringNotContainsString( '__trashed', $page_url );
-		$this->assertSame( array( array( $page_url, 'URL_DELETED', $page ) ), self::queued(), 'Trash sends the old address.' );
+		$this->assertSame( array( array( $page_url, 'URL_DELETED', $page ) ), self::queued_args(), 'Trash sends the old address.' );
 		self::clear_queue();
 
 		wp_delete_post( $page, true );
-		$this->assertSame( array(), self::queued(), 'Deleting from the trash sends nothing more.' );
+		$this->assertSame( array(), self::queued_args(), 'Deleting from the trash sends nothing more.' );
 
 		wp_delete_post( $post_id, true );
-		$this->assertSame( array( array( $url, 'URL_DELETED', $post_id ) ), self::queued(), 'Deleting a published post without the trash is sent.' );
+		$this->assertSame( array( array( $url, 'URL_DELETED', $post_id ) ), self::queued_args(), 'Deleting a published post without the trash is sent.' );
 		self::clear_queue();
 
 		// Unchecked events and draft posts are not sent.
@@ -235,37 +235,9 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 		);
 		wp_trash_post( $other );
 		self::factory()->post->create( array( 'post_status' => 'draft' ) );
-		$this->assertSame( array(), self::queued() );
+		$this->assertSame( array(), self::queued_args() );
 
 		unregister_post_type( 'fi_job' );
-	}
-
-	/**
-	 * Arguments of the queued notification events.
-	 *
-	 * @return array[]
-	 */
-	private static function queued() {
-		$events = array();
-
-		foreach ( (array) _get_cron_array() as $hooks ) {
-			if ( isset( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ) {
-				foreach ( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) {
-					$events[] = $event['args'];
-				}
-			}
-		}
-
-		return $events;
-	}
-
-	/**
-	 * Removes every queued notification event.
-	 *
-	 * @return void
-	 */
-	private static function clear_queue() {
-		wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
 	}
 
 	/**

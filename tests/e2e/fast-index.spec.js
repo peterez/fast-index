@@ -157,7 +157,7 @@ test.describe( 'Fast Index admin', () => {
 		const label = ( constant ) => wp( [ 'eval', 'echo Fast_Index_Admin::status_label( Fast_Index_Submitter::' + constant + ' );' ] );
 		const note = wp( [ 'eval', 'echo Fast_Index_Admin::retry_note();' ] );
 		// Runs the queued notification of a post at once, as WP-Cron would.
-		const runQueued = ( id ) => wp( [ 'eval', '$a = array( get_permalink( ' + id + ' ), "URL_UPDATED", ' + id + ' ); $t = wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $a ); if ( $t ) { wp_unschedule_event( $t, Fast_Index_Cron::SUBMIT_HOOK, $a ); } do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $a );' ] );
+		const runQueued = ( id ) => wp( [ 'eval', '$u = get_permalink( ' + id + ' ); Fast_Index_Queue::take( $u ); Fast_Index_Notifier::deliver( $u, "URL_UPDATED", ' + id + ' );' ] );
 		const row = ( title ) => page.locator( '#fi table.fi-history tbody tr', { hasText: title } );
 		const stamp = Date.now();
 

@@ -255,7 +255,8 @@ class Fast_Index_Premium_Backlog {
 				'code'    => $code,
 			);
 
-			if ( $code < 0 || time() >= $deadline ) {
+			// No key can send, the time is up, or Google did not answer: the rest waits for the next batch.
+			if ( $code < 0 || Fast_Index_Submitter::is_outage( $code ) || time() >= $deadline ) {
 				break;
 			}
 		}

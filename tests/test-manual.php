@@ -56,7 +56,7 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 	 */
 	private static function posts( $count, $args = array() ) {
 		$ids = self::factory()->post->create_many( $count, array_merge( array( 'post_status' => 'publish' ), $args ) );
-		wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
+		self::clear_queue();
 
 		return $ids;
 	}
@@ -293,7 +293,7 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 		$this->assertSame( 3, $result['queued'] );
 		$this->assertCount( 0, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
 		foreach ( $items as $item ) {
-			$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( $item['url'], 'URL_UPDATED', $item['post_id'] ) ) );
+			$this->assertTrue( self::is_queued( $item['url'], 'URL_UPDATED', $item['post_id'] ) );
 		}
 	}
 
