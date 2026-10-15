@@ -8,12 +8,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The only class that knows Google's URLs, request formats and error shapes.
+ * The only class that knows Google's token endpoint, request formats and error shapes.
  *
  * Authentication follows "Using OAuth 2.0 for Server to Server Applications": a JWT signed
- * with RS256 is exchanged for an access token at the token endpoint, then the token is sent
- * as a Bearer header to urlNotifications:publish. All calls go through the WordPress HTTP API
- * with TLS verification on and an explicit timeout.
+ * with RS256 is exchanged for an access token of one scope at the token endpoint, then the token
+ * is sent as a Bearer header. publish() calls urlNotifications:publish with the Indexing API
+ * scope; request() sends any JSON request with the scope the client was built with (the premium
+ * module asks Search Console with the read-only scope). All calls go through the WordPress HTTP
+ * API with TLS verification on and an explicit timeout.
  *
  * @link https://developers.google.com/identity/protocols/oauth2/service-account
  * @link https://developers.google.com/search/apis/indexing-api/v3/using-api
@@ -83,12 +85,21 @@ class Fast_Index_Google_Client {
 	private $account;
 
 	/**
+	 * OAuth scope of the access token.
+	 *
+	 * @var string
+	 */
+	private $scope;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param array $account Account from Fast_Index_Accounts.
+	 * @param array  $account Account from Fast_Index_Accounts.
+	 * @param string $scope   OAuth scope; default the Indexing API.
 	 */
-	public function __construct( array $account ) {
+	public function __construct( array $account, $scope = self::SCOPE ) {
 		$this->account = $account;
+		$this->scope   = '' !== (string) $scope ? (string) $scope : self::SCOPE;
 	}
 
 	/**
@@ -121,33 +132,51 @@ class Fast_Index_Google_Client {
 			return self::error( 'fast_index_bad_type', __( 'Unknown notification type.', 'fast-index' ), 0, 'publish' );
 		}
 
+		return $this->request(
+			'POST',
+			self::PUBLISH_URL,
+			array(
+				'url'  => $url,
+				'type' => $type,
+			),
+			'publish'
+		);
+	}
+
+	/**
+	 * Sends a JSON request with an access token of this client's scope.
+	 *
+	 * @param string     $method  GET or POST.
+	 * @param string     $url     Endpoint of a Google API.
+	 * @param array|null $body    Body, sent as JSON; null for none.
+	 * @param string     $context Name of the call for errors, such as "publish".
+	 * @return array|WP_Error Decoded response; errors as for publish().
+	 */
+	public function request( $method, $url, $body, $context ) {
 		$token = $this->get_access_token();
 
 		if ( is_wp_error( $token ) ) {
 			return $token;
 		}
 
-		$result = $this->post(
-			self::PUBLISH_URL,
-			array(
-				'headers' => array(
-					'Authorization' => 'Bearer ' . $token,
-					'Content-Type'  => 'application/json',
-					'Accept'        => 'application/json',
-				),
-				'body'    => wp_json_encode(
-					array(
-						'url'  => $url,
-						'type' => $type,
-					)
-				),
+		$args = array(
+			'method'  => 'GET' === $method ? 'GET' : 'POST',
+			'headers' => array(
+				'Authorization' => 'Bearer ' . $token,
+				'Accept'        => 'application/json',
 			),
-			'publish'
 		);
+
+		if ( null !== $body ) {
+			$args['headers']['Content-Type'] = 'application/json';
+			$args['body']                    = wp_json_encode( $body );
+		}
+
+		$result = $this->send( $url, $args, $context );
 
 		if ( 401 === self::error_status( $result ) ) {
 			// The cached token was rejected: the next call asks for a new one.
-			self::forget_token( $this->account );
+			delete_transient( self::token_cache_key( $this->account, $this->scope ) );
 		}
 
 		return $result;
@@ -159,7 +188,7 @@ class Fast_Index_Google_Client {
 	 * @return string|WP_Error
 	 */
 	public function get_access_token() {
-		$cache_key = self::token_cache_key( $this->account );
+		$cache_key = self::token_cache_key( $this->account, $this->scope );
 		$cached    = get_transient( $cache_key );
 
 		if ( is_string( $cached ) && '' !== $cached ) {
@@ -172,9 +201,10 @@ class Fast_Index_Google_Client {
 			return $jwt;
 		}
 
-		$data = $this->post(
+		$data = $this->send(
 			self::TOKEN_URL,
 			array(
+				'method'  => 'POST',
 				'headers' => array( 'Accept' => 'application/json' ),
 				'body'    => array(
 					'grant_type' => self::GRANT_TYPE,
@@ -223,7 +253,7 @@ class Fast_Index_Google_Client {
 
 		$claims = array(
 			'iss'   => $this->account['client_email'],
-			'scope' => self::SCOPE,
+			'scope' => $this->scope,
 			'aud'   => self::TOKEN_URL,
 			'iat'   => (int) $now,
 			'exp'   => (int) $now + self::JWT_LIFETIME,
@@ -255,25 +285,40 @@ class Fast_Index_Google_Client {
 	}
 
 	/**
-	 * Transient name of an account's access token. Bound to the key, so a new key gets a new token.
+	 * Transient name of an account's access token for one scope. Bound to the key, so a new key gets a new token.
 	 *
-	 * @param array $account Account fields.
+	 * @param array  $account Account fields.
+	 * @param string $scope   OAuth scope; default the Indexing API.
 	 * @return string
 	 */
-	public static function token_cache_key( array $account ) {
+	public static function token_cache_key( array $account, $scope = self::SCOPE ) {
 		$fingerprint = $account['client_email'] . '|' . $account['private_key_id'] . '|' . md5( $account['private_key'] );
+
+		// The Indexing API token keeps the name it had before other scopes existed.
+		if ( self::SCOPE !== $scope ) {
+			$fingerprint .= '|' . $scope;
+		}
 
 		return self::TOKEN_TRANSIENT_PREFIX . md5( $fingerprint );
 	}
 
 	/**
-	 * Deletes the cached access token of an account.
+	 * Deletes the cached access tokens of an account, for every scope in use.
 	 *
 	 * @param array $account Account fields.
 	 * @return void
 	 */
 	public static function forget_token( array $account ) {
-		delete_transient( self::token_cache_key( $account ) );
+		/**
+		 * Filters the OAuth scopes whose cached tokens are deleted with a key.
+		 *
+		 * @param string[] $scopes Scopes; the Indexing API scope is always included.
+		 */
+		$scopes = (array) apply_filters( 'fast_index_token_scopes', array( self::SCOPE ) );
+
+		foreach ( array_unique( array_merge( array( self::SCOPE ), array_map( 'strval', $scopes ) ) ) as $scope ) {
+			delete_transient( self::token_cache_key( $account, $scope ) );
+		}
 	}
 
 	/**
@@ -305,15 +350,15 @@ class Fast_Index_Google_Client {
 	}
 
 	/**
-	 * Sends a POST request and returns the decoded JSON body.
+	 * Sends a request and returns the decoded JSON body.
 	 *
 	 * @param string $url     Endpoint.
-	 * @param array  $args    Headers and body.
-	 * @param string $context "token" or "publish".
+	 * @param array  $args    Method, headers and body.
+	 * @param string $context "token", "publish" or the name given to request().
 	 * @return array|WP_Error
 	 */
-	private function post( $url, array $args, $context ) {
-		$response = wp_safe_remote_post(
+	private function send( $url, array $args, $context ) {
+		$response = wp_safe_remote_request(
 			$url,
 			array_merge(
 				array(
@@ -354,11 +399,24 @@ class Fast_Index_Google_Client {
 	 */
 	private static function http_error( $code, array $data, $context ) {
 		$reason = '';
+		$detail = '';
 
 		if ( isset( $data['error']['status'] ) && is_string( $data['error']['status'] ) ) {
 			$reason = $data['error']['status'];
 		} elseif ( isset( $data['error'] ) && is_string( $data['error'] ) ) {
 			$reason = $data['error'];
+		}
+
+		// The machine reason of the first ErrorInfo detail (for example SERVICE_DISABLED), or of the first legacy error.
+		foreach ( isset( $data['error']['details'] ) && is_array( $data['error']['details'] ) ? $data['error']['details'] : array() as $item ) {
+			if ( is_array( $item ) && isset( $item['reason'] ) && is_string( $item['reason'] ) ) {
+				$detail = $item['reason'];
+				break;
+			}
+		}
+
+		if ( '' === $detail && isset( $data['error']['errors'][0]['reason'] ) && is_string( $data['error']['errors'][0]['reason'] ) ) {
+			$detail = $data['error']['errors'][0]['reason'];
 		}
 
 		return new WP_Error(
@@ -369,6 +427,7 @@ class Fast_Index_Google_Client {
 				'status'  => (int) $code,
 				'context' => $context,
 				'reason'  => preg_replace( '/[^A-Za-z0-9_]/', '', substr( $reason, 0, 64 ) ),
+				'detail'  => preg_replace( '/[^A-Za-z0-9_]/', '', substr( $detail, 0, 64 ) ),
 			)
 		);
 	}

@@ -314,6 +314,15 @@ class Fast_Index_Help_Content {
 				'when'    => esc_html__( 'Use it for content you do not want Google to hear about, for example internal or duplicate material.', 'fast-index' ),
 			),
 			array(
+				'id'      => 'sc_property',
+				'name'    => __( 'Search Console Property', 'fast-index' ),
+				'short'   => self::field_description( 'sc_property' ),
+				'what'    => esc_html__( 'The Search Console property that the index status checks ask about: a Domain property (sc-domain:example.com) or a URL-prefix property (https://www.example.com/). When the field is empty, Fast Index asks Search Console which properties the service account can read and takes the one that covers the site address.', 'fast-index' ),
+				'note'    => self::premium_note( 'sc_property' ),
+				'default' => __( 'Found automatically', 'fast-index' ),
+				'when'    => esc_html__( 'Set it if the site belongs to several properties, or if the automatic choice is wrong.', 'fast-index' ),
+			),
+			array(
 				'id'      => 'delete_data',
 				'name'    => __( 'Delete data on uninstall', 'fast-index' ),
 				'short'   => self::field_description( 'delete_data' ),
@@ -386,6 +395,8 @@ class Fast_Index_Help_Content {
 				return __( 'Off by default: deleting the plugin keeps your settings, keys and history, so a reinstall continues where you left off.', 'fast-index' );
 			case 'indexnow':
 				return __( 'Off by default. When on, each address also goes to api.indexnow.org, which shares it with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines.', 'fast-index' );
+			case 'sc_property':
+				return __( 'Leave it empty to find it automatically: Fast Index asks Search Console which properties the service account can read and takes the one that covers this site.', 'fast-index' );
 			case 'eligible_only':
 				return __( 'Off by default. When on, other pages are not sent to Google; IndexNow still gets them when it is on. Fast Index looks for the data in the saved content of each post.', 'fast-index' );
 			default:
@@ -404,6 +415,7 @@ class Fast_Index_Help_Content {
 		switch ( $field ) {
 			case 'old_post_number':
 			case 'exclude_category':
+			case 'sc_property':
 				return __( 'This setting is part of the premium plan, a separate package.', 'fast-index' );
 			case 'service_account':
 				return __( 'The free version uses one key, and a new upload replaces it. Backup keys are part of the premium plan, a separate package.', 'fast-index' );
@@ -543,6 +555,12 @@ class Fast_Index_Help_Content {
 				'symptom' => __( 'IndexNow answers 429', 'fast-index' ),
 				'cause'   => esc_html__( 'IndexNow received too many requests from your site and treats them as possible spam.', 'fast-index' ),
 				'fix'     => esc_html__( 'Send fewer addresses at once, and do not send the same addresses again and again. Wait before you send more; Fast Index does not resend these notifications.', 'fast-index' ),
+			),
+			array(
+				'id'      => 'index-status',
+				'symptom' => __( 'The index status check of the premium plan shows an error', 'fast-index' ),
+				'cause'   => esc_html__( 'The check uses the URL Inspection API of Search Console with the same service account key. It needs the Google Search Console API enabled in the Google Cloud project of the key, the service account as a user of the Search Console property (it already is if you added it as an Owner for the Indexing API), and a property that contains the address. Google allows 2,000 checks per day for each property.', 'fast-index' ),
+				'fix'     => esc_html__( 'In the Google Cloud console open APIs & Services, Library, search for Google Search Console API and click Enable. In Search Console check Settings, Users and permissions of the property. If the site belongs to several properties, enter the right one under Search Console Property on the settings screen. When the daily checks are used up, wait until the next day.', 'fast-index' ),
 			),
 			array(
 				'id'      => 'premium-options',
@@ -694,6 +712,11 @@ class Fast_Index_Help_Content {
 						esc_html__( 'The premium plan is a separate package, sold through Freemius. The Premium box on the settings screen compares both versions, and %s in the Fast Index menu shows the plans and prices.', 'fast-index' ),
 						self::strong( __( 'Upgrade', 'fast-index' ) )
 					),
+			),
+			array(
+				'id'       => 'index-status',
+				'question' => __( 'How does the premium plan check whether a page is indexed?', 'fast-index' ),
+				'answer'   => esc_html__( 'It asks the URL Inspection API of Google Search Console with the service account key you already use, and shows the answer in the Index status column of History: Indexed; Crawled, not indexed; Discovered, not indexed; or Unknown to Google, with the date of the last crawl. Each address Google accepted is checked automatically 24 hours after sending, and once more after 72 hours if it was not indexed yet; the Check button checks one address now. A card above History counts the addresses accepted in the last 30 days, the checked ones and the indexed ones. Enable the Google Search Console API in your Google Cloud project first. Google allows 2,000 checks per day for each property; the automatic checks use at most half of them. The address and the property go to searchconsole.googleapis.com.', 'fast-index' ),
 			),
 			array(
 				'id'       => 'premium',

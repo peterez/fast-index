@@ -28,7 +28,7 @@ class Fast_Index_Premium_Features {
 		add_filter( 'fast_index_use_several_keys', '__return_true' );
 		add_filter( 'fast_index_unused_settings', '__return_empty_array' );
 		add_filter( 'fast_index_should_notify', array( __CLASS__, 'skip_excluded_categories' ), 10, 4 );
-		add_filter( 'fast_index_sanitize_settings', array( __CLASS__, 'sanitize_settings' ), 10, 2 );
+		add_filter( 'fast_index_sanitize_settings', array( __CLASS__, 'sanitize_settings' ), 10, 3 );
 		add_filter( 'fast_index_validate_settings', array( __CLASS__, 'validate_settings' ), 10, 2 );
 		add_action( 'fast_index_settings_rows', array( __CLASS__, 'render_rows' ) );
 	}
@@ -57,11 +57,12 @@ class Fast_Index_Premium_Features {
 	/**
 	 * Reads the premium fields of the settings form.
 	 *
-	 * @param array $clean Settings about to be saved.
-	 * @param array $input Unslashed form values; not sanitized.
+	 * @param array $clean  Settings about to be saved.
+	 * @param array $input  Unslashed form values; not sanitized.
+	 * @param array $stored Settings stored before this save.
 	 * @return array
 	 */
-	public static function sanitize_settings( $clean, $input ) {
+	public static function sanitize_settings( $clean, $input, $stored = array() ) {
 		$input = is_array( $input ) ? $input : array();
 		$ids   = array();
 
@@ -75,6 +76,11 @@ class Fast_Index_Premium_Features {
 
 		$clean['old_post_number']  = isset( $input['old_post_number'] ) && is_scalar( $input['old_post_number'] ) ? min( Fast_Index_Settings::MAX_OLD_POSTS, absint( $input['old_post_number'] ) ) : 0;
 		$clean['exclude_category'] = self::existing_categories( $ids );
+		$clean['sc_property']      = Fast_Index_Settings::search_console_property( isset( $input['sc_property'] ) ? $input['sc_property'] : '' );
+
+		if ( isset( $clean['sc_property'], $stored['sc_property'] ) && $clean['sc_property'] !== $stored['sc_property'] ) {
+			Fast_Index_Premium_Inspection::forget_property();
+		}
 
 		return $clean;
 	}
@@ -94,6 +100,12 @@ class Fast_Index_Premium_Features {
 		if ( '' !== $value && ( ! ctype_digit( $value ) || (int) $value > Fast_Index_Settings::MAX_OLD_POSTS ) ) {
 			/* translators: %s: highest accepted number. */
 			$errors[] = sprintf( __( 'The daily limit for old posts must be a whole number from 0 to %s.', 'fast-index' ), number_format_i18n( Fast_Index_Settings::MAX_OLD_POSTS ) );
+		}
+
+		$property = is_array( $input ) && isset( $input['sc_property'] ) && is_scalar( $input['sc_property'] ) ? trim( (string) $input['sc_property'] ) : '';
+
+		if ( '' !== $property && '' === Fast_Index_Settings::search_console_property( $property ) ) {
+			$errors[] = __( 'Enter a Search Console property such as sc-domain:example.com or https://www.example.com/, or leave the field empty.', 'fast-index' );
 		}
 
 		return $errors;

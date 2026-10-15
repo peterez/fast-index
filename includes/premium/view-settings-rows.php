@@ -23,6 +23,27 @@ defined( 'ABSPATH' ) || exit;
 </tr>
 
 <tr>
+	<td scope="row">
+		<label for="fast-index-sc-property"><b><?php esc_html_e( 'Search Console Property', 'fast-index' ); ?></b></label> <br>
+		<small><?php esc_html_e( 'Used for the index status checks.', 'fast-index' ); ?></small>
+	</td>
+	<td>
+		<input id="fast-index-sc-property" class="regular-text" type="text" dir="ltr" placeholder="sc-domain:example.com" name="fast_index_options[sc_property]" value="<?php echo esc_attr( $fast_index_settings['sc_property'] ); ?>" />
+		<?php foreach ( Fast_Index_Help_Content::field_notes( 'sc_property' ) as $fast_index_note ) : ?>
+			<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+		<?php endforeach; ?>
+		<?php if ( '' === $fast_index_settings['sc_property'] && is_string( get_transient( Fast_Index_Premium_Inspection::PROPERTY_TRANSIENT ) ) ) : ?>
+			<p class="description">
+				<?php
+				/* translators: %s: Search Console property found automatically. */
+				echo esc_html( sprintf( __( 'Found automatically: %s', 'fast-index' ), (string) get_transient( Fast_Index_Premium_Inspection::PROPERTY_TRANSIENT ) ) );
+				?>
+			</p>
+		<?php endif; ?>
+	</td>
+</tr>
+
+<tr>
 	<td scope="row" colspan="2">
 		<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b> <br>
 		<small><?php esc_html_e( 'Select the categories to exclude.', 'fast-index' ); ?></small>

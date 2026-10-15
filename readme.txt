@@ -53,6 +53,7 @@ The free version is not limited in time or in the number of notifications, and i
 * Old posts sent in small hourly batches, within a daily limit you set, and a Send Old Posts Now screen.
 * Categories whose posts are never sent.
 * Backup service account keys, used only when Google rejects the main key (401 or 403). They are never used to get past the daily quota.
+* Index status from Google Search Console (URL Inspection API) in a History column: Indexed; Crawled, not indexed; Discovered, not indexed; or Unknown to Google, with the last crawl date. A Check button checks one address now, every accepted address is checked again 24 and 72 hours after sending, and a card counts the indexed addresses of the last 30 days.
 
 To get it, open Fast Index > Upgrade, or click Upgrade to Premium in the Premium box of the settings screen; on a network activation the plans page is in the network admin. After the purchase Freemius emails you the premium package (a .zip file) and a license key. Upload the package under Plugins > Add New > Upload Plugin, activate it and enter the key; Freemius deactivates the free version. Your settings, keys and history are kept. Settings of these options that an earlier version saved are kept by the free version, unused, and the premium package uses them again.
 
@@ -140,9 +141,13 @@ Yes, through IndexNow, which is off by default. Turn it on with Also send to Ind
 
 The free version is not limited in time or in the number of notifications. It notifies Google when content of any public post type is published, updated, trashed or deleted, keeps a History of Google's answers and includes Help & FAQ.
 
-The premium plan adds hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.
+The premium plan adds the index status of every address from Search Console, hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.
 
 The premium plan is a separate package, sold through Freemius. The Premium box on the settings screen compares both versions, and Upgrade in the Fast Index menu shows the plans and prices.
+
+= How does the premium plan check whether a page is indexed? =
+
+It asks the URL Inspection API of Google Search Console with the service account key you already use, and shows the answer in the Index status column of History: Indexed; Crawled, not indexed; Discovered, not indexed; or Unknown to Google, with the date of the last crawl. Each address Google accepted is checked automatically 24 hours after sending, and once more after 72 hours if it was not indexed yet; the Check button checks one address now. A card above History counts the addresses accepted in the last 30 days, the checked ones and the indexed ones. Enable the Google Search Console API in your Google Cloud project first. Google allows 2,000 checks per day for each property; the automatic checks use at most half of them. The address and the property go to searchconsole.googleapis.com.
 
 = How do I get the premium plan, and how do I install it? =
 
@@ -171,7 +176,7 @@ Fast Index connects to the services below. It sends nothing to Google until you 
 
 * What it is used for: to exchange a signed request for a short-lived access token for the Indexing API.
 * When: before the first notification, and again when the stored access token (valid for about an hour) has expired.
-* Data sent: a signed JWT. It contains the email address of your service account, the scope https://www.googleapis.com/auth/indexing, the time of the request and the key ID. It is signed on your site with the private key; the private key itself is never sent. Google also receives the IP address of your server.
+* Data sent: a signed JWT. It contains the email address of your service account, the scope https://www.googleapis.com/auth/indexing (in the premium package also https://www.googleapis.com/auth/webmasters.readonly for the index status), the time of the request and the key ID. It is signed on your site with the private key; the private key itself is never sent. Google also receives the IP address of your server.
 * Why: Google requires an access token for every Indexing API request.
 * Terms of Service: https://policies.google.com/terms and https://developers.google.com/terms
 * Privacy Policy: https://policies.google.com/privacy
@@ -182,6 +187,15 @@ Fast Index connects to the services below. It sends nothing to Google until you 
 * When: after a post is published, and, if the options are on, after it is edited, trashed or deleted, and for each post of an old-posts batch.
 * Data sent: the address (URL) of the post, the kind of notification (URL_UPDATED or URL_DELETED) and the access token. Titles, content and visitor data are not sent. Google also receives the IP address of your server.
 * Why: this is the purpose of the plugin.
+* Terms of Service: https://policies.google.com/terms and https://developers.google.com/terms
+* Privacy Policy: https://policies.google.com/privacy
+
+**Google Search Console API** (premium package only: https://www.googleapis.com/webmasters/v3/sites and https://searchconsole.googleapis.com/v1/urlInspection/index:inspect)
+
+* What it is used for: to check whether an address that Google accepted is indexed (URL Inspection), and to find the Search Console property of the site.
+* When: only in the premium package, never in the version from WordPress.org: when you click Check in History, and automatically 24 hours and, if the address was not indexed yet, 72 hours after Google accepted it. The property is looked up once a day when you have not entered it on the settings screen.
+* Data sent: the address (URL), the Search Console property, the language code en-US and an access token of your service account. Google also receives the IP address of your server.
+* Why: to show whether the pages you sent are indexed.
 * Terms of Service: https://policies.google.com/terms and https://developers.google.com/terms
 * Privacy Policy: https://policies.google.com/privacy
 
@@ -230,6 +244,7 @@ What leaves your site is described under External services: post addresses and s
 * New: IndexNow, off by default. When you turn it on, the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines. Fast Index creates a key for each site and answers the key file at /{key}.txt without a file. History has a Channel column and a filter.
 * New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen.
 * New: History marks pages with JobPosting or BroadcastEvent data as Eligible for Google Indexing API, found in the saved content without any request. The option Supported Pages Only (off by default) sends only those pages to Google.
+* New (premium package): index status from the Search Console URL Inspection API in History, with a Check button, automatic checks 24 and 72 hours after sending, a card of the indexed addresses and a daily counter that stops at 2,000 checks per property.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).

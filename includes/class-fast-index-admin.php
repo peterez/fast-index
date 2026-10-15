@@ -195,6 +195,7 @@ class Fast_Index_Admin {
 			'upgrade'     => Fast_Index_Upgrade::history_lines( $stats, get_current_user_id() ),
 			'upgrade_url' => Fast_Index_Upgrade::upgrade_url(),
 			'hint'        => Fast_Index_Upgrade::is_offered() ? Fast_Index_Upgrade::hint( 'index_status' ) : '',
+			'messages'    => self::take_flash(),
 		);
 
 		include FAST_INDEX_PATH . 'view/history.php';

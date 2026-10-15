@@ -263,7 +263,7 @@ class Fast_Index_Upgrade {
 	 * @return string
 	 */
 	public static function summary() {
-		return __( 'The premium plan adds hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.', 'fast-index' );
+		return __( 'The premium plan adds the index status of every address from Search Console, hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.', 'fast-index' );
 	}
 
 	/**
@@ -293,14 +293,19 @@ class Fast_Index_Upgrade {
 				'premium' => true,
 			),
 			array(
-				'label'   => __( 'History of Google\'s answers, Help & FAQ', 'fast-index' ),
-				'free'    => true,
-				'premium' => true,
+				'label'   => __( 'IndexNow: Bing, Yandex, Naver, Seznam.cz and other search engines', 'fast-index' ),
+				'free'    => __( 'Yes, when you turn it on', 'fast-index' ),
+				'premium' => __( 'Yes, when you turn it on', 'fast-index' ),
 			),
 			array(
 				'label'   => __( 'Sending by hand from the post lists (row action and bulk action)', 'fast-index' ),
 				'free'    => __( 'Up to 100 at a time', 'fast-index' ),
 				'premium' => __( 'Up to 100 at a time, plus hourly batches of old posts', 'fast-index' ),
+			),
+			array(
+				'label'   => __( 'History of Google\'s answers, Help & FAQ', 'fast-index' ),
+				'free'    => true,
+				'premium' => true,
 			),
 			array(
 				'label'   => __( 'Old posts in hourly batches, within a daily limit you set', 'fast-index' ),
@@ -316,6 +321,11 @@ class Fast_Index_Upgrade {
 				'label'   => __( 'Service account keys', 'fast-index' ),
 				'free'    => __( 'One', 'fast-index' ),
 				'premium' => __( 'A main key and backup keys; a backup key is used only when Google rejects the main key', 'fast-index' ),
+			),
+			array(
+				'label'   => __( 'Index status from Search Console, with checks 24 and 72 hours after sending', 'fast-index' ),
+				'free'    => false,
+				'premium' => true,
 			),
 		);
 	}

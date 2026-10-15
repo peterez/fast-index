@@ -132,6 +132,8 @@ class Fast_Index_Settings {
 			'delete_data'      => false,
 			'indexnow'         => false,
 			'eligible_only'    => false,
+			'sc_property'      => '',
+			'weekly_report'    => true,
 		);
 
 		/**
@@ -214,7 +216,31 @@ class Fast_Index_Settings {
 			'delete_data'      => ! empty( $raw['delete_data'] ),
 			'indexnow'         => ! empty( $raw['indexnow'] ),
 			'eligible_only'    => ! empty( $raw['eligible_only'] ),
+			// Premium plan: Search Console property of the index status checks and the weekly email report.
+			'sc_property'      => isset( $raw['sc_property'] ) ? self::search_console_property( $raw['sc_property'] ) : '',
+			'weekly_report'    => isset( $raw['weekly_report'] ) ? ! empty( $raw['weekly_report'] ) : $defaults['weekly_report'],
 		);
+	}
+
+	/**
+	 * Cleans a Search Console property: a Domain property (sc-domain:example.com) or a URL-prefix property with
+	 * a trailing slash (https://www.example.com/).
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string Clean property, empty when the value is neither.
+	 */
+	public static function search_console_property( $value ) {
+		$value = is_scalar( $value ) ? trim( (string) $value ) : '';
+
+		if ( 1 === preg_match( '/^sc-domain:([a-z0-9.-]+)$/i', $value, $match ) ) {
+			return 'sc-domain:' . strtolower( $match[1] );
+		}
+
+		if ( ! Fast_Index_Post_Watcher::is_http_url( $value ) ) {
+			return '';
+		}
+
+		return trailingslashit( esc_url_raw( $value, array( 'http', 'https' ) ) );
 	}
 
 	/**

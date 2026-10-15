@@ -70,6 +70,7 @@ class Fast_Index_Uninstaller {
 			'fast_index_first_success',
 			'fast_index_first_indexnow',
 			'fast_index_indexnow_key',
+			'fast_index_inspection_usage',
 		);
 	}
 
@@ -200,6 +201,7 @@ class Fast_Index_Uninstaller {
 		}
 
 		delete_post_meta_by_key( '_fast_index_retry' );
+		delete_post_meta_by_key( '_fast_index_inspect_due' );
 
 		foreach ( array( '_transient_fast_index_', '_transient_timeout_fast_index_', 'fast_index_lock_' ) as $prefix ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Uninstall: removes the plugin's own rows by prefix.

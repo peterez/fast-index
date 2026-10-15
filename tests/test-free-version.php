@@ -29,6 +29,11 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 			'fast_index_hourly',
 			'fast_index_admin_menu',
 			'fast_index_history_stats',
+			'fast_index_history_columns',
+			'fast_index_history_cell',
+			'fast_index_history_before_table',
+			'fast_index_logged',
+			'fast_index_token_scopes',
 		);
 	}
 
