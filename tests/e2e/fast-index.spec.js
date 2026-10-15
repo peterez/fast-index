@@ -167,7 +167,8 @@ test.describe( 'Fast Index admin', () => {
 
 		// No key: History says so, and nothing waits.
 		const noKey = 'E2E no key ' + stamp;
-		runQueued( wp( [ 'post', 'create', '--post_title=' + noKey, '--post_status=publish', '--porcelain' ] ) );
+		const noKeyId = wp( [ 'post', 'create', '--post_title=' + noKey, '--post_status=publish', '--porcelain' ] );
+		runQueued( noKeyId );
 		await page.goto( HISTORY );
 		await expect( row( noKey ) ).toHaveCount( 1 );
 		await expect( row( noKey ).locator( '.fi-history-status--not-sent' ) ).toContainText( label( 'NO_ACCOUNT' ) );
@@ -204,6 +205,9 @@ test.describe( 'Fast Index admin', () => {
 		await expect( row( resting ).first() ).toContainText( '200' );
 		await expect( row( resting ).locator( '.fi-history-retry' ) ).toHaveCount( 0 );
 		expect( wp( [ 'eval', 'echo Fast_Index_Log::count_held();' ] ) ).toBe( '0' );
+
+		// The two posts go (while Fast Index is Passive, so nothing is queued), with their History rows.
+		wp( [ 'eval', '$o = get_option( "fast_index_options" ); update_option( "fast_index_options", array_merge( (array) $o, array( "status" => "2" ) ) ); foreach ( array( ' + noKeyId + ', ' + restingId + ' ) as $id ) { wp_delete_post( $id, true ); } foreach ( get_posts( array( "post_type" => Fast_Index_Log::post_types(), "post_status" => "any", "numberposts" => -1, "fields" => "ids", "s" => "' + stamp + '" ) ) as $id ) { wp_delete_post( $id, true ); } update_option( "fast_index_options", $o ); delete_transient( "fast_index_stats" );' ] );
 	} );
 
 	test( 'manual run answers without errors', async ( { page } ) => {
