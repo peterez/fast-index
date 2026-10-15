@@ -99,7 +99,7 @@ If Trash is checked in the settings, a published post that is moved to the trash
 
 = Can I send posts by hand? =
 
-Yes. In the list of posts, pages or another post type that Fast Index sends, hover over a published item and click Notify search engines, or select up to 100 items, choose Notify search engines under Bulk actions and click Apply. Fast Index sends them to Google right away, and to IndexNow when it is on, and shows the result on the same screen; History lists each answer. You need permission to edit each item, and Status must be Active. Every address counts against Google's daily quota.
+Yes. In the list of posts, pages or another post type that Fast Index sends, hover over a published item and click Notify search engines, or select up to 100 items, choose Notify search engines under Bulk actions and click Apply. Fast Index sends them to Google right away, and to IndexNow when it is on, and shows the result on the same screen; History lists each answer. You need permission to edit each item and the items of other users, as Editors and Administrators have, and Status must be Active. Password-protected items are not sent. Every address counts against Google's daily quota.
 
 = Can Fast Index send my old posts? =
 
@@ -246,7 +246,7 @@ What leaves your site is described under External services: post addresses and s
 * Changed: password-protected posts are never sent to Google or IndexNow: not when they are published, changed or trashed, not by hand and not in the old-post batches, and they do not count as waiting.
 * Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
 * New: IndexNow, off by default. When you turn it on, the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines. Fast Index creates a key for each site and answers the key file at /{key}.txt without a file. History has a Channel column and a filter.
-* New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen.
+* New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen. They are offered to users who can edit the items of other users (Editors and Administrators), so an Author cannot use up the daily quota of the site; Google gets the items one by one for up to 8 seconds and the rest is queued.
 * New: History marks pages with JobPosting or BroadcastEvent data as Eligible for Google Indexing API, found in the saved content without any request. The option Supported Pages Only (off by default) sends only those pages to Google.
 * New (premium package): index status from the Search Console URL Inspection API in History, with a Check button, automatic checks 24 and 72 hours after sending, a card of the indexed addresses and a daily counter that stops at 2,000 checks per property.
 * New (premium package): a weekly email report with the numbers of History, in the language of the recipient, that can be turned off.
