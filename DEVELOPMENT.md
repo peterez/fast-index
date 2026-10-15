@@ -14,20 +14,30 @@ This file is for developers. It is not part of either release package (`.distign
 
 | Hook | Type | Used by the module for |
 |---|---|---|
-| `fast_index_post_type_choices` | filter | every public post type except attachments |
-| `fast_index_post_events` | filter | Edit and Trash |
-| `fast_index_default_settings` | filter | Publish + Edit for sites that never saved the settings |
 | `fast_index_use_several_keys` | filter | backup service account keys (main key first; a backup only after 401/403, never after 429) |
 | `fast_index_should_notify` | filter | excluded categories |
-| `fast_index_sanitize_settings` / `fast_index_validate_settings` | filter | daily limit and categories |
-| `fast_index_settings_rows` | action | settings rows of the daily limit and the categories |
+| `fast_index_sanitize_settings` / `fast_index_validate_settings` | filter | daily limit, categories, Search Console property, weekly report |
+| `fast_index_settings_rows` | action | settings rows of the daily limit, the categories, the Search Console property and the weekly report |
 | `fast_index_unused_settings` | filter | no "kept but not used" note |
-| `fast_index_hourly` | action | hourly batch of old posts |
+| `fast_index_hourly` | action | hourly batch of old posts, due index status checks, planning the weekly report |
 | `fast_index_admin_menu` | action | "Send Old Posts Now" page (`Fast_Index_Admin::add_page()`) |
 | `fast_index_history_stats` | filter | History "Total Waiting" without excluded categories |
+| `fast_index_logged` | action | plans the index status checks 24 and 72 hours after an accepted Google notification (log ID, code, URL, post ID) |
+| `fast_index_token_scopes` | filter | adds the `webmasters.readonly` scope, so a deleted key also forgets that cached token |
+| `fast_index_history_columns` / `fast_index_history_cell` | filter / action | History "Index Status" column and its Check button |
+| `fast_index_history_before_table` | action | "N of M indexed" card above History |
 | `fast_index_premium_loaded` | action | fired by the module once it is loaded |
-| `fast_index_send_to_google` | filter | (free extension point) whether a notification goes to Google; IndexNow is decided by its setting |
-| `fast_index_logged` | action | fired after a Google History entry was added (log ID, code, URL, post ID) |
+
+Free extension points that the module does not use (since 3.0.0 the free version sends every public post type and
+the Edit and Trash events itself):
+
+| Hook | Type | Purpose |
+|---|---|---|
+| `fast_index_post_type_choices` | filter | post types offered on the settings screen (default: every public type except attachments) |
+| `fast_index_post_events` | filter | events offered on the settings screen (Publish, Edit, Trash) |
+| `fast_index_default_settings` | filter | settings used while they were never saved (Posts; Publish and Edit) |
+| `fast_index_send_to_google` | filter | whether a notification goes to Google; IndexNow is decided by its setting |
+| `fast_index_is_eligible` | filter | whether a post has JobPosting or BroadcastEvent data (saved content and WP Job Manager by default) |
 
 ## IndexNow
 
@@ -37,6 +47,21 @@ site (option `fast_index_indexnow_key`, not autoloaded), `parse_request` answers
 `Fast_Index_Notifier` sends every queued notification to `https://api.indexnow.org/indexnow` in the same cron run as
 Google. History entries of IndexNow are posts of the type `fast_index_now_log`, so the Google counters, the old-post
 batches and the retry queue (all on `fi_log`) never see them. 200 and 202 are successes; nothing is retried.
+
+## Index status (premium)
+
+`Fast_Index_Premium_Inspection` asks `POST https://searchconsole.googleapis.com/v1/urlInspection/index:inspect`
+(scope `webmasters.readonly`, same JWT client as the Indexing API, own token cache key). The property is the setting
+`sc_property` or, when empty, the best match from `GET https://www.googleapis.com/webmasters/v3/sites` (cached one day
+in a transient, forgotten when the keys change). Results are stored on the Google History entry (`_fast_index_index_state`,
+`_fast_index_inspection`). Usage is counted per property and Pacific Time day in `fast_index_inspection_usage`
+(2,000 per day allowed by Google; automatic checks stop at 1,000 and run at most 50 per hourly run, two per address).
+
+## Weekly report (premium)
+
+`Fast_Index_Premium_Report` plans the weekly event `fast_index_weekly_report` from the hourly run and sends it with
+`wp_mail()` to the `admin_email` address in that user's locale (`switch_to_user_locale()`, `switch_to_locale()` before
+WordPress 6.2). Weeks without any History entry send nothing; the setting `weekly_report` turns it off.
 
 ## Freemius (SDK 2.13.4)
 
@@ -73,11 +98,14 @@ or premium) is active.
 
 ## Where the free version points to the premium plan
 
-All in `Fast_Index_Upgrade` (KARARLAR (20), (21)), only on the Fast Index screens and only while the module is not
-loaded: the Premium box with a Free / Premium table, a "Premium" hint (`<details>`) next to Post Types, Post Events
-and the key upload, the History line with the real number of published posts Google has not accepted, the message
-when a new key replaces the only key, Settings and Upgrade links on the Plugins screen, a thank-you notice after the
-first accepted notification (with a review request, no reward) and an offer notice seven days after the first setup.
+All in `Fast_Index_Upgrade` (KARARLAR (20), (21)), only on the Fast Index screens (plus the result notice of the
+bulk action on the post list) and only while the module is not loaded; never on the dashboard: the Premium box with
+a Free / Premium table, Premium badges (`<details>`) on the rows of old posts and excluded categories, next to the
+key upload and next to the History heading (index status), two History lines with real numbers (published posts
+Google has not accepted yet; addresses Google accepted in the last 30 days, from 10 on), one line under the result
+of a bulk action when more than 100 items were selected, the message when a new key replaces the only key, Settings
+and Upgrade links on the Plugins screen, a thank-you notice after the first notification Google or IndexNow accepted
+(with a review request, no reward) and an offer notice seven days after the first setup.
 Each notice is shown until the user dismisses it (user meta `fast_index_dismissed_notices`). No discount text: add
 one only for a real Freemius coupon.
 
