@@ -101,8 +101,38 @@ class Fast_Index_Freemius {
 		// in or skips, and the sites would answer "Cannot load fast-index". Each site keeps its menu and shows the
 		// opt-in screen with its Skip button instead.
 		$fs->add_filter( 'should_hide_site_admin_settings_on_network_activation_mode', '__return_false' );
+		foreach ( self::NETWORK_CHOICE_FILTERS as $filter ) {
+			$fs->add_filter( $filter, array( __CLASS__, 'after_network_choice_url' ) );
+		}
 		// Clean-up when the plugin is deleted, after Freemius recorded the uninstall (there is no uninstall.php).
 		$fs->add_action( 'after_uninstall', array( 'Fast_Index_Uninstaller', 'run_once' ) );
+	}
+
+	/**
+	 * Freemius filters of the page it opens after the network admin skipped, allowed or delegated the opt-in.
+	 */
+	const NETWORK_CHOICE_FILTERS = array( 'after_skip_url', 'after_connect_url', 'after_delegation_url', 'after_network_activation_url' );
+
+	/**
+	 * After the network admin's opt-in choice Freemius opens the Fast Index page of the network admin, which only
+	 * exists while the opt-in screen is shown: the network admin would read "Cannot load fast-index". Opens the
+	 * settings of the main site instead. Every other address is kept, and so is the return address of the opt-in
+	 * screen itself.
+	 *
+	 * @param string $url Address Freemius opens.
+	 * @return string
+	 */
+	public static function after_network_choice_url( $url ) {
+		// fs_is_network_admin() also knows the network admin in Ajax requests.
+		$network = is_network_admin() || ( function_exists( 'fs_is_network_admin' ) && fs_is_network_admin() );
+		if ( ! $network || ! is_string( $url ) || network_admin_url( 'admin.php?page=' . Fast_Index_Admin::SLUG ) !== $url ) {
+			return $url;
+		}
+		if ( figi_fs()->is_activation_mode() ) {
+			return $url;
+		}
+
+		return get_admin_url( get_main_site_id(), 'admin.php?page=' . Fast_Index_Admin::SLUG );
 	}
 
 	/**

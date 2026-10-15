@@ -26,6 +26,13 @@ class Fast_Index_Test_Freemius {
 	public $upgrade_url = '';
 
 	/**
+	 * Result of is_activation_mode(): whether the opt-in screen is shown.
+	 *
+	 * @var bool
+	 */
+	public $activation_mode = false;
+
+	/**
 	 * Builds the double.
 	 *
 	 * @param bool $licensed Whether a license allows the premium code.
@@ -50,6 +57,15 @@ class Fast_Index_Test_Freemius {
 	 */
 	public function get_upgrade_url() {
 		return '' !== $this->upgrade_url ? $this->upgrade_url : admin_url( 'admin.php?page=fast-index-pricing' );
+	}
+
+	/**
+	 * Freemius::is_activation_mode().
+	 *
+	 * @return bool
+	 */
+	public function is_activation_mode() {
+		return $this->activation_mode;
 	}
 
 	/**

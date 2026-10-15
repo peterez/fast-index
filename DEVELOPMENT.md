@@ -38,6 +38,10 @@ This file is for developers. It is not part of either release package (`.distign
   notices: Freemius would show them on every admin screen.
 - `should_hide_site_admin_settings_on_network_activation_mode` is off: after a network activation every site keeps
   its menu and shows the opt-in screen (with Skip) instead of "Cannot load fast-index".
+- `after_skip_url`, `after_connect_url`, `after_delegation_url` and `after_network_activation_url`
+  (`Fast_Index_Freemius::after_network_choice_url()`): after the network admin's opt-in choice Freemius would open
+  the network page `admin.php?page=fast-index`, which exists only while the opt-in screen is shown ("Cannot load
+  fast-index"); the main site's settings open instead.
 - `plugin_icon` points to `assets/fast-index-icon.png`, so the SDK never downloads an icon into its folder.
 - `Fast_Index_Freemius::translate_texts()` (on `init`) replaces the Upgrade, Pricing, Skip and Allow & Continue
   texts with the plugin's translated strings, because Help & FAQ names them.

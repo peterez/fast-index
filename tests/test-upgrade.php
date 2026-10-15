@@ -389,6 +389,9 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 		$this->assertNotFalse( $fs->has_filter( 'show_affiliate_program_notice', '__return_false' ) );
 		$this->assertNotFalse( $fs->has_filter( 'should_hide_site_admin_settings_on_network_activation_mode', '__return_false' ) );
 		$this->assertNotFalse( $fs->has_filter( 'plugin_icon', array( 'Fast_Index_Freemius', 'icon' ) ) );
+		foreach ( Fast_Index_Freemius::NETWORK_CHOICE_FILTERS as $filter ) {
+			$this->assertNotFalse( $fs->has_filter( $filter, array( 'Fast_Index_Freemius', 'after_network_choice_url' ) ), $filter );
+		}
 
 		$this->assertFalse( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'trial_promotion' ) ) );
 		$this->assertFalse( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'affiliate_program' ) ) );
@@ -399,5 +402,32 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 		$this->assertSame( 'Upgrade', $fs_text_overrides['fast-index']['upgrade'] );
 		$this->assertSame( 'Skip', $fs_text_overrides['fast-index']['skip'] );
 		$this->assertSame( 'Allow & Continue', $fs_text_overrides['fast-index']['opt-in-connect'] );
+	}
+
+	/**
+	 * After the network admin's opt-in choice the main site's settings open, not the missing network page.
+	 *
+	 * @return void
+	 */
+	public function test_network_choice_opens_the_main_site_settings() {
+		if ( ! is_multisite() ) {
+			$this->markTestSkipped( 'Multisite only.' );
+		}
+		$fs           = $this->fake_freemius( false );
+		$network_page = network_admin_url( 'admin.php?page=fast-index' );
+		$pricing      = network_admin_url( 'admin.php?page=fast-index-pricing' );
+
+		// A site admin screen keeps the address.
+		$this->assertSame( $network_page, Fast_Index_Freemius::after_network_choice_url( $network_page ) );
+
+		set_current_screen( 'dashboard-network' );
+		$this->assertSame( get_admin_url( get_main_site_id(), 'admin.php?page=fast-index' ), Fast_Index_Freemius::after_network_choice_url( $network_page ) );
+		$this->assertSame( $pricing, Fast_Index_Freemius::after_network_choice_url( $pricing ) );
+
+		// While the opt-in screen is shown the network page exists: its return address stays.
+		$fs->activation_mode = true;
+		$this->assertSame( $network_page, Fast_Index_Freemius::after_network_choice_url( $network_page ) );
+
+		set_current_screen( 'front' );
 	}
 }
