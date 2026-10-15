@@ -12,7 +12,9 @@ defined( 'ABSPATH' ) || exit;
 $fast_index_settings = $fast_index_view['settings'];
 $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 ?>
-<div id="fi" class="content-area">
+<div id="fi" class="wrap cdo-ui cdo-ui--fast-index">
+
+	<?php Fast_Index_Admin::render_band( _x( 'Settings', 'Heading of the Fast Index settings screen', 'fast-index' ) ); ?>
 
 	<?php foreach ( $fast_index_view['messages'] as $fast_index_message ) : ?>
 		<div class="<?php echo esc_attr( 'notice notice-' . $fast_index_message['type'] . ' is-dismissible' ); ?>">
@@ -25,37 +27,35 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 		</div>
 	<?php endforeach; ?>
 
-	<div class="pc">
+	<div class="cdo-layout">
 
-		<div class="pw50">
+		<div class="cdo-main cdo-stack">
 
-			<h1 class="title"><?php echo esc_html_x( 'Settings', 'Heading of the Fast Index settings screen', 'fast-index' ); ?></h1>
+			<section class="cdo-card">
 
-			<?php if ( array() !== $fast_index_view['unused'] ) : ?>
-				<div class="notice notice-info inline fi-unused">
-					<p><?php esc_html_e( 'Some of your settings belong to the premium plan. They are kept, but this version does not use them. They are used again when the premium package is installed and its license is active.', 'fast-index' ); ?></p>
-					<ul>
-						<?php foreach ( $fast_index_view['unused'] as $fast_index_line ) : ?>
-							<li><?php echo esc_html( $fast_index_line ); ?></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-			<?php endif; ?>
-
-			<div class="form">
+				<?php if ( array() !== $fast_index_view['unused'] ) : ?>
+					<div class="notice notice-info inline fi-unused">
+						<p><?php esc_html_e( 'Some of your settings belong to the premium plan. They are kept, but this version does not use them. They are used again when the premium package is installed and its license is active.', 'fast-index' ); ?></p>
+						<ul>
+							<?php foreach ( $fast_index_view['unused'] as $fast_index_line ) : ?>
+								<li><?php echo esc_html( $fast_index_line ); ?></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				<?php endif; ?>
 
 				<form method="post" class="settingsForm" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::SAVE ); ?>" />
 					<?php wp_nonce_field( Fast_Index_Admin_Actions::SAVE, Fast_Index_Admin_Actions::NONCE_FIELD ); ?>
 
-					<table class="form-table" role="presentation">
+					<table class="form-table cdo-form-table" role="presentation">
 						<tbody>
 
 						<tr>
-							<td scope="row">
-								<label for="fast-index-status"><b><?php esc_html_e( 'Status', 'fast-index' ); ?></b></label> <br>
-								<small><?php esc_html_e( 'Switch sending on or off.', 'fast-index' ); ?></small>
-							</td>
+							<th scope="row">
+								<label for="fast-index-status"><?php esc_html_e( 'Status', 'fast-index' ); ?></label>
+								<span class="cdo-field-hint"><?php esc_html_e( 'Switch sending on or off.', 'fast-index' ); ?></span>
+							</th>
 							<td>
 								<select id="fast-index-status" name="fast_index_options[status]">
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_ACTIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_ACTIVE ); ?>><?php esc_html_e( 'Active', 'fast-index' ); ?></option>
@@ -68,17 +68,19 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						</tr>
 
 						<tr>
-							<td scope="row">
-								<b><?php esc_html_e( 'Post Types', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></small>
-							</td>
+							<th scope="row">
+								<?php esc_html_e( 'Post Types', 'fast-index' ); ?>
+								<span class="cdo-field-hint"><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></span>
+							</th>
 							<td>
-								<?php foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) : ?>
-									<label class="fast-index-choice">
-										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_type][' . $fast_index_name . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_type'][ $fast_index_name ] ) ); ?> />
-										<?php echo esc_html( $fast_index_label ); ?>
-									</label>
-								<?php endforeach; ?>
+								<div class="cdo-choices">
+									<?php foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) : ?>
+										<label class="fast-index-choice">
+											<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_type][' . $fast_index_name . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_type'][ $fast_index_name ] ) ); ?> />
+											<?php echo esc_html( $fast_index_label ); ?>
+										</label>
+									<?php endforeach; ?>
+								</div>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'post_type' ) as $fast_index_note ) : ?>
 									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
 								<?php endforeach; ?>
@@ -86,17 +88,19 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						</tr>
 
 						<tr>
-							<td scope="row">
-								<b><?php esc_html_e( 'Post Events', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Choose when Google is notified.', 'fast-index' ); ?></small>
-							</td>
+							<th scope="row">
+								<?php esc_html_e( 'Post Events', 'fast-index' ); ?>
+								<span class="cdo-field-hint"><?php esc_html_e( 'Choose when Google is notified.', 'fast-index' ); ?></span>
+							</th>
 							<td>
-								<?php foreach ( $fast_index_view['events'] as $fast_index_event => $fast_index_label ) : ?>
-									<label class="fast-index-choice">
-										<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_status][' . $fast_index_event . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_status'][ $fast_index_event ] ) ); ?> />
-										<?php echo esc_html( $fast_index_label ); ?>
-									</label>
-								<?php endforeach; ?>
+								<div class="cdo-choices">
+									<?php foreach ( $fast_index_view['events'] as $fast_index_event => $fast_index_label ) : ?>
+										<label class="fast-index-choice">
+											<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_status][' . $fast_index_event . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_status'][ $fast_index_event ] ) ); ?> />
+											<?php echo esc_html( $fast_index_label ); ?>
+										</label>
+									<?php endforeach; ?>
+								</div>
 								<?php foreach ( array_keys( $fast_index_view['events'] ) as $fast_index_event ) : ?>
 									<p class="description"><?php echo esc_html( Fast_Index_Help_Content::event_description( $fast_index_event ) ); ?></p>
 								<?php endforeach; ?>
@@ -104,14 +108,14 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						</tr>
 
 						<tr>
-							<td scope="row">
-								<b><?php esc_html_e( 'Supported Pages Only', 'fast-index' ); ?></b> <br>
-								<small><?php esc_html_e( 'Pages that Google supports in the Indexing API.', 'fast-index' ); ?></small>
-							</td>
+							<th scope="row">
+								<?php esc_html_e( 'Supported Pages Only', 'fast-index' ); ?>
+								<span class="cdo-field-hint"><?php esc_html_e( 'Pages that Google supports in the Indexing API.', 'fast-index' ); ?></span>
+							</th>
 							<td>
-								<label class="fast-index-choice">
+								<label class="fast-index-choice cdo-choice">
 									<input id="fast-index-eligible-only" type="checkbox" name="fast_index_options[eligible_only]" value="1" <?php checked( $fast_index_settings['eligible_only'] ); ?> />
-									<?php esc_html_e( 'Send to Google only pages with JobPosting or BroadcastEvent data', 'fast-index' ); ?>
+									<span><?php esc_html_e( 'Send to Google only pages with JobPosting or BroadcastEvent data', 'fast-index' ); ?></span>
 								</label>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'eligible_only' ) as $fast_index_note ) : ?>
 									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
@@ -120,14 +124,14 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						</tr>
 
 						<tr>
-							<td scope="row">
-								<b><?php echo esc_html( 'IndexNow' ); ?></b> <br>
-								<small><?php esc_html_e( 'Search engines other than Google.', 'fast-index' ); ?></small>
-							</td>
+							<th scope="row">
+								<?php echo esc_html( 'IndexNow' ); ?>
+								<span class="cdo-field-hint"><?php esc_html_e( 'Search engines other than Google.', 'fast-index' ); ?></span>
+							</th>
 							<td>
-								<label class="fast-index-choice">
+								<label class="fast-index-choice cdo-choice">
 									<input id="fast-index-indexnow" type="checkbox" name="fast_index_options[indexnow]" value="1" <?php checked( $fast_index_settings['indexnow'] ); ?> />
-									<?php esc_html_e( 'Also send to IndexNow', 'fast-index' ); ?>
+									<span><?php esc_html_e( 'Also send to IndexNow', 'fast-index' ); ?></span>
 								</label>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'indexnow' ) as $fast_index_note ) : ?>
 									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
@@ -149,16 +153,12 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						<?php if ( isset( $fast_index_view['hints']['old_posts'], $fast_index_view['hints']['exclude_category'] ) ) : ?>
 							<?php /* What the premium plan adds here: a name and a badge that explains it, no field. */ ?>
 							<tr class="fi-premium-row">
-								<td colspan="2">
-									<b><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></b>
-									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['old_posts'], $fast_index_view['hints']['url'] ); ?>
-								</td>
+								<th scope="row"><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></th>
+								<td><?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['old_posts'], $fast_index_view['hints']['url'] ); ?></td>
 							</tr>
 							<tr class="fi-premium-row">
-								<td colspan="2">
-									<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b>
-									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['exclude_category'], $fast_index_view['hints']['url'] ); ?>
-								</td>
+								<th scope="row"><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></th>
+								<td><?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['exclude_category'], $fast_index_view['hints']['url'] ); ?></td>
 							</tr>
 						<?php endif; ?>
 
@@ -172,71 +172,67 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						do_action( 'fast_index_settings_rows', $fast_index_settings );
 						?>
 
-						<tr>
-							<td scope="row">
-								<label for="fast-index-delete-data"><b><?php esc_html_e( 'Delete data on uninstall', 'fast-index' ); ?></b></label> <br>
-								<small><?php esc_html_e( 'Delete all plugin data (settings, keys and history) when the plugin is deleted. This cannot be undone.', 'fast-index' ); ?></small>
-							</td>
+						<tr class="cdo-row--danger">
+							<th scope="row">
+								<label for="fast-index-delete-data"><?php esc_html_e( 'Delete data on uninstall', 'fast-index' ); ?></label>
+							</th>
 							<td>
-								<input id="fast-index-delete-data" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
+								<label class="cdo-choice">
+									<input id="fast-index-delete-data" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
+									<span><?php esc_html_e( 'Delete all plugin data (settings, keys and history) when the plugin is deleted. This cannot be undone.', 'fast-index' ); ?></span>
+								</label>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'delete_data' ) as $fast_index_note ) : ?>
 									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
 								<?php endforeach; ?>
 							</td>
 						</tr>
 
-						<tr>
-							<td colspan="2">
-								<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/fast-index/reviews/"><?php esc_html_e( 'Rate Fast Index on WordPress.org', 'fast-index' ); ?></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td scope="row">&nbsp;</td>
-							<td>
-								<input name="submit" class="button button-primary settingsSubmitButton" type="submit" value="<?php esc_attr_e( 'Save', 'fast-index' ); ?>" />
-							</td>
-						</tr>
-
 						</tbody>
 					</table>
+
+					<p class="cdo-actions">
+						<input name="submit" class="button button-primary settingsSubmitButton" type="submit" value="<?php esc_attr_e( 'Save', 'fast-index' ); ?>" />
+					</p>
 				</form>
+			</section>
 
-				<h1 class="title"><?php esc_html_e( 'Upload Google Service Account Key', 'fast-index' ); ?></h1>
-
-				<?php if ( isset( $fast_index_view['hints']['keys'] ) ) : ?>
-					<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['keys'], $fast_index_view['hints']['url'] ); ?>
-				<?php endif; ?>
+			<section class="cdo-card" aria-labelledby="fi-keys-title">
+				<div class="cdo-card__header">
+					<h2 id="fi-keys-title" class="cdo-card__title"><?php esc_html_e( 'Upload Google Service Account Key', 'fast-index' ); ?></h2>
+					<?php if ( isset( $fast_index_view['hints']['keys'] ) ) : ?>
+						<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['keys'], $fast_index_view['hints']['url'] ); ?>
+					<?php endif; ?>
+				</div>
 
 				<?php if ( ! $fast_index_view['openssl'] ) : ?>
 					<div class="notice notice-error inline"><p><?php echo esc_html( Fast_Index_Google_Client::openssl_message() ); ?></p></div>
 				<?php endif; ?>
 
 				<?php if ( array() !== $fast_index_view['accounts'] ) : ?>
-					<table class="form-table fast-index-accounts" role="presentation">
+					<table class="form-table cdo-form-table fast-index-accounts" role="presentation">
 						<tbody>
 						<?php foreach ( $fast_index_view['accounts'] as $fast_index_account ) : ?>
-							<tr class="trBorder">
-								<td scope="row" class="insideTd">
-									<small><b><?php echo esc_html( $fast_index_account['email'] ); ?></b></small><br>
-									<small>
+							<tr>
+								<th scope="row">
+									<bdi dir="ltr"><?php echo esc_html( $fast_index_account['email'] ); ?></bdi>
+									<span class="cdo-field-hint">
 										<?php
 										/* translators: %s: ID of the service account key. */
 										echo esc_html( sprintf( __( 'Key ID: %s', 'fast-index' ), '' !== $fast_index_account['key_id'] ? $fast_index_account['key_id'] : '-' ) );
 										?>
-									</small>
-								</td>
-								<td class="insideTd">
+									</span>
+								</th>
+								<td>
+									<span class="<?php echo esc_attr( null === $fast_index_account['status'] ? 'cdo-badge' : 'cdo-badge ' . Fast_Index_Admin::status_tone( $fast_index_account['status'] ) ); ?>"><bdi dir="auto"><?php echo esc_html( null === $fast_index_account['status'] ? __( 'Not used yet', 'fast-index' ) : Fast_Index_Admin::status_label( $fast_index_account['status'] ) ); ?></bdi></span>
 									<?php if ( ! $fast_index_view['several_keys'] && count( $fast_index_view['accounts'] ) > 1 ) : ?>
-										<small class="fi-key-use"><?php echo esc_html( $fast_index_account['in_use'] ? __( 'Used for sending', 'fast-index' ) : __( 'Kept, not used by this version', 'fast-index' ) ); ?></small><br>
+										<p class="description fi-key-use"><?php echo esc_html( $fast_index_account['in_use'] ? __( 'Used for sending', 'fast-index' ) : __( 'Kept, not used by this version', 'fast-index' ) ); ?></p>
 									<?php elseif ( $fast_index_view['several_keys'] && count( $fast_index_view['accounts'] ) > 1 ) : ?>
-										<small class="fi-key-use"><?php echo esc_html( $fast_index_account['main'] ? __( 'Main key', 'fast-index' ) : __( 'Backup key: used only when Google rejects the key before it', 'fast-index' ) ); ?></small><br>
+										<p class="description fi-key-use"><?php echo esc_html( $fast_index_account['main'] ? __( 'Main key', 'fast-index' ) : __( 'Backup key: used only when Google rejects the key before it', 'fast-index' ) ); ?></p>
 									<?php endif; ?>
-									<bdi dir="auto"><?php echo esc_html( null === $fast_index_account['status'] ? __( 'Not used yet', 'fast-index' ) : Fast_Index_Admin::status_label( $fast_index_account['status'] ) ); ?></bdi>
 									<?php if ( $fast_index_account['paused_until'] > 0 ) : ?>
-										<br><small class="fi-key-paused"><?php echo esc_html( Fast_Index_Admin::pause_label( $fast_index_account['paused_until'] ) ); ?></small>
+										<p class="description fi-key-paused"><?php echo esc_html( Fast_Index_Admin::pause_label( $fast_index_account['paused_until'] ) ); ?></p>
 									<?php endif; ?>
-									<form method="post" class="fast-index-inline-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+									<form method="post" class="fast-index-inline-form cdo-inline-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 										<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::DELETE ); ?>" />
 										<input type="hidden" name="fast_index_account" value="<?php echo esc_attr( $fast_index_account['id'] ); ?>" />
 										<input type="hidden" name="<?php echo esc_attr( Fast_Index_Admin_Actions::NONCE_FIELD ); ?>" value="<?php echo esc_attr( wp_create_nonce( Fast_Index_Admin_Actions::DELETE ) ); ?>" />
@@ -252,10 +248,10 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 				<form method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::UPLOAD ); ?>" />
 					<input type="hidden" name="<?php echo esc_attr( Fast_Index_Admin_Actions::NONCE_FIELD ); ?>" value="<?php echo esc_attr( wp_create_nonce( Fast_Index_Admin_Actions::UPLOAD ) ); ?>" />
-					<table class="form-table" role="presentation">
+					<table class="form-table cdo-form-table" role="presentation">
 						<tbody>
 						<tr>
-							<td scope="row"><label for="fast-index-key-files"><b><?php esc_html_e( 'JSON Key File', 'fast-index' ); ?></b></label></td>
+							<th scope="row"><label for="fast-index-key-files"><?php esc_html_e( 'JSON Key File', 'fast-index' ); ?></label></th>
 							<td>
 								<input id="fast-index-key-files" class="jsonFileUpload" type="file" accept=".json,application/json" name="fast_index_key_files[]" <?php echo $fast_index_view['several_keys'] ? 'multiple' : ''; ?> />
 								<p class="description"><?php esc_html_e( 'The key file is read and stored in the database; it is not saved in the uploads folder. Only the email address and the key ID are shown here.', 'fast-index' ); ?></p>
@@ -264,78 +260,76 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 								<?php endif; ?>
 							</td>
 						</tr>
-
-						<tr>
-							<td scope="row">&nbsp;</td>
-							<td>
-								<input class="button button-primary" type="submit" value="<?php esc_attr_e( 'Upload key', 'fast-index' ); ?>" />
-							</td>
-						</tr>
 						</tbody>
 					</table>
+					<p class="cdo-actions">
+						<input class="button" type="submit" value="<?php esc_attr_e( 'Upload key', 'fast-index' ); ?>" />
+					</p>
 				</form>
-
-			</div>
+			</section>
 
 		</div>
 
-		<div class="pw50">
+		<div class="cdo-aside cdo-stack">
 
-			<h1 class="title"><?php esc_html_e( 'Help & FAQ', 'fast-index' ); ?></h1>
-
-			<div>
+			<section class="cdo-card" aria-labelledby="fi-help-card-title">
+				<div class="cdo-card__header">
+					<h2 id="fi-help-card-title" class="cdo-card__title"><?php esc_html_e( 'Help & FAQ', 'fast-index' ); ?></h2>
+				</div>
 				<p><?php esc_html_e( 'Setting up for the first time, or something does not work? Step-by-step instructions, an explanation of every setting, solutions to common problems and answers to frequently asked questions are in Help & FAQ.', 'fast-index' ); ?></p>
-				<p>
-					<a class="button button-primary" href="<?php echo esc_url( $fast_index_help_url ); ?>"><?php esc_html_e( 'Open Help & FAQ', 'fast-index' ); ?></a>
-				</p>
 				<ul>
 					<?php foreach ( Fast_Index_Help_Content::sections() as $fast_index_section => $fast_index_section_title ) : ?>
 						<li><a href="<?php echo esc_url( $fast_index_help_url . '#fi-help-' . $fast_index_section ); ?>"><?php echo esc_html( $fast_index_section_title ); ?></a></li>
 					<?php endforeach; ?>
 				</ul>
-				<p class="description"><?php esc_html_e( 'Fast Index sends your addresses to the Google Indexing API. A 200 answer means Google accepted the notification; Google does not promise to index the page.', 'fast-index' ); ?></p>
-			</div>
+				<p class="cdo-actions">
+					<a class="button" href="<?php echo esc_url( $fast_index_help_url ); ?>"><?php esc_html_e( 'Open Help & FAQ', 'fast-index' ); ?></a>
+				</p>
+				<p class="cdo-description"><?php esc_html_e( 'Fast Index sends your addresses to the Google Indexing API. A 200 answer means Google accepted the notification; Google does not promise to index the page.', 'fast-index' ); ?></p>
+				<p class="cdo-description"><a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/fast-index/reviews/"><?php esc_html_e( 'Rate Fast Index on WordPress.org', 'fast-index' ); ?></a></p>
+			</section>
 
-			<?php if ( null !== $fast_index_view['premium_card'] ) : ?>
-				<div class="fi-premium-card">
-					<h2><?php echo esc_html_x( 'Premium', 'Heading of the box about the premium plan', 'fast-index' ); ?></h2>
-					<p><?php esc_html_e( 'The premium plan is a separate package. What each version does:', 'fast-index' ); ?></p>
-					<table class="fi-compare">
-						<thead>
-						<tr>
-							<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Feature', 'fast-index' ); ?></span></th>
-							<th scope="col"><?php echo esc_html_x( 'Free', 'Column of the comparison table', 'fast-index' ); ?></th>
-							<th scope="col"><?php echo esc_html_x( 'Premium', 'Column of the comparison table', 'fast-index' ); ?></th>
-						</tr>
-						</thead>
-						<tbody>
-						<?php foreach ( $fast_index_view['premium_card']['rows'] as $fast_index_row ) : ?>
-							<tr>
-								<th scope="row"><?php echo esc_html( $fast_index_row['label'] ); ?></th>
-								<?php foreach ( array( $fast_index_row['free'], $fast_index_row['premium'] ) as $fast_index_cell ) : ?>
-									<td>
-										<?php if ( true === $fast_index_cell ) : ?>
-											<span class="fi-yes" aria-hidden="true">&#10003;</span><span class="screen-reader-text"><?php esc_html_e( 'Included', 'fast-index' ); ?></span>
-										<?php elseif ( false === $fast_index_cell ) : ?>
-											<span class="fi-no" aria-hidden="true">&ndash;</span><span class="screen-reader-text"><?php esc_html_e( 'Not included', 'fast-index' ); ?></span>
-										<?php else : ?>
-											<?php echo esc_html( $fast_index_cell ); ?>
-										<?php endif; ?>
-									</td>
-								<?php endforeach; ?>
-							</tr>
-						<?php endforeach; ?>
-						</tbody>
-					</table>
-					<?php if ( '' !== $fast_index_view['premium_card']['url'] ) : ?>
-						<p><a class="button" href="<?php echo esc_url( $fast_index_view['premium_card']['url'] ); ?>"><?php esc_html_e( 'Upgrade to Premium', 'fast-index' ); ?></a></p>
-					<?php endif; ?>
-				</div>
-			<?php endif; ?>
 
 		</div>
 
-		<div class="fiClear"></div>
+		<?php if ( null !== $fast_index_view['premium_card'] ) : ?>
+			<section class="cdo-full cdo-card cdo-premium fi-premium-card" aria-labelledby="fi-premium-title">
+				<div class="cdo-card__header">
+					<h2 id="fi-premium-title" class="cdo-card__title"><?php echo esc_html_x( 'Premium', 'Heading of the box about the premium plan', 'fast-index' ); ?></h2>
+					<p class="cdo-card__desc"><?php esc_html_e( 'The premium plan is a separate package. What each version does:', 'fast-index' ); ?></p>
+				</div>
+				<table class="fi-compare cdo-compare">
+					<thead>
+					<tr>
+						<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Feature', 'fast-index' ); ?></span></th>
+						<th scope="col"><?php echo esc_html_x( 'Free', 'Column of the comparison table', 'fast-index' ); ?></th>
+						<th scope="col"><?php echo esc_html_x( 'Premium', 'Column of the comparison table', 'fast-index' ); ?></th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php foreach ( $fast_index_view['premium_card']['rows'] as $fast_index_row ) : ?>
+						<tr>
+							<th scope="row"><?php echo esc_html( $fast_index_row['label'] ); ?></th>
+							<?php foreach ( array( $fast_index_row['free'], $fast_index_row['premium'] ) as $fast_index_cell ) : ?>
+								<td>
+									<?php if ( true === $fast_index_cell ) : ?>
+										<span class="fi-yes cdo-yes" aria-hidden="true">&#10003;</span><span class="screen-reader-text"><?php esc_html_e( 'Included', 'fast-index' ); ?></span>
+									<?php elseif ( false === $fast_index_cell ) : ?>
+										<span class="fi-no cdo-no" aria-hidden="true">&ndash;</span><span class="screen-reader-text"><?php esc_html_e( 'Not included', 'fast-index' ); ?></span>
+									<?php else : ?>
+										<?php echo esc_html( $fast_index_cell ); ?>
+									<?php endif; ?>
+								</td>
+							<?php endforeach; ?>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+				<?php if ( '' !== $fast_index_view['premium_card']['url'] ) : ?>
+					<p class="cdo-actions"><a class="button" href="<?php echo esc_url( $fast_index_view['premium_card']['url'] ); ?>"><?php esc_html_e( 'Upgrade to Premium', 'fast-index' ); ?></a></p>
+				<?php endif; ?>
+			</section>
+		<?php endif; ?>
 
 	</div>
 

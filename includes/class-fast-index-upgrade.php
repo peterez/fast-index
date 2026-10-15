@@ -369,7 +369,7 @@ class Fast_Index_Upgrade {
 			return;
 		}
 
-		echo '<details class="fi-premium-hint"><summary><span class="fi-premium-badge">' . esc_html_x( 'Premium', 'Badge next to a setting that the premium plan extends', 'fast-index' ) . '</span></summary>';
+		echo '<details class="fi-premium-hint cdo-hint"><summary><span class="fi-premium-badge cdo-hint__badge">' . esc_html_x( 'Premium', 'Badge next to a setting that the premium plan extends', 'fast-index' ) . '</span></summary>';
 		echo '<p>' . esc_html( $text );
 
 		if ( '' !== (string) $url ) {

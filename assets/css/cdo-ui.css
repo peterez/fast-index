@@ -1,0 +1,1431 @@
+/*
+ * CultDevOps UI, design language v1.
+ *
+ * The same file ships, byte for byte, in every CultDevOps plugin (Fast Index, LLMs.txt Generator, XML Sitemap
+ * Generator). Each plugin loads it under its own handle, only on its own admin screens. Every rule is scoped to the
+ * .cdo-ui wrapper and every class starts with cdo-, so nothing reaches WordPress core or another plugin.
+ *
+ * Brand colour lives in one place: the header band (ink background, family stripe, mark). Buttons, links, focus
+ * rings and active states follow the person's admin colour scheme (--wp-admin-theme-color). Fonts are the WordPress
+ * system stack; no font file, no CDN. Spacing sits on the 4 px grid. Logical properties keep right-to-left screens
+ * correct without a second file.
+ *
+ * Design notes and decisions: docs/theProject/project/TASARIM_DILI.md in the CultDevOps workspace.
+ */
+
+/* ------------------------------------------------------------------ Tokens */
+
+.cdo-ui {
+	/* Brand: ink and the three family accents. Accents are used on ink only (contrast 7.5:1 or more). */
+	--cdo-ink: #1d2b4f;
+	--cdo-ink-raised: #283a66;
+	--cdo-on-ink: #fff;
+	--cdo-on-ink-muted: #b8c2db;
+	--cdo-accent-fast-index: #f5b82e;
+	--cdo-accent-llms: #4fd1c5;
+	--cdo-accent-xml-sitemap: #8bd56b;
+	--cdo-accent: var(--cdo-on-ink-muted);
+
+	/* Interaction: the admin colour scheme the person chose. */
+	--cdo-action: var(--wp-admin-theme-color, #2271b1);
+	--cdo-action-strong: var(--wp-admin-theme-color-darker-10, #135e96);
+	--cdo-focus-width: var(--wp-admin-border-width-focus, 2px);
+
+	/* Neutrals: the core admin greys. */
+	--cdo-surface: #fff;
+	--cdo-surface-muted: #f6f7f7;
+	--cdo-border: #dcdcde;
+	--cdo-border-strong: #c3c4c7;
+	--cdo-text: #1d2327;
+	--cdo-text-muted: #50575e;
+
+	/* Status: border/icon colour, text colour, background. Text pairs pass 4.5:1 on their background. */
+	--cdo-success: #00a32a;
+	--cdo-success-text: #007017;
+	--cdo-success-bg: #edfaef;
+	--cdo-warning: #dba617;
+	--cdo-warning-text: #8a5d00;
+	--cdo-warning-bg: #fcf9e8;
+	--cdo-error: #d63638;
+	--cdo-error-text: #b32d2e;
+	--cdo-error-bg: #fcf0f1;
+	--cdo-info: #72aee6;
+	--cdo-info-text: #135e96;
+	--cdo-info-bg: #f0f6fc;
+
+	/* Space (4 px grid). */
+	--cdo-space-1: 4px;
+	--cdo-space-2: 8px;
+	--cdo-space-3: 12px;
+	--cdo-space-4: 16px;
+	--cdo-space-5: 24px;
+	--cdo-space-6: 32px;
+	--cdo-space-7: 48px;
+	--cdo-gap: 24px;
+
+	/* Radius. */
+	--cdo-radius-s: 2px;
+	--cdo-radius-m: 4px;
+	--cdo-radius-l: 8px;
+	--cdo-radius-pill: 999px;
+
+	/* Elevation: surfaces are flat and separated by a 1 px border; only floating layers cast a shadow. */
+	--cdo-shadow-float: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+	/* Type scale (WordPress body is 13 px). */
+	--cdo-text-xs: 12px;
+	--cdo-text-s: 13px;
+	--cdo-text-m: 14px;
+	--cdo-text-l: 16px;
+	--cdo-text-xl: 23px;
+	--cdo-text-2xl: 28px;
+	--cdo-leading: 1.5;
+	--cdo-weight-strong: 600;
+
+	/* Motion. */
+	--cdo-duration: 150ms;
+
+	color: var(--cdo-text);
+	font-family: inherit;
+}
+
+.cdo-ui--fast-index {
+	--cdo-accent: var(--cdo-accent-fast-index);
+}
+
+.cdo-ui--llms {
+	--cdo-accent: var(--cdo-accent-llms);
+}
+
+.cdo-ui--xml-sitemap {
+	--cdo-accent: var(--cdo-accent-xml-sitemap);
+}
+
+.cdo-ui *,
+.cdo-ui *::before,
+.cdo-ui *::after {
+	box-sizing: border-box;
+}
+
+/* Japanese has no spaces between words: break between phrases, not inside a word (Chromium; others keep their default). */
+.cdo-ui:lang(ja) {
+	word-break: auto-phrase;
+	line-break: strict;
+}
+
+/* ------------------------------------------------------------------ Header band (the family signature) */
+
+.cdo-ui .cdo-band {
+	position: relative;
+	clear: both;
+	margin-block: var(--cdo-space-2) var(--cdo-space-5);
+	padding-block: var(--cdo-space-4) var(--cdo-space-5);
+	padding-inline: var(--cdo-space-5);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+}
+
+.cdo-ui .cdo-band__brand {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-1) var(--cdo-space-2);
+	margin: 0;
+	font-size: var(--cdo-text-s);
+	line-height: 24px;
+	color: var(--cdo-on-ink-muted);
+}
+
+.cdo-ui .cdo-band__family {
+	font-weight: var(--cdo-weight-strong);
+	color: var(--cdo-on-ink);
+}
+
+.cdo-ui .cdo-band__product {
+	color: var(--cdo-on-ink);
+}
+
+.cdo-ui .cdo-band__plan {
+	display: inline-block;
+	margin-inline-start: auto;
+	padding-inline: var(--cdo-space-2);
+	border: 1px solid var(--cdo-accent);
+	border-radius: var(--cdo-radius-pill);
+	color: var(--cdo-on-ink);
+	font-size: var(--cdo-text-xs);
+	line-height: 20px;
+	white-space: nowrap;
+}
+
+.cdo-ui .cdo-band__plan--premium {
+	background: var(--cdo-accent);
+	color: var(--cdo-ink);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* Core gives .wrap h1 its own size and padding; the band restates them so the title sits on the ink. */
+.cdo-ui .cdo-band .cdo-band__title {
+	margin: var(--cdo-space-2) 0 0;
+	padding: 0;
+	color: var(--cdo-on-ink);
+	font-size: var(--cdo-text-xl);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 1.3;
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-band__lead {
+	max-width: 70ch;
+	margin: var(--cdo-space-1) 0 0;
+	color: var(--cdo-on-ink-muted);
+	font-size: var(--cdo-text-s);
+}
+
+.cdo-ui .cdo-band a {
+	color: var(--cdo-on-ink);
+}
+
+.cdo-ui .cdo-band a:focus {
+	outline: var(--cdo-focus-width) solid var(--cdo-on-ink);
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+/* The mark: three stepped bars, one per family plugin. The bar of the current plugin carries its accent. */
+.cdo-ui .cdo-mark {
+	display: block;
+	flex: 0 0 auto;
+	width: 24px;
+	height: 24px;
+}
+
+.cdo-ui .cdo-mark__tile {
+	fill: var(--cdo-ink-raised);
+}
+
+.cdo-ui .cdo-mark__bar {
+	fill: var(--cdo-on-ink-muted);
+	opacity: 0.45;
+}
+
+.cdo-ui--fast-index .cdo-mark__bar--fast-index,
+.cdo-ui--llms .cdo-mark__bar--llms,
+.cdo-ui--xml-sitemap .cdo-mark__bar--xml-sitemap {
+	fill: var(--cdo-accent);
+	opacity: 1;
+}
+
+/* The stripe along the bottom edge: the three family colours, the current plugin's segment the widest. */
+.cdo-ui .cdo-band__stripe {
+	position: absolute;
+	inset-inline: 0;
+	inset-block-end: 0;
+	display: flex;
+	height: 4px;
+	border-radius: 0 0 var(--cdo-radius-l) var(--cdo-radius-l);
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-band__stripe span {
+	flex: 1 1 0;
+}
+
+.cdo-ui .cdo-band__stripe .cdo-band__stripe-fast-index {
+	background: var(--cdo-accent-fast-index);
+}
+
+.cdo-ui .cdo-band__stripe .cdo-band__stripe-llms {
+	background: var(--cdo-accent-llms);
+}
+
+.cdo-ui .cdo-band__stripe .cdo-band__stripe-xml-sitemap {
+	background: var(--cdo-accent-xml-sitemap);
+}
+
+.cdo-ui--fast-index .cdo-band__stripe .cdo-band__stripe-fast-index,
+.cdo-ui--llms .cdo-band__stripe .cdo-band__stripe-llms,
+.cdo-ui--xml-sitemap .cdo-band__stripe .cdo-band__stripe-xml-sitemap {
+	flex-grow: 6;
+}
+
+/* Notices that WordPress moves under the band keep the band's rhythm. */
+.cdo-ui > .notice,
+.cdo-ui > div.updated,
+.cdo-ui > div.error {
+	margin-block: 0 var(--cdo-space-4);
+}
+
+/* ------------------------------------------------------------------ Layout */
+
+.cdo-ui .cdo-layout {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: var(--cdo-gap);
+	align-items: start;
+}
+
+.cdo-ui .cdo-main {
+	grid-column: span 8;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-aside {
+	grid-column: span 4;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-full {
+	grid-column: 1 / -1;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-half {
+	grid-column: span 6;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cdo-gap);
+	min-width: 0;
+}
+
+/* ------------------------------------------------------------------ Card */
+
+.cdo-ui .cdo-card {
+	min-width: 0;
+	margin: 0;
+	padding: var(--cdo-space-5);
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-stack > .cdo-card,
+.cdo-ui .cdo-layout > .cdo-card {
+	margin: 0;
+}
+
+.cdo-ui .cdo-card + .cdo-card {
+	margin-block-start: var(--cdo-gap);
+}
+
+.cdo-ui .cdo-stack > .cdo-card + .cdo-card,
+.cdo-ui .cdo-layout > .cdo-card + .cdo-card {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-card__header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-2) var(--cdo-space-3);
+	margin-block-end: var(--cdo-space-4);
+}
+
+.cdo-ui .cdo-card__title,
+.cdo-ui h2.cdo-card__title,
+.cdo-ui h3.cdo-card__title {
+	margin: 0;
+	padding: 0;
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 1.4;
+}
+
+.cdo-ui .cdo-card__desc {
+	flex-basis: 100%;
+	margin: 0;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-card > :last-child {
+	margin-block-end: 0;
+}
+
+/* A card whose content is a table: the table meets the card edge. */
+.cdo-ui .cdo-card--flush {
+	padding: 0;
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-card--flush > .cdo-card__header {
+	margin: 0;
+	padding: var(--cdo-space-4) var(--cdo-space-5);
+	border-block-end: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-card--flush > .cdo-card__footer {
+	padding: var(--cdo-space-3) var(--cdo-space-5);
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-card--flush .widefat {
+	border: 0;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-card__footer {
+	margin-block-start: var(--cdo-space-4);
+}
+
+.cdo-ui .cdo-section-title {
+	margin: var(--cdo-space-5) 0 var(--cdo-space-2);
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* ------------------------------------------------------------------ Form */
+
+.cdo-ui .cdo-form-table {
+	margin: 0;
+}
+
+.cdo-ui .cdo-form-table > tbody > tr > th,
+.cdo-ui .cdo-form-table > tr > th {
+	width: 200px;
+	padding-block: var(--cdo-space-4);
+	padding-inline: 0 var(--cdo-space-5);
+	vertical-align: top;
+	text-align: start;
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-form-table > tbody > tr > td,
+.cdo-ui .cdo-form-table > tr > td {
+	padding-block: var(--cdo-space-4);
+	padding-inline: 0;
+	vertical-align: top;
+}
+
+.cdo-ui .cdo-form-table > tbody > tr + tr > th,
+.cdo-ui .cdo-form-table > tbody > tr + tr > td,
+.cdo-ui .cdo-form-table > tr + tr > th,
+.cdo-ui .cdo-form-table > tr + tr > td {
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-form-table th .cdo-field-hint {
+	display: block;
+	margin-block-start: var(--cdo-space-1);
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-xs);
+	font-weight: 400;
+}
+
+.cdo-ui .cdo-form-table .description,
+.cdo-ui .cdo-description {
+	max-width: 70ch;
+	margin-block: var(--cdo-space-2) 0;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-choices {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-2) var(--cdo-space-5);
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.cdo-ui .cdo-choices label,
+.cdo-ui label.cdo-choice {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-2);
+	min-height: 24px;
+	margin: 0;
+}
+
+.cdo-ui .cdo-choices input[type="checkbox"],
+.cdo-ui .cdo-choices input[type="radio"],
+.cdo-ui label.cdo-choice input[type="checkbox"],
+.cdo-ui label.cdo-choice input[type="radio"] {
+	margin: 2px 0 0;
+}
+
+.cdo-ui .cdo-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-2);
+	margin: var(--cdo-space-5) 0 0;
+	padding: 0;
+}
+
+.cdo-ui .cdo-actions .button {
+	margin: 0;
+}
+
+.cdo-ui .cdo-inline-form {
+	display: inline;
+	margin-inline-start: var(--cdo-space-3);
+}
+
+/* Danger zone row: a quiet separator above a destructive choice. */
+.cdo-ui .cdo-form-table tr.cdo-row--danger > th {
+	color: var(--cdo-error-text);
+}
+
+/* ------------------------------------------------------------------ Badge (status pill) */
+
+.cdo-ui .cdo-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	max-width: 100%;
+	padding-inline: var(--cdo-space-2);
+	border: 1px solid var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-surface-muted);
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-xs);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 20px;
+	vertical-align: middle;
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-badge::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+.cdo-ui .cdo-badge--plain::before {
+	content: none;
+}
+
+.cdo-ui .cdo-badge--success {
+	border-color: var(--cdo-success);
+	background: var(--cdo-success-bg);
+	color: var(--cdo-success-text);
+}
+
+.cdo-ui .cdo-badge--warning {
+	border-color: var(--cdo-warning);
+	background: var(--cdo-warning-bg);
+	color: var(--cdo-warning-text);
+}
+
+.cdo-ui .cdo-badge--error {
+	border-color: var(--cdo-error);
+	background: var(--cdo-error-bg);
+	color: var(--cdo-error-text);
+}
+
+.cdo-ui .cdo-badge--info {
+	border-color: var(--cdo-info);
+	background: var(--cdo-info-bg);
+	color: var(--cdo-info-text);
+}
+
+/* ------------------------------------------------------------------ Statistics */
+
+/* A ledger, not a row of identical tiles: values share one card and are split by hairlines. */
+.cdo-ui .cdo-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-stat {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: flex-end;
+	gap: var(--cdo-space-1);
+	margin: 0;
+	padding: var(--cdo-space-4) var(--cdo-space-5);
+	box-shadow: -1px 0 0 var(--cdo-border), 0 -1px 0 var(--cdo-border);
+}
+
+.cdo-ui .cdo-stat__value {
+	margin: 0;
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-2xl);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 1.15;
+	font-variant-numeric: tabular-nums;
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-stat__label {
+	margin: 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+}
+
+/* Smaller key-value list inside a card (aside boxes). */
+.cdo-ui .cdo-facts {
+	margin: 0;
+}
+
+.cdo-ui .cdo-facts__row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: var(--cdo-space-1) var(--cdo-space-4);
+	padding-block: var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-facts__row + .cdo-facts__row {
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-facts dt {
+	margin: 0;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-facts dd {
+	margin: 0;
+	font-weight: var(--cdo-weight-strong);
+	font-variant-numeric: tabular-nums;
+	text-align: end;
+	overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------------ Table */
+
+.cdo-ui .cdo-table {
+	border-color: var(--cdo-border);
+}
+
+.cdo-ui .cdo-table thead th,
+.cdo-ui .cdo-table thead td {
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-table td,
+.cdo-ui .cdo-table th {
+	vertical-align: top;
+}
+
+.cdo-ui .cdo-table .cdo-num {
+	text-align: end;
+	font-variant-numeric: tabular-nums;
+}
+
+.cdo-ui .cdo-table .row-title {
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-scroll {
+	overflow-x: auto;
+}
+
+/* Filter links above a table (an in-page view switch, not a menu). */
+.cdo-ui .cdo-filter {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-2);
+	margin: 0 0 var(--cdo-space-4);
+	padding: 0;
+	list-style: none;
+}
+
+.cdo-ui .cdo-filter li {
+	margin: 0;
+}
+
+.cdo-ui .cdo-filter a {
+	display: inline-block;
+	min-height: 32px;
+	padding: var(--cdo-space-1) var(--cdo-space-3);
+	border: 1px solid var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-surface);
+	color: var(--cdo-text);
+	line-height: 22px;
+	text-decoration: none;
+}
+
+.cdo-ui .cdo-filter a:hover {
+	border-color: var(--cdo-action);
+	color: var(--cdo-action);
+}
+
+.cdo-ui .cdo-filter a.current,
+.cdo-ui .cdo-filter a[aria-current="page"] {
+	border-color: var(--cdo-ink);
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-filter a:focus {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+/* Previous / next page links. */
+.cdo-ui .cdo-pagination {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-2);
+	margin: var(--cdo-space-4) 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cdo-ui .cdo-pagination li {
+	margin: 0;
+}
+
+/* ------------------------------------------------------------------ Empty, loading, error */
+
+.cdo-ui .cdo-empty {
+	padding: var(--cdo-space-6) var(--cdo-space-5);
+	text-align: center;
+}
+
+.cdo-ui .cdo-empty__icon {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	color: var(--cdo-text-muted);
+	font-size: 40px;
+}
+
+.cdo-ui .cdo-empty__title {
+	margin: var(--cdo-space-3) 0 var(--cdo-space-1);
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-empty__text {
+	max-width: 60ch;
+	margin: 0 auto;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-empty .cdo-actions {
+	justify-content: center;
+}
+
+/* Full-screen wait layer for an action that takes seconds; the text says what is happening. */
+.cdo-ui .cdo-busy {
+	position: fixed;
+	inset: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--cdo-space-4);
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.cdo-ui .cdo-busy[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-busy__box {
+	display: flex;
+	align-items: center;
+	gap: var(--cdo-space-3);
+	padding: var(--cdo-space-4) var(--cdo-space-5);
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	box-shadow: var(--cdo-shadow-float);
+}
+
+.cdo-ui .cdo-busy__box .spinner {
+	float: none;
+	margin: 0;
+	visibility: visible;
+}
+
+.cdo-ui .cdo-busy__box p {
+	margin: 0;
+}
+
+/* A one-line message tied to real numbers or a state: value lines, sync notes, inline errors. */
+.cdo-ui .cdo-callout {
+	margin: var(--cdo-space-3) 0 0;
+	padding: var(--cdo-space-2) var(--cdo-space-3);
+	border-inline-start: 4px solid var(--cdo-info);
+	border-radius: 0 var(--cdo-radius-m) var(--cdo-radius-m) 0;
+	background: var(--cdo-info-bg);
+	color: var(--cdo-text);
+}
+
+[dir="rtl"] .cdo-ui .cdo-callout,
+.cdo-ui[dir="rtl"] .cdo-callout {
+	border-radius: var(--cdo-radius-m) 0 0 var(--cdo-radius-m);
+}
+
+.cdo-ui .cdo-callout--success {
+	border-inline-start-color: var(--cdo-success);
+	background: var(--cdo-success-bg);
+}
+
+.cdo-ui .cdo-callout--warning {
+	border-inline-start-color: var(--cdo-warning);
+	background: var(--cdo-warning-bg);
+}
+
+.cdo-ui .cdo-callout--error {
+	border-inline-start-color: var(--cdo-error);
+	background: var(--cdo-error-bg);
+}
+
+.cdo-ui .cdo-callout > :first-child {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-callout > :last-child {
+	margin-block-end: 0;
+}
+
+/* Inline notices between blocks keep the stack's rhythm. */
+.cdo-ui .cdo-stack .notice.inline {
+	margin: var(--cdo-space-4) 0 0;
+}
+
+/* Inline notices inside cards keep the card's spacing. */
+.cdo-ui .cdo-card .notice.inline {
+	margin: 0 0 var(--cdo-space-4);
+}
+
+.cdo-ui .cdo-card .notice.inline ul {
+	margin: 0 0 var(--cdo-space-2);
+	padding-inline-start: var(--cdo-space-5);
+	list-style: disc;
+}
+
+/* ------------------------------------------------------------------ Premium */
+
+/* The Premium box: one per settings screen, plain, with an honest Free / Premium table. */
+.cdo-ui .cdo-premium {
+	border-block-start: 4px solid var(--cdo-ink);
+}
+
+.cdo-ui .cdo-premium .cdo-card__title::after {
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin-inline-start: var(--cdo-space-2);
+	border-radius: 50%;
+	background: var(--cdo-accent);
+	box-shadow: 0 0 0 2px var(--cdo-ink);
+	vertical-align: middle;
+}
+
+.cdo-ui .cdo-compare {
+	width: 100%;
+	margin: 0 0 var(--cdo-space-4);
+	border-collapse: collapse;
+}
+
+.cdo-ui .cdo-compare th,
+.cdo-ui .cdo-compare td {
+	padding: var(--cdo-space-2);
+	border-block-end: 1px solid var(--cdo-border);
+	text-align: start;
+	vertical-align: top;
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-compare thead th {
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-xs);
+	font-weight: var(--cdo-weight-strong);
+	border-block-end-color: var(--cdo-border-strong);
+}
+
+.cdo-ui .cdo-compare tbody th {
+	font-weight: 400;
+}
+
+.cdo-ui .cdo-compare td {
+	width: 24%;
+}
+
+.cdo-ui .cdo-compare .cdo-yes {
+	color: var(--cdo-success-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-compare .cdo-no {
+	color: var(--cdo-text-muted);
+}
+
+/* "Premium" badge next to a setting: a <details> that explains what the plan adds. No field, nothing disabled. */
+.cdo-ui .cdo-hint {
+	margin-block-start: var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-hint summary {
+	display: inline-block;
+	border-radius: var(--cdo-radius-pill);
+	cursor: pointer;
+	list-style: none;
+}
+
+.cdo-ui .cdo-hint summary::-webkit-details-marker {
+	display: none;
+}
+
+.cdo-ui .cdo-hint summary:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-hint summary:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+}
+
+.cdo-ui .cdo-hint__badge {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	padding-inline: var(--cdo-space-2);
+	border: 1px solid var(--cdo-ink);
+	border-radius: var(--cdo-radius-pill);
+	color: var(--cdo-ink);
+	font-size: var(--cdo-text-xs);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 20px;
+}
+
+.cdo-ui .cdo-hint__badge::after {
+	content: "";
+	width: 0;
+	height: 0;
+	border-inline: 4px solid transparent;
+	border-block-start: 5px solid currentColor;
+	transition: transform var(--cdo-duration) ease;
+}
+
+.cdo-ui .cdo-hint[open] .cdo-hint__badge {
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+}
+
+.cdo-ui .cdo-hint[open] .cdo-hint__badge::after {
+	transform: rotate(180deg);
+}
+
+.cdo-ui .cdo-hint > p,
+.cdo-ui .cdo-hint__body {
+	max-width: 70ch;
+	margin: var(--cdo-space-2) 0 0;
+	padding: var(--cdo-space-2) var(--cdo-space-3);
+	border-radius: var(--cdo-radius-m);
+	background: var(--cdo-surface-muted);
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+}
+
+/* ------------------------------------------------------------------ Help & FAQ */
+
+.cdo-ui .cdo-help-nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-2);
+	margin: 0 0 var(--cdo-gap);
+	padding: 0;
+	list-style: none;
+}
+
+.cdo-ui .cdo-help-nav li {
+	margin: 0;
+}
+
+.cdo-ui .cdo-help-nav a {
+	display: inline-block;
+	min-height: 32px;
+	padding: var(--cdo-space-1) var(--cdo-space-3);
+	border: 1px solid var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-surface);
+	color: var(--cdo-text);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 22px;
+	text-decoration: none;
+}
+
+.cdo-ui .cdo-help-nav a:hover {
+	border-color: var(--cdo-action);
+	color: var(--cdo-action);
+}
+
+.cdo-ui .cdo-help-nav a:focus {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-help-section {
+	scroll-margin-block-start: 48px;
+}
+
+.cdo-ui .cdo-help-section > h2 {
+	margin: 0 0 var(--cdo-space-4);
+	padding: 0;
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-help-section p {
+	max-width: 80ch;
+}
+
+/* Getting started: a real sequence, so the steps are numbered. */
+.cdo-ui .cdo-steps {
+	margin: var(--cdo-space-4) 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: cdo-step;
+}
+
+.cdo-ui .cdo-steps > li {
+	position: relative;
+	margin: 0;
+	padding-block: 0 var(--cdo-space-4);
+	padding-inline-start: 44px;
+	counter-increment: cdo-step;
+}
+
+.cdo-ui .cdo-steps > li::before {
+	content: counter(cdo-step);
+	position: absolute;
+	inset-inline-start: 0;
+	inset-block-start: 0;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 28px;
+	text-align: center;
+}
+
+.cdo-ui .cdo-steps > li:not(:last-child)::after {
+	content: "";
+	position: absolute;
+	inset-inline-start: 13px;
+	inset-block: 32px 4px;
+	width: 2px;
+	background: var(--cdo-border);
+}
+
+.cdo-ui .cdo-steps h3 {
+	margin: 4px 0 var(--cdo-space-1);
+	font-size: var(--cdo-text-m);
+}
+
+.cdo-ui .cdo-steps p {
+	margin: 0;
+}
+
+/* Questions and problems: one disclosure each. */
+.cdo-ui .cdo-disclosure {
+	margin: 0 0 var(--cdo-space-2);
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-m);
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-disclosure > summary {
+	position: relative;
+	padding-block: var(--cdo-space-3);
+	padding-inline: var(--cdo-space-4) 40px;
+	cursor: pointer;
+	font-weight: var(--cdo-weight-strong);
+	list-style: none;
+}
+
+.cdo-ui .cdo-disclosure > summary::-webkit-details-marker {
+	display: none;
+}
+
+.cdo-ui .cdo-disclosure > summary::after {
+	content: "";
+	position: absolute;
+	inset-inline-end: var(--cdo-space-4);
+	inset-block-start: 50%;
+	width: 8px;
+	height: 8px;
+	margin-block-start: -6px;
+	border-inline-end: 2px solid var(--cdo-text-muted);
+	border-block-end: 2px solid var(--cdo-text-muted);
+	transform: rotate(45deg);
+	transition: transform var(--cdo-duration) ease;
+}
+
+.cdo-ui .cdo-disclosure[open] > summary::after {
+	margin-block-start: -2px;
+	transform: rotate(225deg);
+}
+
+.cdo-ui .cdo-disclosure > summary:hover {
+	color: var(--cdo-action);
+}
+
+.cdo-ui .cdo-disclosure > summary:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-disclosure > summary:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -2px;
+}
+
+.cdo-ui .cdo-disclosure[open] > summary {
+	border-block-end: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-disclosure__body {
+	padding: var(--cdo-space-1) var(--cdo-space-4);
+}
+
+/* The settings table of Help & FAQ: four columns on wide screens, stacked blocks on a phone. */
+.cdo-ui .cdo-help-table th,
+.cdo-ui .cdo-help-table td {
+	text-align: start;
+	vertical-align: top;
+}
+
+.cdo-ui .cdo-help-table p {
+	margin: 0 0 var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-help-table p:last-child {
+	margin-block-end: 0;
+}
+
+.cdo-ui code {
+	overflow-wrap: anywhere;
+}
+
+/* System info: read-only facts, label and value isolated so each keeps its direction. */
+.cdo-ui .cdo-sysinfo {
+	margin: 0;
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-m);
+	background: var(--cdo-surface-muted);
+}
+
+.cdo-ui .cdo-sysinfo__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px var(--cdo-space-4);
+	padding: var(--cdo-space-2) var(--cdo-space-3);
+}
+
+.cdo-ui .cdo-sysinfo__row + .cdo-sysinfo__row {
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-sysinfo dt {
+	flex: 0 0 15em;
+	max-width: 100%;
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-sysinfo dd {
+	flex: 1 1 14em;
+	min-width: 0;
+	margin: 0;
+	font-family: Consolas, Monaco, monospace;
+	overflow-wrap: anywhere;
+}
+
+/* The plain-text copy of the system info stays in the page for the copy button, out of sight. */
+.cdo-ui .cdo-sysinfo-source {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	direction: ltr;
+}
+
+/* Shown by the copy button when the clipboard is not available: the person copies the selected text by hand. */
+.cdo-ui .cdo-sysinfo-source.cdo-sysinfo-source--shown {
+	position: static;
+	width: 100%;
+	height: auto;
+	margin: var(--cdo-space-3) 0 0;
+	padding: var(--cdo-space-2) var(--cdo-space-3);
+	border: 1px solid var(--cdo-border-strong);
+	overflow: auto;
+	clip-path: none;
+	font-family: Consolas, Monaco, monospace;
+}
+
+.cdo-ui .cdo-copy-status {
+	margin-inline-start: var(--cdo-space-3);
+}
+
+/* ------------------------------------------------------------------ Dialog */
+
+.cdo-ui .cdo-dialog {
+	position: fixed;
+	inset: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--cdo-space-4);
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.cdo-ui .cdo-dialog[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-dialog__panel {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 800px;
+	max-height: 90vh;
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	box-shadow: var(--cdo-shadow-float);
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-dialog__header,
+.cdo-ui .cdo-dialog__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--cdo-space-3);
+	padding: var(--cdo-space-4) var(--cdo-space-5);
+}
+
+.cdo-ui .cdo-dialog__header {
+	border-block-end: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-dialog__header h2,
+.cdo-ui .cdo-dialog__header h3 {
+	margin: 0;
+	font-size: var(--cdo-text-l);
+}
+
+.cdo-ui .cdo-dialog__footer {
+	justify-content: flex-end;
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-dialog__body {
+	flex: 1 1 auto;
+	min-height: 0;
+	padding: var(--cdo-space-4) var(--cdo-space-5);
+	overflow: auto;
+}
+
+.cdo-ui .cdo-dialog__close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	margin: -10px;
+	padding: 0;
+	border: 0;
+	border-radius: var(--cdo-radius-m);
+	background: none;
+	color: var(--cdo-text-muted);
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-dialog__close:hover {
+	color: var(--cdo-text);
+}
+
+.cdo-ui .cdo-dialog__close:focus {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -4px;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-code {
+	width: 100%;
+	min-height: 320px;
+	padding: var(--cdo-space-3);
+	border: 1px solid var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-m);
+	font-family: Consolas, Monaco, monospace;
+	font-size: var(--cdo-text-xs);
+	line-height: 1.5;
+	white-space: pre;
+	overflow-wrap: normal;
+	overflow-x: auto;
+	direction: ltr;
+	resize: vertical;
+}
+
+/* ------------------------------------------------------------------ Feature tiles (a home screen's entry points) */
+
+.cdo-ui .cdo-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--cdo-gap);
+}
+
+.cdo-ui .cdo-tile {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cdo-space-2);
+	min-width: 0;
+	padding: var(--cdo-space-5);
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-tile__icon {
+	width: 32px;
+	height: 32px;
+	border-radius: var(--cdo-radius-m);
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+	font-size: 20px;
+	line-height: 32px;
+	text-align: center;
+}
+
+.cdo-ui .cdo-tile__icon::before {
+	line-height: 32px;
+}
+
+.cdo-ui .cdo-tile h2,
+.cdo-ui .cdo-tile h3 {
+	margin: 0;
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-tile p {
+	margin: 0;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-tile .cdo-actions {
+	margin-block-start: auto;
+	padding-block-start: var(--cdo-space-2);
+}
+
+/* ------------------------------------------------------------------ Breakpoints */
+
+@media screen and (max-width: 959px) {
+	.cdo-ui .cdo-main,
+	.cdo-ui .cdo-aside,
+	.cdo-ui .cdo-half {
+		grid-column: 1 / -1;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.cdo-ui {
+		--cdo-gap: 16px;
+	}
+
+	.cdo-ui .cdo-band {
+		padding-block: var(--cdo-space-3) var(--cdo-space-4);
+		padding-inline: var(--cdo-space-4);
+	}
+
+	.cdo-ui .cdo-card {
+		padding: var(--cdo-space-4);
+	}
+
+	.cdo-ui .cdo-card--flush {
+		padding: 0;
+	}
+
+	.cdo-ui .cdo-card--flush > .cdo-card__header,
+	.cdo-ui .cdo-card--flush > .cdo-card__footer {
+		padding-inline: var(--cdo-space-4);
+	}
+
+	/* Core stacks form-table cells below 782 px; the label keeps its weight and loses the fixed width. */
+	.cdo-ui .cdo-form-table > tbody > tr > th,
+	.cdo-ui .cdo-form-table > tr > th {
+		width: auto;
+		padding-block-end: 0;
+	}
+
+	.cdo-ui .cdo-form-table > tbody > tr + tr > td,
+	.cdo-ui .cdo-form-table > tr + tr > td {
+		border-block-start: 0;
+	}
+
+	.cdo-ui .cdo-stat {
+		padding: var(--cdo-space-3) var(--cdo-space-4);
+	}
+
+	.cdo-ui .cdo-stat__value {
+		font-size: var(--cdo-text-xl);
+	}
+
+	.cdo-ui .cdo-help-table thead {
+		display: none;
+	}
+
+	.cdo-ui .cdo-help-table tr,
+	.cdo-ui .cdo-help-table th,
+	.cdo-ui .cdo-help-table td {
+		display: block;
+		width: auto;
+	}
+
+	.cdo-ui .cdo-help-table td::before {
+		content: attr(data-label);
+		display: block;
+		font-weight: var(--cdo-weight-strong);
+	}
+
+	.cdo-ui .cdo-dialog {
+		padding: 0;
+	}
+
+	.cdo-ui .cdo-dialog__panel {
+		max-width: none;
+		height: 100%;
+		max-height: none;
+		border-radius: 0;
+	}
+
+	.cdo-ui .cdo-inline-form {
+		display: block;
+		margin: var(--cdo-space-2) 0 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cdo-ui *,
+	.cdo-ui *::before,
+	.cdo-ui *::after {
+		transition: none;
+	}
+}

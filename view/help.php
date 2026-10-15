@@ -11,13 +11,11 @@ defined( 'ABSPATH' ) || exit;
 
 $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 ?>
-<div class="wrap fast-index-help">
+<div class="wrap fast-index-help cdo-ui cdo-ui--fast-index">
 
-	<h1><?php esc_html_e( 'Help & FAQ', 'fast-index' ); ?></h1>
+	<?php Fast_Index_Admin::render_band( __( 'Help & FAQ', 'fast-index' ), __( 'Everything you need to set up Fast Index and to solve the most common problems. Read it before you write to support: the answer is most often here.', 'fast-index' ) ); ?>
 
-	<p class="fi-help-lead"><?php esc_html_e( 'Everything you need to set up Fast Index and to solve the most common problems. Read it before you write to support: the answer is most often here.', 'fast-index' ); ?></p>
-
-	<nav class="fi-help-nav" aria-label="<?php esc_attr_e( 'Help sections', 'fast-index' ); ?>">
+	<nav class="fi-help-nav cdo-help-nav" aria-label="<?php esc_attr_e( 'Help sections', 'fast-index' ); ?>">
 		<ul>
 			<?php foreach ( $fast_index_view['sections'] as $fast_index_key => $fast_index_title ) : ?>
 				<li><a href="<?php echo esc_attr( '#fi-help-' . $fast_index_key ); ?>"><?php echo esc_html( $fast_index_title ); ?></a></li>
@@ -26,14 +24,14 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 	</nav>
 
 	<?php /* Getting started. */ ?>
-	<section id="fi-help-getting-started" class="card fi-help-section" aria-labelledby="fi-help-getting-started-title">
+	<section id="fi-help-getting-started" class="cdo-card cdo-help-section fi-help-section" aria-labelledby="fi-help-getting-started-title">
 		<h2 id="fi-help-getting-started-title"><?php echo esc_html( $fast_index_view['sections']['getting-started'] ); ?></h2>
 
 		<p><?php echo wp_kses( Fast_Index_Help_Content::getting_started_intro(), $fast_index_allowed ); ?></p>
 
 		<div class="notice notice-info inline"><p><?php echo wp_kses( Fast_Index_Help_Content::getting_started_notice(), $fast_index_allowed ); ?></p></div>
 
-		<ol class="fi-help-steps">
+		<ol class="fi-help-steps cdo-steps">
 			<?php foreach ( $fast_index_view['steps'] as $fast_index_step ) : ?>
 				<li>
 					<h3><?php echo esc_html( $fast_index_step['title'] ); ?></h3>
@@ -46,11 +44,11 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 	</section>
 
 	<?php /* Settings explained. */ ?>
-	<section id="fi-help-settings" class="card fi-help-section" aria-labelledby="fi-help-settings-title">
+	<section id="fi-help-settings" class="cdo-card cdo-help-section fi-help-section" aria-labelledby="fi-help-settings-title">
 		<h2 id="fi-help-settings-title"><?php echo esc_html( $fast_index_view['sections']['settings'] ); ?></h2>
 
-		<div class="fi-help-table-wrap">
-			<table class="widefat striped fi-help-table">
+		<div class="fi-help-table-wrap cdo-scroll">
+			<table class="widefat striped fi-help-table cdo-help-table">
 				<thead>
 					<tr>
 						<th scope="col"><?php esc_html_e( 'Setting', 'fast-index' ); ?></th>
@@ -80,15 +78,15 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 	</section>
 
 	<?php /* Troubleshooting. */ ?>
-	<section id="fi-help-troubleshooting" class="card fi-help-section" aria-labelledby="fi-help-troubleshooting-title">
+	<section id="fi-help-troubleshooting" class="cdo-card cdo-help-section fi-help-section" aria-labelledby="fi-help-troubleshooting-title">
 		<h2 id="fi-help-troubleshooting-title"><?php echo esc_html( $fast_index_view['sections']['troubleshooting'] ); ?></h2>
 
 		<p><?php esc_html_e( 'Find what you see, then read why it happens and what to do.', 'fast-index' ); ?></p>
 
 		<?php foreach ( $fast_index_view['problems'] as $fast_index_problem ) : ?>
-			<details id="<?php echo esc_attr( 'fi-help-problem-' . $fast_index_problem['id'] ); ?>" class="fi-help-item">
+			<details id="<?php echo esc_attr( 'fi-help-problem-' . $fast_index_problem['id'] ); ?>" class="fi-help-item cdo-disclosure">
 				<summary><?php echo esc_html( $fast_index_problem['symptom'] ); ?></summary>
-				<div class="fi-help-item__body">
+				<div class="fi-help-item__body cdo-disclosure__body">
 					<p><strong><?php esc_html_e( 'Why it happens:', 'fast-index' ); ?></strong> <?php echo wp_kses( $fast_index_problem['cause'], $fast_index_allowed ); ?></p>
 					<p><strong><?php esc_html_e( 'What to do:', 'fast-index' ); ?></strong> <?php echo wp_kses( $fast_index_problem['fix'], $fast_index_allowed ); ?></p>
 				</div>
@@ -97,13 +95,13 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 	</section>
 
 	<?php /* FAQ. */ ?>
-	<section id="fi-help-faq" class="card fi-help-section" aria-labelledby="fi-help-faq-title">
+	<section id="fi-help-faq" class="cdo-card cdo-help-section fi-help-section" aria-labelledby="fi-help-faq-title">
 		<h2 id="fi-help-faq-title"><?php echo esc_html( $fast_index_view['sections']['faq'] ); ?></h2>
 
 		<?php foreach ( $fast_index_view['faq'] as $fast_index_item ) : ?>
-			<details id="<?php echo esc_attr( 'fi-help-faq-' . $fast_index_item['id'] ); ?>" class="fi-help-item">
+			<details id="<?php echo esc_attr( 'fi-help-faq-' . $fast_index_item['id'] ); ?>" class="fi-help-item cdo-disclosure">
 				<summary><?php echo esc_html( $fast_index_item['question'] ); ?></summary>
-				<div class="fi-help-item__body">
+				<div class="fi-help-item__body cdo-disclosure__body">
 					<p><?php echo wp_kses( $fast_index_item['answer'], $fast_index_allowed ); ?></p>
 				</div>
 			</details>
@@ -111,7 +109,7 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 	</section>
 
 	<?php /* Still need help? */ ?>
-	<section id="fi-help-support" class="card fi-help-section" aria-labelledby="fi-help-support-title">
+	<section id="fi-help-support" class="cdo-card cdo-help-section fi-help-section" aria-labelledby="fi-help-support-title">
 		<h2 id="fi-help-support-title"><?php echo esc_html( $fast_index_view['sections']['support'] ); ?></h2>
 
 		<p><?php esc_html_e( 'Before you write to support, go through this list:', 'fast-index' ); ?></p>
@@ -124,19 +122,19 @@ $fast_index_allowed = Fast_Index_Help_Content::allowed_html();
 		<h3 id="fi-help-system-info-title"><?php esc_html_e( 'System info', 'fast-index' ); ?></h3>
 		<p id="fi-help-system-info-note"><?php esc_html_e( 'Read-only facts about your site that help us answer. They contain no keys and no email addresses.', 'fast-index' ); ?></p>
 		<?php /* Label and value are separate isolated elements, so each side keeps its own direction on right-to-left screens. */ ?>
-		<dl class="fi-help-sysinfo" aria-describedby="fi-help-system-info-note">
+		<dl class="fi-help-sysinfo cdo-sysinfo" aria-describedby="fi-help-system-info-note">
 			<?php foreach ( $fast_index_view['system_rows'] as $fast_index_row ) : ?>
-				<div class="fi-help-sysinfo__row">
+				<div class="fi-help-sysinfo__row cdo-sysinfo__row">
 					<dt><bdi dir="auto"><?php echo esc_html( $fast_index_row['label'] ); ?></bdi></dt>
 					<dd><bdi dir="auto"><?php echo esc_html( $fast_index_row['value'] ); ?></bdi></dd>
 				</div>
 			<?php endforeach; ?>
 		</dl>
 		<?php /* The same facts as plain text, one line each: the source of the copy button. Hidden from view and from assistive technology until the copy button has to select it. */ ?>
-		<textarea id="fi-help-system-info" class="fi-help-sysinfo-source" rows="<?php echo esc_attr( (string) ( substr_count( $fast_index_view['system_info'], "\n" ) + 1 ) ); ?>" aria-labelledby="fi-help-system-info-title" readonly="readonly" tabindex="-1" aria-hidden="true"><?php echo esc_textarea( $fast_index_view['system_info'] ); ?></textarea>
+		<textarea id="fi-help-system-info" class="fi-help-sysinfo-source cdo-sysinfo-source" rows="<?php echo esc_attr( (string) ( substr_count( $fast_index_view['system_info'], "\n" ) + 1 ) ); ?>" aria-labelledby="fi-help-system-info-title" readonly="readonly" tabindex="-1" aria-hidden="true"><?php echo esc_textarea( $fast_index_view['system_info'] ); ?></textarea>
 		<p>
 			<button type="button" class="button" data-fast-index-copy="fi-help-system-info"><?php esc_html_e( 'Copy system info', 'fast-index' ); ?></button>
-			<span class="fi-help-copy-status" role="status" aria-live="polite"></span>
+			<span class="fi-help-copy-status cdo-copy-status" role="status" aria-live="polite"></span>
 		</p>
 
 		<p>

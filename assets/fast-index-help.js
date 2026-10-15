@@ -22,7 +22,7 @@
 		var done = false;
 
 		// The field is out of sight and hidden from assistive technology until the person has to copy by hand.
-		field.classList.add( 'fi-help-sysinfo-source--shown' );
+		field.classList.add( 'fi-help-sysinfo-source--shown', 'cdo-sysinfo-source--shown' );
 		field.removeAttribute( 'aria-hidden' );
 		field.focus();
 		field.select();

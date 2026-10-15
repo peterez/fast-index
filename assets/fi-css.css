@@ -1,251 +1,58 @@
+/*
+ * Fast Index: the few rules its screens need on top of the CultDevOps design language (assets/css/cdo-ui.css).
+ * Logical properties keep right-to-left screens correct.
+ */
 
-    #fi.content-area {
-        padding: 15px;
-        background: #f9f9f9;
-        border-radius: 5px;
-        border: 1px solid #cfcfcf;
-        margin-top: 20px;
-        margin-right: 20px;
-    }
+/* IndexNow key file address: long, may break anywhere. */
+.cdo-ui .fi-indexnow-key a {
+	overflow-wrap: anywhere;
+}
 
-    #fi.content-area h1.title {
-		border-bottom: 1px solid #cfcfcf;
-		font-size: 1.5em;
-		line-height: 1.8em;
-		max-width: 90%;
-		background: rgb(0 108 205 / 30%);
-		padding: 5px 10px;
-		color: #225da2;
-		border-radius: 3px;
-    }
-	
-	#fi h2, #fi h3 {
-		color: #106eac;
+/* "Index Status" with its Premium badge, next to the History filter. */
+.cdo-ui .fi-index-status-hint {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-2);
+	flex-basis: 100%;
+}
+
+.cdo-ui .fi-index-status-hint .cdo-hint {
+	margin: 0;
+}
+
+.cdo-ui .fi-channel-filter {
+	margin: 0;
+}
+
+/* History: the title of a removed post is its address, which has no space to break at on a phone. */
+.cdo-ui .fi-history .column-title strong {
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .fi-history .fi-eligible {
+	margin-block-start: var(--cdo-space-1);
+}
+
+.cdo-ui .fi-history .fi-history-note,
+.cdo-ui .fi-history .fi-history-retry {
+	display: inline-block;
+	margin-block-start: var(--cdo-space-1);
+}
+
+/* Index status column (premium): the check button sits under the result. */
+.cdo-ui .fi-index-check {
+	margin-block-start: var(--cdo-space-2);
+}
+
+.cdo-ui .fi-index-card .cdo-description {
+	margin-block-start: var(--cdo-space-3);
+}
+
+@media screen and (max-width: 782px) {
+
+	/* History: WordPress hides every column but the title; the toggle-row button opens a row. */
+	.cdo-ui .fi-history .column-primary .toggle-row {
+		top: 6px;
 	}
-
-    #fi.content-area .pw50 {
-        width: 48%;
-        float: left;
-		margin: 0px 1%;
-    }
-
-    #fi.content-area .fiClear {
-        clear: both;
-    }
-
-    #fi.content-area td.insideTd {
-        padding: 5px 10px !important;
-    }
-
-    #fi.content-area .insideTd table td {
-        padding: 0px !important;
-    }
-
-    #fi.content-area .subTable td {
-        display:table-cell !important;
-    }
-
-    #fi.content-area .trBorder {
-        border-bottom:1px solid #eee;
-    }
-
-    @media screen and (max-width: 769px) {
-
-        #fi.content-area .form-table td {
-            padding: 15px 10px !important;
-        }
-
-        #fi.content-area .pw50 {
-            width: 100%;
-            float: none;
-        }
-
-    }
-
-
-	#fi .form-table td {
-	border-bottom: 1px dotted #aca9a9;
-	}
-
-	#fi .form-table td[colspan="2"] {
-	border-bottom: 0px dotted #aca9a9;
-	}
-
-	
-	#fi .fast-index-choice {
-		display: inline-block;
-		margin-right: 25px;
-		margin-bottom: 15px;
-	}
-
-	#fi .fast-index-inline-form {
-		display: inline;
-		margin-left: 10px;
-	}
-
-	/* Japanese has no spaces between words: break lines between phrases, not inside a word (Chromium; other browsers keep their default). */
-	#fi.content-area:lang(ja) {
-		word-break: auto-phrase;
-		line-break: strict;
-	}
-
-	/* Settings kept from the premium plan that this version does not use. */
-	#fi .fi-unused ul {
-		list-style: disc;
-		margin: 0 0 8px;
-		margin-inline-start: 20px;
-	}
-
-	/* The Premium box: plain, below Help & FAQ, on the settings screen only. */
-	#fi .fi-premium-card {
-		margin-top: 24px;
-		padding: 4px 16px 8px;
-		border: 1px solid #dcdcde;
-		background: #fff;
-		border-radius: 3px;
-	}
-
-	#fi .fi-premium-card h2 {
-		color: #1d2327;
-		font-size: 1.15em;
-	}
-
-	#fi .fi-premium-card ul {
-		list-style: disc;
-		margin: 0 0 8px;
-		margin-inline-start: 20px;
-	}
-
-	#fi .fi-key-use {
-		color: #50575e;
-	}
-
-	/* Free / Premium comparison in the Premium box. */
-	#fi .fi-compare {
-		width: 100%;
-		border-collapse: collapse;
-		margin: 0 0 12px;
-	}
-
-	/* On a phone the card is narrow: a phrase may break where it has to (Japanese keeps phrases whole otherwise). */
-	#fi .fi-compare th,
-	#fi .fi-compare td {
-		padding: 6px 8px;
-		border-bottom: 1px solid #f0f0f1;
-		text-align: start;
-		vertical-align: top;
-		overflow-wrap: anywhere;
-	}
-
-	#fi .fi-compare thead th {
-		font-weight: 600;
-		border-bottom: 1px solid #dcdcde;
-	}
-
-	#fi .fi-compare tbody th {
-		font-weight: 400;
-	}
-
-	#fi .fi-compare .fi-yes {
-		color: #00a32a;
-		font-weight: 600;
-	}
-
-	#fi .fi-compare .fi-no {
-		color: #646970;
-	}
-
-	/* "Premium" hint next to a settings section: a small badge that opens a short explanation. */
-	#fi .fi-premium-hint {
-		margin-top: 6px;
-	}
-
-	#fi .fi-premium-hint summary {
-		display: inline-block;
-		cursor: pointer;
-		list-style: none;
-	}
-
-	#fi .fi-premium-hint summary::-webkit-details-marker {
-		display: none;
-	}
-
-	#fi .fi-premium-badge {
-		display: inline-block;
-		padding: 0 6px;
-		border: 1px solid #2271b1;
-		border-radius: 3px;
-		color: #2271b1;
-		font-size: 11px;
-		line-height: 18px;
-		font-weight: 600;
-	}
-
-	#fi .fi-premium-hint summary:focus-visible .fi-premium-badge {
-		outline: 2px solid #2271b1;
-		outline-offset: 1px;
-	}
-
-	#fi .fi-premium-hint p {
-		margin: 6px 0 0;
-		font-size: 12px;
-		color: #50575e;
-	}
-
-	/* History lines about the premium plan: inline notices that the user can dismiss. */
-	#fi .fi-upgrade-line {
-		margin: 8px 0 0;
-	}
-
-	/* What the premium plan adds in place of a setting: its name and a badge, no field. */
-	#fi .fi-premium-row td {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	/* Index status (premium) next to the History heading. */
-	#fi .fi-index-status-hint {
-		margin: 8px 0 4px;
-	}
-
-	/* IndexNow key file address: long, may break anywhere. */
-	#fi .fi-indexnow-key a {
-		overflow-wrap: anywhere;
-	}
-
-	/* History: the title of a removed post is its address, which has no space to break at on a phone. */
-	#fi .fi-history .column-title strong {
-		overflow-wrap: anywhere;
-	}
-
-	/* History: the channel filter sits under the heading. */
-	#fi .fi-channel-filter {
-		float: none;
-		margin: 4px 0 8px;
-	}
-
-	/* Paused key: until when. */
-	#fi .fi-key-paused {
-		color: #50575e;
-	}
-
-	@media screen and (max-width: 782px) {
-
-		/* History: WordPress hides every column but the title; the toggle-row button opens a row. */
-		#fi .fi-history .column-primary .toggle-row {
-			top: 6px;
-		}
-
-	}
-
-	/* History: the page has data that Google supports in the Indexing API. */
-	#fi .fi-eligible {
-		display: inline-block;
-		margin-top: 2px;
-		padding: 0 6px;
-		border: 1px solid #00a32a;
-		border-radius: 3px;
-		color: #007017;
-		font-size: 11px;
-		line-height: 18px;
-	}
+}

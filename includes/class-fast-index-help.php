@@ -86,7 +86,8 @@ class Fast_Index_Help {
 			return;
 		}
 
-		wp_enqueue_style( 'fast-index-help', FAST_INDEX_URL . 'assets/fast-index-help.css', array(), FAST_INDEX_VERSION );
+		// Help & FAQ is styled by the shared CultDevOps design language; it has no stylesheet of its own.
+		wp_enqueue_style( Fast_Index_Admin::UI_HANDLE, FAST_INDEX_URL . 'assets/css/cdo-ui.css', array(), FAST_INDEX_VERSION );
 		wp_enqueue_script( 'fast-index-help', FAST_INDEX_URL . 'assets/fast-index-help.js', array(), FAST_INDEX_VERSION, true );
 		wp_add_inline_script(
 			'fast-index-help',

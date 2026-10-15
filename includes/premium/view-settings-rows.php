@@ -10,10 +10,10 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <tr>
-	<td scope="row">
-		<label for="fast-index-old-posts"><b><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></b></label> <br>
-		<small><?php esc_html_e( 'Number of old posts to send per day.', 'fast-index' ); ?></small>
-	</td>
+	<th scope="row">
+		<label for="fast-index-old-posts"><?php esc_html_e( 'Daily Limit for Old Posts', 'fast-index' ); ?></label>
+		<span class="cdo-field-hint"><?php esc_html_e( 'Number of old posts to send per day.', 'fast-index' ); ?></span>
+	</th>
 	<td>
 		<input id="fast-index-old-posts" class="regular-text" type="number" min="0" max="<?php echo esc_attr( Fast_Index_Settings::MAX_OLD_POSTS ); ?>" name="fast_index_options[old_post_number]" value="<?php echo esc_attr( $fast_index_settings['old_post_number'] ); ?>" />
 		<?php foreach ( Fast_Index_Help_Content::field_notes( 'old_post_number' ) as $fast_index_note ) : ?>
@@ -23,10 +23,10 @@ defined( 'ABSPATH' ) || exit;
 </tr>
 
 <tr>
-	<td scope="row">
-		<label for="fast-index-sc-property"><b><?php esc_html_e( 'Search Console Property', 'fast-index' ); ?></b></label> <br>
-		<small><?php esc_html_e( 'Used for the index status checks.', 'fast-index' ); ?></small>
-	</td>
+	<th scope="row">
+		<label for="fast-index-sc-property"><?php esc_html_e( 'Search Console Property', 'fast-index' ); ?></label>
+		<span class="cdo-field-hint"><?php esc_html_e( 'Used for the index status checks.', 'fast-index' ); ?></span>
+	</th>
 	<td>
 		<input id="fast-index-sc-property" class="regular-text" type="text" dir="ltr" placeholder="sc-domain:example.com" name="fast_index_options[sc_property]" value="<?php echo esc_attr( $fast_index_settings['sc_property'] ); ?>" />
 		<?php foreach ( Fast_Index_Help_Content::field_notes( 'sc_property' ) as $fast_index_note ) : ?>
@@ -44,12 +44,12 @@ defined( 'ABSPATH' ) || exit;
 </tr>
 
 <tr>
-	<td scope="row">
-		<b><?php esc_html_e( 'Weekly Email Report', 'fast-index' ); ?></b> <br>
-		<small><?php esc_html_e( 'A summary of the week, once a week.', 'fast-index' ); ?></small>
-	</td>
+	<th scope="row">
+		<?php esc_html_e( 'Weekly Email Report', 'fast-index' ); ?>
+		<span class="cdo-field-hint"><?php esc_html_e( 'A summary of the week, once a week.', 'fast-index' ); ?></span>
+	</th>
 	<td>
-		<label class="fast-index-choice">
+		<label class="fast-index-choice cdo-choice">
 			<input id="fast-index-weekly-report" type="checkbox" name="fast_index_options[weekly_report]" value="1" <?php checked( $fast_index_settings['weekly_report'] ); ?> />
 			<?php
 			/* translators: %s: the site's administration email address. */
@@ -63,20 +63,19 @@ defined( 'ABSPATH' ) || exit;
 </tr>
 
 <tr>
-	<td scope="row" colspan="2">
-		<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b> <br>
-		<small><?php esc_html_e( 'Select the categories to exclude.', 'fast-index' ); ?></small>
-	</td>
-</tr>
-
-<tr>
-	<td colspan="2">
+	<th scope="row">
+		<?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?>
+		<span class="cdo-field-hint"><?php esc_html_e( 'Select the categories to exclude.', 'fast-index' ); ?></span>
+	</th>
+	<td>
+		<div class="cdo-choices">
 		<?php foreach ( $fast_index_categories as $fast_index_category ) : ?>
 			<label class="fast-index-choice">
 				<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[exclude_category][' . $fast_index_category->term_id . ']' ); ?>" value="<?php echo esc_attr( $fast_index_category->term_id ); ?>" <?php checked( isset( $fast_index_settings['exclude_category'][ (int) $fast_index_category->term_id ] ) ); ?> />
 				<?php echo esc_html( $fast_index_category->name ); ?>
 			</label>
 		<?php endforeach; ?>
+		</div>
 		<?php foreach ( Fast_Index_Help_Content::field_notes( 'exclude_category' ) as $fast_index_note ) : ?>
 			<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
 		<?php endforeach; ?>

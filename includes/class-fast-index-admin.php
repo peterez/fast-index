@@ -23,6 +23,11 @@ class Fast_Index_Admin {
 	const SLUG_HISTORY = 'fast-index-history';
 
 	/**
+	 * Style handle of the shared CultDevOps design language (assets/css/cdo-ui.css).
+	 */
+	const UI_HANDLE = 'fast-index-cdo-ui';
+
+	/**
 	 * Prefix of the per-user transient holding one-time screen messages.
 	 */
 	const FLASH_PREFIX = 'fast_index_flash_';
@@ -131,7 +136,9 @@ class Fast_Index_Admin {
 		}
 
 		if ( $is_plugin_page ) {
-			wp_enqueue_style( 'fast-index-admin', FAST_INDEX_URL . 'assets/fi-css.css', array(), FAST_INDEX_VERSION );
+			// The CultDevOps design language (the same file in every CultDevOps plugin), then the few Fast Index rules.
+			wp_enqueue_style( self::UI_HANDLE, FAST_INDEX_URL . 'assets/css/cdo-ui.css', array(), FAST_INDEX_VERSION );
+			wp_enqueue_style( 'fast-index-admin', FAST_INDEX_URL . 'assets/fi-css.css', array( self::UI_HANDLE ), FAST_INDEX_VERSION );
 		}
 
 		wp_enqueue_script( 'fast-index-admin', FAST_INDEX_URL . 'assets/fast-index-admin.js', array(), FAST_INDEX_VERSION, true );
@@ -199,6 +206,23 @@ class Fast_Index_Admin {
 		);
 
 		include FAST_INDEX_PATH . 'view/history.php';
+	}
+
+	/**
+	 * Prints the header band of a Fast Index screen: the family mark, the plugin name, the plan and the screen title
+	 * as the page's only <h1>, followed by the line under which WordPress places its notices.
+	 *
+	 * @param string $title Screen title, plain text.
+	 * @param string $lead  Optional one-line introduction, plain text.
+	 * @return void
+	 */
+	public static function render_band( $title, $lead = '' ) {
+		$fast_index_band = array(
+			'title' => (string) $title,
+			'lead'  => (string) $lead,
+		);
+
+		include FAST_INDEX_PATH . 'view/partial-band.php';
 	}
 
 	/**
@@ -296,6 +320,22 @@ class Fast_Index_Admin {
 
 		// HTTP status names are not translated: "200 OK" reads like "403 Forbidden" and "429 Too Many Requests".
 		return trim( $code . ' ' . get_status_header_desc( $code ) );
+	}
+
+	/**
+	 * Badge tone of a submission result: accepted, not sent (waits or needs a key), or refused.
+	 *
+	 * @param int $code HTTP status or a Fast_Index_Submitter constant.
+	 * @return string A cdo-badge modifier class.
+	 */
+	public static function status_tone( $code ) {
+		$code = (int) $code;
+
+		if ( $code >= 200 && $code < 300 ) {
+			return 'cdo-badge--success';
+		}
+
+		return $code < 0 ? 'cdo-badge--warning' : 'cdo-badge--error';
 	}
 
 	/**

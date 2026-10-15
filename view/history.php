@@ -16,7 +16,9 @@ $fast_index_types = array(
 	Fast_Index_Google_Client::TYPE_DELETED => __( 'Deleted', 'fast-index' ),
 );
 ?>
-<div id="fi" class="content-area">
+<div id="fi" class="wrap cdo-ui cdo-ui--fast-index">
+
+	<?php Fast_Index_Admin::render_band( __( 'History', 'fast-index' ) ); ?>
 
 	<?php foreach ( $fast_index_view['messages'] as $fast_index_message ) : ?>
 		<div class="<?php echo esc_attr( 'notice notice-' . $fast_index_message['type'] . ' is-dismissible' ); ?>">
@@ -24,44 +26,54 @@ $fast_index_types = array(
 		</div>
 	<?php endforeach; ?>
 
-	<h1 class="title"><?php esc_html_e( 'Summary', 'fast-index' ); ?></h1>
+	<div class="cdo-stack">
 
-	<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts">
-		<thead>
-		<tr>
-			<th scope="col"><?php esc_html_e( 'Total Sent', 'fast-index' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Total Waiting', 'fast-index' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Sent Today', 'fast-index' ); ?></th>
+	<section aria-labelledby="fi-summary-title">
+		<h2 id="fi-summary-title" class="screen-reader-text"><?php esc_html_e( 'Summary', 'fast-index' ); ?></h2>
+		<dl class="cdo-stats fi-summary">
+			<div class="cdo-stat">
+				<dt class="cdo-stat__label"><?php esc_html_e( 'Total Sent', 'fast-index' ); ?></dt>
+				<dd class="cdo-stat__value"><?php echo esc_html( number_format_i18n( $fast_index_stats['sent'] ) ); ?></dd>
+			</div>
+			<div class="cdo-stat">
+				<dt class="cdo-stat__label"><?php esc_html_e( 'Total Waiting', 'fast-index' ); ?></dt>
+				<dd class="cdo-stat__value"><?php echo esc_html( number_format_i18n( $fast_index_stats['waiting'] ) ); ?></dd>
+			</div>
+			<div class="cdo-stat">
+				<dt class="cdo-stat__label"><?php esc_html_e( 'Sent Today', 'fast-index' ); ?></dt>
+				<dd class="cdo-stat__value"><?php echo esc_html( number_format_i18n( $fast_index_stats['today'] ) ); ?></dd>
+			</div>
 			<?php if ( $fast_index_view['indexnow'] ) : ?>
-				<th scope="col"><?php esc_html_e( 'Sent to IndexNow Today', 'fast-index' ); ?></th>
+				<div class="cdo-stat">
+					<dt class="cdo-stat__label"><?php esc_html_e( 'Sent to IndexNow Today', 'fast-index' ); ?></dt>
+					<dd class="cdo-stat__value"><?php echo esc_html( number_format_i18n( $fast_index_stats['indexnow_today'] ) ); ?></dd>
+				</div>
 			<?php endif; ?>
-		</tr>
-		</thead>
-		<tbody class="the-list">
-		<tr>
-			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['sent'] ) ); ?></td>
-			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['waiting'] ) ); ?></td>
-			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['today'] ) ); ?></td>
-			<?php if ( $fast_index_view['indexnow'] ) : ?>
-				<td><?php echo esc_html( number_format_i18n( $fast_index_stats['indexnow_today'] ) ); ?></td>
-			<?php endif; ?>
-		</tr>
-		</tbody>
-	</table>
+		</dl>
 
-	<?php foreach ( $fast_index_view['upgrade'] as $fast_index_line ) : ?>
-		<?php /* Inline, so WordPress does not move it to the top; the close button and the link remember the choice for this user. */ ?>
-		<div class="notice notice-info inline is-dismissible fast-index-notice fi-upgrade-line" data-notice="<?php echo esc_attr( $fast_index_line['notice'] ); ?>" data-dismiss-url="<?php echo esc_url( Fast_Index_Notices::dismiss_url( $fast_index_line['notice'] ) ); ?>">
-			<p>
-				<?php echo esc_html( $fast_index_line['text'] ); ?>
-				<a href="<?php echo esc_url( $fast_index_view['upgrade_url'] ); ?>"><?php esc_html_e( 'See the premium plan', 'fast-index' ); ?></a>
-			</p>
-			<p><a href="<?php echo esc_url( Fast_Index_Notices::dismiss_url( $fast_index_line['notice'] ) ); ?>"><?php esc_html_e( 'Do not show this again', 'fast-index' ); ?></a></p>
-		</div>
-	<?php endforeach; ?>
+		<?php foreach ( $fast_index_view['upgrade'] as $fast_index_line ) : ?>
+			<?php /* Inline, so WordPress does not move it to the top; the close button and the link remember the choice for this user. */ ?>
+			<div class="notice notice-info inline is-dismissible fast-index-notice fi-upgrade-line" data-notice="<?php echo esc_attr( $fast_index_line['notice'] ); ?>" data-dismiss-url="<?php echo esc_url( Fast_Index_Notices::dismiss_url( $fast_index_line['notice'] ) ); ?>">
+				<p>
+					<?php echo esc_html( $fast_index_line['text'] ); ?>
+					<a href="<?php echo esc_url( $fast_index_view['upgrade_url'] ); ?>"><?php esc_html_e( 'See the premium plan', 'fast-index' ); ?></a>
+				</p>
+				<p><a href="<?php echo esc_url( Fast_Index_Notices::dismiss_url( $fast_index_line['notice'] ) ); ?>"><?php esc_html_e( 'Do not show this again', 'fast-index' ); ?></a></p>
+			</div>
+		<?php endforeach; ?>
+	</section>
 
-	<br>
-	<h1 class="title"><?php esc_html_e( 'History', 'fast-index' ); ?></h1>
+	<?php
+	/**
+	 * Fires above the History list, below the summary.
+	 *
+	 * @param array $stats History counters (Fast_Index_Log::stats()).
+	 */
+	do_action( 'fast_index_history_before_table', $fast_index_view['stats'] );
+	?>
+
+	<div class="cdo-card cdo-card--flush">
+	<div class="cdo-card__header">
 
 	<?php if ( '' !== $fast_index_view['hint'] ) : ?>
 		<div class="fi-index-status-hint">
@@ -71,18 +83,17 @@ $fast_index_types = array(
 	<?php endif; ?>
 
 	<?php /* Channel filter: every channel, Google or IndexNow. */ ?>
-	<ul class="subsubsub fi-channel-filter">
+	<ul class="cdo-filter fi-channel-filter">
 		<?php
 		$fast_index_filters = array_merge( array( '' => _x( 'All', 'History filter: every channel', 'fast-index' ) ), $fast_index_view['channels'] );
-		$fast_index_last    = array_key_last( $fast_index_filters );
 		?>
 		<?php foreach ( $fast_index_filters as $fast_index_key => $fast_index_name ) : ?>
 			<li>
-				<a href="<?php echo esc_url( '' === $fast_index_key ? $fast_index_view['filter_url'] : add_query_arg( 'channel', $fast_index_key, $fast_index_view['filter_url'] ) ); ?>"<?php echo $fast_index_key === $fast_index_view['channel'] ? ' class="current" aria-current="page"' : ''; ?>><?php echo esc_html( $fast_index_name ); ?></a><?php echo $fast_index_key !== $fast_index_last ? ' |' : ''; ?>
+				<a href="<?php echo esc_url( '' === $fast_index_key ? $fast_index_view['filter_url'] : add_query_arg( 'channel', $fast_index_key, $fast_index_view['filter_url'] ) ); ?>"<?php echo $fast_index_key === $fast_index_view['channel'] ? ' class="current" aria-current="page"' : ''; ?>><?php echo esc_html( $fast_index_name ); ?></a>
 			</li>
 		<?php endforeach; ?>
 	</ul>
-	<br class="clear">
+	</div>
 
 	<?php
 	// Column names are repeated in data-colname: on phone screens WordPress shows the title only, and the
@@ -102,14 +113,8 @@ $fast_index_types = array(
 	 */
 	$fast_index_extra = (array) apply_filters( 'fast_index_history_columns', array() );
 
-	/**
-	 * Fires above the History list, below its heading and filter.
-	 *
-	 * @param array $stats History counters (Fast_Index_Log::stats()).
-	 */
-	do_action( 'fast_index_history_before_table', $fast_index_view['stats'] );
 	?>
-	<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts fi-history">
+	<table class="wp-list-table widefat fixed striped table-view-list posts cdo-table fi-history">
 		<thead>
 		<tr>
 			<th scope="col" class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'fast-index' ); ?></th>
@@ -137,7 +142,7 @@ $fast_index_types = array(
 						<?php endif; ?>
 					</strong>
 					<?php if ( $fast_index_entry['eligible'] ) : ?>
-						<span class="fi-eligible"><?php esc_html_e( 'Eligible for Google Indexing API', 'fast-index' ); ?></span>
+						<br><span class="fi-eligible cdo-badge cdo-badge--info cdo-badge--plain"><?php esc_html_e( 'Eligible for Google Indexing API', 'fast-index' ); ?></span>
 					<?php endif; ?>
 					<button type="button" class="toggle-row"><span class="screen-reader-text"><?php esc_html_e( 'Show more details', 'fast-index' ); ?></span></button>
 				</td>
@@ -148,7 +153,7 @@ $fast_index_types = array(
 				<td class="column-fi-channel" data-colname="<?php echo esc_attr( $fast_index_columns['channel'] ); ?>"><?php echo esc_html( $fast_index_view['channels'][ $fast_index_entry['channel'] ] ); ?></td>
 				<td class="column-fi-status fi-history-status<?php echo $fast_index_entry['code'] < 0 ? ' fi-history-status--not-sent' : ''; ?>" data-colname="<?php echo esc_attr( $fast_index_columns['status'] ); ?>">
 					<?php /* Isolated, so the code and its name keep their order on right-to-left screens ("200 OK", not "OK 200"). */ ?>
-					<bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'], $fast_index_entry['channel'] ) ); ?></bdi>
+					<span class="<?php echo esc_attr( 'cdo-badge ' . Fast_Index_Admin::status_tone( $fast_index_entry['code'] ) ); ?>"><bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'], $fast_index_entry['channel'] ) ); ?></bdi></span>
 					<?php $fast_index_note = Fast_Index_Admin::status_note( $fast_index_entry['code'], $fast_index_entry['channel'] ); ?>
 					<?php if ( '' !== $fast_index_note ) : ?>
 						<br><span class="description fi-history-note"><?php echo esc_html( $fast_index_note ); ?></span>
@@ -176,15 +181,20 @@ $fast_index_types = array(
 		</tbody>
 	</table>
 
-	<nav aria-label="<?php esc_attr_e( 'Pagination', 'fast-index' ); ?>">
-		<ul class="pagination mt-3">
-			<?php if ( $fast_index_page >= 1 ) : ?>
-				<li class="page-item"><a class="page-link" href="<?php echo esc_url( add_query_arg( 'pn', $fast_index_page - 1, $fast_index_view['base_url'] ) ); ?>"><?php esc_html_e( 'Previous', 'fast-index' ); ?></a></li>
-			<?php endif; ?>
-			<?php if ( $fast_index_view['has_next'] ) : ?>
-				<li class="page-item"><a class="page-link" href="<?php echo esc_url( add_query_arg( 'pn', $fast_index_page + 1, $fast_index_view['base_url'] ) ); ?>"><?php esc_html_e( 'Next', 'fast-index' ); ?></a></li>
-			<?php endif; ?>
-		</ul>
-	</nav>
+	<?php if ( $fast_index_page >= 1 || $fast_index_view['has_next'] ) : ?>
+		<nav class="cdo-card__footer" aria-label="<?php esc_attr_e( 'Pagination', 'fast-index' ); ?>">
+			<ul class="pagination cdo-pagination">
+				<?php if ( $fast_index_page >= 1 ) : ?>
+					<li><a class="button" href="<?php echo esc_url( add_query_arg( 'pn', $fast_index_page - 1, $fast_index_view['base_url'] ) ); ?>"><?php esc_html_e( 'Previous', 'fast-index' ); ?></a></li>
+				<?php endif; ?>
+				<?php if ( $fast_index_view['has_next'] ) : ?>
+					<li><a class="button" href="<?php echo esc_url( add_query_arg( 'pn', $fast_index_page + 1, $fast_index_view['base_url'] ) ); ?>"><?php esc_html_e( 'Next', 'fast-index' ); ?></a></li>
+				<?php endif; ?>
+			</ul>
+		</nav>
+	<?php endif; ?>
+	</div>
+
+	</div>
 
 </div>

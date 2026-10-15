@@ -586,7 +586,7 @@ class Fast_Index_Premium_Inspection {
 		$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
 
 		if ( is_array( $result ) && isset( $result['state'], $result['checked'] ) ) {
-			echo '<span class="' . esc_attr( 'fi-index-state fi-index-state--' . $result['state'] ) . '">' . esc_html( self::state_label( $result['state'] ) ) . '</span>';
+			echo '<span class="' . esc_attr( 'fi-index-state fi-index-state--' . $result['state'] . ' cdo-badge ' . ( 'indexed' === $result['state'] ? 'cdo-badge--success' : 'cdo-badge--warning' ) ) . '">' . esc_html( self::state_label( $result['state'] ) ) . '</span>';
 
 			if ( '' !== $result['coverage'] ) {
 				// Google's own words, in English.
@@ -690,14 +690,14 @@ class Fast_Index_Premium_Inspection {
 			__( 'Indexed', 'fast-index' ) => $counts['indexed'],
 		);
 
-		echo '<div class="fi-index-card">';
-		echo '<h2>' . esc_html__( 'Index Status', 'fast-index' ) . '</h2><dl>';
+		echo '<section class="fi-index-card" aria-labelledby="fi-index-card-title">';
+		echo '<h2 id="fi-index-card-title" class="cdo-section-title">' . esc_html__( 'Index Status', 'fast-index' ) . '</h2><dl class="cdo-stats">';
 
 		foreach ( $cells as $label => $number ) {
-			echo '<div><dt>' . esc_html( $label ) . '</dt><dd>' . esc_html( number_format_i18n( $number ) ) . '</dd></div>';
+			echo '<div class="cdo-stat"><dt class="cdo-stat__label">' . esc_html( $label ) . '</dt><dd class="cdo-stat__value">' . esc_html( number_format_i18n( $number ) ) . '</dd></div>';
 		}
 
-		echo '</dl><p class="description">';
+		echo '</dl><p class="description cdo-description">';
 		echo esc_html__( 'Each address is checked automatically 24 hours after Google accepted it, and again after 72 hours if it was not indexed yet. The Check button in the list checks one address now.', 'fast-index' );
 
 		if ( '' !== $property ) {
@@ -713,6 +713,6 @@ class Fast_Index_Premium_Inspection {
 			);
 		}
 
-		echo '</p></div>';
+		echo '</p></section>';
 	}
 }
