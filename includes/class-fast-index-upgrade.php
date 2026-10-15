@@ -303,7 +303,7 @@ class Fast_Index_Upgrade {
 				'premium' => __( 'Up to 100 at a time, plus hourly batches of old posts', 'fast-index' ),
 			),
 			array(
-				'label'   => __( 'History of Google\'s answers, Help & FAQ', 'fast-index' ),
+				'label'   => __( 'History, retry of waiting notifications, Help & FAQ, multisite, 10 languages', 'fast-index' ),
 				'free'    => true,
 				'premium' => true,
 			),
@@ -348,7 +348,7 @@ class Fast_Index_Upgrade {
 			case 'exclude_category':
 				return __( 'The premium plan can leave out every post of the categories you choose, for new, changed, removed and old posts.', 'fast-index' );
 			case 'index_status':
-				return __( 'The premium plan adds an Index status column: it asks Search Console whether each address Google accepted is indexed, with a Check button and automatic checks 24 and 72 hours after sending.', 'fast-index' );
+				return __( 'The premium plan adds an Index Status column: it asks Search Console whether each address Google accepted is indexed, with a Check button and automatic checks 24 and 72 hours after sending.', 'fast-index' );
 			case 'keys':
 				return __( 'The free version uses one key. The premium plan can also keep backup keys: a backup key is used only when Google rejects the main key (401 or 403), never to get past the daily quota.', 'fast-index' );
 			default:

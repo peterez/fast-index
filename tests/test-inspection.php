@@ -200,7 +200,7 @@ class Fast_Index_Test_Inspection extends Fast_Index_Test_Case {
 		( new Fast_Index_Admin() )->render_history();
 		$html = (string) ob_get_clean();
 
-		$this->assertStringContainsString( 'data-colname="Index status"', $html );
+		$this->assertStringContainsString( 'data-colname="Index Status"', $html );
 		$this->assertStringContainsString( 'fi-index-state--indexed', $html );
 		$this->assertStringContainsString( 'Check again', $html );
 		$this->assertStringContainsString( 'name="action" value="fast_index_inspect"', $html );

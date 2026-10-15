@@ -65,7 +65,7 @@ $fast_index_types = array(
 
 	<?php if ( '' !== $fast_index_view['hint'] ) : ?>
 		<div class="fi-index-status-hint">
-			<b><?php esc_html_e( 'Index status', 'fast-index' ); ?></b>
+			<b><?php esc_html_e( 'Index Status', 'fast-index' ); ?></b>
 			<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hint'], $fast_index_view['upgrade_url'] ); ?>
 		</div>
 	<?php endif; ?>

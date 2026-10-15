@@ -20,7 +20,8 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 
 * Sites with job postings or livestream pages that want to tell Google about changes through the Indexing API.
 * Site owners who already use the API and want WordPress to send the notifications and show Google's answers.
-* Developers and agencies who want a clear record of what was sent and what Google answered.
+* Sites that want Bing and the other IndexNow search engines to hear about changes too.
+* Developers and agencies who want a clear record of what was sent and what each search engine answered.
 
 **How it works**
 
@@ -48,7 +49,7 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 
 **Free and premium**
 
-The free version is not limited in time or in the number of notifications, and it contains no premium code and no locked option. The premium plan is a separate package, sold through Freemius, for more content and larger sites. It adds:
+The free version is not limited in time or in the number of notifications, and it contains no premium code and no locked option. The premium plan is a separate package, sold through Freemius, for older content, larger sites and the question whether your pages are indexed. It adds:
 
 * Old posts sent in small hourly batches, within a daily limit you set, and a Send Old Posts Now screen.
 * Categories whose posts are never sent.
@@ -148,7 +149,7 @@ The premium plan is a separate package, sold through Freemius. The Premium box o
 
 = How does the premium plan check whether a page is indexed? =
 
-It asks the URL Inspection API of Google Search Console with the service account key you already use, and shows the answer in the Index status column of History: Indexed; Crawled, not indexed; Discovered, not indexed; or Unknown to Google, with the date of the last crawl. Each address Google accepted is checked automatically 24 hours after sending, and once more after 72 hours if it was not indexed yet; the Check button checks one address now. A card above History counts the addresses accepted in the last 30 days, the checked ones and the indexed ones. Enable the Google Search Console API in your Google Cloud project first. Google allows 2,000 checks per day for each property; the automatic checks use at most half of them. The address and the property go to searchconsole.googleapis.com.
+It asks the URL Inspection API of Google Search Console with the service account key you already use, and shows the answer in the Index Status column of History: Indexed; Crawled, not indexed; Discovered, not indexed; or Unknown to Google, with the date of the last crawl. Each address Google accepted is checked automatically 24 hours after sending, and once more after 72 hours if it was not indexed yet; the Check button checks one address now. A card above History counts the addresses accepted in the last 30 days, the checked ones and the indexed ones. Enable the Google Search Console API in your Google Cloud project first. Google allows 2,000 checks per day for each property; the automatic checks use at most half of them. The address and the property go to searchconsole.googleapis.com.
 
 = How do I get the premium plan, and how do I install it? =
 

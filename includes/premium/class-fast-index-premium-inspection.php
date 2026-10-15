@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  *   that covers the site's host, otherwise the longest URL-prefix property the site address starts with.
  * - Google allows 2,000 inspections per day for each property (and 600 per minute). Fast Index counts them per
  *   Pacific day and stops at DAILY_LIMIT; the automatic checks use at most AUTO_LIMIT of them.
- * - History gets an "Index status" column with a Check button on every accepted Google entry. An accepted
+ * - History gets an "Index Status" column with a Check button on every accepted Google entry. An accepted
  *   address is checked again automatically 24 hours after it was sent, and once more after 72 hours if it was not
  *   indexed yet: at most two automatic checks per address (hourly event of the free version).
  * - A card above History compares the addresses Google accepted in the last 30 days with those checked and those
@@ -558,20 +558,20 @@ class Fast_Index_Premium_Inspection {
 	}
 
 	/**
-	 * Adds the Index status column to History.
+	 * Adds the Index Status column to History.
 	 *
 	 * @param string[] $columns Extra columns.
 	 * @return string[]
 	 */
 	public static function columns( $columns ) {
 		$columns          = is_array( $columns ) ? $columns : array();
-		$columns['index'] = __( 'Index status', 'fast-index' );
+		$columns['index'] = __( 'Index Status', 'fast-index' );
 
 		return $columns;
 	}
 
 	/**
-	 * Prints the Index status cell of a History entry: the last result and the Check button.
+	 * Prints the Index Status cell of a History entry: the last result and the Check button.
 	 *
 	 * @param string $column Column key.
 	 * @param array  $entry  History entry.
@@ -691,7 +691,7 @@ class Fast_Index_Premium_Inspection {
 		);
 
 		echo '<div class="fi-index-card">';
-		echo '<h2>' . esc_html__( 'Index status', 'fast-index' ) . '</h2><dl>';
+		echo '<h2>' . esc_html__( 'Index Status', 'fast-index' ) . '</h2><dl>';
 
 		foreach ( $cells as $label => $number ) {
 			echo '<div><dt>' . esc_html( $label ) . '</dt><dd>' . esc_html( number_format_i18n( $number ) ) . '</dd></div>';
