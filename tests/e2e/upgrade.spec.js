@@ -108,6 +108,13 @@ test.describe( 'Fast Index premium plan', () => {
 		const row = page.locator( 'tr[data-plugin="fast-index/index.php"]' ).first();
 		await expect( row ).toBeVisible();
 		const upgrade = row.locator( '.row-actions a[href*="page=fast-index-pricing"]' );
+		if ( PREMIUM && IS_MULTISITE ) {
+			// The network screen shows the links of Freemius itself. The QA stub loads the module without a license,
+			// so Freemius still offers Upgrade and Activate License there; a real license removes Upgrade.
+			await expect( row.locator( '.row-actions span.activate-license' ) ).toHaveCount( 1 );
+			await expect( row.locator( '.row-actions span.upgrade' ) ).toHaveCount( 1 );
+			return;
+		}
 		// One Upgrade entry in the row, whatever Freemius adds next to it (Opt In, Activate License).
 		await expect( row.locator( '.row-actions span.upgrade' ) ).toHaveCount( PREMIUM ? 0 : 1 );
 
