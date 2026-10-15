@@ -26,7 +26,9 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
-const { wp, readPo, IS_MULTISITE, SITE_URL } = require( './helpers' );
+const { wp, readPo, premiumLoaded, IS_MULTISITE, SITE_URL } = require( './helpers' );
+
+const PREMIUM = premiumLoaded();
 
 const LOCALES = [ 'tr_TR', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'pt_BR', 'nl_NL', 'ru_RU', 'ar', 'ja' ];
 const RTL = [ 'ar' ];
@@ -45,24 +47,30 @@ const SETTINGS_TITLE = 'Heading of the Fast Index settings screen\u0004Settings'
 
 // Source strings that must be on each screen in the language under test (all of them are translated
 // differently from English in every bundled language, except where noted in the .po by an identical text).
+// The settings screen of the copy under test: with the premium module its rows, without it the Premium box.
+const SETTINGS_STRINGS = PREMIUM
+	? [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Daily Limit for Old Posts', 'Post Events', 'Exclude Categories', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ' ]
+	: [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Post Events', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ', 'Heading of the box about the premium plan\u0004Premium', 'The premium plan is a separate package. What each version does:', 'Column of the comparison table\u0004Free', 'Notification when a post is published', 'Old posts in hourly batches, within a daily limit you set', 'Upgrade to Premium', 'Badge next to a setting that the premium plan extends\u0004Premium' ];
 const SCREENS = {
 	settings: {
 		path: SETTINGS,
-		strings: [ SETTINGS_TITLE, 'Status', 'Active', 'Passive', 'Post Types', 'Daily Limit for Old Posts', 'Post Events', 'Exclude Categories', 'Delete data on uninstall', 'Save', 'JSON Key File', 'Upload key', 'Open Help & FAQ' ],
+		strings: SETTINGS_STRINGS,
 	},
 	history: {
 		path: HISTORY,
 		strings: [ 'Summary', 'Total Sent', 'Total Waiting', 'Sent Today', 'Title', 'Date', 'Send Status', 'View Post', 'Next' ],
 	},
-	run: {
-		path: RUN,
-		strings: [ 'Send Old Posts Now', 'Sends one batch of old posts now, within the daily limit set on the settings screen. The same batch also runs every hour.', 'Send now' ],
-	},
 	help: {
 		path: HELP,
-		strings: [ 'Getting started', 'Settings explained', 'Troubleshooting', 'Still need help?', 'Indexing API quickstart', 'Create a service account', 'Why it happens:', 'What to do:', 'System info', 'Copy system info', 'Fast Index version' ],
+		strings: [ 'Getting started', 'Settings explained', 'Troubleshooting', 'Still need help?', 'Indexing API quickstart', 'Create a service account', 'Why it happens:', 'What to do:', 'System info', 'Copy system info', 'Fast Index version', 'What does the premium plan add?' ],
 	},
 };
+if ( PREMIUM ) {
+	SCREENS.run = {
+		path: RUN,
+		strings: [ 'Send Old Posts Now', 'Sends one batch of old posts now, within the daily limit set on the settings screen. The same batch also runs every hour.', 'Send now' ],
+	};
+}
 
 /**
  * Normalises text so that it can be compared: no-break and thin spaces, directional marks and runs of white
@@ -173,7 +181,8 @@ async function checkScreen( page, locale, view, po, projectName, prefix ) {
 
 	// The admin menu entries of the plugin are translated.
 	const menu = norm( await page.locator( '#adminmenu' ).evaluate( ( el ) => el.textContent ) );
-	for ( const id of [ 'History', 'Send Old Posts Now', 'Help & FAQ' ] ) {
+	// Without the module the Freemius plans entry carries the plugin's own word for Upgrade (single site).
+	for ( const id of PREMIUM ? [ 'History', 'Send Old Posts Now', 'Help & FAQ' ] : ( IS_MULTISITE ? [ 'History', 'Help & FAQ' ] : [ 'History', 'Help & FAQ', 'Upgrade' ] ) ) {
 		expect( menu, locale + ' admin menu: "' + po.get( id ) + '"' ).toContain( norm( po.get( id ) ) );
 	}
 
@@ -319,7 +328,10 @@ test.describe( 'Fast Index translations', () => {
 			await page.goto( PLUGINS );
 			await expect( page.locator( 'tr[data-slug="fast-index"] .plugin-description' ) ).toContainText( norm( po.get( 'Sends new, updated and deleted posts to the Google Indexing API so Google can crawl them sooner.' ) ) );
 
-			// The manual run answers in the same language.
+			// The manual run answers in the same language (premium module only).
+			if ( ! PREMIUM ) {
+				return;
+			}
 			await page.goto( RUN );
 			await page.click( '#fi input[type="submit"]' );
 			await expect( page ).toHaveURL( /page=fast-index-run/ );

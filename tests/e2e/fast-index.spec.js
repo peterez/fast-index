@@ -4,9 +4,15 @@
  * Run from /home/samet/wordpress:
  *   PLUGIN=fast-index tools/e2e/node_modules/.bin/playwright test -c tools/e2e/playwright.config.js
  * Google is never called: a local mu-plugin answers the Google endpoints during QA.
+ *
+ * The spec follows the copy under test: without the premium module (the WordPress.org package, or includes/premium
+ * moved away) the premium screens are absent; with it (tests/e2e/qa-premium-license.php as a must-use plugin) they
+ * are checked as well.
  */
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
-const { wp, serviceAccountFile } = require( './helpers' );
+const { wp, serviceAccountFile, premiumLoaded, passOptIn } = require( './helpers' );
+
+const PREMIUM = premiumLoaded();
 
 const SETTINGS = admin( 'admin.php?page=fast-index' );
 const HISTORY = admin( 'admin.php?page=fast-index-history' );
@@ -20,12 +26,19 @@ test.describe( 'Fast Index admin', () => {
 	} );
 
 	test( 'every plugin screen opens', async ( { page } ) => {
+		// The first visit of a site may show the Freemius opt-in screen: it has Skip and no license field.
+		await page.goto( SETTINGS );
+		await passOptIn( page, expect );
+
 		// Language-neutral checks: the sites run in English, Turkish and Arabic (wording lives in i18n.spec.js).
-		for ( const [ path, marker ] of [
+		const screens = [
 			[ SETTINGS, '#fast-index-status' ],
 			[ HISTORY, '#fi nav .pagination' ],
-			[ RUN, '#fi input[name="action"][value="fast_index_run_backlog"]' ],
-		] ) {
+		];
+		if ( PREMIUM ) {
+			screens.push( [ RUN, '#fi input[name="action"][value="fast_index_run_backlog"]' ] );
+		}
+		for ( const [ path, marker ] of screens ) {
 			const res = await page.goto( path );
 			expect( res.status(), path ).toBe( 200 );
 			await expect( page.locator( '#fi h1.title' ).first() ).toBeVisible();
@@ -41,17 +54,17 @@ test.describe( 'Fast Index admin', () => {
 		await page.check( '#fast-index-delete-data' );
 		await page.click( '.settingsForm input[type="submit"]' );
 
-		await expect( page.locator( '.notice-success' ) ).toHaveCount( 1 );
+		await expect( page.locator( '.notice-success:not(.fi-upgrade-notice)' ) ).toHaveCount( 1 );
 
 		await page.reload();
 		await expect( page.locator( '#fast-index-status' ) ).toHaveValue( '2' );
 		await expect( page.locator( '#fast-index-delete-data' ) ).toBeChecked();
-		await expect( page.locator( '.notice-success' ) ).toHaveCount( 0 );
+		await expect( page.locator( '.notice-success:not(.fi-upgrade-notice)' ) ).toHaveCount( 0 );
 
 		await page.selectOption( '#fast-index-status', '1' );
 		await page.uncheck( '#fast-index-delete-data' );
 		await page.click( '.settingsForm input[type="submit"]' );
-		await expect( page.locator( '.notice-success' ) ).toHaveCount( 1 );
+		await expect( page.locator( '.notice-success:not(.fi-upgrade-notice)' ) ).toHaveCount( 1 );
 		await expect( page.locator( '#fast-index-status' ) ).toHaveValue( '1' );
 	} );
 
@@ -85,7 +98,7 @@ test.describe( 'Fast Index admin', () => {
 		await page.setInputFiles( '#fast-index-key-files', { name: 'service-account.json', mimeType: 'application/json', buffer } );
 		await page.click( 'form[enctype="multipart/form-data"] input[type="submit"]' );
 
-		await expect( page.locator( '.notice-success' ) ).toContainText( email );
+		await expect( page.locator( '.notice-success:not(.fi-upgrade-notice)' ) ).toContainText( email );
 		await expect( page.locator( '.fast-index-accounts' ) ).toContainText( email );
 		await expect( page.locator( '.fast-index-accounts' ) ).toContainText( keyId );
 
@@ -98,22 +111,16 @@ test.describe( 'Fast Index admin', () => {
 		expect( wp( [ 'eval', 'echo count( glob( wp_upload_dir()["basedir"] . "/*/*/service-account*.json" ) ?: array() );' ] ) ).toBe( '0' );
 	} );
 
-	test( 'a locked option asks before it opens the upgrade page', async ( { page } ) => {
+	test( 'the settings screen has no locked or disabled control', async ( { page } ) => {
 		await page.goto( SETTINGS );
-		const locked = page.locator( 'label.licenceAlert' ).first();
-		test.skip( 0 === await locked.count(), 'The premium plan is active on this site.' );
-
-		// The question comes from the page (translated); dismissing it keeps the user on the settings screen.
-		const expected = await page.evaluate( () => window.fastIndexAdmin.upgradeMessage );
-		let asked = '';
-		page.once( 'dialog', async ( dialog ) => {
-			asked = dialog.message();
-			await dialog.dismiss();
-		} );
-		await locked.click();
-		expect( asked ).toBe( expected );
-		expect( asked ).not.toBe( '' );
-		await expect( page ).toHaveURL( /page=fast-index$/ );
+		await expect( page.locator( '#fi input[disabled], #fi select[disabled], #fi textarea[disabled], #fi input[readonly]' ) ).toHaveCount( 0 );
+		await expect( page.locator( '.licenceAlert, .fi-locked' ) ).toHaveCount( 0 );
+		// The premium options exist only with the premium module; they are never shown as locked fields.
+		await expect( page.locator( '#fast-index-old-posts' ) ).toHaveCount( PREMIUM ? 1 : 0 );
+		if ( ! PREMIUM ) {
+			await expect( page.locator( 'input[name^="fast_index_options[exclude_category]"]' ) ).toHaveCount( 0 );
+		}
+		await expect( page.locator( 'input[name^="fast_index_options[post_status]"]' ) ).toHaveCount( PREMIUM ? 3 : 1 );
 	} );
 
 	test( 'history pagination links work', async ( { page } ) => {
@@ -170,7 +177,7 @@ test.describe( 'Fast Index admin', () => {
 		await page.goto( SETTINGS );
 		await page.setInputFiles( '#fast-index-key-files', { name: 'fresh.json', mimeType: 'application/json', buffer } );
 		await page.click( 'form[enctype="multipart/form-data"] input[type="submit"]' );
-		await expect( page.locator( '.notice-success' ) ).toHaveCount( 1 );
+		await expect( page.locator( '.notice-success:not(.fi-upgrade-notice)' ) ).toHaveCount( 1 );
 		expect( Number( wp( [ 'eval', 'echo wp_next_scheduled( Fast_Index_Retry::HOOK ) - time();' ] ) ) ).toBeLessThanOrEqual( 0 );
 
 		wp( [ 'eval', 'wp_unschedule_hook( Fast_Index_Retry::HOOK ); do_action( Fast_Index_Retry::HOOK );' ] );
@@ -182,6 +189,7 @@ test.describe( 'Fast Index admin', () => {
 	} );
 
 	test( 'manual run answers without errors', async ( { page } ) => {
+		test.skip( ! PREMIUM, 'Send Old Posts Now is part of the premium module.' );
 		await page.goto( RUN );
 		await page.click( '#fi input[type="submit"]' );
 		await expect( page ).toHaveURL( /page=fast-index-run/ );
@@ -193,7 +201,7 @@ test.describe( 'Fast Index admin', () => {
 
 		for ( const path of [ admin( '' ), SETTINGS ] ) {
 			await page.goto( path );
-			const notice = page.locator( '.fast-index-notice' );
+			const notice = page.locator( '.fast-index-notice:not(.fi-upgrade-notice)' );
 			await expect( notice ).toHaveCount( 1 );
 			await expect( notice ).toContainText( 'Fast Index' );
 			await expect( notice.locator( 'a[href*="action=fast_index_dismiss_notice"]' ) ).toBeVisible();
@@ -203,20 +211,20 @@ test.describe( 'Fast Index admin', () => {
 		// Close button on the dashboard: the dismissal is stored with the nonce-protected request.
 		await page.goto( admin( '' ) );
 		const stored = page.waitForResponse( ( res ) => res.url().includes( 'action=fast_index_dismiss_notice' ) );
-		await page.locator( '.fast-index-notice .notice-dismiss' ).click();
+		await page.locator( '.fast-index-notice:not(.fi-upgrade-notice) .notice-dismiss' ).click();
 		await stored;
 
 		await page.reload();
-		await expect( page.locator( '.fast-index-notice' ) ).toHaveCount( 0 );
+		await expect( page.locator( '.fast-index-notice:not(.fi-upgrade-notice)' ) ).toHaveCount( 0 );
 		await page.goto( SETTINGS );
-		await expect( page.locator( '.fast-index-notice' ) ).toHaveCount( 0 );
+		await expect( page.locator( '.fast-index-notice:not(.fi-upgrade-notice)' ) ).toHaveCount( 0 );
 
 		// The link works without JavaScript too.
 		wp( [ 'eval', 'Fast_Index_Notices::flag_key_rotation();' ] );
 		await page.goto( SETTINGS );
-		await page.locator( '.fast-index-notice a[href*="action=fast_index_dismiss_notice"]' ).click();
+		await page.locator( '.fast-index-notice:not(.fi-upgrade-notice) a[href*="action=fast_index_dismiss_notice"]' ).click();
 		await page.goto( admin( '' ) );
-		await expect( page.locator( '.fast-index-notice' ) ).toHaveCount( 0 );
+		await expect( page.locator( '.fast-index-notice:not(.fi-upgrade-notice)' ) ).toHaveCount( 0 );
 		expect( wp( [ 'eval', 'var_export( get_option( "fast_index_notice_key_rotation" ) );' ] ) ).toBe( 'false' );
 	} );
 } );

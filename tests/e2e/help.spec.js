@@ -6,7 +6,9 @@
  * Google is never called: tests/e2e/qa-google-stub.php must be installed as a must-use plugin.
  */
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
-const { wp, serviceAccountFile } = require( './helpers' );
+const { wp, serviceAccountFile, premiumLoaded } = require( './helpers' );
+
+const PREMIUM = premiumLoaded();
 
 const SETTINGS = admin( 'admin.php?page=fast-index' );
 const HISTORY = admin( 'admin.php?page=fast-index-history' );
@@ -173,7 +175,7 @@ test.describe( 'Fast Index help', () => {
 	} );
 
 	test( 'every plugin screen has a help tab that links to the help page', async ( { page } ) => {
-		const screens = { settings: SETTINGS, history: HISTORY, run: RUN, help: HELP };
+		const screens = PREMIUM ? { settings: SETTINGS, history: HISTORY, run: RUN, help: HELP } : { settings: SETTINGS, history: HISTORY, help: HELP };
 
 		for ( const [ key, path ] of Object.entries( screens ) ) {
 			await page.goto( path );
@@ -209,7 +211,7 @@ test.describe( 'Fast Index help', () => {
 		await expect( page.locator( 'link[href*="fast-index-help.css"]' ) ).toHaveCount( 1 );
 		expect( await page.content() ).toContain( 'fast-index-help.js' );
 
-		for ( const path of [ SETTINGS, HISTORY, RUN, admin( '' ) ] ) {
+		for ( const path of PREMIUM ? [ SETTINGS, HISTORY, RUN, admin( '' ) ] : [ SETTINGS, HISTORY, admin( '' ) ] ) {
 			await page.goto( path );
 			const html = await page.content();
 			expect( html, path ).not.toContain( 'fast-index-help.css' );

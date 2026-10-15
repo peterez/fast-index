@@ -67,8 +67,8 @@ function serviceAccountFile( email, keyId ) {
 /**
  * Reads languages/fast-index-<locale>.po into a map of source string to translation.
  *
- * Only what the i18n spec needs: single-line and wrapped strings, \n \t \" \\ escapes and contexts, no plurals
- * (the plugin has none). A string with a context (_x) is stored under "context + U+0004 + source string", like
+ * Only what the i18n spec needs: single-line and wrapped strings, \n \t \" \\ escapes and contexts. Plural entries
+ * keep their first form under the singular source string. A string with a context (_x) is stored under "context + U+0004 + source string", like
  * gettext does. Entries with an empty translation are left out.
  *
  * @param {string} locale Locale, for example de_DE.
@@ -108,7 +108,12 @@ function readPo( locale ) {
 			field = 'id';
 			continue;
 		}
-		m = line.match( /^msgstr "(.*)"$/ );
+		m = line.match( /^msgid_plural "(.*)"$/ );
+		if ( m ) {
+			field = 'plural';
+			continue;
+		}
+		m = line.match( /^msgstr(?:\[0\])? "(.*)"$/ );
 		if ( m ) {
 			str = unescape( m[ 1 ] );
 			field = 'str';
@@ -121,6 +126,8 @@ function readPo( locale ) {
 			id += unescape( m[ 1 ] );
 		} else if ( m && 'str' === field ) {
 			str += unescape( m[ 1 ] );
+		} else if ( /^msgstr\[[1-9]\] /.test( line ) ) {
+			field = 'other-form';
 		} else if ( '' === line.trim() ) {
 			flush();
 		}
@@ -129,4 +136,35 @@ function readPo( locale ) {
 	return map;
 }
 
-module.exports = { wp, serviceAccountFile, readPo, SITE_URL, IS_MULTISITE };
+/**
+ * Whether the premium module is loaded on the site under test: the premium package with a license, or with
+ * tests/e2e/qa-premium-license.php installed as a must-use plugin. Without the module the plugin behaves as the
+ * WordPress.org package.
+ *
+ * @return {boolean} True when the premium module is loaded.
+ */
+function premiumLoaded() {
+	return '1' === wp( [ 'eval', 'echo class_exists( "Fast_Index_Plugin" ) && Fast_Index_Plugin::premium_loaded() ? 1 : 0;' ] );
+}
+
+/**
+ * Answers the Freemius opt-in screen with Skip when it is shown (it is shown once per site, or once per network
+ * and site after a network activation). Fails when the screen asks for a license key: the WordPress.org package
+ * must never show a license screen.
+ *
+ * @param {import('@playwright/test').Page} page Page on a Fast Index screen.
+ * @param {Function} expect Playwright expect.
+ * @return {Promise<boolean>} True when the opt-in screen was answered.
+ */
+async function passOptIn( page, expect ) {
+	if ( 0 === await page.locator( '#fs_connect' ).count() ) {
+		return false;
+	}
+	await expect( page.locator( '#fs_connect input#fs_license_key, #fs_connect input.fs-license-key' ) ).toHaveCount( 0 );
+	await expect( page.locator( '#skip_activation' ) ).toHaveCount( 1 );
+	await Promise.all( [ page.waitForLoadState( 'load' ), page.locator( '#skip_activation' ).click() ] );
+	await page.waitForLoadState( 'networkidle' );
+	return true;
+}
+
+module.exports = { wp, serviceAccountFile, readPo, premiumLoaded, passOptIn, SITE_URL, IS_MULTISITE };
