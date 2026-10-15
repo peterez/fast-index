@@ -65,7 +65,8 @@ class Fast_Index_Premium_Backlog {
 	public static function run() {
 		$settings = Fast_Index_Settings::get();
 
-		if ( ! Fast_Index_Settings::is_active( $settings ) ) {
+		// No daily limit set: nothing to count or look up.
+		if ( ! Fast_Index_Settings::is_active( $settings ) || (int) $settings['old_post_number'] <= 0 ) {
 			return array();
 		}
 
@@ -96,8 +97,8 @@ class Fast_Index_Premium_Backlog {
 	}
 
 	/**
-	 * IDs of published posts of the enabled types that were never sent successfully and are not in an excluded
-	 * category, newest first.
+	 * IDs of published posts of the enabled types that were never sent successfully, are not password protected and
+	 * are not in an excluded category, newest first.
 	 *
 	 * @param array $settings Clean settings.
 	 * @param int   $limit    Maximum number of IDs.
@@ -121,6 +122,7 @@ class Fast_Index_Premium_Backlog {
 			$wpdb->prepare(
 				"SELECT p.ID FROM {$wpdb->posts} AS p
 				WHERE p.post_status = 'publish'
+				AND p.post_password = ''
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )
@@ -157,6 +159,7 @@ class Fast_Index_Premium_Backlog {
 			$wpdb->prepare(
 				"SELECT COUNT(*) FROM {$wpdb->posts} AS p
 				WHERE p.post_status = 'publish'
+				AND p.post_password = ''
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )
@@ -240,6 +243,9 @@ class Fast_Index_Premium_Backlog {
 		$results   = array();
 		$settings  = Fast_Index_Settings::get();
 
+		// One query for the posts and their terms (permalinks may contain a category) instead of one per post.
+		_prime_post_caches( array_map( 'absint', $post_ids ), true, false );
+
 		foreach ( $post_ids as $post_id ) {
 			$url = get_permalink( $post_id );
 
@@ -255,7 +261,8 @@ class Fast_Index_Premium_Backlog {
 				'code'    => $code,
 			);
 
-			if ( $code < 0 || time() >= $deadline ) {
+			// No key can send, the time is up, or Google did not answer: the rest waits for the next batch.
+			if ( $code < 0 || Fast_Index_Submitter::is_outage( $code ) || time() >= $deadline ) {
 				break;
 			}
 		}

@@ -158,6 +158,9 @@ class Fast_Index_IndexNow {
 
 		status_header( 200 );
 		header( 'Content-Type: text/plain; charset=utf-8' );
+		header( 'X-Content-Type-Options: nosniff' );
+		// Short: the file must stop answering soon after IndexNow is turned off or the key changes.
+		header( 'Cache-Control: public, max-age=300' );
 		header( 'X-Robots-Tag: noindex' );
 		echo esc_html( $body );
 		exit;

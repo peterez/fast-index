@@ -106,6 +106,56 @@ class Fast_Index_Freemius {
 		}
 		// Clean-up when the plugin is deleted, after Freemius recorded the uninstall (there is no uninstall.php).
 		$fs->add_action( 'after_uninstall', array( 'Fast_Index_Uninstaller', 'run_once' ) );
+		// Before the footer scripts are printed, so the guard runs before the pricing script of the SDK.
+		add_action( 'admin_print_footer_scripts', array( __CLASS__, 'block_pricing_analytics' ), 1 );
+	}
+
+	/**
+	 * Slug of the Freemius Upgrade (plans and prices) page.
+	 */
+	const PRICING_SLUG = 'fast-index-pricing';
+
+	/**
+	 * Keeps Google Analytics off the Upgrade page.
+	 *
+	 * The pricing script of the SDK (assets/js/pricing/freemius-pricing.js, 2.13.4) adds
+	 * www.google-analytics.com/analytics.js to the page whenever it draws the plans. That would track the visit
+	 * without consent (WordPress.org guideline 7), and no setting of the SDK turns it off. This guard runs before
+	 * that script and refuses to insert a script element from google-analytics.com on that page; the plans, the
+	 * prices and the Freemius checkout keep working. Same guard as in the other CultDevOps plugins.
+	 *
+	 * @return void
+	 */
+	public static function block_pricing_analytics() {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		// Only on the Upgrade page of this plugin (site or network admin); the pages of other plugins are theirs.
+		if ( ! $screen instanceof WP_Screen || ! self::is_pricing_screen( $screen->id ) || ! wp_script_is( 'freemius-pricing', 'enqueued' ) ) {
+			return;
+		}
+
+		wp_add_inline_script( 'freemius-pricing', self::analytics_guard(), 'before' );
+	}
+
+	/**
+	 * Whether a screen ID is the Upgrade page of Fast Index, in the site or in the network admin.
+	 *
+	 * @param string $screen_id Screen ID.
+	 * @return bool
+	 */
+	public static function is_pricing_screen( $screen_id ) {
+		$hook = get_plugin_page_hookname( self::PRICING_SLUG, Fast_Index_Admin::SLUG );
+
+		return in_array( (string) $screen_id, array( $hook, $hook . '-network' ), true );
+	}
+
+	/**
+	 * The script of block_pricing_analytics().
+	 *
+	 * @return string JavaScript.
+	 */
+	public static function analytics_guard() {
+		return '( function () { var insert = Node.prototype.insertBefore; Node.prototype.insertBefore = function ( node, child ) { if ( node && "SCRIPT" === node.nodeName && /(^|\\.)google-analytics\\.com$/.test( ( node.src ? new URL( node.src, document.baseURI ) : { hostname: "" } ).hostname ) ) { return node; } return insert.call( this, node, child ); }; }() );';
 	}
 
 	/**

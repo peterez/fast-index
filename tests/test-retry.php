@@ -87,12 +87,9 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 	 * @return void
 	 */
 	private function run_queued( $url, $type, $post_id ) {
-		$args = array( $url, $type, $post_id );
+		$this->assertTrue( self::is_queued( $url, $type, $post_id ), 'The save queued the notification.' );
 
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $args ), 'The save queued the notification.' );
-		wp_unschedule_event( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $args ), Fast_Index_Cron::SUBMIT_HOOK, $args );
-
-		do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $args );
+		self::run_queued_url( $url );
 	}
 
 	/**

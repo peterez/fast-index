@@ -56,7 +56,7 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 	 */
 	private static function posts( $count, $args = array() ) {
 		$ids = self::factory()->post->create_many( $count, array_merge( array( 'post_status' => 'publish' ), $args ) );
-		wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
+		self::clear_queue();
 
 		return $ids;
 	}
@@ -94,9 +94,15 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 		$this->assertArrayNotHasKey( 'fast_index_notify', Fast_Index_Manual::row_action( array(), $draft ) );
 		$this->assertArrayNotHasKey( 'fast_index_notify', Fast_Index_Manual::row_action( array(), $page ), 'Pages are not checked by default.' );
 
-		// An author cannot edit an administrator's post.
-		$this->login_as( 'author' );
+		// An author cannot edit an administrator's post, and cannot send by hand at all.
+		$author = $this->login_as( 'author' );
 		$this->assertArrayNotHasKey( 'fast_index_notify', Fast_Index_Manual::row_action( array(), $published ) );
+		$own = get_post( self::posts( 1, array( 'post_author' => $author ) )[0] );
+		$this->assertArrayNotHasKey( 'fast_index_notify', Fast_Index_Manual::row_action( array(), $own ), 'Not even for their own post.' );
+
+		// An editor can.
+		$this->login_as( 'editor' );
+		$this->assertArrayHasKey( 'fast_index_notify', Fast_Index_Manual::row_action( array(), $published ) );
 
 		// Passive: nothing is offered.
 		wp_set_current_user( $admin );
@@ -238,13 +244,44 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 				'post_author' => $author,
 			)
 		);
+		$all    = array_merge( $theirs, $mine, array( $draft, 999999 ) );
 
-		Fast_Index_Manual::handle_bulk( admin_url( 'edit.php' ), Fast_Index_Manual::BULK_ACTION, array_merge( $theirs, $mine, array( $draft, 999999 ) ) );
+		// SEC-FI-04: an author cannot send by hand, not even their own post (it was sent when it was published).
+		Fast_Index_Manual::handle_bulk( admin_url( 'edit.php' ), Fast_Index_Manual::BULK_ACTION, $all );
+		$this->assertSame( array(), self::google_entries() );
+		$this->assertSame( 5, get_transient( Fast_Index_Manual::RESULT_PREFIX . $author )['skipped'] );
 
-		$this->assertSame( $mine, array_map( 'intval', wp_list_pluck( self::google_entries(), 'post_parent' ) ) );
-		$result = get_transient( Fast_Index_Manual::RESULT_PREFIX . $author );
-		$this->assertSame( 4, $result['skipped'] );
+		$editor = $this->login_as( 'editor' );
+		Fast_Index_Manual::handle_bulk( admin_url( 'edit.php' ), Fast_Index_Manual::BULK_ACTION, $all );
+
+		$sent = array_map( 'intval', wp_list_pluck( self::google_entries(), 'post_parent' ) );
+		sort( $sent );
+		$this->assertSame( array_merge( $theirs, $mine ), $sent );
+		$this->assertSame( 2, get_transient( Fast_Index_Manual::RESULT_PREFIX . $editor )['skipped'] );
 		unset( $admin );
+	}
+
+	/**
+	 * The capability can be changed for a post type.
+	 *
+	 * @return void
+	 */
+	public function test_capability_filter() {
+		$this->assertSame( 'edit_others_posts', Fast_Index_Manual::capability( 'post' ) );
+		$this->assertSame( 'edit_others_pages', Fast_Index_Manual::capability( 'page' ) );
+
+		$author = $this->login_as( 'author' );
+		$mine   = self::posts( 1, array( 'post_author' => $author ) );
+		$this->assertFalse( Fast_Index_Manual::user_can_send( 'post' ) );
+
+		$publish = function () {
+			return 'publish_posts';
+		};
+		add_filter( 'fast_index_manual_capability', $publish );
+		$this->assertTrue( Fast_Index_Manual::user_can_send( 'post' ) );
+		Fast_Index_Manual::send( $mine );
+		$this->assertCount( 1, self::google_entries() );
+		remove_filter( 'fast_index_manual_capability', $publish );
 	}
 
 	/**
@@ -293,7 +330,7 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 		$this->assertSame( 3, $result['queued'] );
 		$this->assertCount( 0, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
 		foreach ( $items as $item ) {
-			$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( $item['url'], 'URL_UPDATED', $item['post_id'] ) ) );
+			$this->assertTrue( self::is_queued( $item['url'], 'URL_UPDATED', $item['post_id'] ) );
 		}
 	}
 
@@ -304,6 +341,11 @@ class Fast_Index_Test_Manual extends Fast_Index_Test_Case {
 	 * @return void
 	 */
 	public function test_bulk_action_registration() {
+		$this->login_as( 'author' );
+		Fast_Index_Manual::register_bulk_actions();
+		$this->assertFalse( has_filter( 'bulk_actions-edit-post', array( 'Fast_Index_Manual', 'bulk_actions' ) ), 'Not for an author.' );
+
+		$this->login_as( 'editor' );
 		Fast_Index_Manual::register_bulk_actions();
 
 		$this->assertNotFalse( has_filter( 'bulk_actions-edit-post', array( 'Fast_Index_Manual', 'bulk_actions' ) ) );

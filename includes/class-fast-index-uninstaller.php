@@ -50,7 +50,7 @@ class Fast_Index_Uninstaller {
 	 * @return string[]
 	 */
 	public static function cron_hooks() {
-		return array( 'fast_index_submit_url', 'fast_index_process_backlog', 'fast_index_retry', 'fast_index_upgrade_network', 'fast_index_weekly_report', 'fiDailyCronHook' );
+		return array( 'fast_index_submit_url', 'fast_index_process_queue', 'fast_index_process_backlog', 'fast_index_prune_history', 'fast_index_retry', 'fast_index_upgrade_network', 'fast_index_weekly_report', 'fiDailyCronHook' );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class Fast_Index_Uninstaller {
 	}
 
 	/**
-	 * Removes scheduled events, transients, lock rows and the retry queue. History entries that
+	 * Removes scheduled events, transients, lock rows, the queue and the retry queue. History entries that
 	 * waited for a key stay in History as not sent.
 	 *
 	 * @return void
@@ -203,7 +203,7 @@ class Fast_Index_Uninstaller {
 		delete_post_meta_by_key( '_fast_index_retry' );
 		delete_post_meta_by_key( '_fast_index_inspect_due' );
 
-		foreach ( array( '_transient_fast_index_', '_transient_timeout_fast_index_', 'fast_index_lock_' ) as $prefix ) {
+		foreach ( array( '_transient_fast_index_', '_transient_timeout_fast_index_', 'fast_index_lock_', 'fast_index_queue_' ) as $prefix ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Uninstall: removes the plugin's own rows by prefix.
 			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like( $prefix ) . '%' ) );
 		}

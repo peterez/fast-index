@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-15T09:09:05+00:00\n"
-"PO-Revision-Date: 2026-10-15 03:41+0000\n"
+"POT-Creation-Date: 2026-10-15T11:34:00+00:00\n"
+"PO-Revision-Date: 2026-10-15 12:00+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -41,24 +41,24 @@ msgstr "Samet AKIN"
 msgid "https://www.linkedin.com/in/samet-akin/"
 msgstr "https://www.linkedin.com/in/samet-akin/"
 
-#: includes/class-fast-index-accounts.php:379
+#: includes/class-fast-index-accounts.php:394
 #: includes/class-fast-index-key-upload.php:70
 msgid "The file is empty or too large to be a service account key."
 msgstr "Dosya boş ya da bir hizmet hesabı anahtarı olamayacak kadar büyük."
 
-#: includes/class-fast-index-accounts.php:385
+#: includes/class-fast-index-accounts.php:400
 msgid "The file is not valid JSON."
 msgstr "Dosya geçerli bir JSON değil."
 
-#: includes/class-fast-index-accounts.php:389
+#: includes/class-fast-index-accounts.php:404
 msgid "The file is not a Google service account key."
 msgstr "Dosya bir Google hizmet hesabı anahtarı değil."
 
-#: includes/class-fast-index-accounts.php:395
+#: includes/class-fast-index-accounts.php:410
 msgid "The key does not contain a valid client email."
 msgstr "Anahtarda geçerli bir istemci e-posta adresi yok."
 
-#: includes/class-fast-index-accounts.php:401
+#: includes/class-fast-index-accounts.php:416
 msgid "The key does not contain a valid private key."
 msgstr "Anahtarda geçerli bir özel anahtar yok."
 
@@ -86,7 +86,7 @@ msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
 #: includes/class-fast-index-admin-actions.php:220
-#: includes/class-fast-index-manual.php:312
+#: includes/class-fast-index-manual.php:358
 #: includes/class-fast-index-upgrade.php:249
 #: includes/class-fast-index-upgrade.php:254
 #: includes/class-fast-index-upgrade.php:376 view/history.php:59
@@ -104,7 +104,7 @@ msgid "Sorry, you are not allowed to do that."
 msgstr "Ne yazık ki, bunu yapma izniniz yok."
 
 #: includes/class-fast-index-admin.php:69
-#: includes/class-fast-index-manual.php:305 view/partial-band.php:18
+#: includes/class-fast-index-manual.php:351 view/partial-band.php:19
 msgid "Fast Index"
 msgstr "Fast Index"
 
@@ -114,38 +114,38 @@ msgid "History"
 msgstr "Geçmiş"
 
 #: includes/class-fast-index-admin.php:80
-#: includes/class-fast-index-help-content.php:816 view/help.php:16
-#: view/settings.php:277
+#: includes/class-fast-index-help-content.php:836 view/help.php:16
+#: view/partial-band.php:22 view/settings.php:277
 msgid "Help & FAQ"
 msgstr "Yardım ve SSS"
 
-#: includes/class-fast-index-admin.php:302
+#: includes/class-fast-index-admin.php:305
 #: includes/class-fast-index-help-content.php:560
 msgid "No answer from IndexNow"
 msgstr "IndexNow'dan yanıt yok"
 
-#: includes/class-fast-index-admin.php:306
+#: includes/class-fast-index-admin.php:309
 msgid "Not sent: no service account key"
 msgstr "Gönderilmedi: hizmet hesabı anahtarı yok"
 
-#: includes/class-fast-index-admin.php:310
+#: includes/class-fast-index-admin.php:313
 msgid "Not sent: every key was paused"
 msgstr "Gönderilmedi: tüm anahtarlar askıya alınmıştı"
 
-#: includes/class-fast-index-admin.php:314
+#: includes/class-fast-index-admin.php:317
 msgid "Not sent: OpenSSL is missing"
 msgstr "Gönderilmedi: OpenSSL eksik"
 
-#: includes/class-fast-index-admin.php:318
+#: includes/class-fast-index-admin.php:321
 #: includes/class-fast-index-help-content.php:481
 msgid "No answer from Google"
 msgstr "Google'dan yanıt gelmedi"
 
-#: includes/class-fast-index-admin.php:347
+#: includes/class-fast-index-admin.php:350
 msgid "Fast Index tries again when a key is ready."
 msgstr "Fast Index, bir anahtar hazır olduğunda yeniden dener."
 
-#: includes/class-fast-index-admin.php:363
+#: includes/class-fast-index-admin.php:366
 msgid ""
 "IndexNow could not verify the key: open the key file address on the settings "
 "screen and check that it shows the key."
@@ -153,14 +153,14 @@ msgstr ""
 "IndexNow anahtarı doğrulayamadı: ayarlar ekranındaki anahtar dosyası "
 "adresini açın ve anahtarı gösterdiğini denetleyin."
 
-#: includes/class-fast-index-admin.php:365
+#: includes/class-fast-index-admin.php:368
 msgid ""
 "IndexNow refused the address: it does not belong to the host of the key."
 msgstr ""
 "IndexNow adresi reddetti: adres, anahtarın ait olduğu ana makineye (host) "
 "ait değil."
 
-#: includes/class-fast-index-admin.php:367
+#: includes/class-fast-index-admin.php:370
 msgid ""
 "IndexNow received too many requests from this site and treats them as "
 "possible spam. Send fewer addresses at once."
@@ -168,7 +168,7 @@ msgstr ""
 "IndexNow bu siteden çok fazla istek aldı ve bunları olası spam sayıyor. Bir "
 "seferde daha az adres gönderin."
 
-#: includes/class-fast-index-admin.php:374
+#: includes/class-fast-index-admin.php:377
 msgid ""
 "Daily quota reached: every key is paused until Google resets the quota at "
 "midnight Pacific Time."
@@ -177,36 +177,36 @@ msgstr ""
 "kadar tüm anahtarlar askıya alındı."
 
 #. translators: %s: date and time.
-#: includes/class-fast-index-admin.php:388
+#: includes/class-fast-index-admin.php:391
 #, php-format
 msgid "Paused until %s"
 msgstr "%s tarihine kadar askıda"
 
-#: includes/class-fast-index-admin.php:451
+#: includes/class-fast-index-admin.php:454
 #: includes/class-fast-index-help.php:111
-#: includes/premium/class-fast-index-premium-backlog.php:201
+#: includes/premium/class-fast-index-premium-backlog.php:204
 msgid "Sorry, you are not allowed to access this page."
 msgstr "Üzgünüz, bu sayfaya erişmenize izin verilmiyor."
 
-#: includes/class-fast-index-freemius.php:165
+#: includes/class-fast-index-freemius.php:215
 #: includes/class-fast-index-help-content.php:725
 #: includes/class-fast-index-help-content.php:739
 #: includes/class-fast-index-upgrade.php:494
 msgid "Upgrade"
 msgstr "Yükselt"
 
-#: includes/class-fast-index-freemius.php:166
+#: includes/class-fast-index-freemius.php:216
 msgctxt "Title of the Freemius page with the plans"
 msgid "Pricing"
 msgstr "Fiyatlar"
 
-#: includes/class-fast-index-freemius.php:167
+#: includes/class-fast-index-freemius.php:217
 #: includes/class-fast-index-help-content.php:750
 msgctxt "Button of the Freemius opt-in screen"
 msgid "Skip"
 msgstr "Atla"
 
-#: includes/class-fast-index-freemius.php:168
+#: includes/class-fast-index-freemius.php:218
 #: includes/class-fast-index-help-content.php:751
 msgctxt "Button of the Freemius opt-in screen"
 msgid "Allow & Continue"
@@ -239,13 +239,13 @@ msgstr ""
 "etkinleştirmesini isteyin."
 
 #: includes/class-fast-index-google-client.php:374
-#: includes/premium/class-fast-index-premium-inspection.php:372
+#: includes/premium/class-fast-index-premium-inspection.php:383
 msgid "Could not connect to Google."
 msgstr "Google'a bağlanılamadı."
 
 #. translators: %d: HTTP status code returned by Google.
 #: includes/class-fast-index-google-client.php:425
-#: includes/premium/class-fast-index-premium-inspection.php:375
+#: includes/premium/class-fast-index-premium-inspection.php:386
 #, php-format
 msgid "Google answered with HTTP status %d."
 msgstr "Google, %d HTTP durum koduyla yanıt verdi."
@@ -1226,18 +1226,19 @@ msgstr "Bir yazı Geçmiş'te yok"
 msgid ""
 "Fast Index skips a post when Status is Passive, when its post type or the "
 "event (Publish, Edit, Trash) is not checked, when it is in a category "
-"excluded by the premium plan, or when it is not published. Nothing is "
-"written to History then. While IndexNow is on and no Google key is stored, "
-"only IndexNow entries are written, and while Supported Pages Only is "
-"checked, pages without JobPosting or BroadcastEvent data get no Google entry."
+"excluded by the premium plan, when it is password protected, or when it is "
+"not published. Nothing is written to History then. While IndexNow is on and "
+"no Google key is stored, only IndexNow entries are written, and while "
+"Supported Pages Only is checked, pages without JobPosting or BroadcastEvent "
+"data get no Google entry."
 msgstr ""
 "Fast Index şu durumlarda yazıyı atlar: Durum Pasifse, yazı türü ya da olay "
 "(Yayınla, Düzenle, Çöp) işaretli değilse, yazı premium planın hariç tuttuğu "
-"bir kategorideyse ya da yazı yayımlanmamışsa. Bu durumlarda Geçmiş'e hiçbir "
-"şey yazılmaz. IndexNow açıkken kayıtlı Google anahtarı yoksa yalnızca "
-"IndexNow kayıtları yazılır; Yalnızca desteklenen sayfalar işaretliyken "
-"JobPosting ya da BroadcastEvent verisi olmayan sayfalar için Google kaydı "
-"yazılmaz."
+"bir kategorideyse, yazı parola korumalıysa ya da yazı yayımlanmamışsa. Bu "
+"durumlarda Geçmiş'e hiçbir şey yazılmaz. IndexNow açıkken kayıtlı Google "
+"anahtarı yoksa yalnızca IndexNow kayıtları yazılır; Yalnızca desteklenen "
+"sayfalar işaretliyken JobPosting ya da BroadcastEvent verisi olmayan "
+"sayfalar için Google kaydı yazılmaz."
 
 #: includes/class-fast-index-help-content.php:527
 msgid ""
@@ -1632,19 +1633,22 @@ msgid ""
 "choose %1$s under Bulk actions and click Apply. Fast Index sends them to "
 "Google right away, and to IndexNow when it is on, and shows the result on "
 "the same screen; History lists each answer. You need permission to edit each "
-"item, and Status must be Active. Every address counts against Google's daily "
-"quota."
+"item and the items of other users, as Editors and Administrators have, and "
+"Status must be Active. Password-protected items are not sent. Every address "
+"counts against Google's daily quota."
 msgstr ""
 "Evet. Fast Index'in gönderdiği yazıların, sayfaların ya da başka bir yazı "
 "türünün listesinde yayımlanmış bir öğenin üzerine gelip %1$s bağlantısına "
 "tıklayın ya da en fazla %2$s öğe seçip Toplu işlemler altında %1$s "
 "seçeneğini seçin ve Uygula'ya tıklayın. Fast Index bunları hemen Google'a, "
 "IndexNow açıksa IndexNow'a da gönderir ve sonucu aynı ekranda gösterir; "
-"Geçmiş her yanıtı listeler. Her öğeyi düzenleme izniniz olmalı ve Durum "
-"Etkin olmalıdır. Her adres Google'ın günlük kotasından düşer."
+"Geçmiş her yanıtı listeler. Her öğeyi ve diğer kullanıcıların öğelerini "
+"düzenleme izniniz olmalı (Editör ve Yönetici rollerinde olduğu gibi) ve "
+"Durum Etkin olmalıdır. Parola korumalı öğeler gönderilmez. Her adres "
+"Google'ın günlük kotasından düşer."
 
 #: includes/class-fast-index-help-content.php:645
-#: includes/class-fast-index-manual.php:110
+#: includes/class-fast-index-manual.php:144
 msgid "Notify search engines"
 msgstr "Arama motorlarına bildir"
 
@@ -1671,7 +1675,7 @@ msgstr ""
 "Sınırı Google'ın günlük kotası içinde tutun."
 
 #: includes/class-fast-index-help-content.php:656
-#: includes/premium/class-fast-index-premium-backlog.php:191
+#: includes/premium/class-fast-index-premium-backlog.php:194
 #: includes/premium/view-run.php:14
 msgid "Send Old Posts Now"
 msgstr "Eski yazıları şimdi gönder"
@@ -2095,24 +2099,44 @@ msgstr ""
 "Adım adım kurulum, her ayarın açıklaması, sorun giderme, sık sorulan sorular "
 "ve destek isterken eklemeniz gereken sistem bilgisi."
 
-#: includes/class-fast-index-help-content.php:804
+#: includes/class-fast-index-help-content.php:805
 msgid "About this screen"
 msgstr "Bu ekran hakkında"
 
-#: includes/class-fast-index-help-content.php:805 view/settings.php:286
+#: includes/class-fast-index-help-content.php:806 view/settings.php:286
 msgid "Open Help & FAQ"
 msgstr "Yardım ve SSS'yi aç"
 
-#: includes/class-fast-index-help-content.php:815
+#. translators: %s: number of days.
+#: includes/class-fast-index-help-content.php:824
+#, php-format
+msgid ""
+"History keeps the entries of the last %s day and removes older ones once a "
+"day. The newest accepted entry of each post stays, so the post does not "
+"count as waiting again."
+msgid_plural ""
+"History keeps the entries of the last %s days and removes older ones once a "
+"day. The newest accepted entry of each post stays, so the post does not "
+"count as waiting again."
+msgstr[0] ""
+"Geçmiş son %s günün kayıtlarını tutar ve daha eskilerini günde bir kez "
+"siler. Her yazının kabul edilen en yeni kaydı kalır, böylece yazı yeniden "
+"bekleyen olarak sayılmaz."
+msgstr[1] ""
+"Geçmiş son %s günün kayıtlarını tutar ve daha eskilerini günde bir kez "
+"siler. Her yazının kabul edilen en yeni kaydı kalır, böylece yazı yeniden "
+"bekleyen olarak sayılmaz."
+
+#: includes/class-fast-index-help-content.php:835
 msgid "For more information:"
 msgstr "Ayrıntılı bilgi almak için:"
 
-#: includes/class-fast-index-help-content.php:817
+#: includes/class-fast-index-help-content.php:837
 msgid "Support forum"
 msgstr "Destek forumu"
 
-#: includes/class-fast-index-help-content.php:840
-#: includes/premium/class-fast-index-premium-inspection.php:605
+#: includes/class-fast-index-help-content.php:860
+#: includes/premium/class-fast-index-premium-inspection.php:647
 msgid "(external link, opens in a new tab)"
 msgstr "(harici bağlantı, yeni sekmede açılır)"
 
@@ -2235,16 +2259,16 @@ msgstr "Henüz hiçbir şey gönderilmedi."
 msgid "The file could not be uploaded."
 msgstr "Dosya yüklenemedi."
 
-#: includes/class-fast-index-log.php:97
+#: includes/class-fast-index-log.php:117
 msgid "Fast Index History"
 msgstr "Fast Index geçmişi"
 
-#: includes/class-fast-index-log.php:98
+#: includes/class-fast-index-log.php:118
 msgid "Fast Index History Entry"
 msgstr "Fast Index geçmiş kaydı"
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:243
+#: includes/class-fast-index-manual.php:284
 #, php-format
 msgid "Google accepted %s address."
 msgid_plural "Google accepted %s addresses."
@@ -2252,7 +2276,7 @@ msgstr[0] "Google %s adresi kabul etti."
 msgstr[1] "Google %s adresi kabul etti."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:248
+#: includes/class-fast-index-manual.php:289
 #, php-format
 msgid ""
 "%s address was not accepted by Google or could not be sent. History shows "
@@ -2268,7 +2292,7 @@ msgstr[1] ""
 "Geçmiş'te yazar."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:253
+#: includes/class-fast-index-manual.php:294
 #, php-format
 msgid "IndexNow accepted %s address."
 msgid_plural "IndexNow accepted %s addresses."
@@ -2276,7 +2300,7 @@ msgstr[0] "IndexNow %s adresi kabul etti."
 msgstr[1] "IndexNow %s adresi kabul etti."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:256
+#: includes/class-fast-index-manual.php:297
 #, php-format
 msgid "IndexNow did not accept %s address. History shows the reason."
 msgid_plural "IndexNow did not accept %s addresses. History shows the reason."
@@ -2284,7 +2308,7 @@ msgstr[0] "IndexNow %s adresi kabul etmedi. Nedeni Geçmiş'te yazar."
 msgstr[1] "IndexNow %s adresi kabul etmedi. Nedeni Geçmiş'te yazar."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:261
+#: includes/class-fast-index-manual.php:302
 #, php-format
 msgid "%s address is queued and is sent in the background."
 msgid_plural "%s addresses are queued and are sent in the background."
@@ -2292,7 +2316,7 @@ msgstr[0] "%s adres sıraya alındı ve arka planda gönderilecek."
 msgstr[1] "%s adres sıraya alındı ve arka planda gönderilecek."
 
 #. translators: %s: number of selected items.
-#: includes/class-fast-index-manual.php:266
+#: includes/class-fast-index-manual.php:307
 #, php-format
 msgid ""
 "%s selected item was not sent: it is not published, its post type is not "
@@ -2307,8 +2331,16 @@ msgstr[1] ""
 "Seçilen %s öğe gönderilmedi: yayımlanmamışlar, yazı türleri ayarlarda "
 "işaretli değil ya da onları düzenleyemiyorsunuz."
 
+#. translators: %s: number of selected items.
+#: includes/class-fast-index-manual.php:312
+#, php-format
+msgid "%s selected item is password protected and was not sent."
+msgid_plural "%s selected items are password protected and were not sent."
+msgstr[0] "%s seçili öğe parola korumalı olduğu için gönderilmedi."
+msgstr[1] "%s seçili öğe parola korumalı olduğu için gönderilmedi."
+
 #. translators: 1: most items sent at a time, 2: number of selected items.
-#: includes/class-fast-index-manual.php:271
+#: includes/class-fast-index-manual.php:317
 #, php-format
 msgid ""
 "Up to %1$s items are sent at a time: the first %1$s of the %2$s selected "
@@ -2317,7 +2349,7 @@ msgstr ""
 "Bir seferde en fazla %1$s öğe gönderilir: seçilen %2$s öğenin ilk %1$s "
 "tanesi işlendi, diğerleri gönderilmedi."
 
-#: includes/class-fast-index-manual.php:316
+#: includes/class-fast-index-manual.php:362
 msgid "Open History"
 msgstr "Geçmiş'i aç"
 
@@ -2657,17 +2689,17 @@ msgstr ""
 "sc-domain:example.com ya da https://www.example.com/ gibi bir Search Console "
 "mülkü girin veya kutuyu boş bırakın."
 
-#: includes/premium/class-fast-index-premium-inspection.php:161
+#: includes/premium/class-fast-index-premium-inspection.php:172
 msgid "Only addresses that Google accepted can be checked."
 msgstr "Yalnızca Google'ın kabul ettiği adresler denetlenebilir."
 
-#: includes/premium/class-fast-index-premium-inspection.php:167
+#: includes/premium/class-fast-index-premium-inspection.php:178
 msgid "Upload a service account key on the settings screen first."
 msgstr "Önce ayarlar ekranında bir hizmet hesabı anahtarı yükleyin."
 
 #. translators: %s: number of checks per day.
-#: includes/premium/class-fast-index-premium-inspection.php:182
-#: includes/premium/class-fast-index-premium-inspection.php:368
+#: includes/premium/class-fast-index-premium-inspection.php:193
+#: includes/premium/class-fast-index-premium-inspection.php:379
 #, php-format
 msgid ""
 "Search Console allows %s index status checks per day for each property, and "
@@ -2676,28 +2708,28 @@ msgstr ""
 "Search Console her mülk için günde %s dizin durumu denetimine izin verir ve "
 "bugünkü denetimler bitti. Yarın yeniden deneyin."
 
-#: includes/premium/class-fast-index-premium-inspection.php:331
-#: includes/premium/class-fast-index-premium-inspection.php:690
+#: includes/premium/class-fast-index-premium-inspection.php:342
+#: includes/premium/class-fast-index-premium-inspection.php:736
 msgid "Indexed"
 msgstr "Dizine eklendi"
 
-#: includes/premium/class-fast-index-premium-inspection.php:333
+#: includes/premium/class-fast-index-premium-inspection.php:344
 msgid "Crawled, not indexed"
 msgstr "Tarandı, dizine eklenmedi"
 
-#: includes/premium/class-fast-index-premium-inspection.php:335
+#: includes/premium/class-fast-index-premium-inspection.php:346
 msgid "Discovered, not indexed"
 msgstr "Keşfedildi, dizine eklenmedi"
 
-#: includes/premium/class-fast-index-premium-inspection.php:337
+#: includes/premium/class-fast-index-premium-inspection.php:348
 msgid "Unknown to Google"
 msgstr "Google'ın bilmediği"
 
-#: includes/premium/class-fast-index-premium-inspection.php:339
+#: includes/premium/class-fast-index-premium-inspection.php:350
 msgid "Not indexed"
 msgstr "Dizine eklenmedi"
 
-#: includes/premium/class-fast-index-premium-inspection.php:357
+#: includes/premium/class-fast-index-premium-inspection.php:368
 msgid ""
 "Google did not accept the service account key. Upload a new key on the "
 "settings screen."
@@ -2705,7 +2737,7 @@ msgstr ""
 "Google hizmet hesabı anahtarını kabul etmedi. Ayarlar ekranında yeni bir "
 "anahtar yükleyin."
 
-#: includes/premium/class-fast-index-premium-inspection.php:359
+#: includes/premium/class-fast-index-premium-inspection.php:370
 msgid ""
 "The Google Search Console API is not enabled in the Google Cloud project of "
 "the key. Enable it in the Google Cloud console, wait a few minutes and try "
@@ -2716,7 +2748,7 @@ msgstr ""
 "deneyin."
 
 #. translators: %s: Search Console property, such as sc-domain:example.com.
-#: includes/premium/class-fast-index-premium-inspection.php:363
+#: includes/premium/class-fast-index-premium-inspection.php:374
 #, php-format
 msgid ""
 "Search Console refused the check for %s: the service account is not a user "
@@ -2729,7 +2761,7 @@ msgstr ""
 "Console'da mülke ekleyin (Ayarlar > Kullanıcılar ve izinler) ya da ayarlar "
 "ekranında doğru mülkü girin."
 
-#: includes/premium/class-fast-index-premium-inspection.php:387
+#: includes/premium/class-fast-index-premium-inspection.php:398
 msgid ""
 "The service account is not a user of a Search Console property that covers "
 "this site. Add the service account to the property in Search Console "
@@ -2740,51 +2772,51 @@ msgstr ""
 "değil. Hizmet hesabını Search Console'da mülke ekleyin (Ayarlar > "
 "Kullanıcılar ve izinler) ya da ayarlar ekranında mülkü girin."
 
-#: includes/premium/class-fast-index-premium-inspection.php:568
-#: includes/premium/class-fast-index-premium-inspection.php:694
+#: includes/premium/class-fast-index-premium-inspection.php:610
+#: includes/premium/class-fast-index-premium-inspection.php:740
 #: view/history.php:80
 msgid "Index Status"
 msgstr "Dizin durumu"
 
 #. translators: %s: date and time.
-#: includes/premium/class-fast-index-premium-inspection.php:598
+#: includes/premium/class-fast-index-premium-inspection.php:640
 #, php-format
 msgid "Last crawl: %s"
 msgstr "Son tarama: %s"
 
 #. translators: %s: date and time.
-#: includes/premium/class-fast-index-premium-inspection.php:602
+#: includes/premium/class-fast-index-premium-inspection.php:644
 #, php-format
 msgid "Checked: %s"
 msgstr "Denetlendi: %s"
 
-#: includes/premium/class-fast-index-premium-inspection.php:605
+#: includes/premium/class-fast-index-premium-inspection.php:647
 msgid "Open in Search Console"
 msgstr "Search Console'da aç"
 
-#: includes/premium/class-fast-index-premium-inspection.php:613
+#: includes/premium/class-fast-index-premium-inspection.php:655
 msgid "Check again"
 msgstr "Yeniden denetle"
 
-#: includes/premium/class-fast-index-premium-inspection.php:613
+#: includes/premium/class-fast-index-premium-inspection.php:655
 msgid "Check"
 msgstr "Denetle"
 
 #. translators: 1: address, 2: index state such as "Indexed".
-#: includes/premium/class-fast-index-premium-inspection.php:639
+#: includes/premium/class-fast-index-premium-inspection.php:681
 #, php-format
 msgid "Index status of %1$s: %2$s."
 msgstr "Dizin durumu (%1$s): %2$s."
 
-#: includes/premium/class-fast-index-premium-inspection.php:688
+#: includes/premium/class-fast-index-premium-inspection.php:734
 msgid "Accepted by Google, last 30 days"
 msgstr "Google'ın kabul ettiği, son 30 gün"
 
-#: includes/premium/class-fast-index-premium-inspection.php:689
+#: includes/premium/class-fast-index-premium-inspection.php:735
 msgid "Checked in Search Console"
 msgstr "Search Console'da denetlenen"
 
-#: includes/premium/class-fast-index-premium-inspection.php:701
+#: includes/premium/class-fast-index-premium-inspection.php:747
 msgid ""
 "Each address is checked automatically 24 hours after Google accepted it, and "
 "again after 72 hours if it was not indexed yet. The Check button in the list "
@@ -2795,7 +2827,7 @@ msgstr ""
 "Denetle düğmesi bir adresi hemen denetler."
 
 #. translators: 1: Search Console property, 2: checks made today, 3: checks allowed per day.
-#: includes/premium/class-fast-index-premium-inspection.php:708
+#: includes/premium/class-fast-index-premium-inspection.php:754
 #, php-format
 msgid "Property %1$s: %2$s of %3$s checks used today."
 msgstr "%1$s mülkü: bugün %3$s denetimden %2$s tanesi kullanıldı."
@@ -3035,12 +3067,12 @@ msgstr "Önceki"
 msgid "Next"
 msgstr "Sonraki"
 
-#: view/partial-band.php:20
+#: view/partial-band.php:25
 msgctxt "Plan name in the page header"
 msgid "Premium"
 msgstr "Premium"
 
-#: view/partial-band.php:22
+#: view/partial-band.php:27
 msgctxt "Plan name in the page header"
 msgid "Free"
 msgstr "Ücretsiz"

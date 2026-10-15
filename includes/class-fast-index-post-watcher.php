@@ -10,8 +10,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Turns post changes into queued notifications.
  *
- * Nothing is sent while the post is saved: the URL goes into a single WP-Cron event,
- * so saving a post never waits for Google.
+ * Nothing is sent while the post is saved: the URL goes into the queue (Fast_Index_Queue), which one WP-Cron
+ * event sends, so saving a post never waits for Google.
  *
  * Events: publish (a post becomes published, URL_UPDATED), edit (a published post is saved again, URL_UPDATED)
  * and trash (a published post is moved to the trash or deleted without the trash, URL_DELETED with the address
@@ -90,12 +90,13 @@ class Fast_Index_Post_Watcher {
 		/**
 		 * Filters whether a post event is sent to Google.
 		 *
-		 * @param bool    $notify   Whether the notification is queued.
+		 * @param bool    $notify   Whether the notification is queued. False for a password-protected post: its
+		 *                          address and title must not reach Google or IndexNow.
 		 * @param WP_Post $post     Post.
 		 * @param string  $event    Event name: publish, edit or trash.
 		 * @param array   $settings Clean settings.
 		 */
-		return (bool) apply_filters( 'fast_index_should_notify', true, $post, $event, $settings );
+		return (bool) apply_filters( 'fast_index_should_notify', ! self::is_protected( $post ), $post, $event, $settings );
 	}
 
 	/**
@@ -118,9 +119,40 @@ class Fast_Index_Post_Watcher {
 
 		$type = 'trash' === $event ? Fast_Index_Google_Client::TYPE_DELETED : Fast_Index_Google_Client::TYPE_UPDATED;
 
-		Fast_Index_Cron::queue_submission( $url, $type, (int) $post->ID );
+		Fast_Index_Queue::add( $url, $type, (int) $post->ID );
 
 		return true;
+	}
+
+	/**
+	 * Whether a post is password protected. Such posts are never sent: not on publish, edit or trash, not by hand
+	 * and not in the old-post batches.
+	 *
+	 * @param WP_Post $post Post.
+	 * @return bool
+	 */
+	public static function is_protected( WP_Post $post ) {
+		return '' !== (string) $post->post_password;
+	}
+
+	/**
+	 * Whether a queued notification still describes the post when it is sent. An update is sent only for a post
+	 * that is still published and not password protected; a removal is always sent.
+	 *
+	 * @param string $type    URL_UPDATED or URL_DELETED.
+	 * @param int    $post_id Post ID, 0 when unknown.
+	 * @return bool
+	 */
+	public static function still_public( $type, $post_id ) {
+		$post_id = absint( $post_id );
+
+		if ( Fast_Index_Google_Client::TYPE_UPDATED !== $type || 0 === $post_id ) {
+			return true;
+		}
+
+		$post = get_post( $post_id );
+
+		return $post instanceof WP_Post && 'publish' === $post->post_status && ! self::is_protected( $post );
 	}
 
 	/**

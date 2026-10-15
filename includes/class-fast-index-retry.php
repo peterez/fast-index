@@ -209,6 +209,9 @@ class Fast_Index_Retry {
 				// Every key rests again: the new attempt keeps the place and the age of the old one.
 				Fast_Index_Log::hold( $result['log_id'], $row['since'] );
 				$blocked = true;
+			} elseif ( Fast_Index_Submitter::is_outage( $result['code'] ) ) {
+				// Google did not answer or had a server error: the rest would wait the same way. Try again later.
+				return true;
 			}
 		}
 
@@ -237,10 +240,6 @@ class Fast_Index_Retry {
 	 * @return bool
 	 */
 	private static function still_needed( array $row ) {
-		if ( Fast_Index_Google_Client::TYPE_UPDATED !== $row['type'] || 0 === $row['post_id'] ) {
-			return Fast_Index_Post_Watcher::is_http_url( $row['url'] );
-		}
-
-		return 'publish' === get_post_status( $row['post_id'] ) && Fast_Index_Post_Watcher::is_http_url( $row['url'] );
+		return Fast_Index_Post_Watcher::is_http_url( $row['url'] ) && Fast_Index_Post_Watcher::still_public( $row['type'], $row['post_id'] );
 	}
 }

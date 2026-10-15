@@ -226,9 +226,10 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		$args    = array( get_permalink( $post_id ), 'URL_UPDATED', $post_id );
 
 		$this->assertSame( array(), $this->requests, 'Saving a post must not call Google.' );
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $args ) );
+		$this->assertTrue( self::is_queued( $args[0], $args[1], $args[2] ) );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Queue::HOOK ) );
 
-		( new Fast_Index_Cron() )->run_submit( $args[0], $args[1], $args[2] );
+		Fast_Index_Queue::run();
 
 		$this->assertCount( 1, $this->requests_to( Fast_Index_Google_Client::PUBLISH_URL ) );
 	}
@@ -284,7 +285,7 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		wp_trash_post( $post_id );
 
 		$this->assertStringNotContainsString( '__trashed', $url );
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( $url, 'URL_DELETED', $post_id ) ) );
+		$this->assertTrue( self::is_queued( $url, 'URL_DELETED', $post_id ) );
 	}
 
 	/**
@@ -312,24 +313,7 @@ class Fast_Index_Test_Submitter extends Fast_Index_Test_Case {
 		update_option( Fast_Index_Settings::OPTION, array( 'status' => '2' ) );
 		self::factory()->post->create();
 
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK ) );
-		$this->assertSame( array(), _get_cron_array() ? self::submit_events() : array() );
-	}
-
-	/**
-	 * Queued submit events.
-	 *
-	 * @return array[]
-	 */
-	private static function submit_events() {
-		$events = array();
-
-		foreach ( _get_cron_array() as $hooks ) {
-			if ( isset( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ) {
-				$events[] = $hooks[ Fast_Index_Cron::SUBMIT_HOOK ];
-			}
-		}
-
-		return $events;
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Queue::HOOK ) );
+		$this->assertSame( array(), self::queued_args() );
 	}
 }

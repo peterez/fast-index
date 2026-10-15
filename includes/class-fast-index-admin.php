@@ -131,7 +131,8 @@ class Fast_Index_Admin {
 	public function enqueue_assets( $hook_suffix ) {
 		$is_plugin_page = self::is_plugin_screen( $hook_suffix );
 
-		if ( ! $is_plugin_page && ! ( 'index.php' === $hook_suffix && Fast_Index_Notices::has_pending() ) ) {
+		// The dashboard notices are for administrators only: other users never read their options.
+		if ( ! $is_plugin_page && ! ( 'index.php' === $hook_suffix && current_user_can( 'manage_options' ) && Fast_Index_Notices::has_pending() ) ) {
 			return;
 		}
 

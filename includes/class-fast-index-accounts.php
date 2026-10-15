@@ -339,6 +339,21 @@ class Fast_Index_Accounts {
 	}
 
 	/**
+	 * Records that an account was accepted. Writes only what changed: an old rest is forgotten, and the shown status
+	 * becomes 200 once. A working key used to rewrite its status transient on every notification.
+	 *
+	 * @param string $id Account ID.
+	 * @return void
+	 */
+	public static function mark_working( $id ) {
+		if ( false !== get_transient( self::STATUS_TRANSIENT_PREFIX . $id ) ) {
+			delete_transient( self::STATUS_TRANSIENT_PREFIX . $id );
+		}
+
+		self::remember_status( $id, 200 );
+	}
+
+	/**
 	 * Stores the status shown on the settings screen without resting the account.
 	 *
 	 * @param string $id   Account ID.

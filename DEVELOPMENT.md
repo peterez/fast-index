@@ -38,14 +38,29 @@ the Edit and Trash events itself):
 | `fast_index_default_settings` | filter | settings used while they were never saved (Posts; Publish and Edit) |
 | `fast_index_send_to_google` | filter | whether a notification goes to Google; IndexNow is decided by its setting |
 | `fast_index_is_eligible` | filter | whether a post has JobPosting or BroadcastEvent data (saved content and WP Job Manager by default) |
+| `fast_index_manual_capability` | filter | capability needed for the Notify search engines row and bulk actions of a post type, besides `edit_post` per item (default: `edit_others_posts` of the type) |
+| `fast_index_history_retention_days` | filter | days History keeps its entries (default 90, 0 keeps everything); the daily event `fast_index_prune_history` removes older ones except the newest accepted Google entry of each post and entries that wait for a key |
+
+## Queue
+
+Saving a post never sends anything. `Fast_Index_Post_Watcher` adds the address to `Fast_Index_Queue`: one row per
+address in the options table (`fast_index_queue_` + md5 of the address, autoload off, written with one
+`INSERT ... ON DUPLICATE KEY UPDATE`; the newest event of an address wins and keeps its place). One single event,
+`fast_index_process_queue`, sends at most 100 addresses per run within 20 seconds: Google one by one, IndexNow the whole
+batch in one request (`Fast_Index_Notifier::deliver_many()`). A run claims a row by deleting it, so two runs never send
+the same address. While rows are left the next run is planned right away; after a Google outage (no answer or 5xx)
+the rest waits five minutes. A 5,000-post import therefore adds 5,000 small rows and at most one event, and the
+autoloaded `cron` option keeps its size. The 3.0.0 development builds planned one `fast_index_submit_url` event per
+address; `Fast_Index_Queue::adopt_legacy_events()` moves such events into the queue on activation, on upgrade, in the
+hourly run and when one of them runs. Deactivation keeps the rows; deleting the plugin removes them.
 
 ## IndexNow
 
 `Fast_Index_IndexNow` is off until the user checks "Also send to IndexNow". Then a 32-character key is created per
 site (option `fast_index_indexnow_key`, not autoloaded), `parse_request` answers `{home}/{key}.txt` with the key
 (no file, no rewrite rule; `keyLocation` is always sent, so a sub-directory site covers its own addresses), and
-`Fast_Index_Notifier` sends every queued notification to `https://api.indexnow.org/indexnow` in the same cron run as
-Google. History entries of IndexNow are posts of the type `fast_index_now_log`, so the Google counters, the old-post
+`Fast_Index_Notifier` sends the queued notifications to `https://api.indexnow.org/indexnow` in the same cron run as
+Google, one request per batch. History entries of IndexNow are posts of the type `fast_index_now_log`, so the Google counters, the old-post
 batches and the retry queue (all on `fi_log`) never see them. 200 and 202 are successes; nothing is retried.
 
 ## Index status (premium)
@@ -79,12 +94,17 @@ WordPress 6.2). Weeks without any History entry send nothing; the setting `weekl
   the network page `admin.php?page=fast-index`, which exists only while the opt-in screen is shown ("Cannot load
   fast-index"); the main site's settings open instead.
 - `plugin_icon` points to `assets/fast-index-icon.png`, so the SDK never downloads an icon into its folder.
+- `Fast_Index_Freemius::block_pricing_analytics()` (on `admin_print_footer_scripts`, priority 1) adds an inline
+  guard before the SDK's `freemius-pricing` script on the Upgrade page (`fast-index-pricing`, site or network admin):
+  that script inserts `//www.google-analytics.com/analytics.js` whenever it draws the plans (WordPress.org guideline 7).
+  `tests/test-freemius-analytics.php` fails when the bundled pricing script no longer contains it, so the guard can go.
 - `Fast_Index_Freemius::translate_texts()` (on `init`) replaces the Upgrade, Pricing, Skip and Allow & Continue
   texts with the plugin's translated strings, because Help & FAQ names them.
 
 Measured on a clean install of the WordPress.org package (every outgoing request logged and blocked): no request to
 Freemius before the opt-in choice or after Skip; opening Upgrade makes one server request to
-`api.freemius.com/v1/plugins/11893/pricing.json` without site data; Allow & Continue posts the opt-in data from the
+`api.freemius.com/v1/plugins/11893/pricing.json` without site data, and once the plans are drawn the browser loads
+`checkout.freemius.com/checkout.js` (Google Analytics is blocked, see above); Allow & Continue posts the opt-in data from the
 browser to `wp.freemius.com`; no Freemius update hook is attached. The readme's External services section describes
 this; measure again after an SDK update.
 

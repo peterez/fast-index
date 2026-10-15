@@ -95,6 +95,19 @@ class Fast_Index_Submitter {
 	}
 
 	/**
+	 * Whether a result code means that Google did not answer or had a server error (5xx). The next requests
+	 * would most likely wait and fail the same way, so a run stops sending to Google for now.
+	 *
+	 * @param int $code Result code.
+	 * @return bool
+	 */
+	public static function is_outage( $code ) {
+		$code = (int) $code;
+
+		return self::NO_RESPONSE === $code || $code >= 500;
+	}
+
+	/**
 	 * Builds the result of send().
 	 *
 	 * @param int  $code   Result code.
@@ -165,7 +178,7 @@ class Fast_Index_Submitter {
 			$result = ( new Fast_Index_Google_Client( $account ) )->publish( $url, $type );
 
 			if ( ! is_wp_error( $result ) ) {
-				Fast_Index_Accounts::set_status( $id, 200 );
+				Fast_Index_Accounts::mark_working( $id );
 				return 200;
 			}
 

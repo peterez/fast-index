@@ -523,7 +523,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'nothing-in-history',
 				'symptom' => __( 'A post is missing from History', 'fast-index' ),
-				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written, and while Supported Pages Only is checked, pages without JobPosting or BroadcastEvent data get no Google entry.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, when it is password protected, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written, and while Supported Pages Only is checked, pages without JobPosting or BroadcastEvent data get no Google entry.', 'fast-index' ),
 				'fix'     => esc_html__( 'Check the settings above. Changing a setting does not send earlier saves: after you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
 			),
 			array(
@@ -641,7 +641,7 @@ class Fast_Index_Help_Content {
 				'question' => __( 'Can I send posts by hand?', 'fast-index' ),
 				'answer'   => sprintf(
 					/* translators: 1: action name "Notify search engines", 2: most items sent at a time. */
-					esc_html__( 'Yes. In the list of posts, pages or another post type that Fast Index sends, hover over a published item and click %1$s, or select up to %2$s items, choose %1$s under Bulk actions and click Apply. Fast Index sends them to Google right away, and to IndexNow when it is on, and shows the result on the same screen; History lists each answer. You need permission to edit each item, and Status must be Active. Every address counts against Google\'s daily quota.', 'fast-index' ),
+					esc_html__( 'Yes. In the list of posts, pages or another post type that Fast Index sends, hover over a published item and click %1$s, or select up to %2$s items, choose %1$s under Bulk actions and click Apply. Fast Index sends them to Google right away, and to IndexNow when it is on, and shows the result on the same screen; History lists each answer. You need permission to edit each item and the items of other users, as Editors and Administrators have, and Status must be Active. Password-protected items are not sent. Every address counts against Google\'s daily quota.', 'fast-index' ),
 					self::strong( __( 'Notify search engines', 'fast-index' ) ),
 					esc_html( number_format_i18n( Fast_Index_Manual::MAX ) )
 				),
@@ -799,10 +799,30 @@ class Fast_Index_Help_Content {
 			'help'     => __( 'Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support.', 'fast-index' ),
 		);
 		$text  = isset( $texts[ $screen ] ) ? $texts[ $screen ] : $texts['help'];
+		$more  = 'history' === $screen ? self::retention_note() : '';
 
 		return array(
 			'title'   => __( 'About this screen', 'fast-index' ),
-			'content' => '<p>' . esc_html( $text ) . '</p>' . ( 'help' === $screen ? '' : '<p>' . self::page_link( Fast_Index_Help::SLUG, __( 'Open Help & FAQ', 'fast-index' ) ) . '</p>' ),
+			'content' => '<p>' . esc_html( $text ) . '</p>' . ( '' === $more ? '' : '<p>' . esc_html( $more ) . '</p>' ) . ( 'help' === $screen ? '' : '<p>' . self::page_link( Fast_Index_Help::SLUG, __( 'Open Help & FAQ', 'fast-index' ) ) . '</p>' ),
+		);
+	}
+
+	/**
+	 * How long History keeps its entries, as one sentence (plain text).
+	 *
+	 * @return string Empty when entries are kept for ever.
+	 */
+	public static function retention_note() {
+		$days = Fast_Index_Log::retention_days();
+
+		if ( 0 === $days ) {
+			return '';
+		}
+
+		return sprintf(
+			/* translators: %s: number of days. */
+			_n( 'History keeps the entries of the last %s day and removes older ones once a day. The newest accepted entry of each post stays, so the post does not count as waiting again.', 'History keeps the entries of the last %s days and removes older ones once a day. The newest accepted entry of each post stays, so the post does not count as waiting again.', $days, 'fast-index' ),
+			number_format_i18n( $days )
 		);
 	}
 

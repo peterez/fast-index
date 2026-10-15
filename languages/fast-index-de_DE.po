@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-15T09:09:05+00:00\n"
-"PO-Revision-Date: 2026-10-15 03:41+0000\n"
+"POT-Creation-Date: 2026-10-15T11:34:00+00:00\n"
+"PO-Revision-Date: 2026-10-15 12:00+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -41,24 +41,24 @@ msgstr "Samet AKIN"
 msgid "https://www.linkedin.com/in/samet-akin/"
 msgstr "https://www.linkedin.com/in/samet-akin/"
 
-#: includes/class-fast-index-accounts.php:379
+#: includes/class-fast-index-accounts.php:394
 #: includes/class-fast-index-key-upload.php:70
 msgid "The file is empty or too large to be a service account key."
 msgstr "Die Datei ist leer oder zu groß für einen Dienstkontoschlüssel."
 
-#: includes/class-fast-index-accounts.php:385
+#: includes/class-fast-index-accounts.php:400
 msgid "The file is not valid JSON."
 msgstr "Die Datei ist kein gültiges JSON."
 
-#: includes/class-fast-index-accounts.php:389
+#: includes/class-fast-index-accounts.php:404
 msgid "The file is not a Google service account key."
 msgstr "Die Datei ist kein Google-Dienstkontoschlüssel."
 
-#: includes/class-fast-index-accounts.php:395
+#: includes/class-fast-index-accounts.php:410
 msgid "The key does not contain a valid client email."
 msgstr "Der Schlüssel enthält keine gültige Client-E-Mail-Adresse."
 
-#: includes/class-fast-index-accounts.php:401
+#: includes/class-fast-index-accounts.php:416
 msgid "The key does not contain a valid private key."
 msgstr "Der Schlüssel enthält keinen gültigen privaten Schlüssel."
 
@@ -86,7 +86,7 @@ msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
 #: includes/class-fast-index-admin-actions.php:220
-#: includes/class-fast-index-manual.php:312
+#: includes/class-fast-index-manual.php:358
 #: includes/class-fast-index-upgrade.php:249
 #: includes/class-fast-index-upgrade.php:254
 #: includes/class-fast-index-upgrade.php:376 view/history.php:59
@@ -104,7 +104,7 @@ msgid "Sorry, you are not allowed to do that."
 msgstr "Du bist leider nicht berechtigt, das zu tun."
 
 #: includes/class-fast-index-admin.php:69
-#: includes/class-fast-index-manual.php:305 view/partial-band.php:18
+#: includes/class-fast-index-manual.php:351 view/partial-band.php:19
 msgid "Fast Index"
 msgstr "Fast Index"
 
@@ -114,38 +114,38 @@ msgid "History"
 msgstr "Verlauf"
 
 #: includes/class-fast-index-admin.php:80
-#: includes/class-fast-index-help-content.php:816 view/help.php:16
-#: view/settings.php:277
+#: includes/class-fast-index-help-content.php:836 view/help.php:16
+#: view/partial-band.php:22 view/settings.php:277
 msgid "Help & FAQ"
 msgstr "Hilfe & FAQ"
 
-#: includes/class-fast-index-admin.php:302
+#: includes/class-fast-index-admin.php:305
 #: includes/class-fast-index-help-content.php:560
 msgid "No answer from IndexNow"
 msgstr "Keine Antwort von IndexNow"
 
-#: includes/class-fast-index-admin.php:306
+#: includes/class-fast-index-admin.php:309
 msgid "Not sent: no service account key"
 msgstr "Nicht gesendet: kein Dienstkontoschlüssel"
 
-#: includes/class-fast-index-admin.php:310
+#: includes/class-fast-index-admin.php:313
 msgid "Not sent: every key was paused"
 msgstr "Nicht gesendet: alle Schlüssel waren pausiert"
 
-#: includes/class-fast-index-admin.php:314
+#: includes/class-fast-index-admin.php:317
 msgid "Not sent: OpenSSL is missing"
 msgstr "Nicht gesendet: OpenSSL fehlt"
 
-#: includes/class-fast-index-admin.php:318
+#: includes/class-fast-index-admin.php:321
 #: includes/class-fast-index-help-content.php:481
 msgid "No answer from Google"
 msgstr "Keine Antwort von Google"
 
-#: includes/class-fast-index-admin.php:347
+#: includes/class-fast-index-admin.php:350
 msgid "Fast Index tries again when a key is ready."
 msgstr "Fast Index versucht es erneut, sobald ein Schlüssel bereit ist."
 
-#: includes/class-fast-index-admin.php:363
+#: includes/class-fast-index-admin.php:366
 msgid ""
 "IndexNow could not verify the key: open the key file address on the settings "
 "screen and check that it shows the key."
@@ -154,13 +154,13 @@ msgstr ""
 "Schlüsseldatei auf der Einstellungsseite und prüfe, ob sie den Schlüssel "
 "zeigt."
 
-#: includes/class-fast-index-admin.php:365
+#: includes/class-fast-index-admin.php:368
 msgid ""
 "IndexNow refused the address: it does not belong to the host of the key."
 msgstr ""
 "IndexNow hat die Adresse abgelehnt: Sie gehört nicht zum Host des Schlüssels."
 
-#: includes/class-fast-index-admin.php:367
+#: includes/class-fast-index-admin.php:370
 msgid ""
 "IndexNow received too many requests from this site and treats them as "
 "possible spam. Send fewer addresses at once."
@@ -168,7 +168,7 @@ msgstr ""
 "IndexNow hat zu viele Anfragen von dieser Website erhalten und behandelt sie "
 "als möglichen Spam. Sende weniger Adressen auf einmal."
 
-#: includes/class-fast-index-admin.php:374
+#: includes/class-fast-index-admin.php:377
 msgid ""
 "Daily quota reached: every key is paused until Google resets the quota at "
 "midnight Pacific Time."
@@ -177,36 +177,36 @@ msgstr ""
 "Kontingent um Mitternacht pazifischer Zeit zurücksetzt."
 
 #. translators: %s: date and time.
-#: includes/class-fast-index-admin.php:388
+#: includes/class-fast-index-admin.php:391
 #, php-format
 msgid "Paused until %s"
 msgstr "Pausiert bis %s"
 
-#: includes/class-fast-index-admin.php:451
+#: includes/class-fast-index-admin.php:454
 #: includes/class-fast-index-help.php:111
-#: includes/premium/class-fast-index-premium-backlog.php:201
+#: includes/premium/class-fast-index-premium-backlog.php:204
 msgid "Sorry, you are not allowed to access this page."
 msgstr "Du bist leider nicht berechtigt, auf diese Seite zuzugreifen."
 
-#: includes/class-fast-index-freemius.php:165
+#: includes/class-fast-index-freemius.php:215
 #: includes/class-fast-index-help-content.php:725
 #: includes/class-fast-index-help-content.php:739
 #: includes/class-fast-index-upgrade.php:494
 msgid "Upgrade"
 msgstr "Upgrade"
 
-#: includes/class-fast-index-freemius.php:166
+#: includes/class-fast-index-freemius.php:216
 msgctxt "Title of the Freemius page with the plans"
 msgid "Pricing"
 msgstr "Preise"
 
-#: includes/class-fast-index-freemius.php:167
+#: includes/class-fast-index-freemius.php:217
 #: includes/class-fast-index-help-content.php:750
 msgctxt "Button of the Freemius opt-in screen"
 msgid "Skip"
 msgstr "Überspringen"
 
-#: includes/class-fast-index-freemius.php:168
+#: includes/class-fast-index-freemius.php:218
 #: includes/class-fast-index-help-content.php:751
 msgctxt "Button of the Freemius opt-in screen"
 msgid "Allow & Continue"
@@ -239,13 +239,13 @@ msgstr ""
 "zu aktivieren."
 
 #: includes/class-fast-index-google-client.php:374
-#: includes/premium/class-fast-index-premium-inspection.php:372
+#: includes/premium/class-fast-index-premium-inspection.php:383
 msgid "Could not connect to Google."
 msgstr "Verbindung zu Google nicht möglich."
 
 #. translators: %d: HTTP status code returned by Google.
 #: includes/class-fast-index-google-client.php:425
-#: includes/premium/class-fast-index-premium-inspection.php:375
+#: includes/premium/class-fast-index-premium-inspection.php:386
 #, php-format
 msgid "Google answered with HTTP status %d."
 msgstr "Google hat mit HTTP-Status %d geantwortet."
@@ -1259,19 +1259,21 @@ msgstr "Ein Beitrag fehlt im Verlauf"
 msgid ""
 "Fast Index skips a post when Status is Passive, when its post type or the "
 "event (Publish, Edit, Trash) is not checked, when it is in a category "
-"excluded by the premium plan, or when it is not published. Nothing is "
-"written to History then. While IndexNow is on and no Google key is stored, "
-"only IndexNow entries are written, and while Supported Pages Only is "
-"checked, pages without JobPosting or BroadcastEvent data get no Google entry."
+"excluded by the premium plan, when it is password protected, or when it is "
+"not published. Nothing is written to History then. While IndexNow is on and "
+"no Google key is stored, only IndexNow entries are written, and while "
+"Supported Pages Only is checked, pages without JobPosting or BroadcastEvent "
+"data get no Google entry."
 msgstr ""
 "Fast Index überspringt einen Beitrag, wenn der Status „Passiv“ ist, wenn "
 "sein Inhaltstyp oder das Ereignis (Veröffentlichen, Bearbeiten, Papierkorb) "
 "nicht angehakt ist, wenn er in einer vom Premium-Tarif ausgeschlossenen "
-"Kategorie liegt oder wenn er nicht veröffentlicht ist. Dann wird nichts in "
-"den Verlauf geschrieben. Solange IndexNow an ist und kein Google-Schlüssel "
-"gespeichert ist, werden nur IndexNow-Einträge geschrieben, und solange „Nur "
-"unterstützte Seiten“ angehakt ist, erhalten Seiten ohne JobPosting- oder "
-"BroadcastEvent-Daten keinen Google-Eintrag."
+"Kategorie liegt, wenn er passwortgeschützt ist oder wenn er nicht "
+"veröffentlicht ist. Dann wird nichts in den Verlauf geschrieben. Solange "
+"IndexNow an ist und kein Google-Schlüssel gespeichert ist, werden nur "
+"IndexNow-Einträge geschrieben, und solange „Nur unterstützte Seiten“ "
+"angehakt ist, erhalten Seiten ohne JobPosting- oder BroadcastEvent-Daten "
+"keinen Google-Eintrag."
 
 #: includes/class-fast-index-help-content.php:527
 msgid ""
@@ -1681,8 +1683,9 @@ msgid ""
 "choose %1$s under Bulk actions and click Apply. Fast Index sends them to "
 "Google right away, and to IndexNow when it is on, and shows the result on "
 "the same screen; History lists each answer. You need permission to edit each "
-"item, and Status must be Active. Every address counts against Google's daily "
-"quota."
+"item and the items of other users, as Editors and Administrators have, and "
+"Status must be Active. Password-protected items are not sent. Every address "
+"counts against Google's daily quota."
 msgstr ""
 "Ja. Fahre in der Liste der Beiträge, Seiten oder eines anderen Inhaltstyps, "
 "den Fast Index sendet, mit der Maus über ein veröffentlichtes Element und "
@@ -1690,11 +1693,13 @@ msgstr ""
 "„Mehrfachaktionen“ und klicke auf „Übernehmen“. Fast Index sendet sie sofort "
 "an Google und, wenn es eingeschaltet ist, an IndexNow und zeigt das Ergebnis "
 "auf derselben Seite; der Verlauf listet jede Antwort. Du brauchst die "
-"Berechtigung, jedes Element zu bearbeiten, und der Status muss „Aktiv“ sein. "
-"Jede Adresse zählt zum Tageskontingent von Google."
+"Berechtigung, jedes Element und die Elemente anderer Benutzer zu bearbeiten, "
+"wie sie Redakteure und Administratoren haben, und der Status muss „Aktiv“ "
+"sein. Passwortgeschützte Elemente werden nicht gesendet. Jede Adresse zählt "
+"zum Tageskontingent von Google."
 
 #: includes/class-fast-index-help-content.php:645
-#: includes/class-fast-index-manual.php:110
+#: includes/class-fast-index-manual.php:144
 msgid "Notify search engines"
 msgstr "Suchmaschinen benachrichtigen"
 
@@ -1722,7 +1727,7 @@ msgstr ""
 "Google."
 
 #: includes/class-fast-index-help-content.php:656
-#: includes/premium/class-fast-index-premium-backlog.php:191
+#: includes/premium/class-fast-index-premium-backlog.php:194
 #: includes/premium/view-run.php:14
 msgid "Send Old Posts Now"
 msgstr "Alte Beiträge jetzt senden"
@@ -2167,24 +2172,44 @@ msgstr ""
 "Problembehandlung, häufig gestellte Fragen und die Systeminformationen, die "
 "du bei einer Support-Anfrage mitschicken solltest."
 
-#: includes/class-fast-index-help-content.php:804
+#: includes/class-fast-index-help-content.php:805
 msgid "About this screen"
 msgstr "Über diese Seite"
 
-#: includes/class-fast-index-help-content.php:805 view/settings.php:286
+#: includes/class-fast-index-help-content.php:806 view/settings.php:286
 msgid "Open Help & FAQ"
 msgstr "Hilfe & FAQ öffnen"
 
-#: includes/class-fast-index-help-content.php:815
+#. translators: %s: number of days.
+#: includes/class-fast-index-help-content.php:824
+#, php-format
+msgid ""
+"History keeps the entries of the last %s day and removes older ones once a "
+"day. The newest accepted entry of each post stays, so the post does not "
+"count as waiting again."
+msgid_plural ""
+"History keeps the entries of the last %s days and removes older ones once a "
+"day. The newest accepted entry of each post stays, so the post does not "
+"count as waiting again."
+msgstr[0] ""
+"Der Verlauf behält die Einträge des letzten %s Tages und löscht ältere "
+"einmal am Tag. Der neueste angenommene Eintrag jedes Beitrags bleibt, damit "
+"der Beitrag nicht wieder als wartend zählt."
+msgstr[1] ""
+"Der Verlauf behält die Einträge der letzten %s Tage und löscht ältere einmal "
+"am Tag. Der neueste angenommene Eintrag jedes Beitrags bleibt, damit der "
+"Beitrag nicht wieder als wartend zählt."
+
+#: includes/class-fast-index-help-content.php:835
 msgid "For more information:"
 msgstr "Weitere Informationen:"
 
-#: includes/class-fast-index-help-content.php:817
+#: includes/class-fast-index-help-content.php:837
 msgid "Support forum"
 msgstr "Support-Forum"
 
-#: includes/class-fast-index-help-content.php:840
-#: includes/premium/class-fast-index-premium-inspection.php:605
+#: includes/class-fast-index-help-content.php:860
+#: includes/premium/class-fast-index-premium-inspection.php:647
 msgid "(external link, opens in a new tab)"
 msgstr "(externer Link, öffnet in einem neuen Tab)"
 
@@ -2307,16 +2332,16 @@ msgstr "Es wurde noch nichts gesendet."
 msgid "The file could not be uploaded."
 msgstr "Die Datei konnte nicht hochgeladen werden."
 
-#: includes/class-fast-index-log.php:97
+#: includes/class-fast-index-log.php:117
 msgid "Fast Index History"
 msgstr "Fast Index – Verlauf"
 
-#: includes/class-fast-index-log.php:98
+#: includes/class-fast-index-log.php:118
 msgid "Fast Index History Entry"
 msgstr "Fast Index – Verlaufseintrag"
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:243
+#: includes/class-fast-index-manual.php:284
 #, php-format
 msgid "Google accepted %s address."
 msgid_plural "Google accepted %s addresses."
@@ -2324,7 +2349,7 @@ msgstr[0] "Google hat %s Adresse angenommen."
 msgstr[1] "Google hat %s Adressen angenommen."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:248
+#: includes/class-fast-index-manual.php:289
 #, php-format
 msgid ""
 "%s address was not accepted by Google or could not be sent. History shows "
@@ -2340,7 +2365,7 @@ msgstr[1] ""
 "werden. Der Verlauf zeigt den Grund."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:253
+#: includes/class-fast-index-manual.php:294
 #, php-format
 msgid "IndexNow accepted %s address."
 msgid_plural "IndexNow accepted %s addresses."
@@ -2348,7 +2373,7 @@ msgstr[0] "IndexNow hat %s Adresse angenommen."
 msgstr[1] "IndexNow hat %s Adressen angenommen."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:256
+#: includes/class-fast-index-manual.php:297
 #, php-format
 msgid "IndexNow did not accept %s address. History shows the reason."
 msgid_plural "IndexNow did not accept %s addresses. History shows the reason."
@@ -2358,7 +2383,7 @@ msgstr[1] ""
 "IndexNow hat %s Adressen nicht angenommen. Der Verlauf zeigt den Grund."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:261
+#: includes/class-fast-index-manual.php:302
 #, php-format
 msgid "%s address is queued and is sent in the background."
 msgid_plural "%s addresses are queued and are sent in the background."
@@ -2368,7 +2393,7 @@ msgstr[1] ""
 "%s Adressen stehen in der Warteschlange und werden im Hintergrund gesendet."
 
 #. translators: %s: number of selected items.
-#: includes/class-fast-index-manual.php:266
+#: includes/class-fast-index-manual.php:307
 #, php-format
 msgid ""
 "%s selected item was not sent: it is not published, its post type is not "
@@ -2385,8 +2410,18 @@ msgstr[1] ""
 "veröffentlicht, ihr Inhaltstyp ist in den Einstellungen nicht angehakt, oder "
 "du darfst sie nicht bearbeiten."
 
+#. translators: %s: number of selected items.
+#: includes/class-fast-index-manual.php:312
+#, php-format
+msgid "%s selected item is password protected and was not sent."
+msgid_plural "%s selected items are password protected and were not sent."
+msgstr[0] ""
+"%s ausgewähltes Element ist passwortgeschützt und wurde nicht gesendet."
+msgstr[1] ""
+"%s ausgewählte Elemente sind passwortgeschützt und wurden nicht gesendet."
+
 #. translators: 1: most items sent at a time, 2: number of selected items.
-#: includes/class-fast-index-manual.php:271
+#: includes/class-fast-index-manual.php:317
 #, php-format
 msgid ""
 "Up to %1$s items are sent at a time: the first %1$s of the %2$s selected "
@@ -2395,7 +2430,7 @@ msgstr ""
 "Höchstens %1$s Elemente werden auf einmal gesendet: Die ersten %1$s der %2$s "
 "ausgewählten Elemente wurden bearbeitet, die anderen nicht gesendet."
 
-#: includes/class-fast-index-manual.php:316
+#: includes/class-fast-index-manual.php:362
 msgid "Open History"
 msgstr "Verlauf öffnen"
 
@@ -2750,18 +2785,18 @@ msgstr ""
 "Gib eine Search-Console-Property wie sc-domain:example.com oder https://www."
 "example.com/ ein oder lass das Feld leer."
 
-#: includes/premium/class-fast-index-premium-inspection.php:161
+#: includes/premium/class-fast-index-premium-inspection.php:172
 msgid "Only addresses that Google accepted can be checked."
 msgstr "Nur Adressen, die Google angenommen hat, können geprüft werden."
 
-#: includes/premium/class-fast-index-premium-inspection.php:167
+#: includes/premium/class-fast-index-premium-inspection.php:178
 msgid "Upload a service account key on the settings screen first."
 msgstr ""
 "Lade zuerst auf der Einstellungsseite einen Dienstkonto-Schlüssel hoch."
 
 #. translators: %s: number of checks per day.
-#: includes/premium/class-fast-index-premium-inspection.php:182
-#: includes/premium/class-fast-index-premium-inspection.php:368
+#: includes/premium/class-fast-index-premium-inspection.php:193
+#: includes/premium/class-fast-index-premium-inspection.php:379
 #, php-format
 msgid ""
 "Search Console allows %s index status checks per day for each property, and "
@@ -2771,28 +2806,28 @@ msgstr ""
 "Property, und sie sind für heute aufgebraucht. Versuche es morgen noch "
 "einmal."
 
-#: includes/premium/class-fast-index-premium-inspection.php:331
-#: includes/premium/class-fast-index-premium-inspection.php:690
+#: includes/premium/class-fast-index-premium-inspection.php:342
+#: includes/premium/class-fast-index-premium-inspection.php:736
 msgid "Indexed"
 msgstr "Indexiert"
 
-#: includes/premium/class-fast-index-premium-inspection.php:333
+#: includes/premium/class-fast-index-premium-inspection.php:344
 msgid "Crawled, not indexed"
 msgstr "Gecrawlt, nicht indexiert"
 
-#: includes/premium/class-fast-index-premium-inspection.php:335
+#: includes/premium/class-fast-index-premium-inspection.php:346
 msgid "Discovered, not indexed"
 msgstr "Gefunden, nicht indexiert"
 
-#: includes/premium/class-fast-index-premium-inspection.php:337
+#: includes/premium/class-fast-index-premium-inspection.php:348
 msgid "Unknown to Google"
 msgstr "Google unbekannt"
 
-#: includes/premium/class-fast-index-premium-inspection.php:339
+#: includes/premium/class-fast-index-premium-inspection.php:350
 msgid "Not indexed"
 msgstr "Nicht indexiert"
 
-#: includes/premium/class-fast-index-premium-inspection.php:357
+#: includes/premium/class-fast-index-premium-inspection.php:368
 msgid ""
 "Google did not accept the service account key. Upload a new key on the "
 "settings screen."
@@ -2800,7 +2835,7 @@ msgstr ""
 "Google hat den Dienstkonto-Schlüssel nicht angenommen. Lade auf der "
 "Einstellungsseite einen neuen Schlüssel hoch."
 
-#: includes/premium/class-fast-index-premium-inspection.php:359
+#: includes/premium/class-fast-index-premium-inspection.php:370
 msgid ""
 "The Google Search Console API is not enabled in the Google Cloud project of "
 "the key. Enable it in the Google Cloud console, wait a few minutes and try "
@@ -2811,7 +2846,7 @@ msgstr ""
 "Minuten und versuche es noch einmal."
 
 #. translators: %s: Search Console property, such as sc-domain:example.com.
-#: includes/premium/class-fast-index-premium-inspection.php:363
+#: includes/premium/class-fast-index-premium-inspection.php:374
 #, php-format
 msgid ""
 "Search Console refused the check for %s: the service account is not a user "
@@ -2825,7 +2860,7 @@ msgstr ""
 "„Nutzer und Berechtigungen“) oder trage auf der Einstellungsseite die "
 "richtige Property ein."
 
-#: includes/premium/class-fast-index-premium-inspection.php:387
+#: includes/premium/class-fast-index-premium-inspection.php:398
 msgid ""
 "The service account is not a user of a Search Console property that covers "
 "this site. Add the service account to the property in Search Console "
@@ -2837,51 +2872,51 @@ msgstr ""
 "hinzu („Einstellungen“ > „Nutzer und Berechtigungen“) oder trage die "
 "Property auf der Einstellungsseite ein."
 
-#: includes/premium/class-fast-index-premium-inspection.php:568
-#: includes/premium/class-fast-index-premium-inspection.php:694
+#: includes/premium/class-fast-index-premium-inspection.php:610
+#: includes/premium/class-fast-index-premium-inspection.php:740
 #: view/history.php:80
 msgid "Index Status"
 msgstr "Indexstatus"
 
 #. translators: %s: date and time.
-#: includes/premium/class-fast-index-premium-inspection.php:598
+#: includes/premium/class-fast-index-premium-inspection.php:640
 #, php-format
 msgid "Last crawl: %s"
 msgstr "Letzter Crawl: %s"
 
 #. translators: %s: date and time.
-#: includes/premium/class-fast-index-premium-inspection.php:602
+#: includes/premium/class-fast-index-premium-inspection.php:644
 #, php-format
 msgid "Checked: %s"
 msgstr "Geprüft: %s"
 
-#: includes/premium/class-fast-index-premium-inspection.php:605
+#: includes/premium/class-fast-index-premium-inspection.php:647
 msgid "Open in Search Console"
 msgstr "In der Search Console öffnen"
 
-#: includes/premium/class-fast-index-premium-inspection.php:613
+#: includes/premium/class-fast-index-premium-inspection.php:655
 msgid "Check again"
 msgstr "Erneut prüfen"
 
-#: includes/premium/class-fast-index-premium-inspection.php:613
+#: includes/premium/class-fast-index-premium-inspection.php:655
 msgid "Check"
 msgstr "Prüfen"
 
 #. translators: 1: address, 2: index state such as "Indexed".
-#: includes/premium/class-fast-index-premium-inspection.php:639
+#: includes/premium/class-fast-index-premium-inspection.php:681
 #, php-format
 msgid "Index status of %1$s: %2$s."
 msgstr "Indexstatus von %1$s: %2$s."
 
-#: includes/premium/class-fast-index-premium-inspection.php:688
+#: includes/premium/class-fast-index-premium-inspection.php:734
 msgid "Accepted by Google, last 30 days"
 msgstr "Von Google angenommen, letzte 30 Tage"
 
-#: includes/premium/class-fast-index-premium-inspection.php:689
+#: includes/premium/class-fast-index-premium-inspection.php:735
 msgid "Checked in Search Console"
 msgstr "In der Search Console geprüft"
 
-#: includes/premium/class-fast-index-premium-inspection.php:701
+#: includes/premium/class-fast-index-premium-inspection.php:747
 msgid ""
 "Each address is checked automatically 24 hours after Google accepted it, and "
 "again after 72 hours if it was not indexed yet. The Check button in the list "
@@ -2892,7 +2927,7 @@ msgstr ""
 "Schaltfläche „Prüfen“ in der Liste prüft eine Adresse sofort."
 
 #. translators: 1: Search Console property, 2: checks made today, 3: checks allowed per day.
-#: includes/premium/class-fast-index-premium-inspection.php:708
+#: includes/premium/class-fast-index-premium-inspection.php:754
 #, php-format
 msgid "Property %1$s: %2$s of %3$s checks used today."
 msgstr "Property %1$s: %2$s von %3$s Prüfungen heute genutzt."
@@ -3134,12 +3169,12 @@ msgstr "Vorherige"
 msgid "Next"
 msgstr "Nächste"
 
-#: view/partial-band.php:20
+#: view/partial-band.php:25
 msgctxt "Plan name in the page header"
 msgid "Premium"
 msgstr "Premium"
 
-#: view/partial-band.php:22
+#: view/partial-band.php:27
 msgctxt "Plan name in the page header"
 msgid "Free"
 msgstr "Kostenlos"

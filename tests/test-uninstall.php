@@ -39,6 +39,7 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 	 */
 	public function test_uninstall_keeps_data_by_default() {
 		$log_id = $this->seed( false );
+		Fast_Index_Queue::add( 'https://example.org/queued/', 'URL_UPDATED', 0 );
 
 		Fast_Index_Uninstaller::run();
 		wp_cache_flush();
@@ -51,6 +52,8 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 		$this->assertFalse( get_transient( 'fast_index_token_test' ) );
 		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ) );
 		$this->assertFalse( wp_next_scheduled( 'fiDailyCronHook' ) );
+		$this->assertFalse( wp_next_scheduled( Fast_Index_Queue::HOOK ) );
+		$this->assertSame( 0, Fast_Index_Queue::count(), 'The queue is temporary data.' );
 	}
 
 	/**

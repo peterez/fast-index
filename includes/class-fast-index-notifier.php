@@ -54,13 +54,16 @@ class Fast_Index_Notifier {
 	}
 
 	/**
-	 * Sends notifications chosen by hand. Google gets them one by one within a time budget; what is left is queued
-	 * for the next scheduled-task run (both channels). IndexNow gets the addresses handled now in one request.
+	 * Sends several notifications (chosen by hand, or a batch of the queue). Google gets them one by one within a
+	 * time budget; what is left is queued for the next scheduled-task run (both channels). When Google does not
+	 * answer or answers 5xx, the rest is queued too, so one outage costs one request and not one per address.
+	 * IndexNow gets the addresses handled now in one request.
 	 *
 	 * @param array[] $items  Each: url, type, post_id.
 	 * @param int     $budget Seconds the Google requests may take.
 	 * @return array Keys: google (accepted, failed: counts), queued (count), indexnow (result of
-	 *               Fast_Index_IndexNow::submit(), null when IndexNow is off or nothing was handled now).
+	 *               Fast_Index_IndexNow::submit(), null when IndexNow is off or nothing was handled now), outage
+	 *               (bool: Google did not answer or answered 5xx).
 	 */
 	public static function deliver_many( array $items, $budget ) {
 		$settings = Fast_Index_Settings::get();
@@ -73,11 +76,12 @@ class Fast_Index_Notifier {
 			),
 			'queued'   => 0,
 			'indexnow' => null,
+			'outage'   => false,
 		);
 
 		foreach ( $items as $item ) {
-			if ( time() >= $deadline ) {
-				Fast_Index_Cron::queue_submission( $item['url'], $item['type'], $item['post_id'] );
+			if ( $result['outage'] || time() >= $deadline ) {
+				Fast_Index_Queue::add( $item['url'], $item['type'], $item['post_id'] );
 				++$result['queued'];
 				continue;
 			}
@@ -87,6 +91,7 @@ class Fast_Index_Notifier {
 			if ( self::wants_google( $settings, $item['post_id'] ) ) {
 				$sent = Fast_Index_Retry::deliver( $item['url'], $item['type'], $item['post_id'] );
 				++$result['google'][ 200 === $sent['code'] ? 'accepted' : 'failed' ];
+				$result['outage'] = Fast_Index_Submitter::is_outage( $sent['code'] );
 			}
 		}
 

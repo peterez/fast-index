@@ -51,6 +51,7 @@ require_once FAST_INDEX_PATH . 'includes/class-fast-index-retry.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-eligibility.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-indexnow.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-notifier.php';
+require_once FAST_INDEX_PATH . 'includes/class-fast-index-queue.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-cron.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-post-watcher.php';
 require_once FAST_INDEX_PATH . 'includes/class-fast-index-lock.php';

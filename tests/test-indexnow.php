@@ -105,11 +105,9 @@ class Fast_Index_Test_IndexNow extends Fast_Index_Test_Case {
 	private function publish_and_run() {
 		$post_id = self::factory()->post->create( array( 'post_status' => 'publish' ) );
 		$url     = get_permalink( $post_id );
-		$args    = array( $url, 'URL_UPDATED', $post_id );
 
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $args ) );
-		wp_unschedule_event( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $args ), Fast_Index_Cron::SUBMIT_HOOK, $args );
-		do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $args );
+		$this->assertTrue( self::is_queued( $url, 'URL_UPDATED', $post_id ) );
+		self::run_queued_url( $url );
 
 		return array(
 			'post_id' => $post_id,

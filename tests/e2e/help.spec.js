@@ -242,7 +242,7 @@ test.describe( 'Fast Index help', () => {
 
 		const postId = wp( [ 'post', 'create', '--post_status=publish', '--post_title=' + title, '--porcelain' ] );
 		// Only this post's notification: other posts published on the site meanwhile would push its row off page 1.
-		wp( [ 'eval', 'foreach ( (array) _get_cron_array() as $ts => $hooks ) { foreach ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ? array() : $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { if ( ' + postId + ' === (int) $event["args"][2] ) { wp_unschedule_event( $ts, Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); } } }' ] );
+		wp( [ 'eval', 'foreach ( Fast_Index_Queue::items( 100000 ) as $i ) { if ( ' + postId + ' === $i["post_id"] && null !== Fast_Index_Queue::take( $i["url"] ) ) { Fast_Index_Notifier::deliver( $i["url"], $i["type"], $i["post_id"] ); } }' ] );
 
 		await page.goto( HISTORY );
 		const row = page.locator( '#fi table tbody tr', { hasText: title } );

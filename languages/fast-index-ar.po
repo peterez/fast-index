@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-15T09:09:05+00:00\n"
-"PO-Revision-Date: 2026-10-15 03:41+0000\n"
+"POT-Creation-Date: 2026-10-15T11:34:00+00:00\n"
+"PO-Revision-Date: 2026-10-15 12:00+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -43,24 +43,24 @@ msgstr "Samet AKIN"
 msgid "https://www.linkedin.com/in/samet-akin/"
 msgstr "https://www.linkedin.com/in/samet-akin/"
 
-#: includes/class-fast-index-accounts.php:379
+#: includes/class-fast-index-accounts.php:394
 #: includes/class-fast-index-key-upload.php:70
 msgid "The file is empty or too large to be a service account key."
 msgstr "الملف فارغ أو أكبر من أن يكون مفتاح حساب خدمة."
 
-#: includes/class-fast-index-accounts.php:385
+#: includes/class-fast-index-accounts.php:400
 msgid "The file is not valid JSON."
 msgstr "الملف ليس بصيغة JSON صالحة."
 
-#: includes/class-fast-index-accounts.php:389
+#: includes/class-fast-index-accounts.php:404
 msgid "The file is not a Google service account key."
 msgstr "الملف ليس مفتاح حساب خدمة من Google."
 
-#: includes/class-fast-index-accounts.php:395
+#: includes/class-fast-index-accounts.php:410
 msgid "The key does not contain a valid client email."
 msgstr "لا يحتوي المفتاح على بريد إلكتروني صالح للعميل."
 
-#: includes/class-fast-index-accounts.php:401
+#: includes/class-fast-index-accounts.php:416
 msgid "The key does not contain a valid private key."
 msgstr "لا يحتوي المفتاح على مفتاح خاص صالح."
 
@@ -88,7 +88,7 @@ msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
 #: includes/class-fast-index-admin-actions.php:220
-#: includes/class-fast-index-manual.php:312
+#: includes/class-fast-index-manual.php:358
 #: includes/class-fast-index-upgrade.php:249
 #: includes/class-fast-index-upgrade.php:254
 #: includes/class-fast-index-upgrade.php:376 view/history.php:59
@@ -106,7 +106,7 @@ msgid "Sorry, you are not allowed to do that."
 msgstr "عذرًا، غير مسموح لك بالقيام بذلك."
 
 #: includes/class-fast-index-admin.php:69
-#: includes/class-fast-index-manual.php:305 view/partial-band.php:18
+#: includes/class-fast-index-manual.php:351 view/partial-band.php:19
 msgid "Fast Index"
 msgstr "Fast Index"
 
@@ -116,38 +116,38 @@ msgid "History"
 msgstr "السجل"
 
 #: includes/class-fast-index-admin.php:80
-#: includes/class-fast-index-help-content.php:816 view/help.php:16
-#: view/settings.php:277
+#: includes/class-fast-index-help-content.php:836 view/help.php:16
+#: view/partial-band.php:22 view/settings.php:277
 msgid "Help & FAQ"
 msgstr "المساعدة والأسئلة المتكررة"
 
-#: includes/class-fast-index-admin.php:302
+#: includes/class-fast-index-admin.php:305
 #: includes/class-fast-index-help-content.php:560
 msgid "No answer from IndexNow"
 msgstr "لا ردّ من IndexNow"
 
-#: includes/class-fast-index-admin.php:306
+#: includes/class-fast-index-admin.php:309
 msgid "Not sent: no service account key"
 msgstr "لم يُرسَل: لا يوجد مفتاح حساب خدمة"
 
-#: includes/class-fast-index-admin.php:310
+#: includes/class-fast-index-admin.php:313
 msgid "Not sent: every key was paused"
 msgstr "لم يُرسَل: كانت كل المفاتيح موقوفة مؤقتًا"
 
-#: includes/class-fast-index-admin.php:314
+#: includes/class-fast-index-admin.php:317
 msgid "Not sent: OpenSSL is missing"
 msgstr "لم يُرسَل: امتداد OpenSSL غير متوفر"
 
-#: includes/class-fast-index-admin.php:318
+#: includes/class-fast-index-admin.php:321
 #: includes/class-fast-index-help-content.php:481
 msgid "No answer from Google"
 msgstr "لا رد من Google"
 
-#: includes/class-fast-index-admin.php:347
+#: includes/class-fast-index-admin.php:350
 msgid "Fast Index tries again when a key is ready."
 msgstr "سيحاول Fast Index مرة أخرى عندما يصبح أحد المفاتيح جاهزًا."
 
-#: includes/class-fast-index-admin.php:363
+#: includes/class-fast-index-admin.php:366
 msgid ""
 "IndexNow could not verify the key: open the key file address on the settings "
 "screen and check that it shows the key."
@@ -155,12 +155,12 @@ msgstr ""
 "تعذّر على IndexNow التحقق من المفتاح: افتح رابط ملف المفتاح المعروض في شاشة "
 "الإعدادات وتحقق من أنه يعرض المفتاح."
 
-#: includes/class-fast-index-admin.php:365
+#: includes/class-fast-index-admin.php:368
 msgid ""
 "IndexNow refused the address: it does not belong to the host of the key."
 msgstr "رفض IndexNow الرابط: فهو لا يتبع مضيف المفتاح."
 
-#: includes/class-fast-index-admin.php:367
+#: includes/class-fast-index-admin.php:370
 msgid ""
 "IndexNow received too many requests from this site and treats them as "
 "possible spam. Send fewer addresses at once."
@@ -168,7 +168,7 @@ msgstr ""
 "تلقّى IndexNow طلبات كثيرة جدًا من هذا الموقع ويعدّها رسائل مزعجة محتملة. أرسل "
 "روابط أقل في المرة الواحدة."
 
-#: includes/class-fast-index-admin.php:374
+#: includes/class-fast-index-admin.php:377
 msgid ""
 "Daily quota reached: every key is paused until Google resets the quota at "
 "midnight Pacific Time."
@@ -177,36 +177,36 @@ msgstr ""
 "عند منتصف الليل بتوقيت المحيط الهادئ."
 
 #. translators: %s: date and time.
-#: includes/class-fast-index-admin.php:388
+#: includes/class-fast-index-admin.php:391
 #, php-format
 msgid "Paused until %s"
 msgstr "موقوف مؤقتًا حتى %s"
 
-#: includes/class-fast-index-admin.php:451
+#: includes/class-fast-index-admin.php:454
 #: includes/class-fast-index-help.php:111
-#: includes/premium/class-fast-index-premium-backlog.php:201
+#: includes/premium/class-fast-index-premium-backlog.php:204
 msgid "Sorry, you are not allowed to access this page."
 msgstr "عذرًا، غير مسموح لك الوصول إلى هذه الصفحة."
 
-#: includes/class-fast-index-freemius.php:165
+#: includes/class-fast-index-freemius.php:215
 #: includes/class-fast-index-help-content.php:725
 #: includes/class-fast-index-help-content.php:739
 #: includes/class-fast-index-upgrade.php:494
 msgid "Upgrade"
 msgstr "الترقية"
 
-#: includes/class-fast-index-freemius.php:166
+#: includes/class-fast-index-freemius.php:216
 msgctxt "Title of the Freemius page with the plans"
 msgid "Pricing"
 msgstr "الأسعار"
 
-#: includes/class-fast-index-freemius.php:167
+#: includes/class-fast-index-freemius.php:217
 #: includes/class-fast-index-help-content.php:750
 msgctxt "Button of the Freemius opt-in screen"
 msgid "Skip"
 msgstr "تخطي"
 
-#: includes/class-fast-index-freemius.php:168
+#: includes/class-fast-index-freemius.php:218
 #: includes/class-fast-index-help-content.php:751
 msgctxt "Button of the Freemius opt-in screen"
 msgid "Allow & Continue"
@@ -238,13 +238,13 @@ msgstr ""
 "اطلب من مزوّد الاستضافة تفعيل امتداد OpenSSL لإصدار PHP الذي يستخدمه موقعك."
 
 #: includes/class-fast-index-google-client.php:374
-#: includes/premium/class-fast-index-premium-inspection.php:372
+#: includes/premium/class-fast-index-premium-inspection.php:383
 msgid "Could not connect to Google."
 msgstr "تعذّر الاتصال بـ Google‏."
 
 #. translators: %d: HTTP status code returned by Google.
 #: includes/class-fast-index-google-client.php:425
-#: includes/premium/class-fast-index-premium-inspection.php:375
+#: includes/premium/class-fast-index-premium-inspection.php:386
 #, php-format
 msgid "Google answered with HTTP status %d."
 msgstr "ردّت Google بحالة HTTP رقم %d‏."
@@ -1186,17 +1186,19 @@ msgstr "مقالة غير موجودة في «السجل»"
 msgid ""
 "Fast Index skips a post when Status is Passive, when its post type or the "
 "event (Publish, Edit, Trash) is not checked, when it is in a category "
-"excluded by the premium plan, or when it is not published. Nothing is "
-"written to History then. While IndexNow is on and no Google key is stored, "
-"only IndexNow entries are written, and while Supported Pages Only is "
-"checked, pages without JobPosting or BroadcastEvent data get no Google entry."
+"excluded by the premium plan, when it is password protected, or when it is "
+"not published. Nothing is written to History then. While IndexNow is on and "
+"no Google key is stored, only IndexNow entries are written, and while "
+"Supported Pages Only is checked, pages without JobPosting or BroadcastEvent "
+"data get no Google entry."
 msgstr ""
 "يتخطى Fast Index المقالة عندما تكون «الحالة» «متوقف»، أو عندما لا يكون نوعها "
 "أو الحدث (نشر، تحرير، سلة المهملات) محددًا، أو عندما تكون في تصنيف تستثنيه "
-"الخطة المميزة، أو عندما لا تكون منشورة. وفي هذه الحالات لا يُكتب شيء في "
-"«السجل». وما دام IndexNow مفعّلًا ولا يوجد مفتاح Google مخزَّن، لا تُكتب إلا "
-"إدخالات IndexNow، وما دام خيار «الصفحات المدعومة فقط» محددًا، لا تحصل الصفحات "
-"التي لا تحتوي على بيانات JobPosting أو BroadcastEvent على إدخال Google."
+"الخطة المميزة، أو عندما تكون محمية بكلمة مرور، أو عندما لا تكون منشورة. وفي "
+"هذه الحالات لا يُكتب شيء في «السجل». وما دام IndexNow مفعّلًا ولا يوجد مفتاح "
+"Google مخزَّن، لا تُكتب إلا إدخالات IndexNow، وما دام خيار «الصفحات المدعومة "
+"فقط» محددًا، لا تحصل الصفحات التي لا تحتوي على بيانات JobPosting أو "
+"BroadcastEvent على إدخال Google."
 
 #: includes/class-fast-index-help-content.php:527
 msgid ""
@@ -1572,18 +1574,20 @@ msgid ""
 "choose %1$s under Bulk actions and click Apply. Fast Index sends them to "
 "Google right away, and to IndexNow when it is on, and shows the result on "
 "the same screen; History lists each answer. You need permission to edit each "
-"item, and Status must be Active. Every address counts against Google's daily "
-"quota."
+"item and the items of other users, as Editors and Administrators have, and "
+"Status must be Active. Password-protected items are not sent. Every address "
+"counts against Google's daily quota."
 msgstr ""
 "نعم. في قائمة المقالات أو الصفحات أو أي نوع محتوى آخر يرسله Fast Index، مرّر "
 "المؤشر فوق عنصر منشور وانقر %1$s، أو حدّد حتى %2$s عنصر، واختر %1$s من "
 "«إجراءات جماعية» وانقر «تطبيق». يرسلها Fast Index فورًا إلى Google، وإلى "
 "IndexNow إذا كان مفعّلًا، ويعرض النتيجة في الشاشة نفسها؛ ويعرض «السجل» كل ردّ. "
-"تحتاج إلى صلاحية تحرير كل عنصر، ويجب أن تكون «الحالة» «نشط». ويُحتسب كل رابط "
-"من الحصة اليومية لدى Google."
+"تحتاج إلى صلاحية تحرير كل عنصر وعناصر المستخدمين الآخرين، كما لدى المحررين "
+"والمديرين، ويجب أن تكون «الحالة» «نشط». ولا تُرسل العناصر المحمية بكلمة مرور. "
+"ويُحتسب كل رابط من الحصة اليومية لدى Google."
 
 #: includes/class-fast-index-help-content.php:645
-#: includes/class-fast-index-manual.php:110
+#: includes/class-fast-index-manual.php:144
 msgid "Notify search engines"
 msgstr "إبلاغ محركات البحث"
 
@@ -1609,7 +1613,7 @@ msgstr ""
 "الحد ضمن حصة Google اليومية."
 
 #: includes/class-fast-index-help-content.php:656
-#: includes/premium/class-fast-index-premium-backlog.php:191
+#: includes/premium/class-fast-index-premium-backlog.php:194
 #: includes/premium/view-run.php:14
 msgid "Send Old Posts Now"
 msgstr "إرسال المقالات القديمة الآن"
@@ -2015,24 +2019,54 @@ msgstr ""
 "إعداد خطوة بخطوة، وشرح لكل إعداد، واستكشاف الأخطاء وإصلاحها، والأسئلة "
 "المتكررة، ومعلومات النظام التي تُرفق عند طلب الدعم."
 
-#: includes/class-fast-index-help-content.php:804
+#: includes/class-fast-index-help-content.php:805
 msgid "About this screen"
 msgstr "حول هذه الشاشة"
 
-#: includes/class-fast-index-help-content.php:805 view/settings.php:286
+#: includes/class-fast-index-help-content.php:806 view/settings.php:286
 msgid "Open Help & FAQ"
 msgstr "افتح «المساعدة والأسئلة المتكررة»"
 
-#: includes/class-fast-index-help-content.php:815
+#. translators: %s: number of days.
+#: includes/class-fast-index-help-content.php:824
+#, php-format
+msgid ""
+"History keeps the entries of the last %s day and removes older ones once a "
+"day. The newest accepted entry of each post stays, so the post does not "
+"count as waiting again."
+msgid_plural ""
+"History keeps the entries of the last %s days and removes older ones once a "
+"day. The newest accepted entry of each post stays, so the post does not "
+"count as waiting again."
+msgstr[0] ""
+"يحتفظ «السجل» بإدخالات الأيام الأخيرة (عددها: %s) ويحذف الأقدم منها مرة كل "
+"يوم. ويبقى أحدث إدخال مقبول لكل مقالة، فلا تُحتسب المقالة منتظرة من جديد."
+msgstr[1] ""
+"يحتفظ «السجل» بإدخالات الأيام الأخيرة (عددها: %s) ويحذف الأقدم منها مرة كل "
+"يوم. ويبقى أحدث إدخال مقبول لكل مقالة، فلا تُحتسب المقالة منتظرة من جديد."
+msgstr[2] ""
+"يحتفظ «السجل» بإدخالات الأيام الأخيرة (عددها: %s) ويحذف الأقدم منها مرة كل "
+"يوم. ويبقى أحدث إدخال مقبول لكل مقالة، فلا تُحتسب المقالة منتظرة من جديد."
+msgstr[3] ""
+"يحتفظ «السجل» بإدخالات الأيام الأخيرة (عددها: %s) ويحذف الأقدم منها مرة كل "
+"يوم. ويبقى أحدث إدخال مقبول لكل مقالة، فلا تُحتسب المقالة منتظرة من جديد."
+msgstr[4] ""
+"يحتفظ «السجل» بإدخالات الأيام الأخيرة (عددها: %s) ويحذف الأقدم منها مرة كل "
+"يوم. ويبقى أحدث إدخال مقبول لكل مقالة، فلا تُحتسب المقالة منتظرة من جديد."
+msgstr[5] ""
+"يحتفظ «السجل» بإدخالات الأيام الأخيرة (عددها: %s) ويحذف الأقدم منها مرة كل "
+"يوم. ويبقى أحدث إدخال مقبول لكل مقالة، فلا تُحتسب المقالة منتظرة من جديد."
+
+#: includes/class-fast-index-help-content.php:835
 msgid "For more information:"
 msgstr "لمزيد من المعلومات:"
 
-#: includes/class-fast-index-help-content.php:817
+#: includes/class-fast-index-help-content.php:837
 msgid "Support forum"
 msgstr "منتدى الدعم"
 
-#: includes/class-fast-index-help-content.php:840
-#: includes/premium/class-fast-index-premium-inspection.php:605
+#: includes/class-fast-index-help-content.php:860
+#: includes/premium/class-fast-index-premium-inspection.php:647
 msgid "(external link, opens in a new tab)"
 msgstr "(رابط خارجي، يفتح في علامة تبويب جديدة)"
 
@@ -2155,16 +2189,16 @@ msgstr "لم يُرسل شيء بعد."
 msgid "The file could not be uploaded."
 msgstr "تعذّر رفع الملف."
 
-#: includes/class-fast-index-log.php:97
+#: includes/class-fast-index-log.php:117
 msgid "Fast Index History"
 msgstr "سجل Fast Index"
 
-#: includes/class-fast-index-log.php:98
+#: includes/class-fast-index-log.php:118
 msgid "Fast Index History Entry"
 msgstr "إدخال في سجل Fast Index"
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:243
+#: includes/class-fast-index-manual.php:284
 #, php-format
 msgid "Google accepted %s address."
 msgid_plural "Google accepted %s addresses."
@@ -2176,7 +2210,7 @@ msgstr[4] "عدد الروابط التي قبلتها Google: %s."
 msgstr[5] "عدد الروابط التي قبلتها Google: %s."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:248
+#: includes/class-fast-index-manual.php:289
 #, php-format
 msgid ""
 "%s address was not accepted by Google or could not be sent. History shows "
@@ -2198,7 +2232,7 @@ msgstr[5] ""
 "عدد الروابط التي لم تقبلها Google أو تعذّر إرسالها: %s. يعرض «السجل» السبب."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:253
+#: includes/class-fast-index-manual.php:294
 #, php-format
 msgid "IndexNow accepted %s address."
 msgid_plural "IndexNow accepted %s addresses."
@@ -2210,7 +2244,7 @@ msgstr[4] "عدد الروابط التي قبلها IndexNow: %s."
 msgstr[5] "عدد الروابط التي قبلها IndexNow: %s."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:256
+#: includes/class-fast-index-manual.php:297
 #, php-format
 msgid "IndexNow did not accept %s address. History shows the reason."
 msgid_plural "IndexNow did not accept %s addresses. History shows the reason."
@@ -2222,7 +2256,7 @@ msgstr[4] "عدد الروابط التي لم يقبلها IndexNow: %s. يعر
 msgstr[5] "عدد الروابط التي لم يقبلها IndexNow: %s. يعرض «السجل» السبب."
 
 #. translators: %s: number of addresses.
-#: includes/class-fast-index-manual.php:261
+#: includes/class-fast-index-manual.php:302
 #, php-format
 msgid "%s address is queued and is sent in the background."
 msgid_plural "%s addresses are queued and are sent in the background."
@@ -2234,7 +2268,7 @@ msgstr[4] "عدد الروابط في قائمة الانتظار، وتُرسل
 msgstr[5] "عدد الروابط في قائمة الانتظار، وتُرسل في الخلفية: %s."
 
 #. translators: %s: number of selected items.
-#: includes/class-fast-index-manual.php:266
+#: includes/class-fast-index-manual.php:307
 #, php-format
 msgid ""
 "%s selected item was not sent: it is not published, its post type is not "
@@ -2261,8 +2295,20 @@ msgstr[5] ""
 "عدد العناصر المحددة التي لم تُرسل: %s؛ فهي غير منشورة، أو نوعها غير محدد في "
 "الإعدادات، أو لا يمكنك تحريرها."
 
+#. translators: %s: number of selected items.
+#: includes/class-fast-index-manual.php:312
+#, php-format
+msgid "%s selected item is password protected and was not sent."
+msgid_plural "%s selected items are password protected and were not sent."
+msgstr[0] "عدد العناصر المحددة المحمية بكلمة مرور التي لم تُرسل: %s."
+msgstr[1] "عدد العناصر المحددة المحمية بكلمة مرور التي لم تُرسل: %s."
+msgstr[2] "عدد العناصر المحددة المحمية بكلمة مرور التي لم تُرسل: %s."
+msgstr[3] "عدد العناصر المحددة المحمية بكلمة مرور التي لم تُرسل: %s."
+msgstr[4] "عدد العناصر المحددة المحمية بكلمة مرور التي لم تُرسل: %s."
+msgstr[5] "عدد العناصر المحددة المحمية بكلمة مرور التي لم تُرسل: %s."
+
 #. translators: 1: most items sent at a time, 2: number of selected items.
-#: includes/class-fast-index-manual.php:271
+#: includes/class-fast-index-manual.php:317
 #, php-format
 msgid ""
 "Up to %1$s items are sent at a time: the first %1$s of the %2$s selected "
@@ -2271,7 +2317,7 @@ msgstr ""
 "يُرسل %1$s عنصر على الأكثر في المرة الواحدة: عولجت أول %1$s من العناصر "
 "المحددة البالغ عددها %2$s، ولم تُرسل البقية."
 
-#: includes/class-fast-index-manual.php:316
+#: includes/class-fast-index-manual.php:362
 msgid "Open History"
 msgstr "فتح «السجل»"
 
@@ -2629,17 +2675,17 @@ msgstr ""
 "أدخل موقع Search Console مثل sc-domain:example.com أو https://www.example."
 "com/، أو اترك الحقل فارغًا."
 
-#: includes/premium/class-fast-index-premium-inspection.php:161
+#: includes/premium/class-fast-index-premium-inspection.php:172
 msgid "Only addresses that Google accepted can be checked."
 msgstr "لا يمكن التحقق إلا من الروابط التي قبلتها Google."
 
-#: includes/premium/class-fast-index-premium-inspection.php:167
+#: includes/premium/class-fast-index-premium-inspection.php:178
 msgid "Upload a service account key on the settings screen first."
 msgstr "ارفع أولًا مفتاح حساب الخدمة في شاشة الإعدادات."
 
 #. translators: %s: number of checks per day.
-#: includes/premium/class-fast-index-premium-inspection.php:182
-#: includes/premium/class-fast-index-premium-inspection.php:368
+#: includes/premium/class-fast-index-premium-inspection.php:193
+#: includes/premium/class-fast-index-premium-inspection.php:379
 #, php-format
 msgid ""
 "Search Console allows %s index status checks per day for each property, and "
@@ -2648,34 +2694,34 @@ msgstr ""
 "تسمح Search Console بـ %s عملية تحقق من حالة الفهرسة يوميًا لكل موقع، وقد "
 "نفدت لهذا اليوم. حاول مرة أخرى غدًا."
 
-#: includes/premium/class-fast-index-premium-inspection.php:331
-#: includes/premium/class-fast-index-premium-inspection.php:690
+#: includes/premium/class-fast-index-premium-inspection.php:342
+#: includes/premium/class-fast-index-premium-inspection.php:736
 msgid "Indexed"
 msgstr "مفهرسة"
 
-#: includes/premium/class-fast-index-premium-inspection.php:333
+#: includes/premium/class-fast-index-premium-inspection.php:344
 msgid "Crawled, not indexed"
 msgstr "تم الزحف إليها، غير مفهرسة"
 
-#: includes/premium/class-fast-index-premium-inspection.php:335
+#: includes/premium/class-fast-index-premium-inspection.php:346
 msgid "Discovered, not indexed"
 msgstr "تم اكتشافها، غير مفهرسة"
 
-#: includes/premium/class-fast-index-premium-inspection.php:337
+#: includes/premium/class-fast-index-premium-inspection.php:348
 msgid "Unknown to Google"
 msgstr "غير معروفة لدى Google"
 
-#: includes/premium/class-fast-index-premium-inspection.php:339
+#: includes/premium/class-fast-index-premium-inspection.php:350
 msgid "Not indexed"
 msgstr "غير مفهرسة"
 
-#: includes/premium/class-fast-index-premium-inspection.php:357
+#: includes/premium/class-fast-index-premium-inspection.php:368
 msgid ""
 "Google did not accept the service account key. Upload a new key on the "
 "settings screen."
 msgstr "لم تقبل Google مفتاح حساب الخدمة. ارفع مفتاحًا جديدًا في شاشة الإعدادات."
 
-#: includes/premium/class-fast-index-premium-inspection.php:359
+#: includes/premium/class-fast-index-premium-inspection.php:370
 msgid ""
 "The Google Search Console API is not enabled in the Google Cloud project of "
 "the key. Enable it in the Google Cloud console, wait a few minutes and try "
@@ -2686,7 +2732,7 @@ msgstr ""
 "أخرى."
 
 #. translators: %s: Search Console property, such as sc-domain:example.com.
-#: includes/premium/class-fast-index-premium-inspection.php:363
+#: includes/premium/class-fast-index-premium-inspection.php:374
 #, php-format
 msgid ""
 "Search Console refused the check for %s: the service account is not a user "
@@ -2699,7 +2745,7 @@ msgstr ""
 "(«الإعدادات» > «المستخدمون والأذونات»)، أو اضبط الموقع الصحيح في شاشة "
 "الإعدادات."
 
-#: includes/premium/class-fast-index-premium-inspection.php:387
+#: includes/premium/class-fast-index-premium-inspection.php:398
 msgid ""
 "The service account is not a user of a Search Console property that covers "
 "this site. Add the service account to the property in Search Console "
@@ -2710,51 +2756,51 @@ msgstr ""
 "حساب الخدمة إلى الموقع في Search Console («الإعدادات» > «المستخدمون "
 "والأذونات»)، أو اضبط الموقع في شاشة الإعدادات."
 
-#: includes/premium/class-fast-index-premium-inspection.php:568
-#: includes/premium/class-fast-index-premium-inspection.php:694
+#: includes/premium/class-fast-index-premium-inspection.php:610
+#: includes/premium/class-fast-index-premium-inspection.php:740
 #: view/history.php:80
 msgid "Index Status"
 msgstr "حالة الفهرسة"
 
 #. translators: %s: date and time.
-#: includes/premium/class-fast-index-premium-inspection.php:598
+#: includes/premium/class-fast-index-premium-inspection.php:640
 #, php-format
 msgid "Last crawl: %s"
 msgstr "آخر زحف: %s"
 
 #. translators: %s: date and time.
-#: includes/premium/class-fast-index-premium-inspection.php:602
+#: includes/premium/class-fast-index-premium-inspection.php:644
 #, php-format
 msgid "Checked: %s"
 msgstr "تم التحقق: %s"
 
-#: includes/premium/class-fast-index-premium-inspection.php:605
+#: includes/premium/class-fast-index-premium-inspection.php:647
 msgid "Open in Search Console"
 msgstr "فتح في Search Console"
 
-#: includes/premium/class-fast-index-premium-inspection.php:613
+#: includes/premium/class-fast-index-premium-inspection.php:655
 msgid "Check again"
 msgstr "تحقق مرة أخرى"
 
-#: includes/premium/class-fast-index-premium-inspection.php:613
+#: includes/premium/class-fast-index-premium-inspection.php:655
 msgid "Check"
 msgstr "تحقق"
 
 #. translators: 1: address, 2: index state such as "Indexed".
-#: includes/premium/class-fast-index-premium-inspection.php:639
+#: includes/premium/class-fast-index-premium-inspection.php:681
 #, php-format
 msgid "Index status of %1$s: %2$s."
 msgstr "حالة فهرسة %1$s: %2$s."
 
-#: includes/premium/class-fast-index-premium-inspection.php:688
+#: includes/premium/class-fast-index-premium-inspection.php:734
 msgid "Accepted by Google, last 30 days"
 msgstr "قبلتها Google، آخر 30 يومًا"
 
-#: includes/premium/class-fast-index-premium-inspection.php:689
+#: includes/premium/class-fast-index-premium-inspection.php:735
 msgid "Checked in Search Console"
 msgstr "فُحصت في Search Console"
 
-#: includes/premium/class-fast-index-premium-inspection.php:701
+#: includes/premium/class-fast-index-premium-inspection.php:747
 msgid ""
 "Each address is checked automatically 24 hours after Google accepted it, and "
 "again after 72 hours if it was not indexed yet. The Check button in the list "
@@ -2764,7 +2810,7 @@ msgstr ""
 "إذا لم يكن قد فُهرس بعد. ويفحص زر «تحقق» في القائمة رابطًا واحدًا فورًا."
 
 #. translators: 1: Search Console property, 2: checks made today, 3: checks allowed per day.
-#: includes/premium/class-fast-index-premium-inspection.php:708
+#: includes/premium/class-fast-index-premium-inspection.php:754
 #, php-format
 msgid "Property %1$s: %2$s of %3$s checks used today."
 msgstr "الموقع %1$s: استُخدمت اليوم %2$s من أصل %3$s عملية تحقق."
@@ -3003,12 +3049,12 @@ msgstr "السابق"
 msgid "Next"
 msgstr "التالي"
 
-#: view/partial-band.php:20
+#: view/partial-band.php:25
 msgctxt "Plan name in the page header"
 msgid "Premium"
 msgstr "المميزة"
 
-#: view/partial-band.php:22
+#: view/partial-band.php:27
 msgctxt "Plan name in the page header"
 msgid "Free"
 msgstr "المجانية"
