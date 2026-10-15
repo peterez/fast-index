@@ -8,6 +8,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// Page views of the Fast Index specs (header X-Fast-Index-QA) do not start WP-Cron: the tests run the events with
+// WP-CLI, and a WP-Cron run in parallel could write back an older copy of the cron list.
+if ( isset( $_SERVER['HTTP_X_FAST_INDEX_QA'] ) && ! defined( 'DISABLE_WP_CRON' ) ) {
+	define( 'DISABLE_WP_CRON', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- The core constant, set for QA page views only.
+}
+
 /**
  * Fakes the answers of Google, Search Console and IndexNow, blocks the Freemius API and counts the requests.
  *

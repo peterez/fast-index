@@ -10,6 +10,10 @@
  * are checked as well.
  */
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
+
+// Page views of these specs do not start WP-Cron (tests/e2e/qa-google-stub.php reads this header): the tests run the
+// Fast Index events with WP-CLI, and a parallel WP-Cron run could write back an older copy of the cron list.
+test.use( { extraHTTPHeaders: { 'X-Fast-Index-QA': '1' } } );
 const { wp, serviceAccountFile, premiumLoaded, passOptIn } = require( './helpers' );
 
 const PREMIUM = premiumLoaded();
@@ -174,11 +178,14 @@ test.describe( 'Fast Index admin', () => {
 		const resting = 'E2E resting ' + stamp;
 		const restingId = wp( [ 'post', 'create', '--post_title=' + resting, '--post_status=publish', '--porcelain' ] );
 		runQueued( restingId );
+		// Read the plan before a page view: a WP-Cron run started by another page view can write back an older copy
+		// of the cron list (a WordPress race the tests should not depend on).
+		const planned = Number( wp( [ 'eval', 'echo wp_next_scheduled( Fast_Index_Retry::HOOK ) - time();' ] ) );
 		await page.goto( HISTORY );
 		await expect( row( resting ).locator( '.fi-history-status--not-sent' ) ).toContainText( label( 'RESTING' ) );
 		await expect( row( resting ).locator( '.fi-history-retry' ) ).toHaveText( note );
 		expect( wp( [ 'eval', 'echo Fast_Index_Log::count_held();' ] ) ).toBe( '1' );
-		expect( Number( wp( [ 'eval', 'echo wp_next_scheduled( Fast_Index_Retry::HOOK ) - time();' ] ) ) ).toBeGreaterThan( 5 * 3600 );
+		expect( planned ).toBeGreaterThan( 5 * 3600 );
 
 		// A key upload sends the waiting notification with the next scheduled-task run.
 		const { buffer } = serviceAccountFile( 'e2e-fresh@fast-index-e2e.iam.gserviceaccount.com', 'e2efresh0123456789abcdef0123456789abcdef' );

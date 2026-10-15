@@ -6,6 +6,10 @@
  * Google is never called: tests/e2e/qa-google-stub.php must be installed as a must-use plugin.
  */
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
+
+// Page views of these specs do not start WP-Cron (tests/e2e/qa-google-stub.php reads this header): the tests run the
+// Fast Index events with WP-CLI, and a parallel WP-Cron run could write back an older copy of the cron list.
+test.use( { extraHTTPHeaders: { 'X-Fast-Index-QA': '1' } } );
 const { wp, serviceAccountFile, premiumLoaded } = require( './helpers' );
 
 const PREMIUM = premiumLoaded();
@@ -233,7 +237,8 @@ test.describe( 'Fast Index help', () => {
 		await expect( page.locator( '.fast-index-accounts' ) ).toContainText( email );
 
 		const postId = wp( [ 'post', 'create', '--post_status=publish', '--post_title=' + title, '--porcelain' ] );
-		wp( [ 'cron', 'event', 'run', '--due-now' ] );
+		// Only this post's notification: other posts published on the site meanwhile would push its row off page 1.
+		wp( [ 'eval', 'foreach ( (array) _get_cron_array() as $ts => $hooks ) { foreach ( empty( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ? array() : $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) { if ( ' + postId + ' === (int) $event["args"][2] ) { wp_unschedule_event( $ts, Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $event["args"] ); } } }' ] );
 
 		await page.goto( HISTORY );
 		const row = page.locator( '#fi table tbody tr', { hasText: title } );

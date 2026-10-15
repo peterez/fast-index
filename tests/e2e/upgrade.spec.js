@@ -10,6 +10,10 @@
  * Checks are language-neutral (the sites run in English, Turkish and Arabic): element classes, links and numbers.
  */
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
+
+// Page views of these specs do not start WP-Cron (tests/e2e/qa-google-stub.php reads this header): the tests run the
+// Fast Index events with WP-CLI, and a parallel WP-Cron run could write back an older copy of the cron list.
+test.use( { extraHTTPHeaders: { 'X-Fast-Index-QA': '1' } } );
 const { wp, serviceAccountFile, premiumLoaded, passOptIn, IS_MULTISITE } = require( './helpers' );
 
 const PREMIUM = premiumLoaded();
@@ -62,7 +66,14 @@ test.describe( 'Fast Index premium plan', () => {
 		expect( await card.locator( '.fi-compare tbody tr' ).count() ).toBeGreaterThanOrEqual( 7 );
 		await expect( card.locator( '.fi-compare .fi-no' ).first() ).toBeVisible();
 		await expect( card.locator( 'a.button' ) ).toHaveAttribute( 'href', PRICING );
-		expect( await card.innerText(), 'no discount or deadline' ).not.toMatch( /\d+\s?%|\d+\s?(day|hour)s?\b/i );
+		// No discount and no deadline. The comparison table may name hours ("checks 24 and 72 hours after sending").
+		const offer = await card.evaluate( ( el ) => {
+			const copy = el.cloneNode( true );
+			copy.querySelectorAll( '.fi-compare' ).forEach( ( table ) => table.remove() );
+			return copy.textContent;
+		} );
+		expect( offer, 'no discount or deadline' ).not.toMatch( /\d+\s?%|\d+\s?(day|hour)s?\b/i );
+		expect( await card.locator( '.fi-compare' ).innerText(), 'no discount' ).not.toMatch( /\d+\s?%/ );
 
 		// The hints are a badge that opens a short text with the upgrade link; not a control of a setting: the old
 		// posts and the excluded categories (named in their own rows, without a field) and the key upload.

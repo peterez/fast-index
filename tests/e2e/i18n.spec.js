@@ -26,6 +26,10 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
 const { test, expect, admin } = require( process.env.CDO_E2E_FIXTURES );
+
+// Page views of these specs do not start WP-Cron (tests/e2e/qa-google-stub.php reads this header): the tests run the
+// Fast Index events with WP-CLI, and a parallel WP-Cron run could write back an older copy of the cron list.
+test.use( { extraHTTPHeaders: { 'X-Fast-Index-QA': '1' } } );
 const { wp, readPo, premiumLoaded, IS_MULTISITE, SITE_URL } = require( './helpers' );
 
 const PREMIUM = premiumLoaded();
