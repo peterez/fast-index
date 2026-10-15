@@ -162,7 +162,8 @@ test.describe( 'Fast Index admin', () => {
 		const stamp = Date.now();
 
 		wp( [ 'option', 'update', 'fast_index_options', '{"status":"1","post_type":{"post":"1"},"post_status":{"publish":"1"}}', '--format=json' ] );
-		wp( [ 'eval', 'foreach ( array_keys( Fast_Index_Accounts::all() ) as $id ) { Fast_Index_Accounts::delete( $id ); }' ] );
+		// Start from an empty queue: a run that stopped half-way may have left a waiting notification.
+		wp( [ 'eval', 'foreach ( array_keys( Fast_Index_Accounts::all() ) as $id ) { Fast_Index_Accounts::delete( $id ); } foreach ( Fast_Index_Log::held( 1000 ) as $held ) { Fast_Index_Log::release( $held["id"] ); } wp_unschedule_hook( Fast_Index_Retry::HOOK );' ] );
 
 		// No key: History says so, and nothing waits.
 		const noKey = 'E2E no key ' + stamp;
