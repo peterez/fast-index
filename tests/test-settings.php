@@ -78,21 +78,41 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * FI-043: a site that never saved the settings sends Publish only; Edit is not a default of the free version.
+	 * FI-R02: a site that never saved the settings sends Posts on Publish and Edit (the 2.x defaults), and the
+	 * screen offers every public post type and the three events. The screen shows what is sent (FI-043).
 	 *
 	 * @return void
 	 */
-	public function test_defaults_send_publish_only() {
-		$this->assertSame( array( 'publish' => '1' ), Fast_Index_Settings::defaults()['post_status'] );
-		$this->assertSame( array( 'publish' ), Fast_Index_Settings::enabled_events( Fast_Index_Settings::get() ) );
+	public function test_defaults_send_publish_and_edit() {
+		$this->assertSame(
+			array(
+				'publish' => '1',
+				'edit'    => '1',
+			),
+			Fast_Index_Settings::defaults()['post_status']
+		);
+		$this->assertSame( array( 'publish', 'edit' ), Fast_Index_Settings::enabled_events( Fast_Index_Settings::get() ) );
 		$this->assertSame( array( 'post' ), Fast_Index_Settings::enabled_post_types( Fast_Index_Settings::get() ) );
-		$this->assertSame( array( 'publish' => 'Publish' ), Fast_Index_Settings::event_choices() );
-		$this->assertSame( array( 'post' ), array_keys( Fast_Index_Settings::post_type_choices() ) );
+		$this->assertSame(
+			array(
+				'publish' => 'Publish',
+				'edit'    => 'Edit',
+				'trash'   => 'Trash',
+			),
+			Fast_Index_Settings::event_choices()
+		);
+
+		$choices = array_keys( Fast_Index_Settings::post_type_choices() );
+		$this->assertContains( 'post', $choices );
+		$this->assertContains( 'page', $choices );
+		$this->assertNotContains( 'attachment', $choices );
+		$this->assertNotContains( Fast_Index_Log::POST_TYPE, $choices );
 	}
 
 	/**
-	 * Free version: saving the form changes only what the form shows. Values of the premium plan stay stored,
-	 * are not used, and are listed in the note of the settings screen.
+	 * Free version (FI-R02): post types and events saved by an earlier version are used. Values of the premium
+	 * plan stay stored, are not used, and are listed in the note of the settings screen; the form does not
+	 * change them.
 	 *
 	 * @return void
 	 */
@@ -119,11 +139,11 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 
 		$stored = Fast_Index_Settings::get();
 
-		$this->assertSame( array( 'post' ), Fast_Index_Settings::enabled_post_types( $stored ) );
-		$this->assertSame( array( 'publish' ), Fast_Index_Settings::enabled_events( $stored ) );
-		$this->assertCount( 4, Fast_Index_Settings::unused( $stored ) );
+		$this->assertSame( array( 'post', 'page' ), Fast_Index_Settings::enabled_post_types( $stored ) );
+		$this->assertSame( array( 'publish', 'edit', 'trash' ), Fast_Index_Settings::enabled_events( $stored ) );
+		$this->assertCount( 2, Fast_Index_Settings::unused( $stored ), 'Old posts and categories are unused.' );
 
-		// The free form has Posts and Publish only; the user unchecks Publish and turns on data deletion.
+		// The user unchecks Pages and every event and turns on data deletion; old posts are not on the free form.
 		$clean = Fast_Index_Settings::sanitize_input(
 			array(
 				'status'          => '2',
@@ -135,20 +155,8 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 
 		$this->assertSame( '2', $clean['status'] );
 		$this->assertTrue( $clean['delete_data'] );
-		$this->assertSame(
-			array(
-				'post' => '1',
-				'page' => '1',
-			),
-			$clean['post_type']
-		);
-		$this->assertSame(
-			array(
-				'edit'  => '1',
-				'trash' => '1',
-			),
-			$clean['post_status']
-		);
+		$this->assertSame( array( 'post' => '1' ), $clean['post_type'] );
+		$this->assertSame( array(), $clean['post_status'] );
 		$this->assertSame( 40, $clean['old_post_number'], 'A value the free form does not show is not taken from the request.' );
 		$this->assertSame( array( $category => $category ), $clean['exclude_category'] );
 
@@ -206,7 +214,7 @@ class Fast_Index_Test_Settings extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Premium: sites that never saved the settings keep the 2.x default of Publish and Edit.
+	 * Premium: the defaults are the same as in the free version.
 	 *
 	 * @return void
 	 */

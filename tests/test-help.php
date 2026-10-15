@@ -344,8 +344,13 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 			$this->assertStringNotContainsString( 'premium', Fast_Index_Help_Content::field_description( $field ), $field );
 		}
 
-		foreach ( array( 'post_type', 'old_post_number', 'post_status', 'exclude_category', 'service_account' ) as $field ) {
+		foreach ( array( 'old_post_number', 'exclude_category', 'service_account' ) as $field ) {
 			$this->assertStringContainsString( 'premium plan, a separate package', Fast_Index_Help_Content::premium_note( $field ), $field );
+		}
+
+		// FI-R02: post types and events are free; no premium sentence for them.
+		foreach ( array( 'post_type', 'post_status' ) as $field ) {
+			$this->assertSame( '', Fast_Index_Help_Content::premium_note( $field ), $field );
 		}
 
 		foreach ( Fast_Index_Help_Content::settings() as $setting ) {
@@ -356,7 +361,7 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 		foreach ( Fast_Index_Help_Content::faq() as $item ) {
 			$this->assertStringNotContainsString( 'In this version', wp_strip_all_tags( $item['answer'] ), $item['id'] );
 
-			foreach ( array( 'post_type', 'post_status', 'old_post_number' ) as $field ) {
+			foreach ( array( 'old_post_number', 'exclude_category', 'service_account' ) as $field ) {
 				$note = esc_html( Fast_Index_Help_Content::premium_note( $field ) );
 
 				if ( false !== strpos( $item['answer'], $note ) ) {

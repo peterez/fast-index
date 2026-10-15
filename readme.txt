@@ -27,12 +27,12 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 1. You create a Google Cloud project, turn on the Web Search Indexing API and download a JSON key for a service account.
 2. You add that service account as an Owner of your site in Google Search Console.
 3. You upload the key on the Fast Index settings screen.
-4. When a post is published, Fast Index queues a notification. WP-Cron sends it a moment later, so saving a post is not slowed down.
+4. When a post is published, updated, trashed or deleted, Fast Index queues a notification. WP-Cron sends it a moment later, so saving a post is not slowed down.
 5. The History screen shows each notification with the answer of Google, for example 200 OK.
 
 **Features**
 
-* Notification (URL_UPDATED) when a post is published.
+* Notifications for every public post type (posts, pages, custom post types such as products or job listings): URL_UPDATED when content is published or updated, URL_DELETED when it is trashed or deleted. You choose the post types and the events.
 * Background sending through WP-Cron, with a time limit for each request.
 * History screen with a summary (sent in total, waiting, sent today) and the answer of Google for every notification.
 * When Google rejects the key (401 or 403), it is paused for six hours. When the daily quota is used up (429), every key is paused until Google resets the quota at midnight Pacific Time, and no other key is tried.
@@ -47,8 +47,6 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 
 The free version is not limited in time or in the number of notifications, and it contains no premium code and no locked option. The premium plan is a separate package, sold through Freemius, for more content and larger sites. It adds:
 
-* Pages and custom post types (any public post type).
-* Notifications when a published post is edited (URL_UPDATED), trashed or deleted (URL_DELETED).
 * Old posts sent in small hourly batches, within a daily limit you set, and a Send Old Posts Now screen.
 * Categories whose posts are never sent.
 * Backup service account keys, used only when Google rejects the main key (401 or 403). They are never used to get past the daily quota.
@@ -83,15 +81,11 @@ No, and Fast Index cannot promise it. Google says: "The Indexing API can only be
 
 = Which post types does Fast Index send? =
 
-Fast Index sends published content of the post types checked in the settings; drafts, pending and private posts are not sent. The free version offers Posts, which are checked by default.
-
-Pages and custom post types are part of the premium plan, a separate package.
+Fast Index sends published content of the post types checked in the settings; drafts, pending and private posts are not sent. Every public post type of the site can be checked: Posts (checked by default), Pages, and custom post types such as products or job listings. Media attachments are not offered.
 
 = What happens when I trash or delete a post? =
 
 If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as URL_DELETED with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal.
-
-Edit and Trash are part of the premium plan, a separate package.
 
 = Can Fast Index send my old posts? =
 
@@ -133,9 +127,9 @@ No. Fast Index talks only to the Google Indexing API.
 
 = What does the premium plan add? =
 
-The free version is not limited in time or in the number of notifications. It notifies Google when a post is published, keeps a History of Google's answers and includes Help & FAQ.
+The free version is not limited in time or in the number of notifications. It notifies Google when content of any public post type is published, updated, trashed or deleted, keeps a History of Google's answers and includes Help & FAQ.
 
-The premium plan adds pages and custom post types, notifications for edits and removals, hourly batches of old posts, excluded categories and backup service account keys.
+The premium plan adds hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.
 
 The premium plan is a separate package, sold through Freemius. The Premium box on the settings screen compares both versions, and Upgrade in the Fast Index menu shows the plans and prices.
 
@@ -206,12 +200,12 @@ What leaves your site is described under External services: post addresses and s
 * Changed: the bundled Google API client was replaced by a small client that uses the WordPress HTTP API and a signed request. TLS verification is always on.
 * Changed: keys are stored in the database. On the first load after the update the key files of version 2.x are moved there and deleted. A notice recommends creating a new key and deleting the old one in Google Cloud. If you go back to 2.2 you must upload the key again.
 * Changed: sending runs in the background through WP-Cron, so saving a post is faster.
-* Changed: the free version from WordPress.org contains no premium code and no locked option, and it has no license check. It sends Posts when they are published, with one key. Pages and custom post types, notifications for edits and removals, old-post batches, excluded categories and backup keys are in the premium package, sold through Freemius. Settings of these options saved by an earlier version are kept, unused, and the premium package uses them again.
-* Fixed: on a site that never saved the settings, edits were sent although the settings screen showed Publish only.
+* Changed: the free version from WordPress.org contains no premium code and no locked option, and it has no license check. It sends every public post type (posts, pages, custom post types) when content is published, updated, trashed or deleted, with one key. Old-post batches, excluded categories and backup keys are in the premium package, sold through Freemius. Settings of these options saved by an earlier version are kept, unused, and the premium package uses them again. Saved choices of post types and events are kept and used.
+* Fixed: the settings screen shows every event that is sent. Version 2.x sent edits on sites that never saved the settings while the screen showed Publish only.
 * Fixed: a new installation no longer opens on a Freemius license screen. The Freemius opt-in screen has a Skip button, and Fast Index works the same either way. After a network activation the sites no longer answer "Cannot load fast-index" before the network admin chooses, and after the choice in the network admin the settings of the main site open.
 * Changed: Freemius SDK 2.13.4. It sends nothing before you opt in (the previous SDK contacted Freemius on activation), its plans page is part of the plugin instead of an iframe, and it no longer writes a plugin icon into its own folder.
 * New: the settings screen compares the free and premium versions, History says how many published posts Google has not accepted yet, and the Plugins screen has Settings and Upgrade links.
-* Changed: trashing or deleting a published post sends URL_DELETED when the Trash option of the premium package is on.
+* Changed: trashing or deleting a published post sends URL_DELETED when the Trash event is checked.
 * Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
@@ -242,4 +236,4 @@ What leaves your site is described under External services: post addresses and s
 == Upgrade Notice ==
 
 = 3.0.0 =
-Security release: keys move from a public uploads folder to the database. Create a new Google key afterwards and delete the old one. Premium options now come only in the premium package from Freemius.
+Security release: keys move from a public uploads folder to the database. Create a new Google key afterwards and delete the old one. Pages, custom post types and edit, trash and delete notifications are free; old-post batches, excluded categories and backup keys come in the premium package from Freemius.

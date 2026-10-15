@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  * Every place where the free version mentions the premium plan, so they stay honest and in one file:
  *
  * - the Premium box of the settings screen with a Free / Premium comparison,
- * - a "Premium" hint next to the settings sections that the premium plan extends, naming the site's real post types,
+ * - a "Premium" hint next to the settings sections that the premium plan extends,
  * - one line on the History screen with the real number of published posts that Google has not accepted yet,
  * - an explanation when a new key replaces the only key of the free version,
  * - "Settings" and "Upgrade" links on the Plugins screen,
@@ -228,7 +228,7 @@ class Fast_Index_Upgrade {
 	 * @return string
 	 */
 	public static function summary() {
-		return __( 'The premium plan adds pages and custom post types, notifications for edits and removals, hourly batches of old posts, excluded categories and backup service account keys.', 'fast-index' );
+		return __( 'The premium plan adds hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.', 'fast-index' );
 	}
 
 	/**
@@ -239,23 +239,18 @@ class Fast_Index_Upgrade {
 	public static function comparison() {
 		return array(
 			array(
-				'label'   => __( 'Notification when a post is published', 'fast-index' ),
+				'label'   => __( 'Notifications to Google when content is published, updated, trashed or deleted', 'fast-index' ),
+				'free'    => true,
+				'premium' => true,
+			),
+			array(
+				'label'   => __( 'Posts, pages and custom post types', 'fast-index' ),
 				'free'    => true,
 				'premium' => true,
 			),
 			array(
 				'label'   => __( 'History of Google\'s answers, Help & FAQ', 'fast-index' ),
 				'free'    => true,
-				'premium' => true,
-			),
-			array(
-				'label'   => __( 'Post types', 'fast-index' ),
-				'free'    => __( 'Posts', 'fast-index' ),
-				'premium' => __( 'Posts, pages and custom post types', 'fast-index' ),
-			),
-			array(
-				'label'   => __( 'Notifications for edits, trash and deletion', 'fast-index' ),
-				'free'    => false,
 				'premium' => true,
 			),
 			array(
@@ -279,22 +274,11 @@ class Fast_Index_Upgrade {
 	/**
 	 * Text of the "Premium" hint next to a settings section.
 	 *
-	 * @param string $section post_type, post_status or keys.
+	 * @param string $section keys.
 	 * @return string Plain text; empty for an unknown section.
 	 */
 	public static function hint( $section ) {
 		switch ( $section ) {
-			case 'post_type':
-				$others = self::other_post_types();
-
-				if ( array() !== $others ) {
-					/* translators: %s: list of post type names on this site, such as "Pages and Products". */
-					return sprintf( __( 'This site also has %s. The premium plan can send them too.', 'fast-index' ), wp_sprintf( '%l', $others ) );
-				}
-
-				return __( 'The premium plan can also send pages and custom post types.', 'fast-index' );
-			case 'post_status':
-				return __( 'The premium plan also notifies Google when a published post is edited, trashed or deleted.', 'fast-index' );
 			case 'keys':
 				return __( 'The free version uses one key. The premium plan can also keep backup keys: a backup key is used only when Google rejects the main key (401 or 403), never to get past the daily quota.', 'fast-index' );
 			default:
@@ -323,23 +307,6 @@ class Fast_Index_Upgrade {
 		}
 
 		echo '</p></details>';
-	}
-
-	/**
-	 * Names of the public post types of this site that the free version does not send.
-	 *
-	 * @return string[]
-	 */
-	public static function other_post_types() {
-		$names = array();
-
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $name => $object ) {
-			if ( ! in_array( $name, array( 'post', 'attachment', Fast_Index_Log::POST_TYPE ), true ) ) {
-				$names[] = $object->label;
-			}
-		}
-
-		return $names;
 	}
 
 	/**

@@ -253,8 +253,7 @@ class Fast_Index_Help_Content {
 				'id'      => 'post_type',
 				'name'    => __( 'Post Types', 'fast-index' ),
 				'short'   => self::field_description( 'post_type' ),
-				'what'    => esc_html__( 'Only the checked post types are sent, and at least one is required. The free version offers Posts; media attachments are never offered.', 'fast-index' ),
-				'note'    => self::premium_note( 'post_type' ),
+				'what'    => esc_html__( 'Only the checked post types are sent, and at least one is required. Every public post type of the site is offered, such as Posts, Pages and the custom post types of other plugins; media attachments are never offered.', 'fast-index' ),
 				'default' => __( 'Posts', 'fast-index' ),
 				'when'    => esc_html__( 'Check another type when its pages should be sent too, for example a custom post type that holds job postings or live videos.', 'fast-index' ),
 			),
@@ -272,8 +271,7 @@ class Fast_Index_Help_Content {
 				'name'    => __( 'Post Events', 'fast-index' ),
 				'short'   => self::field_description( 'post_status' ),
 				'what'    => esc_html__( 'Publish: a post becomes published. Edit: a post that is already published is saved again. Trash: a published post is moved to the trash or deleted, and Google is told that the address was removed. Changing a published post back to draft or private is not sent.', 'fast-index' ),
-				'note'    => self::premium_note( 'post_status' ),
-				'default' => __( 'Publish. With the premium plan: Publish and Edit.', 'fast-index' ),
+				'default' => __( 'Publish and Edit', 'fast-index' ),
 				'when'    => esc_html__( 'Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal.', 'fast-index' ),
 			),
 			array(
@@ -370,10 +368,6 @@ class Fast_Index_Help_Content {
 	 */
 	public static function premium_note( $field ) {
 		switch ( $field ) {
-			case 'post_type':
-				return __( 'Pages and custom post types are part of the premium plan, a separate package.', 'fast-index' );
-			case 'post_status':
-				return __( 'Edit and Trash are part of the premium plan, a separate package.', 'fast-index' );
 			case 'old_post_number':
 			case 'exclude_category':
 				return __( 'This setting is part of the premium plan, a separate package.', 'fast-index' );
@@ -471,7 +465,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'nothing-in-history',
 				'symptom' => __( 'A post is missing from History', 'fast-index' ),
-				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in an excluded category, or when it is not published. Nothing is written to History then.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then.', 'fast-index' ),
 				'fix'     => esc_html__( 'Check the settings above. Changing a setting does not send earlier saves: after you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
 			),
 			array(
@@ -502,7 +496,7 @@ class Fast_Index_Help_Content {
 			),
 			array(
 				'id'      => 'premium-options',
-				'symptom' => __( 'The settings screen has no option for pages, edits, old posts or categories', 'fast-index' ),
+				'symptom' => __( 'The settings screen has no option for old posts or excluded categories', 'fast-index' ),
 				'cause'   => esc_html__( 'These options are part of the premium plan, which is a separate package. The free version from WordPress.org does not contain their code, so nothing on the screen is locked; the options are simply not there. Settings explained says which options belong to the premium plan.', 'fast-index' ),
 				'fix'     => esc_html__( 'Read the Premium box on the settings screen and the FAQ entry about the premium plan. If you bought the plan, install the premium package as that entry describes.', 'fast-index' ),
 			),
@@ -540,7 +534,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'       => 'post-types',
 				'question' => __( 'Which post types does Fast Index send?', 'fast-index' ),
-				'answer'   => esc_html__( 'Fast Index sends published content of the post types checked in the settings; drafts, pending and private posts are not sent. The free version offers Posts, which are checked by default.', 'fast-index' ) . '</p><p>' . esc_html( self::premium_note( 'post_type' ) ),
+				'answer'   => esc_html__( 'Fast Index sends published content of the post types checked in the settings; drafts, pending and private posts are not sent. Every public post type of the site can be checked: Posts (checked by default), Pages, and custom post types such as products or job listings. Media attachments are not offered.', 'fast-index' ),
 			),
 			array(
 				'id'       => 'deleted-posts',
@@ -550,7 +544,7 @@ class Fast_Index_Help_Content {
 					__( 'If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as %1$s with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal (%2$s).', 'fast-index' ),
 					self::code( 'URL_DELETED' ),
 					self::ext( self::URL_USING_API, __( 'Google\'s documentation', 'fast-index' ) )
-				) . '</p><p>' . esc_html( self::premium_note( 'post_status' ) ),
+				),
 			),
 			array(
 				'id'       => 'old-posts',
@@ -617,7 +611,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'       => 'premium-features',
 				'question' => __( 'What does the premium plan add?', 'fast-index' ),
-				'answer'   => esc_html__( 'The free version is not limited in time or in the number of notifications. It notifies Google when a post is published, keeps a History of Google\'s answers and includes Help & FAQ.', 'fast-index' )
+				'answer'   => esc_html__( 'The free version is not limited in time or in the number of notifications. It notifies Google when content of any public post type is published, updated, trashed or deleted, keeps a History of Google\'s answers and includes Help & FAQ.', 'fast-index' )
 					. '</p><p>' . esc_html( Fast_Index_Upgrade::summary() )
 					. '</p><p>' . sprintf(
 						/* translators: %s: menu entry "Upgrade". */

@@ -8,23 +8,25 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Turns published posts into queued notifications.
+ * Turns post changes into queued notifications.
  *
  * Nothing is sent while the post is saved: the URL goes into a single WP-Cron event,
  * so saving a post never waits for Google.
  *
- * The free version sends one event: publish, a post becomes published (URL_UPDATED). The premium module
- * watches edits and removals itself and queues them through notify().
+ * Events: publish (a post becomes published, URL_UPDATED), edit (a published post is saved again, URL_UPDATED)
+ * and trash (a published post is moved to the trash or deleted without the trash, URL_DELETED with the address
+ * it had). A post deleted from the trash was reported when it was trashed.
  */
 class Fast_Index_Post_Watcher {
 
 	/**
-	 * Registers the post hook.
+	 * Registers the post hooks.
 	 *
 	 * @return void
 	 */
 	public function register_hooks() {
 		add_action( 'wp_after_insert_post', array( $this, 'on_after_insert_post' ), 10, 4 );
+		add_action( 'before_delete_post', array( $this, 'on_before_delete_post' ), 10, 1 );
 	}
 
 	/**
@@ -45,6 +47,26 @@ class Fast_Index_Post_Watcher {
 
 		if ( 'publish' === $post->post_status && 'publish' !== $before ) {
 			self::notify( $post, 'publish' );
+		} elseif ( 'publish' === $before && 'publish' === $post->post_status ) {
+			self::notify( $post, 'edit' );
+		} elseif ( 'publish' === $before && 'trash' === $post->post_status ) {
+			// The trashed post has a "__trashed" slug now; Google must hear about the address it had.
+			self::notify( $post_before, 'trash' );
+		}
+	}
+
+	/**
+	 * Handles before_delete_post: a published post deleted without the trash. Posts deleted from the trash were
+	 * reported when they were trashed.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return void
+	 */
+	public function on_before_delete_post( $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( $post instanceof WP_Post && 'publish' === $post->post_status ) {
+			self::notify( $post, 'trash' );
 		}
 	}
 

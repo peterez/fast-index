@@ -52,8 +52,8 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 			$this->assertFalse( has_filter( $hook ), $hook );
 		}
 
-		$this->assertSame( array( 'publish' => 'Publish' ), Fast_Index_Settings::event_choices() );
-		$this->assertSame( array( 'post' ), array_keys( Fast_Index_Settings::post_type_choices() ) );
+		$this->assertSame( array( 'publish', 'edit', 'trash' ), array_keys( Fast_Index_Settings::event_choices() ) );
+		$this->assertContains( 'page', array_keys( Fast_Index_Settings::post_type_choices() ) );
 		$this->assertFalse( Fast_Index_Accounts::several_keys() );
 	}
 
@@ -100,9 +100,10 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 
 		$this->assertSame( 1, substr_count( $html, 'class="fi-premium-card"' ) );
 		$this->assertStringContainsString( esc_url( admin_url( 'admin.php?page=fast-index-pricing' ) ), $html );
-		$this->assertSame( 1, preg_match_all( '/name="fast_index_options\[post_type\]\[/', $html ) );
-		$this->assertSame( 1, preg_match_all( '/name="fast_index_options\[post_status\]\[/', $html ) );
-		$this->assertStringContainsString( 'name="fast_index_options[post_status][publish]"', $html );
+		$this->assertSame( count( Fast_Index_Settings::post_type_choices() ), preg_match_all( '/name="fast_index_options\[post_type\]\[/', $html ) );
+		$this->assertStringContainsString( 'name="fast_index_options[post_type][page]"', $html );
+		$this->assertSame( 3, preg_match_all( '/name="fast_index_options\[post_status\]\[/', $html ) );
+		$this->assertStringContainsString( 'name="fast_index_options[post_status][trash]"', $html );
 		$this->assertStringNotContainsString( 'old_post_number', $html );
 		$this->assertStringNotContainsString( 'exclude_category', $html );
 		$this->assertStringNotContainsString( 'Hidden category', $html );
@@ -133,17 +134,26 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * FI-043: on a site that never saved the settings, publishing is sent and editing is not; a stored Edit
-	 * event from the premium plan is not used either.
+	 * FI-R02 (reverses the FI-043 test of the first premium split): the free version sends pages and custom post
+	 * types, and the Publish, Edit and Trash events, including a deletion without the trash. Each event queues one
+	 * notification; a post deleted from the trash sends nothing more.
 	 *
 	 * @return void
 	 */
-	public function test_free_version_never_sends_edits() {
+	public function test_free_version_sends_edits_trash_deletion_and_pages() {
+		register_post_type(
+			'fi_job',
+			array(
+				'public' => true,
+				'label'  => 'Jobs',
+			)
+		);
+
+		// Defaults (never saved): Publish and Edit of Posts.
 		$post_id = self::factory()->post->create( array( 'post_status' => 'publish' ) );
 		$url     = get_permalink( $post_id );
-
-		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( $url, 'URL_UPDATED', $post_id ) ) );
-		wp_clear_scheduled_hook( Fast_Index_Cron::SUBMIT_HOOK, array( $url, 'URL_UPDATED', $post_id ) );
+		$this->assertSame( array( array( $url, 'URL_UPDATED', $post_id ) ), self::queued(), 'Publish is sent.' );
+		self::clear_queue();
 
 		wp_update_post(
 			array(
@@ -151,14 +161,16 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 				'post_content' => 'Changed.',
 			)
 		);
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK ), 'Edit is not sent.' );
+		$this->assertSame( array( array( $url, 'URL_UPDATED', $post_id ) ), self::queued(), 'Edit is sent.' );
+		self::clear_queue();
 
 		update_option(
 			Fast_Index_Settings::OPTION,
 			array(
 				'post_type'   => array(
-					'post' => '1',
-					'page' => '1',
+					'post'   => '1',
+					'page'   => '1',
+					'fi_job' => '1',
 				),
 				'post_status' => array(
 					'publish' => '1',
@@ -168,21 +180,87 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 			)
 		);
 
-		wp_update_post(
-			array(
-				'ID'           => $post_id,
-				'post_content' => 'Changed again.',
-			)
-		);
-		wp_trash_post( $post_id );
-		self::factory()->post->create(
+		$page     = self::factory()->post->create(
 			array(
 				'post_type'   => 'page',
 				'post_status' => 'publish',
+				'post_name'   => 'about-us',
 			)
 		);
+		$page_url = get_permalink( $page );
+		$this->assertSame( array( array( $page_url, 'URL_UPDATED', $page ) ), self::queued(), 'A page is sent.' );
+		self::clear_queue();
 
-		$this->assertFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK ), 'Stored premium events and types are not used.' );
+		$job = self::factory()->post->create(
+			array(
+				'post_type'   => 'fi_job',
+				'post_status' => 'publish',
+			)
+		);
+		$this->assertSame( array( array( get_permalink( $job ), 'URL_UPDATED', $job ) ), self::queued(), 'A custom post type is sent.' );
+		self::clear_queue();
+
+		wp_trash_post( $page );
+		$this->assertStringNotContainsString( '__trashed', $page_url );
+		$this->assertSame( array( array( $page_url, 'URL_DELETED', $page ) ), self::queued(), 'Trash sends the old address.' );
+		self::clear_queue();
+
+		wp_delete_post( $page, true );
+		$this->assertSame( array(), self::queued(), 'Deleting from the trash sends nothing more.' );
+
+		wp_delete_post( $post_id, true );
+		$this->assertSame( array( array( $url, 'URL_DELETED', $post_id ) ), self::queued(), 'Deleting a published post without the trash is sent.' );
+		self::clear_queue();
+
+		// Unchecked events and draft posts are not sent.
+		update_option(
+			Fast_Index_Settings::OPTION,
+			array(
+				'post_type'   => array( 'post' => '1' ),
+				'post_status' => array( 'publish' => '1' ),
+			)
+		);
+		$other = self::factory()->post->create( array( 'post_status' => 'publish' ) );
+		self::clear_queue();
+		wp_update_post(
+			array(
+				'ID'           => $other,
+				'post_content' => 'Changed.',
+			)
+		);
+		wp_trash_post( $other );
+		self::factory()->post->create( array( 'post_status' => 'draft' ) );
+		$this->assertSame( array(), self::queued() );
+
+		unregister_post_type( 'fi_job' );
+	}
+
+	/**
+	 * Arguments of the queued notification events.
+	 *
+	 * @return array[]
+	 */
+	private static function queued() {
+		$events = array();
+
+		foreach ( (array) _get_cron_array() as $hooks ) {
+			if ( isset( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] ) ) {
+				foreach ( $hooks[ Fast_Index_Cron::SUBMIT_HOOK ] as $event ) {
+					$events[] = $event['args'];
+				}
+			}
+		}
+
+		return $events;
+	}
+
+	/**
+	 * Removes every queued notification event.
+	 *
+	 * @return void
+	 */
+	private static function clear_queue() {
+		wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
 	}
 
 	/**

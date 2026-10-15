@@ -342,14 +342,12 @@ class Fast_Index_Admin {
 	/**
 	 * The "Premium" hints of the settings screen, by section.
 	 *
-	 * @return array Keys: post_type, post_status, keys (plain text) and url (upgrade page).
+	 * @return array Keys: keys (plain text) and url (upgrade page).
 	 */
 	private static function hints() {
 		return array(
-			'post_type'   => Fast_Index_Upgrade::hint( 'post_type' ),
-			'post_status' => Fast_Index_Upgrade::hint( 'post_status' ),
-			'keys'        => Fast_Index_Upgrade::hint( 'keys' ),
-			'url'         => Fast_Index_Upgrade::upgrade_url(),
+			'keys' => Fast_Index_Upgrade::hint( 'keys' ),
+			'url'  => Fast_Index_Upgrade::upgrade_url(),
 		);
 	}
 

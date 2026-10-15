@@ -265,14 +265,12 @@ class Fast_Index_Test_Retry extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * Premium (Edit and Trash events): several events of one address while keys rest: one waiting
-	 * notification, the newest event wins.
+	 * Edit and Trash events: several events of one address while keys rest: one waiting notification, the
+	 * newest event wins.
 	 *
 	 * @return void
 	 */
 	public function test_same_address_waits_once_and_newest_event_wins() {
-		$this->with_premium();
-
 		update_option(
 			Fast_Index_Settings::OPTION,
 			array(

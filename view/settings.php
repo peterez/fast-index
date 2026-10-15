@@ -71,9 +71,6 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<td scope="row">
 								<b><?php esc_html_e( 'Post Types', 'fast-index' ); ?></b> <br>
 								<small><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></small>
-								<?php if ( isset( $fast_index_view['hints']['post_type'] ) ) : ?>
-									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['post_type'], $fast_index_view['hints']['url'] ); ?>
-								<?php endif; ?>
 							</td>
 							<td>
 								<?php foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) : ?>
@@ -92,9 +89,6 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<td scope="row">
 								<b><?php esc_html_e( 'Post Events', 'fast-index' ); ?></b> <br>
 								<small><?php esc_html_e( 'Choose when Google is notified.', 'fast-index' ); ?></small>
-								<?php if ( isset( $fast_index_view['hints']['post_status'] ) ) : ?>
-									<?php Fast_Index_Upgrade::render_hint( $fast_index_view['hints']['post_status'], $fast_index_view['hints']['url'] ); ?>
-								<?php endif; ?>
 							</td>
 							<td>
 								<?php foreach ( $fast_index_view['events'] as $fast_index_event => $fast_index_label ) : ?>

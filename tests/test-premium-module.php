@@ -18,21 +18,26 @@ class Fast_Index_Test_Premium_Module extends Fast_Index_Test_Case {
 	public function test_module_loads_only_with_a_license() {
 		$this->fake_freemius( false );
 		$this->assertFalse( Fast_Index_Premium::maybe_boot() );
-		$this->assertFalse( has_filter( 'fast_index_post_events' ) );
+		$this->assertFalse( has_filter( 'fast_index_should_notify' ) );
 
 		$this->with_premium();
 
 		$this->assertTrue( Fast_Index_Plugin::premium_loaded() );
-		$this->assertNotFalse( has_filter( 'fast_index_post_events' ) );
+		$this->assertNotFalse( has_filter( 'fast_index_should_notify' ) );
 		$this->assertNotFalse( has_action( 'fast_index_hourly' ) );
 		$this->assertTrue( Fast_Index_Accounts::several_keys() );
-		$this->assertSame( array( 'publish', 'edit', 'trash' ), array_keys( Fast_Index_Settings::event_choices() ) );
-		$this->assertContains( 'page', array_keys( Fast_Index_Settings::post_type_choices() ) );
-		$this->assertNotContains( 'attachment', array_keys( Fast_Index_Settings::post_type_choices() ) );
+
+		// FI-R02: post types and events are part of the free version; the module does not touch them.
+		$this->assertFalse( has_filter( 'fast_index_post_events' ) );
+		$this->assertFalse( has_filter( 'fast_index_post_type_choices' ) );
+		$this->assertFalse( has_filter( 'fast_index_default_settings' ) );
+		$this->assertFalse( has_action( 'before_delete_post', array( 'Fast_Index_Premium_Features', 'on_before_delete_post' ) ) );
+		$this->assertFalse( method_exists( 'Fast_Index_Premium_Features', 'on_after_insert_post' ) );
 	}
 
 	/**
-	 * Edit and other post types are sent; the settings screen has the premium fields and no Premium box.
+	 * Edit and other post types are sent once (the free watcher, not twice); the settings screen has the premium
+	 * fields and no Premium box.
 	 *
 	 * @return void
 	 */
@@ -64,6 +69,7 @@ class Fast_Index_Test_Premium_Module extends Fast_Index_Test_Case {
 			)
 		);
 		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, array( $url, 'URL_UPDATED', $post_id ) ), 'Edit is sent.' );
+		$this->assertSame( 1, did_action( 'fast_index_premium_loaded' ) > 0 ? 1 : 0 );
 
 		$page = self::factory()->post->create(
 			array(

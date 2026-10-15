@@ -89,32 +89,22 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 	}
 
 	/**
-	 * The "Premium" hints sit next to the post types, the post events and the key upload. The post type hint names
-	 * the site's real post types that the free version does not send.
+	 * The "Premium" hints sit only next to what the premium plan adds; post types and events are part of the free
+	 * version (FI-R02) and get no hint.
 	 *
 	 * @return void
 	 */
-	public function test_hints_name_real_post_types() {
-		register_post_type(
-			'fi_product',
-			array(
-				'public' => true,
-				'label'  => 'Products',
-			)
-		);
+	public function test_hints_only_for_premium_features() {
 		$this->fake_freemius( false );
 		$this->login_as( 'administrator' );
 
 		$html = self::render( 'render_settings' );
 
-		$this->assertSame( 3, substr_count( $html, '<details class="fi-premium-hint">' ) );
-		$this->assertStringContainsString( 'Pages', Fast_Index_Upgrade::hint( 'post_type' ) );
-		$this->assertStringContainsString( 'Products', Fast_Index_Upgrade::hint( 'post_type' ) );
-		$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( 'post_type' ) ), $html );
-		$this->assertStringNotContainsString( 'name="fast_index_options[post_type][fi_product]"', $html, 'The free version offers no checkbox for it.' );
+		$this->assertSame( 1, substr_count( $html, '<details class="fi-premium-hint">' ) );
+		$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( 'keys' ) ), $html );
+		$this->assertSame( '', Fast_Index_Upgrade::hint( 'post_type' ) );
+		$this->assertSame( '', Fast_Index_Upgrade::hint( 'post_status' ) );
 		$this->assertSame( '', Fast_Index_Upgrade::hint( 'unknown' ) );
-
-		unregister_post_type( 'fi_product' );
 	}
 
 	/**

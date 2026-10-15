@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) || exit;
  * The stored shape stays compatible with version 2.x: flag maps keyed by post
  * type or post event, and a term ID map for the excluded categories.
  *
- * The free version offers Posts and the Publish event. The premium module adds more choices and its own
- * settings through the fast_index_* filters below. Stored values that the running code does not offer are
- * kept as they are: they are not used, and they are not lost when the settings are saved.
+ * Every public post type (except media attachments) and the Publish, Edit and Trash events are offered. The
+ * premium module adds its own settings through the fast_index_* filters below. Stored values that the running
+ * code does not use are kept as they are: they are not lost when the settings are saved.
  */
 class Fast_Index_Settings {
 
@@ -69,7 +69,14 @@ class Fast_Index_Settings {
 		 *
 		 * @param string[] $events Label by event name: publish, edit or trash.
 		 */
-		$events = apply_filters( 'fast_index_post_events', array( 'publish' => __( 'Publish', 'fast-index' ) ) );
+		$events = apply_filters(
+			'fast_index_post_events',
+			array(
+				'publish' => __( 'Publish', 'fast-index' ),
+				'edit'    => __( 'Edit', 'fast-index' ),
+				'trash'   => __( 'Trash', 'fast-index' ),
+			)
+		);
 
 		return array_intersect_key( is_array( $events ) ? $events : array(), array_flip( self::post_events() ) );
 	}
@@ -80,14 +87,19 @@ class Fast_Index_Settings {
 	 * @return string[] Label by post type name.
 	 */
 	public static function post_type_choices() {
-		$post = get_post_type_object( 'post' );
+		$types = array();
+
+		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $name => $object ) {
+			$types[ $name ] = $object->label;
+		}
 
 		/**
-		 * Filters the post types offered on the settings screen.
+		 * Filters the post types offered on the settings screen. Media attachments and the History post types
+		 * are never offered.
 		 *
-		 * @param string[] $types Label by post type name.
+		 * @param string[] $types Label by post type name: every public post type.
 		 */
-		$types   = apply_filters( 'fast_index_post_type_choices', array( 'post' => $post ? $post->label : 'Posts' ) );
+		$types   = apply_filters( 'fast_index_post_type_choices', $types );
 		$choices = array();
 
 		foreach ( is_array( $types ) ? $types : array() as $name => $label ) {
@@ -102,7 +114,8 @@ class Fast_Index_Settings {
 	}
 
 	/**
-	 * Default values, defined in one place. The free version notifies Google when a post is published.
+	 * Default values, defined in one place: Posts, when they are published or a published post is edited (the
+	 * defaults of version 2.x).
 	 *
 	 * @return array
 	 */
@@ -110,7 +123,10 @@ class Fast_Index_Settings {
 		$defaults = array(
 			'status'           => self::STATUS_ACTIVE,
 			'post_type'        => array( 'post' => '1' ),
-			'post_status'      => array( 'publish' => '1' ),
+			'post_status'      => array(
+				'publish' => '1',
+				'edit'    => '1',
+			),
 			'old_post_number'  => 0,
 			'exclude_category' => array(),
 			'delete_data'      => false,
@@ -284,40 +300,15 @@ class Fast_Index_Settings {
 	}
 
 	/**
-	 * Stored values that the running code does not use, for a short note on the settings screen. They are kept,
-	 * and the premium module uses them again.
+	 * Stored values of the premium plan that the running code does not use, for a short note on the settings
+	 * screen. They are kept, and the premium module uses them again.
 	 *
 	 * @param array $settings Clean settings.
 	 * @return string[] Plain text, one line each; empty when everything stored is used.
 	 */
 	public static function unused( array $settings ) {
-		$lines  = array();
-		$types  = array();
-		$events = array_diff( array_keys( $settings['post_status'] ), array_keys( self::event_choices() ) );
-		$keys   = count( Fast_Index_Accounts::all() ) - count( Fast_Index_Accounts::in_use() );
-
-		foreach ( array_diff( array_keys( $settings['post_type'] ), array_keys( self::post_type_choices() ) ) as $type ) {
-			$object = get_post_type_object( (string) $type );
-
-			if ( $object ) {
-				$types[] = $object->label;
-			}
-		}
-
-		if ( array() !== $types ) {
-			/* translators: %s: list of post type names. */
-			$lines[] = sprintf( __( 'Post types: %s', 'fast-index' ), wp_sprintf( '%l', $types ) );
-		}
-
-		if ( array() !== $events ) {
-			$labels = array(
-				'edit'  => __( 'Edit', 'fast-index' ),
-				'trash' => __( 'Trash', 'fast-index' ),
-			);
-			$names  = array_intersect_key( $labels, array_flip( $events ) );
-			/* translators: %s: list of post event names, such as Edit and Trash. */
-			$lines[] = sprintf( __( 'Post events: %s', 'fast-index' ), wp_sprintf( '%l', array_values( $names ) ) );
-		}
+		$lines = array();
+		$keys  = count( Fast_Index_Accounts::all() ) - count( Fast_Index_Accounts::in_use() );
 
 		if ( $settings['old_post_number'] > 0 ) {
 			/* translators: %s: number of old posts per day. */
