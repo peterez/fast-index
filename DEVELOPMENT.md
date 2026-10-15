@@ -79,6 +79,10 @@ WordPress 6.2). Weeks without any History entry send nothing; the setting `weekl
   the network page `admin.php?page=fast-index`, which exists only while the opt-in screen is shown ("Cannot load
   fast-index"); the main site's settings open instead.
 - `plugin_icon` points to `assets/fast-index-icon.png`, so the SDK never downloads an icon into its folder.
+- `Fast_Index_Freemius::block_pricing_analytics()` (on `admin_print_footer_scripts`, priority 1) adds an inline
+  guard before the SDK's `freemius-pricing` script on the Upgrade page (`fast-index-pricing`, site or network admin):
+  that script inserts `//www.google-analytics.com/analytics.js` whenever it draws the plans (WordPress.org guideline 7).
+  `tests/test-freemius-analytics.php` fails when the bundled pricing script no longer contains it, so the guard can go.
 - `Fast_Index_Freemius::translate_texts()` (on `init`) replaces the Upgrade, Pricing, Skip and Allow & Continue
   texts with the plugin's translated strings, because Help & FAQ names them.
 
