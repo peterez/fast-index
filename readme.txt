@@ -165,8 +165,8 @@ No. Saving a post only queues a scheduled task. The request to Google is made la
 
 == Screenshots ==
 
-1. The settings screen: status, post types, post events and the upload of the service account key.
-2. History: every notification with the answer of Google.
+1. The settings screen: status, post types, post events, IndexNow and the upload of the service account key.
+2. History: a summary, a filter by channel and every notification with the answer of Google or IndexNow.
 3. Help & FAQ: step-by-step setup of the Google service account.
 4. System info on the Help & FAQ screen, to attach when you ask for support.
 
@@ -232,6 +232,7 @@ What leaves your site is described under External services: post addresses and s
 == Changelog ==
 
 = 3.0.0 =
+* Changed: the admin screens have the design that all CultDevOps plugins share: a header with the plugin name, the plan and a link to Help & FAQ, cards, status badges and a summary of the History.
 * Security: settings, key uploads and data deletion now require the right capability and a nonce, database queries use prepared statements, output is escaped, and the override that allowed unfiltered uploads is gone. Service account keys are no longer stored in a public folder.
 * Changed: the bundled Google API client was replaced by a small client that uses the WordPress HTTP API and a signed request. TLS verification is always on.
 * Changed: keys are stored in the database. On the first load after the update the key files of version 2.x are moved there and deleted. A notice recommends creating a new key and deleting the old one in Google Cloud. If you go back to 2.2 you must upload the key again.
