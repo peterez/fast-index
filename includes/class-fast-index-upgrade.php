@@ -35,6 +35,11 @@ class Fast_Index_Upgrade {
 	const FIRST_SUCCESS_OPTION = 'fast_index_first_success';
 
 	/**
+	 * Per-site option: when IndexNow first accepted a notification (Unix time, autoload off).
+	 */
+	const FIRST_INDEXNOW_OPTION = 'fast_index_first_indexnow';
+
+	/**
 	 * User meta: notices the user dismissed, as name => Unix time.
 	 */
 	const USER_META = 'fast_index_dismissed_notices';
@@ -119,6 +124,15 @@ class Fast_Index_Upgrade {
 	}
 
 	/**
+	 * Stores when IndexNow first accepted a notification (200 or 202). Kept when it exists.
+	 *
+	 * @return void
+	 */
+	public static function remember_indexnow_success() {
+		add_option( self::FIRST_INDEXNOW_OPTION, time(), '', false );
+	}
+
+	/**
 	 * The notice due for a user on a Fast Index screen: the thank-you first, then the offer. At most one at a time.
 	 *
 	 * @param int $user_id User ID.
@@ -128,7 +142,7 @@ class Fast_Index_Upgrade {
 	public static function due_notice( $user_id, $now ) {
 		$dismissed = self::dismissed( $user_id );
 
-		if ( ! isset( $dismissed[ self::NOTICE_SUCCESS ] ) && (int) get_option( self::FIRST_SUCCESS_OPTION, 0 ) > 0 ) {
+		if ( ! isset( $dismissed[ self::NOTICE_SUCCESS ] ) && ( (int) get_option( self::FIRST_SUCCESS_OPTION, 0 ) > 0 || (int) get_option( self::FIRST_INDEXNOW_OPTION, 0 ) > 0 ) ) {
 			return self::NOTICE_SUCCESS;
 		}
 
@@ -207,7 +221,9 @@ class Fast_Index_Upgrade {
 		echo '<div class="' . esc_attr( 'notice notice-' . $type . ' is-dismissible fast-index-notice fi-upgrade-notice' ) . '" data-notice="' . esc_attr( $notice ) . '" data-dismiss-url="' . esc_url( $dismiss_url ) . '">';
 
 		if ( self::NOTICE_SUCCESS === $notice ) {
-			echo '<p><strong>' . esc_html__( 'Fast Index is working.', 'fast-index' ) . '</strong> ' . esc_html__( 'Google accepted a notification from this site.', 'fast-index' ) . '</p>';
+			$accepted = (int) get_option( self::FIRST_SUCCESS_OPTION, 0 ) > 0 ? __( 'Google accepted a notification from this site.', 'fast-index' ) : __( 'IndexNow accepted a notification from this site.', 'fast-index' );
+
+			echo '<p><strong>' . esc_html__( 'Fast Index is working.', 'fast-index' ) . '</strong> ' . esc_html( $accepted ) . '</p>';
 			echo '<p>' . esc_html__( 'If Fast Index is useful to you, a review on WordPress.org helps other site owners find it.', 'fast-index' ) . ' <a href="' . esc_url( self::REVIEWS_URL ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Rate Fast Index on WordPress.org', 'fast-index' ) . '</a></p>';
 
 			if ( self::is_offered() ) {

@@ -75,8 +75,16 @@ class Fast_Index_Admin_Actions {
 			self::redirect( Fast_Index_Admin::SLUG );
 		}
 
-		Fast_Index_Settings::save( Fast_Index_Settings::sanitize_input( $input ) );
+		$settings = Fast_Index_Settings::sanitize_input( $input );
+
+		Fast_Index_Settings::save( $settings );
 		Fast_Index_Log::flush_stats();
+
+		if ( Fast_Index_IndexNow::is_enabled( $settings ) ) {
+			// The key file must exist before the first notification: IndexNow reads it when it checks a request.
+			Fast_Index_IndexNow::key( true );
+		}
+
 		Fast_Index_Admin::flash( 'success', __( 'Settings saved.', 'fast-index' ) );
 
 		self::redirect( Fast_Index_Admin::SLUG );

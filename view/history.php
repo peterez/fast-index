@@ -26,6 +26,9 @@ $fast_index_types = array(
 			<th scope="col"><?php esc_html_e( 'Total Sent', 'fast-index' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Total Waiting', 'fast-index' ); ?></th>
 			<th scope="col"><?php esc_html_e( 'Sent Today', 'fast-index' ); ?></th>
+			<?php if ( $fast_index_view['indexnow'] ) : ?>
+				<th scope="col"><?php esc_html_e( 'Sent to IndexNow Today', 'fast-index' ); ?></th>
+			<?php endif; ?>
 		</tr>
 		</thead>
 		<tbody class="the-list">
@@ -33,6 +36,9 @@ $fast_index_types = array(
 			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['sent'] ) ); ?></td>
 			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['waiting'] ) ); ?></td>
 			<td><?php echo esc_html( number_format_i18n( $fast_index_stats['today'] ) ); ?></td>
+			<?php if ( $fast_index_view['indexnow'] ) : ?>
+				<td><?php echo esc_html( number_format_i18n( $fast_index_stats['indexnow_today'] ) ); ?></td>
+			<?php endif; ?>
 		</tr>
 		</tbody>
 	</table>
@@ -46,15 +52,29 @@ $fast_index_types = array(
 
 	<br>
 	<h1 class="title"><?php esc_html_e( 'History', 'fast-index' ); ?></h1>
-	<br>
+
+	<?php /* Channel filter: every channel, Google or IndexNow. */ ?>
+	<ul class="subsubsub fi-channel-filter">
+		<?php
+		$fast_index_filters = array_merge( array( '' => _x( 'All', 'History filter: every channel', 'fast-index' ) ), $fast_index_view['channels'] );
+		$fast_index_last    = array_key_last( $fast_index_filters );
+		?>
+		<?php foreach ( $fast_index_filters as $fast_index_key => $fast_index_name ) : ?>
+			<li>
+				<a href="<?php echo esc_url( '' === $fast_index_key ? $fast_index_view['filter_url'] : add_query_arg( 'channel', $fast_index_key, $fast_index_view['filter_url'] ) ); ?>"<?php echo $fast_index_key === $fast_index_view['channel'] ? ' class="current" aria-current="page"' : ''; ?>><?php echo esc_html( $fast_index_name ); ?></a><?php echo $fast_index_key !== $fast_index_last ? ' |' : ''; ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+	<br class="clear">
 
 	<?php
 	// Column names are repeated in data-colname: on phone screens WordPress shows the title only, and the
 	// toggle-row button opens the other columns of a row with these names as labels.
 	$fast_index_columns = array(
-		'date'   => __( 'Date', 'fast-index' ),
-		'status' => __( 'Send Status', 'fast-index' ),
-		'post'   => __( 'Post', 'fast-index' ),
+		'date'    => __( 'Date', 'fast-index' ),
+		'channel' => __( 'Channel', 'fast-index' ),
+		'status'  => __( 'Send Status', 'fast-index' ),
+		'post'    => __( 'Post', 'fast-index' ),
 	);
 	?>
 	<table class="table table-striped wp-list-table widefat fixed striped table-view-list posts fi-history">
@@ -62,13 +82,14 @@ $fast_index_types = array(
 		<tr>
 			<th scope="col" class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'fast-index' ); ?></th>
 			<th scope="col" class="manage-column column-date"><?php echo esc_html( $fast_index_columns['date'] ); ?></th>
+			<th scope="col" class="manage-column column-fi-channel"><?php echo esc_html( $fast_index_columns['channel'] ); ?></th>
 			<th scope="col" class="manage-column column-fi-status"><?php echo esc_html( $fast_index_columns['status'] ); ?></th>
 			<th scope="col" class="manage-column column-fi-post"><?php echo esc_html( $fast_index_columns['post'] ); ?></th>
 		</tr>
 		</thead>
 		<tbody class="the-list">
 		<?php if ( array() === $fast_index_view['entries'] ) : ?>
-			<tr class="no-items"><td class="colspanchange" colspan="4"><?php esc_html_e( 'Nothing was sent yet.', 'fast-index' ); ?></td></tr>
+			<tr class="no-items"><td class="colspanchange" colspan="5"><?php esc_html_e( 'Nothing was sent yet.', 'fast-index' ); ?></td></tr>
 		<?php endif; ?>
 		<?php foreach ( $fast_index_view['entries'] as $fast_index_entry ) : ?>
 			<tr>
@@ -86,11 +107,13 @@ $fast_index_types = array(
 					<?php echo esc_html( isset( $fast_index_types[ $fast_index_entry['type'] ] ) ? $fast_index_types[ $fast_index_entry['type'] ] : $fast_index_entry['type'] ); ?><br>
 					<?php echo esc_html( wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $fast_index_entry['timestamp'] ) ); ?>
 				</td>
+				<td class="column-fi-channel" data-colname="<?php echo esc_attr( $fast_index_columns['channel'] ); ?>"><?php echo esc_html( $fast_index_view['channels'][ $fast_index_entry['channel'] ] ); ?></td>
 				<td class="column-fi-status fi-history-status<?php echo $fast_index_entry['code'] < 0 ? ' fi-history-status--not-sent' : ''; ?>" data-colname="<?php echo esc_attr( $fast_index_columns['status'] ); ?>">
 					<?php /* Isolated, so the code and its name keep their order on right-to-left screens ("200 OK", not "OK 200"). */ ?>
-					<bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'] ) ); ?></bdi>
-					<?php if ( '' !== Fast_Index_Admin::status_note( $fast_index_entry['code'] ) ) : ?>
-						<br><span class="description fi-history-note"><?php echo esc_html( Fast_Index_Admin::status_note( $fast_index_entry['code'] ) ); ?></span>
+					<bdi dir="auto"><?php echo esc_html( Fast_Index_Admin::status_label( $fast_index_entry['code'], $fast_index_entry['channel'] ) ); ?></bdi>
+					<?php $fast_index_note = Fast_Index_Admin::status_note( $fast_index_entry['code'], $fast_index_entry['channel'] ); ?>
+					<?php if ( '' !== $fast_index_note ) : ?>
+						<br><span class="description fi-history-note"><?php echo esc_html( $fast_index_note ); ?></span>
 					<?php endif; ?>
 					<?php if ( $fast_index_entry['retry'] ) : ?>
 						<br><span class="description fi-history-retry"><?php echo esc_html( Fast_Index_Admin::retry_note() ); ?></span>

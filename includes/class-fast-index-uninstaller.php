@@ -68,6 +68,8 @@ class Fast_Index_Uninstaller {
 			'fast_index_migration_issues',
 			'fast_index_first_use',
 			'fast_index_first_success',
+			'fast_index_first_indexnow',
+			'fast_index_indexnow_key',
 		);
 	}
 
@@ -206,16 +208,18 @@ class Fast_Index_Uninstaller {
 	}
 
 	/**
-	 * Removes the log entries and their meta.
+	 * Removes the log entries of every channel (Google: fi_log, IndexNow: fast_index_now_log) and their meta.
 	 *
 	 * @return void
 	 */
 	private static function remove_log() {
 		global $wpdb;
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Uninstall: one statement each instead of a wp_delete_post() call per entry.
-		$wpdb->query( $wpdb->prepare( "DELETE m FROM {$wpdb->postmeta} AS m INNER JOIN {$wpdb->posts} AS p ON p.ID = m.post_id WHERE p.post_type = %s", 'fi_log' ) );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", 'fi_log' ) );
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		foreach ( array( 'fi_log', 'fast_index_now_log' ) as $post_type ) {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Uninstall: one statement each instead of a wp_delete_post() call per entry.
+			$wpdb->query( $wpdb->prepare( "DELETE m FROM {$wpdb->postmeta} AS m INNER JOIN {$wpdb->posts} AS p ON p.ID = m.post_id WHERE p.post_type = %s", $post_type ) );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", $post_type ) );
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		}
 	}
 }

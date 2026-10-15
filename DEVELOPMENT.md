@@ -26,6 +26,17 @@ This file is for developers. It is not part of either release package (`.distign
 | `fast_index_admin_menu` | action | "Send Old Posts Now" page (`Fast_Index_Admin::add_page()`) |
 | `fast_index_history_stats` | filter | History "Total Waiting" without excluded categories |
 | `fast_index_premium_loaded` | action | fired by the module once it is loaded |
+| `fast_index_send_to_google` | filter | (free extension point) whether a notification goes to Google; IndexNow is decided by its setting |
+| `fast_index_logged` | action | fired after a Google History entry was added (log ID, code, URL, post ID) |
+
+## IndexNow
+
+`Fast_Index_IndexNow` is off until the user checks "Also send to IndexNow". Then a 32-character key is created per
+site (option `fast_index_indexnow_key`, not autoloaded), `parse_request` answers `{home}/{key}.txt` with the key
+(no file, no rewrite rule; `keyLocation` is always sent, so a sub-directory site covers its own addresses), and
+`Fast_Index_Notifier` sends every queued notification to `https://api.indexnow.org/indexnow` in the same cron run as
+Google. History entries of IndexNow are posts of the type `fast_index_now_log`, so the Google counters, the old-post
+batches and the retry queue (all on `fi_log`) never see them. 200 and 202 are successes; nothing is retried.
 
 ## Freemius (SDK 2.13.4)
 

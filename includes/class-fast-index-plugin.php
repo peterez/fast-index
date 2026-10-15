@@ -26,6 +26,7 @@ class Fast_Index_Plugin {
 
 		( new Fast_Index_Post_Watcher() )->register_hooks();
 		( new Fast_Index_Cron() )->register_hooks();
+		( new Fast_Index_IndexNow() )->register_hooks();
 
 		if ( is_multisite() ) {
 			// New site: set it up after core created its tables (core runs at priority 10).

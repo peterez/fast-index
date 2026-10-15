@@ -146,16 +146,18 @@ class Fast_Index_Admin {
 
 		$settings        = Fast_Index_Settings::get();
 		$fast_index_view = array(
-			'settings'     => $settings,
-			'post_types'   => Fast_Index_Settings::post_type_choices(),
-			'events'       => Fast_Index_Settings::event_choices(),
-			'several_keys' => Fast_Index_Accounts::several_keys(),
-			'accounts'     => self::account_rows(),
-			'unused'       => Fast_Index_Settings::unused( $settings ),
-			'premium_card' => Fast_Index_Upgrade::is_offered() ? self::premium_card() : null,
-			'hints'        => Fast_Index_Upgrade::is_offered() ? self::hints() : array(),
-			'openssl'      => Fast_Index_Google_Client::is_supported(),
-			'messages'     => self::take_flash(),
+			'settings'         => $settings,
+			'post_types'       => Fast_Index_Settings::post_type_choices(),
+			'events'           => Fast_Index_Settings::event_choices(),
+			'several_keys'     => Fast_Index_Accounts::several_keys(),
+			'accounts'         => self::account_rows(),
+			'unused'           => Fast_Index_Settings::unused( $settings ),
+			'premium_card'     => Fast_Index_Upgrade::is_offered() ? self::premium_card() : null,
+			'hints'            => Fast_Index_Upgrade::is_offered() ? self::hints() : array(),
+			'openssl'          => Fast_Index_Google_Client::is_supported(),
+			'messages'         => self::take_flash(),
+			// The key file answers only while IndexNow is on.
+			'indexnow_key_url' => Fast_Index_IndexNow::is_enabled( $settings ) ? Fast_Index_IndexNow::key_url() : '',
 		);
 
 		include FAST_INDEX_PATH . 'view/settings.php';
@@ -170,15 +172,25 @@ class Fast_Index_Admin {
 		self::require_capability();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page number.
-		$page            = isset( $_GET['pn'] ) ? absint( $_GET['pn'] ) : 0;
-		$log             = Fast_Index_Log::page( $page );
-		$stats           = Fast_Index_Log::stats( Fast_Index_Settings::get() );
+		$page = isset( $_GET['pn'] ) ? absint( $_GET['pn'] ) : 0;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only filter, checked against the channel list.
+		$channel  = isset( $_GET['channel'] ) ? sanitize_key( wp_unslash( $_GET['channel'] ) ) : '';
+		$channel  = array_key_exists( $channel, Fast_Index_Log::post_types() ) ? $channel : '';
+		$settings = Fast_Index_Settings::get();
+		$log      = Fast_Index_Log::page( $page, $channel );
+		$stats    = Fast_Index_Log::stats( $settings );
+		$base_url = admin_url( 'admin.php?page=' . self::SLUG_HISTORY );
+
 		$fast_index_view = array(
 			'stats'        => $stats,
 			'entries'      => $log['entries'],
 			'page'         => $page,
 			'has_next'     => $log['has_next'],
-			'base_url'     => admin_url( 'admin.php?page=' . self::SLUG_HISTORY ),
+			'channel'      => $channel,
+			'channels'     => self::channel_names(),
+			'base_url'     => '' === $channel ? $base_url : add_query_arg( 'channel', $channel, $base_url ),
+			'filter_url'   => $base_url,
+			'indexnow'     => Fast_Index_IndexNow::is_enabled( $settings ) || $stats['indexnow_today'] > 0,
 			'waiting_line' => Fast_Index_Upgrade::waiting_line( $stats['waiting'] ),
 			'upgrade_url'  => Fast_Index_Upgrade::upgrade_url(),
 		);
@@ -238,13 +250,30 @@ class Fast_Index_Admin {
 	}
 
 	/**
+	 * Names of the History channels. Product names, not translated.
+	 *
+	 * @return string[] Name by channel.
+	 */
+	public static function channel_names() {
+		return array(
+			Fast_Index_Log::CHANNEL_GOOGLE   => 'Google',
+			Fast_Index_Log::CHANNEL_INDEXNOW => 'IndexNow',
+		);
+	}
+
+	/**
 	 * Text for a submission result code.
 	 *
-	 * @param int $code HTTP status or a Fast_Index_Submitter constant.
+	 * @param int    $code    HTTP status or a Fast_Index_Submitter constant.
+	 * @param string $channel Channel of the answer.
 	 * @return string
 	 */
-	public static function status_label( $code ) {
+	public static function status_label( $code, $channel = Fast_Index_Log::CHANNEL_GOOGLE ) {
 		$code = (int) $code;
+
+		if ( Fast_Index_Log::CHANNEL_INDEXNOW === $channel && $code <= 0 ) {
+			return __( 'No answer from IndexNow', 'fast-index' );
+		}
 
 		if ( Fast_Index_Submitter::NO_ACCOUNT === $code ) {
 			return __( 'Not sent: no service account key', 'fast-index' );
@@ -278,11 +307,27 @@ class Fast_Index_Admin {
 	/**
 	 * Reason printed under the status of a History entry, for answers whose code alone does not say what happens.
 	 *
-	 * @param int $code HTTP status or a Fast_Index_Submitter constant.
+	 * @param int    $code    HTTP status or a Fast_Index_Submitter constant.
+	 * @param string $channel Channel of the answer.
 	 * @return string Plain text; empty when the status needs no note.
 	 */
-	public static function status_note( $code ) {
-		if ( 429 === (int) $code ) {
+	public static function status_note( $code, $channel = Fast_Index_Log::CHANNEL_GOOGLE ) {
+		$code = (int) $code;
+
+		if ( Fast_Index_Log::CHANNEL_INDEXNOW === $channel ) {
+			switch ( $code ) {
+				case 403:
+					return __( 'IndexNow could not verify the key: open the key file address on the settings screen and check that it shows the key.', 'fast-index' );
+				case 422:
+					return __( 'IndexNow refused the address: it does not belong to the host of the key.', 'fast-index' );
+				case 429:
+					return __( 'IndexNow received too many requests from this site and treats them as possible spam. Send fewer addresses at once.', 'fast-index' );
+				default:
+					return '';
+			}
+		}
+
+		if ( 429 === $code ) {
 			return __( 'Daily quota reached: every key is paused until Google resets the quota at midnight Pacific Time.', 'fast-index' );
 		}
 

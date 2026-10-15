@@ -130,6 +130,7 @@ class Fast_Index_Settings {
 			'old_post_number'  => 0,
 			'exclude_category' => array(),
 			'delete_data'      => false,
+			'indexnow'         => false,
 		);
 
 		/**
@@ -210,6 +211,7 @@ class Fast_Index_Settings {
 			'old_post_number'  => isset( $raw['old_post_number'] ) && is_scalar( $raw['old_post_number'] ) ? min( self::MAX_OLD_POSTS, absint( $raw['old_post_number'] ) ) : 0,
 			'exclude_category' => isset( $raw['exclude_category'] ) && is_array( $raw['exclude_category'] ) ? self::id_map( $raw['exclude_category'] ) : array(),
 			'delete_data'      => ! empty( $raw['delete_data'] ),
+			'indexnow'         => ! empty( $raw['indexnow'] ),
 		);
 	}
 
@@ -228,6 +230,7 @@ class Fast_Index_Settings {
 
 		$clean['status']      = isset( $input['status'] ) && is_scalar( $input['status'] ) ? (string) $input['status'] : self::STATUS_ACTIVE;
 		$clean['delete_data'] = ! empty( $input['delete_data'] );
+		$clean['indexnow']    = ! empty( $input['indexnow'] );
 		$clean['post_type']   = self::merge_choices( $stored['post_type'], $input, 'post_type', array_keys( self::post_type_choices() ) );
 		$clean['post_status'] = self::merge_choices( $stored['post_status'], $input, 'post_status', array_keys( self::event_choices() ) );
 

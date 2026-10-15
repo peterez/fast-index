@@ -88,8 +88,9 @@ class Fast_Index_Cron {
 	}
 
 	/**
-	 * Sends one queued notification. When no key can take it, History says why and, if every key
-	 * rests, the notification waits for the first key (Fast_Index_Retry).
+	 * Sends one queued notification to Google and, when it is on, to IndexNow (Fast_Index_Notifier). When no
+	 * Google key can take it, History says why and, if every key is paused, the notification waits for the first
+	 * key (Fast_Index_Retry).
 	 *
 	 * @param string $url     Absolute URL.
 	 * @param string $type    Notification type.
@@ -101,7 +102,7 @@ class Fast_Index_Cron {
 			return;
 		}
 
-		Fast_Index_Retry::deliver( $url, $type, absint( $post_id ) );
+		Fast_Index_Notifier::deliver( $url, $type, absint( $post_id ) );
 	}
 
 	/**

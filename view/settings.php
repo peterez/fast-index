@@ -103,6 +103,33 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							</td>
 						</tr>
 
+						<tr>
+							<td scope="row">
+								<b><?php echo esc_html( 'IndexNow' ); ?></b> <br>
+								<small><?php esc_html_e( 'Search engines other than Google.', 'fast-index' ); ?></small>
+							</td>
+							<td>
+								<label class="fast-index-choice">
+									<input id="fast-index-indexnow" type="checkbox" name="fast_index_options[indexnow]" value="1" <?php checked( $fast_index_settings['indexnow'] ); ?> />
+									<?php esc_html_e( 'Also send to IndexNow', 'fast-index' ); ?>
+								</label>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'indexnow' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
+								<?php if ( '' !== $fast_index_view['indexnow_key_url'] ) : ?>
+									<p class="description fi-indexnow-key">
+										<?php
+										printf(
+											/* translators: %s: address of the IndexNow key file. */
+											esc_html__( 'Key file: %s', 'fast-index' ),
+											'<a href="' . esc_url( $fast_index_view['indexnow_key_url'] ) . '" target="_blank" rel="noopener noreferrer"><bdi dir="ltr">' . esc_html( $fast_index_view['indexnow_key_url'] ) . '</bdi></a>'
+										);
+										?>
+									</p>
+								<?php endif; ?>
+							</td>
+						</tr>
+
 						<?php
 						/**
 						 * Fires inside the settings form table, before the "Delete data on uninstall" row. Print whole

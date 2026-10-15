@@ -10,19 +10,38 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Writes and reads the submission log.
  *
- * A log entry is a fi_log post whose parent is the submitted post. Published entries
- * mark a successful submission (2.x wrote only these); draft entries record failures
- * such as quota errors (HTTP 429) and notifications that could not be sent at all (no key,
- * every key resting, no OpenSSL; negative codes). Only published entries count as "sent".
+ * A log entry is a post whose parent is the submitted post. Each channel has its own post type, so the Google
+ * counters, the old-post batches and the retry queue never see another channel:
+ * - fi_log (name kept from 2.x): Google Indexing API.
+ * - fast_index_now_log: IndexNow.
  *
- * A draft entry that carries META_RETRY waits in the retry queue (Fast_Index_Retry).
+ * Published entries mark a successful submission (2.x wrote only these); draft entries record failures such as
+ * quota errors (HTTP 429) and notifications that could not be sent at all (no key, every key paused, no
+ * OpenSSL; negative codes). Only published entries count as "sent".
+ *
+ * A Google draft entry that carries META_RETRY waits in the retry queue (Fast_Index_Retry).
  */
 class Fast_Index_Log {
 
 	/**
-	 * Post type of log entries (name kept from 2.x).
+	 * Post type of the Google log entries (name kept from 2.x).
 	 */
 	const POST_TYPE = 'fi_log';
+
+	/**
+	 * Post type of the IndexNow log entries.
+	 */
+	const INDEXNOW_POST_TYPE = 'fast_index_now_log';
+
+	/**
+	 * Channel: Google Indexing API.
+	 */
+	const CHANNEL_GOOGLE = 'google';
+
+	/**
+	 * Channel: IndexNow.
+	 */
+	const CHANNEL_INDEXNOW = 'indexnow';
 
 	/**
 	 * Post status of successful submissions.
@@ -65,48 +84,91 @@ class Fast_Index_Log {
 	const STATS_TRANSIENT = 'fast_index_stats';
 
 	/**
-	 * Registers the log post type. Runs on init.
+	 * Registers the log post types. Runs on init.
 	 *
 	 * @return void
 	 */
 	public static function register_post_type() {
-		register_post_type(
-			self::POST_TYPE,
-			array(
-				'labels'       => array(
-					'name'          => __( 'Fast Index History', 'fast-index' ),
-					'singular_name' => __( 'Fast Index History Entry', 'fast-index' ),
-				),
-				'public'       => false,
-				'rewrite'      => false,
-				'query_var'    => false,
-				'can_export'   => false,
-				'show_in_rest' => false,
-				'supports'     => array( 'title' ),
-			)
+		foreach ( self::post_types() as $post_type ) {
+			register_post_type(
+				$post_type,
+				array(
+					'labels'       => array(
+						'name'          => __( 'Fast Index History', 'fast-index' ),
+						'singular_name' => __( 'Fast Index History Entry', 'fast-index' ),
+					),
+					'public'       => false,
+					'rewrite'      => false,
+					'query_var'    => false,
+					'can_export'   => false,
+					'show_in_rest' => false,
+					'supports'     => array( 'title' ),
+				)
+			);
+		}
+	}
+
+	/**
+	 * Post types of the log, by channel.
+	 *
+	 * @return string[]
+	 */
+	public static function post_types() {
+		return array(
+			self::CHANNEL_GOOGLE   => self::POST_TYPE,
+			self::CHANNEL_INDEXNOW => self::INDEXNOW_POST_TYPE,
 		);
 	}
 
 	/**
-	 * Adds a log entry. The newest event of an address wins: earlier entries of the same post and
-	 * address leave the retry queue, and an entry for a notification that could not be sent replaces
-	 * the earlier entry of that kind, so History keeps one such line per address.
+	 * Channel of a log post type.
+	 *
+	 * @param string $post_type Post type.
+	 * @return string One of the CHANNEL_* constants.
+	 */
+	public static function channel_of( $post_type ) {
+		return self::INDEXNOW_POST_TYPE === $post_type ? self::CHANNEL_INDEXNOW : self::CHANNEL_GOOGLE;
+	}
+
+	/**
+	 * Adds an IndexNow log entry. 200 and 202 are successes.
 	 *
 	 * @param int    $post_id Submitted post, 0 when unknown.
 	 * @param string $url     Submitted URL.
-	 * @param int    $code    HTTP status (200 on success) or a Fast_Index_Submitter constant.
-	 * @param string $type    Notification type.
+	 * @param int    $code    HTTP status, 0 without an answer.
+	 * @param string $type    Notification type (URL_UPDATED or URL_DELETED), for display.
 	 * @return int Log entry ID, 0 on failure.
 	 */
-	public static function add( $post_id, $url, $code, $type ) {
+	public static function add_indexnow( $post_id, $url, $code, $type ) {
+		$log_id = self::insert( self::INDEXNOW_POST_TYPE, $post_id, $url, $code, $type, in_array( (int) $code, array( 200, 202 ), true ) );
+
+		if ( $log_id > 0 && in_array( (int) $code, array( 200, 202 ), true ) ) {
+			Fast_Index_Upgrade::remember_indexnow_success();
+		}
+
+		return $log_id;
+	}
+
+	/**
+	 * Inserts one log post.
+	 *
+	 * @param string $post_type Log post type.
+	 * @param int    $post_id   Submitted post, 0 when unknown.
+	 * @param string $url       Submitted URL.
+	 * @param int    $code      HTTP status or a Fast_Index_Submitter constant.
+	 * @param string $type      Notification type.
+	 * @param bool   $success   Whether the entry marks a success.
+	 * @return int Log entry ID, 0 on failure.
+	 */
+	private static function insert( $post_type, $post_id, $url, $code, $type, $success ) {
 		$post_id = absint( $post_id );
 		$title   = $post_id ? (string) get_post_field( 'post_title', $post_id, 'raw' ) : '';
 		$now_gmt = gmdate( 'Y-m-d H:i:s' );
 
 		$log_id = wp_insert_post(
 			array(
-				'post_type'     => self::POST_TYPE,
-				'post_status'   => 200 === (int) $code ? self::STATUS_SENT : self::STATUS_FAILED,
+				'post_type'     => $post_type,
+				'post_status'   => $success ? self::STATUS_SENT : self::STATUS_FAILED,
 				'post_title'    => '' !== $title ? $title : $url,
 				'post_content'  => esc_url_raw( $url ),
 				'post_parent'   => $post_id,
@@ -123,7 +185,25 @@ class Fast_Index_Log {
 
 		delete_transient( self::STATS_TRANSIENT );
 
-		if ( is_wp_error( $log_id ) ) {
+		return is_wp_error( $log_id ) ? 0 : (int) $log_id;
+	}
+
+	/**
+	 * Adds a log entry. The newest event of an address wins: earlier entries of the same post and
+	 * address leave the retry queue, and an entry for a notification that could not be sent replaces
+	 * the earlier entry of that kind, so History keeps one such line per address.
+	 *
+	 * @param int    $post_id Submitted post, 0 when unknown.
+	 * @param string $url     Submitted URL.
+	 * @param int    $code    HTTP status (200 on success) or a Fast_Index_Submitter constant.
+	 * @param string $type    Notification type.
+	 * @return int Log entry ID, 0 on failure.
+	 */
+	public static function add( $post_id, $url, $code, $type ) {
+		$post_id = absint( $post_id );
+		$log_id  = self::insert( self::POST_TYPE, $post_id, $url, $code, $type, 200 === (int) $code );
+
+		if ( 0 === $log_id ) {
 			return 0;
 		}
 
@@ -131,9 +211,19 @@ class Fast_Index_Log {
 			Fast_Index_Upgrade::remember_success();
 		}
 
-		self::supersede( $post_id, esc_url_raw( $url ), (int) $log_id, Fast_Index_Submitter::is_not_sent( $code ) );
+		self::supersede( $post_id, esc_url_raw( $url ), $log_id, Fast_Index_Submitter::is_not_sent( $code ) );
 
-		return (int) $log_id;
+		/**
+		 * Fires after a Google History entry was added.
+		 *
+		 * @param int    $log_id  History entry ID.
+		 * @param int    $code    HTTP status (200 on success) or a Fast_Index_Submitter constant.
+		 * @param string $url     Submitted URL.
+		 * @param int    $post_id Submitted post, 0 when unknown.
+		 */
+		do_action( 'fast_index_logged', $log_id, (int) $code, (string) $url, $post_id );
+
+		return $log_id;
 	}
 
 	/**
@@ -261,25 +351,26 @@ class Fast_Index_Log {
 	 * Counters for the history page, cached for ten minutes.
 	 *
 	 * @param array $settings Clean settings.
-	 * @return int[] Keys: sent, waiting, today.
+	 * @return int[] Keys: sent, waiting, today (Google), indexnow_today (IndexNow successes of the last 24 hours).
 	 */
 	public static function stats( array $settings ) {
 		$cached = get_transient( self::STATS_TRANSIENT );
 
-		if ( is_array( $cached ) && isset( $cached['sent'], $cached['waiting'], $cached['today'] ) ) {
+		if ( is_array( $cached ) && isset( $cached['sent'], $cached['waiting'], $cached['today'], $cached['indexnow_today'] ) ) {
 			return $cached;
 		}
 
 		$stats = array(
-			'sent'    => self::count_sent(),
-			'waiting' => self::count_waiting( $settings ),
-			'today'   => self::count_sent_since( time() - DAY_IN_SECONDS ),
+			'sent'           => self::count_sent(),
+			'waiting'        => self::count_waiting( $settings ),
+			'today'          => self::count_sent_since( time() - DAY_IN_SECONDS ),
+			'indexnow_today' => self::count_sent_since( time() - DAY_IN_SECONDS, self::INDEXNOW_POST_TYPE ),
 		);
 
 		/**
 		 * Filters the History counters before they are cached.
 		 *
-		 * @param int[] $stats    Keys: sent, waiting, today.
+		 * @param int[] $stats    Keys: sent, waiting, today, indexnow_today.
 		 * @param array $settings Clean settings.
 		 */
 		$filtered = apply_filters( 'fast_index_history_stats', $stats, $settings );
@@ -313,13 +404,14 @@ class Fast_Index_Log {
 	/**
 	 * Number of successful submissions since a moment. Compared in UTC.
 	 *
-	 * @param int $since Unix timestamp.
+	 * @param int    $since     Unix timestamp.
+	 * @param string $post_type Log post type; default Google.
 	 * @return int
 	 */
-	public static function count_sent_since( $since ) {
+	public static function count_sent_since( $since, $post_type = self::POST_TYPE ) {
 		$query = new WP_Query(
 			array(
-				'post_type'              => self::POST_TYPE,
+				'post_type'              => in_array( $post_type, self::post_types(), true ) ? $post_type : self::POST_TYPE,
 				'post_status'            => self::STATUS_SENT,
 				'fields'                 => 'ids',
 				'posts_per_page'         => 1,
@@ -372,13 +464,15 @@ class Fast_Index_Log {
 	/**
 	 * One page of log entries, newest first.
 	 *
-	 * @param int $page Zero-based page number.
+	 * @param int    $page    Zero-based page number.
+	 * @param string $channel One of the CHANNEL_* constants; empty for every channel.
 	 * @return array Keys: entries (array[]), has_next (bool).
 	 */
-	public static function page( $page ) {
+	public static function page( $page, $channel = '' ) {
+		$types = self::post_types();
 		$posts = get_posts(
 			array(
-				'post_type'   => self::POST_TYPE,
+				'post_type'   => isset( $types[ $channel ] ) ? $types[ $channel ] : array_values( $types ),
 				'post_status' => array( self::STATUS_SENT, self::STATUS_FAILED ),
 				'numberposts' => self::PER_PAGE + 1,
 				'offset'      => absint( $page ) * self::PER_PAGE,
@@ -407,7 +501,7 @@ class Fast_Index_Log {
 	public static function latest() {
 		$posts = get_posts(
 			array(
-				'post_type'   => self::POST_TYPE,
+				'post_type'   => array_values( self::post_types() ),
 				'post_status' => array( self::STATUS_SENT, self::STATUS_FAILED ),
 				'numberposts' => 1,
 				'orderby'     => 'ID',
@@ -429,6 +523,8 @@ class Fast_Index_Log {
 		$type = get_post_meta( $post->ID, self::META_TYPE, true );
 
 		return array(
+			'id'        => (int) $post->ID,
+			'channel'   => self::channel_of( $post->post_type ),
 			'title'     => $post->post_title,
 			'post_id'   => (int) $post->post_parent,
 			'url'       => $post->post_content,

@@ -12,7 +12,7 @@ Notify the Google Indexing API when you publish, update or delete posts. Google 
 
 == Description ==
 
-Fast Index tells the Google Indexing API when a post is published, updated or removed. You connect your own Google Cloud service account once. After that, Fast Index sends the address of the post in the background and keeps a History of every answer from Google.
+Fast Index tells the Google Indexing API when a post is published, updated or removed. You connect your own Google Cloud service account once. After that, Fast Index sends the address of the post in the background and keeps a History of every answer from Google. If you turn it on, the same addresses also go to IndexNow, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines.
 
 **What Google supports.** Google states that the Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject. For other pages, such as ordinary posts, pages or products, Google may accept a notification and answer 200, but its documentation does not promise that the page will be crawled or indexed, or that this happens sooner. Fast Index cannot change that. Keep your sitemap and Search Console as they are. Google also checks every submission for spam and may revoke access for abuse. Details: https://developers.google.com/search/apis/indexing-api/v3/quickstart
 
@@ -33,8 +33,9 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 **Features**
 
 * Notifications for every public post type (posts, pages, custom post types such as products or job listings): URL_UPDATED when content is published or updated, URL_DELETED when it is trashed or deleted. You choose the post types and the events.
+* IndexNow, off by default: the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and the other search engines that take part. Fast Index creates the key and answers the key file itself, without a file on disk.
 * Background sending through WP-Cron, with a time limit for each request.
-* History screen with a summary (sent in total, waiting, sent today) and the answer of Google for every notification.
+* History screen with a summary (sent in total, waiting, sent today) and every answer of Google and IndexNow, with a Channel column and a filter for each channel.
 * When Google rejects the key (401 or 403), it is paused for six hours. When the daily quota is used up (429), every key is paused until Google resets the quota at midnight Pacific Time, and no other key is tried.
 * A notification that cannot be sent is listed in History as Not sent. Without a key or without OpenSSL it is only recorded; while the key is paused it waits and is sent when the key is ready again.
 * The service account key is stored in the database, never in a file. The screens show only the email address and the key ID.
@@ -55,7 +56,7 @@ To get it, open Fast Index > Upgrade, or click Upgrade to Premium in the Premium
 
 **What it does not do**
 
-Fast Index talks only to the Google Indexing API. It does not support Bing or IndexNow, it does not submit sitemaps, and it cannot make Google index a page.
+Fast Index does not submit sitemaps, does not use the Bing Webmaster API, and cannot make Google or any other search engine index a page.
 
 == Installation ==
 
@@ -73,7 +74,7 @@ The Help & FAQ screen of the plugin (Fast Index > Help & FAQ) repeats these step
 
 = What does Fast Index send to Google? =
 
-Only the address (URL) of a post and the kind of notification: URL_UPDATED when a post is published or changed, URL_DELETED when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. Your own History keeps the title, address and Google's answer in your database. See also Google's privacy policy: https://policies.google.com/privacy
+Only the address (URL) of a post and the kind of notification: URL_UPDATED when a post is published or changed, URL_DELETED when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. If IndexNow is turned on, the same addresses, the host name of your site and the IndexNow key also go to api.indexnow.org. Your own History keeps the title, address and each answer in your database. See also Google's privacy policy: https://policies.google.com/privacy
 
 = Will Google index every page I publish right away? =
 
@@ -123,7 +124,7 @@ Fast Index does not read language plugins. It sends the address that WordPress g
 
 = Does Fast Index support Bing or IndexNow? =
 
-No. Fast Index talks only to the Google Indexing API.
+Yes, through IndexNow, which is off by default. Turn it on with Also send to IndexNow on the settings screen. Fast Index then also sends each address to api.indexnow.org, which shares it with Bing, Yandex, Naver, Seznam.cz, Yep and the other search engines that take part. Unlike the Google Indexing API, IndexNow accepts every kind of page and needs no account: Fast Index creates a key for your site and answers it at /{key}.txt. The request contains the host name of your site, the key, the address of the key file and the changed addresses. History lists the answers in the IndexNow channel. Fast Index does not use the Bing Webmaster API. See the IndexNow terms: https://www.indexnow.org/terms
 
 = What does the premium plan add? =
 
@@ -154,7 +155,7 @@ No. Saving a post only queues a scheduled task. The request to Google is made la
 
 == External services ==
 
-Fast Index connects to the services below. It sends nothing to Google until you have uploaded a service account key and the status is Active.
+Fast Index connects to the services below. It sends nothing to Google until you have uploaded a service account key and the status is Active, and nothing to IndexNow until you turn IndexNow on.
 
 **Google OAuth 2.0 token service** (https://oauth2.googleapis.com/token)
 
@@ -174,6 +175,15 @@ Fast Index connects to the services below. It sends nothing to Google until you 
 * Terms of Service: https://policies.google.com/terms and https://developers.google.com/terms
 * Privacy Policy: https://policies.google.com/privacy
 
+**IndexNow** (https://api.indexnow.org/indexnow)
+
+* What it is used for: to tell the search engines that take part in IndexNow, such as Bing, Yandex, Naver, Seznam.cz and Yep, that a page was added, updated or removed. api.indexnow.org shares each submission with all of them.
+* When: only after you turn on Also send to IndexNow on the settings screen (it is off by default), after a post is published, updated, trashed or deleted. While IndexNow is off, no request is made and no key file is answered.
+* Data sent: the host name of your site, the IndexNow key that Fast Index created for the site, the address of the key file and the addresses (URLs) of the changed posts. The search engines then read the key file from your site. Titles, content and visitor data are not sent. The receiving servers also get the IP address of your server.
+* Why: so that search engines other than Google hear about your changes.
+* Terms of Service: https://www.indexnow.org/terms
+* Privacy: the Privacy section of the IndexNow terms, and the privacy statement of each search engine, for Bing: https://privacy.microsoft.com/privacystatement
+
 **Freemius** (https://api.freemius.com, https://wp.freemius.com and https://checkout.freemius.com)
 
 Fast Index includes the Freemius SDK (version 2.13.4), which sells the premium plan and manages its licenses. What it sends was measured on a new installation of this version, with every outgoing request recorded:
@@ -189,9 +199,9 @@ Fast Index includes the Freemius SDK (version 2.13.4), which sells the premium p
 
 == Privacy ==
 
-Fast Index stores your settings, the service account keys you upload (in the database, not in a file) and a History of notifications (post title, address, time and the answer of Google) in your own database. It collects nothing about your visitors, sets no cookies and shows nothing on the public side of your site. It does not add text to the privacy policy of your site.
+Fast Index stores your settings, the service account keys you upload (in the database, not in a file) and a History of notifications (post title, address, time and the answer of Google or IndexNow) in your own database. It collects nothing about your visitors, sets no cookies and shows nothing on the public side of your site. It does not add text to the privacy policy of your site.
 
-What leaves your site is described under External services: post addresses and signed requests go to Google, and the Freemius SDK contacts Freemius only after one of the choices described there. Deleting the plugin removes temporary data and, if you turned on Delete data on uninstall, your settings, keys and history. Records kept by Freemius are not touched, and a key stays valid in Google Cloud until you delete it there.
+What leaves your site is described under External services: post addresses and signed requests go to Google, post addresses go to IndexNow only if you turn it on, and the Freemius SDK contacts Freemius only after one of the choices described there. Deleting the plugin removes temporary data and, if you turned on Delete data on uninstall, your settings, keys and history. Records kept by Freemius are not touched, and a key stays valid in Google Cloud until you delete it there.
 
 == Changelog ==
 
@@ -207,6 +217,7 @@ What leaves your site is described under External services: post addresses and s
 * New: the settings screen compares the free and premium versions, History says how many published posts Google has not accepted yet, and the Plugins screen has Settings and Upgrade links.
 * Changed: trashing or deleting a published post sends URL_DELETED when the Trash event is checked.
 * Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
+* New: IndexNow, off by default. When you turn it on, the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines. Fast Index creates a key for each site and answers the key file at /{key}.txt without a file. History has a Channel column and a filter.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).

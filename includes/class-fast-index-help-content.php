@@ -66,6 +66,16 @@ class Fast_Index_Help_Content {
 	const URL_VIDEO = 'https://youtu.be/RsJA66b5884';
 
 	/**
+	 * IndexNow documentation.
+	 */
+	const URL_INDEXNOW_DOCS = 'https://www.indexnow.org/documentation';
+
+	/**
+	 * IndexNow terms of service.
+	 */
+	const URL_INDEXNOW_TERMS = 'https://www.indexnow.org/terms';
+
+	/**
 	 * WordPress.org support forum of the plugin.
 	 */
 	const URL_SUPPORT = 'https://wordpress.org/support/plugin/fast-index/';
@@ -275,6 +285,18 @@ class Fast_Index_Help_Content {
 				'when'    => esc_html__( 'Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal.', 'fast-index' ),
 			),
 			array(
+				'id'      => 'indexnow',
+				'name'    => 'IndexNow',
+				'short'   => self::field_description( 'indexnow' ),
+				'what'    => sprintf(
+					/* translators: %s: link to the IndexNow documentation. */
+					esc_html__( 'When checked, every notification also goes to IndexNow (api.indexnow.org) in the same scheduled task, and IndexNow shares it with the search engines that take part. IndexNow needs a key that proves the site is yours: Fast Index creates one for each site (32 letters and digits) and answers it at the key file address shown on the settings screen, without writing a file. While no Google key is stored, only IndexNow is used. See %s.', 'fast-index' ),
+					self::ext( self::URL_INDEXNOW_DOCS, __( 'the IndexNow documentation', 'fast-index' ) )
+				),
+				'default' => __( 'Off', 'fast-index' ),
+				'when'    => esc_html__( 'Turn it on if Bing and the other IndexNow search engines should hear about your changes too. IndexNow accepts every kind of page, not only job postings and livestreams.', 'fast-index' ),
+			),
+			array(
 				'id'      => 'exclude_category',
 				'name'    => __( 'Exclude Categories', 'fast-index' ),
 				'short'   => self::field_description( 'exclude_category' ),
@@ -354,6 +376,8 @@ class Fast_Index_Help_Content {
 				return __( 'Posts in a checked category are never sent.', 'fast-index' );
 			case 'delete_data':
 				return __( 'Off by default: deleting the plugin keeps your settings, keys and history, so a reinstall continues where you left off.', 'fast-index' );
+			case 'indexnow':
+				return __( 'Off by default. When on, each address also goes to api.indexnow.org, which shares it with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines.', 'fast-index' );
 			default:
 				return '';
 		}
@@ -465,7 +489,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'nothing-in-history',
 				'symptom' => __( 'A post is missing from History', 'fast-index' ),
-				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written.', 'fast-index' ),
 				'fix'     => esc_html__( 'Check the settings above. Changing a setting does not send earlier saves: after you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
 			),
 			array(
@@ -495,6 +519,22 @@ class Fast_Index_Help_Content {
 				'fix'     => esc_html__( 'Open Fast Index on each site and upload a key there. The same key file may be used on several sites. Their notifications then share the quota of the key\'s Google Cloud project.', 'fast-index' ),
 			),
 			array(
+				'id'      => 'indexnow-key',
+				'symptom' => sprintf(
+					/* translators: %s: status text "No answer from IndexNow". */
+					__( 'IndexNow answers 403 or 422, or "%s"', 'fast-index' ),
+					__( 'No answer from IndexNow', 'fast-index' )
+				),
+				'cause'   => esc_html__( '403: IndexNow could not read the key file at the address shown on the settings screen, or the file did not contain the key. This happens when the request never reaches WordPress, for example with plain permalinks on some servers, or when a cache, firewall or security plugin answers it. 422: an address belongs to another host than the key, for example a page that redirects to another domain. No answer: your server could not reach api.indexnow.org within 15 seconds.', 'fast-index' ),
+				'fix'     => esc_html__( 'Open the key file address on the settings screen: it must show the key and nothing else. If it shows a page of your site or an error, choose a permalink structure other than Plain under Settings, Permalinks, or let the address through your cache or firewall. Allow outgoing HTTPS requests to api.indexnow.org. Fast Index does not resend these notifications; save the post again to send it again.', 'fast-index' ),
+			),
+			array(
+				'id'      => 'indexnow-429',
+				'symptom' => __( 'IndexNow answers 429', 'fast-index' ),
+				'cause'   => esc_html__( 'IndexNow received too many requests from your site and treats them as possible spam.', 'fast-index' ),
+				'fix'     => esc_html__( 'Send fewer addresses at once, and do not send the same addresses again and again. Wait before you send more; Fast Index does not resend these notifications.', 'fast-index' ),
+			),
+			array(
 				'id'      => 'premium-options',
 				'symptom' => __( 'The settings screen has no option for old posts or excluded categories', 'fast-index' ),
 				'cause'   => esc_html__( 'These options are part of the premium plan, which is a separate package. The free version from WordPress.org does not contain their code, so nothing on the screen is locked; the options are simply not there. Settings explained says which options belong to the premium plan.', 'fast-index' ),
@@ -515,7 +555,7 @@ class Fast_Index_Help_Content {
 				'question' => __( 'What does Fast Index send to Google?', 'fast-index' ),
 				'answer'   => sprintf(
 					/* translators: 1: notification type "URL_UPDATED", 2: notification type "URL_DELETED", 3: link to Google's privacy policy. */
-					__( 'Only the address (URL) of a post and the kind of notification: %1$s when a post is published or changed, %2$s when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. Your own History keeps the title, address and Google\'s answer in your database. See also %3$s.', 'fast-index' ),
+					__( 'Only the address (URL) of a post and the kind of notification: %1$s when a post is published or changed, %2$s when it is removed. Titles, content, visitors and your database are not sent. To prove who is asking, Fast Index also sends a signed request that contains the email address and key ID of your service account; the private key itself never leaves your site. The requests go to oauth2.googleapis.com and indexing.googleapis.com. If IndexNow is turned on, the same addresses, the host name of your site and the IndexNow key also go to api.indexnow.org. Your own History keeps the title, address and each answer in your database. See also %3$s.', 'fast-index' ),
 					self::code( 'URL_UPDATED' ),
 					self::code( 'URL_DELETED' ),
 					self::ext( 'https://policies.google.com/privacy', __( 'Google\'s privacy policy', 'fast-index' ) )
@@ -606,7 +646,13 @@ class Fast_Index_Help_Content {
 			array(
 				'id'       => 'indexnow',
 				'question' => __( 'Does Fast Index support Bing or IndexNow?', 'fast-index' ),
-				'answer'   => esc_html__( 'No. Fast Index talks only to the Google Indexing API.', 'fast-index' ),
+				'answer'   => sprintf(
+					/* translators: 1: option name "Also send to IndexNow", 2: address of the key file, 3: link to the IndexNow terms. */
+					__( 'Yes, through IndexNow, which is off by default. Turn it on with %1$s on the settings screen. Fast Index then also sends each address to api.indexnow.org, which shares it with Bing, Yandex, Naver, Seznam.cz, Yep and the other search engines that take part. Unlike the Google Indexing API, IndexNow accepts every kind of page and needs no account: Fast Index creates a key for your site and answers it at %2$s. The request contains the host name of your site, the key, the address of the key file and the changed addresses. History lists the answers in the IndexNow channel. Fast Index does not use the Bing Webmaster API. See %3$s.', 'fast-index' ),
+					self::strong( __( 'Also send to IndexNow', 'fast-index' ) ),
+					self::code( '/{key}.txt' ),
+					self::ext( self::URL_INDEXNOW_TERMS, __( 'the IndexNow terms', 'fast-index' ) )
+				),
 			),
 			array(
 				'id'       => 'premium-features',
@@ -683,7 +729,7 @@ class Fast_Index_Help_Content {
 	public static function screen_help( $screen ) {
 		$texts = array(
 			'settings' => __( 'Choose what Fast Index sends to Google and upload the service account key. Each option is explained under its field and in Settings explained on the Help & FAQ screen.', 'fast-index' ),
-			'history'  => __( 'Shows the totals and the latest notifications with the answer from Google. 200 OK means Google accepted the notification; it does not mean the page is indexed. Other codes are explained under Troubleshooting.', 'fast-index' ),
+			'history'  => __( 'Shows the Google totals and the latest notifications with the answer of Google or IndexNow; the links above the list show one channel. 200 OK means the notification was accepted; it does not mean the page is indexed. Other codes are explained under Troubleshooting.', 'fast-index' ),
 			'run'      => __( 'Sends one batch of old posts now, within the daily limit set on the settings screen. The batch has a random size, so a run can send nothing. The same batch also runs every hour.', 'fast-index' ),
 			'help'     => __( 'Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support.', 'fast-index' ),
 		);
