@@ -47,6 +47,11 @@ class Fast_Index_Queue {
 	const TIME_BUDGET = 20;
 
 	/**
+	 * Rows per statement of add_many().
+	 */
+	const ADD_CHUNK = 500;
+
+	/**
 	 * Seconds before the next run after Google did not answer or answered 5xx.
 	 */
 	const OUTAGE_DELAY = 300;
@@ -86,6 +91,49 @@ class Fast_Index_Queue {
 		}
 
 		return $written;
+	}
+
+	/**
+	 * Adds several notifications with one statement per ADD_CHUNK rows (moving many events at once).
+	 *
+	 * @param array[] $items Each: url, type, post_id.
+	 * @return int Number of notifications written.
+	 */
+	public static function add_many( array $items ) {
+		global $wpdb;
+
+		$rows = array();
+
+		foreach ( $items as $item ) {
+			$url  = isset( $item['url'] ) ? (string) $item['url'] : '';
+			$type = isset( $item['type'] ) ? (string) $item['type'] : '';
+
+			if ( Fast_Index_Post_Watcher::is_http_url( $url ) && in_array( $type, Fast_Index_Google_Client::types(), true ) ) {
+				// Keyed by name: the newest event of an address wins within the list as well.
+				$rows[ self::PREFIX . md5( $url ) ] = (string) wp_json_encode(
+					array(
+						'url'     => $url,
+						'type'    => $type,
+						'post_id' => isset( $item['post_id'] ) ? absint( $item['post_id'] ) : 0,
+					)
+				);
+			}
+		}
+
+		foreach ( array_chunk( $rows, self::ADD_CHUNK, true ) as $chunk ) {
+			$values = array();
+
+			foreach ( $chunk as $name => $value ) {
+				$values[] = $name;
+				$values[] = $value;
+			}
+
+			$places = implode( ', ', array_fill( 0, count( $chunk ), "( %s, %s, 'no' )" ) );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- One upsert per chunk, as core add_option() writes it; $places holds only placeholders.
+			$wpdb->query( $wpdb->prepare( "INSERT INTO {$wpdb->options} ( option_name, option_value, autoload ) VALUES {$places} ON DUPLICATE KEY UPDATE option_value = VALUES( option_value )", $values ) );
+		}
+
+		return count( $rows );
 	}
 
 	/**
@@ -208,7 +256,7 @@ class Fast_Index_Queue {
 	 */
 	public static function adopt_legacy_events() {
 		$crons = _get_cron_array();
-		$moved = 0;
+		$items = array();
 		$found = false;
 
 		if ( ! is_array( $crons ) ) {
@@ -224,15 +272,22 @@ class Fast_Index_Queue {
 				$found = true;
 				$args  = isset( $event['args'] ) && is_array( $event['args'] ) ? array_values( $event['args'] ) : array();
 
-				if ( count( $args ) >= 2 && self::add( $args[0], $args[1], isset( $args[2] ) ? $args[2] : 0, false ) ) {
-					++$moved;
+				if ( count( $args ) >= 2 ) {
+					$items[] = array(
+						'url'     => (string) $args[0],
+						'type'    => (string) $args[1],
+						'post_id' => isset( $args[2] ) ? absint( $args[2] ) : 0,
+					);
 				}
 			}
 		}
 
-		if ( $found ) {
-			wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
+		if ( ! $found ) {
+			return 0;
 		}
+
+		$moved = self::add_many( $items );
+		wp_unschedule_hook( Fast_Index_Cron::SUBMIT_HOOK );
 
 		if ( $moved > 0 ) {
 			self::schedule( time() );
