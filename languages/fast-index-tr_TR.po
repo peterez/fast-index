@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-15T03:22:09+00:00\n"
+"POT-Creation-Date: 2026-10-15T09:09:05+00:00\n"
 "PO-Revision-Date: 2026-10-15 03:41+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Turkish\n"
@@ -89,7 +89,7 @@ msgstr "%1$s: %2$s"
 #: includes/class-fast-index-manual.php:312
 #: includes/class-fast-index-upgrade.php:249
 #: includes/class-fast-index-upgrade.php:254
-#: includes/class-fast-index-upgrade.php:376 view/history.php:57
+#: includes/class-fast-index-upgrade.php:376 view/history.php:59
 msgid "See the premium plan"
 msgstr "Premium planı inceleyin"
 
@@ -103,49 +103,49 @@ msgstr "%s anahtarı kaydedildi."
 msgid "Sorry, you are not allowed to do that."
 msgstr "Ne yazık ki, bunu yapma izniniz yok."
 
-#: includes/class-fast-index-admin.php:64
-#: includes/class-fast-index-manual.php:305
+#: includes/class-fast-index-admin.php:69
+#: includes/class-fast-index-manual.php:305 view/partial-band.php:18
 msgid "Fast Index"
 msgstr "Fast Index"
 
-#: includes/class-fast-index-admin.php:65
-#: includes/class-fast-index-help-content.php:226 view/history.php:64
+#: includes/class-fast-index-admin.php:70
+#: includes/class-fast-index-help-content.php:226 view/history.php:21
 msgid "History"
 msgstr "Geçmiş"
 
-#: includes/class-fast-index-admin.php:75
+#: includes/class-fast-index-admin.php:80
 #: includes/class-fast-index-help-content.php:816 view/help.php:16
-#: view/settings.php:284
+#: view/settings.php:277
 msgid "Help & FAQ"
 msgstr "Yardım ve SSS"
 
-#: includes/class-fast-index-admin.php:278
+#: includes/class-fast-index-admin.php:302
 #: includes/class-fast-index-help-content.php:560
 msgid "No answer from IndexNow"
 msgstr "IndexNow'dan yanıt yok"
 
-#: includes/class-fast-index-admin.php:282
+#: includes/class-fast-index-admin.php:306
 msgid "Not sent: no service account key"
 msgstr "Gönderilmedi: hizmet hesabı anahtarı yok"
 
-#: includes/class-fast-index-admin.php:286
+#: includes/class-fast-index-admin.php:310
 msgid "Not sent: every key was paused"
 msgstr "Gönderilmedi: tüm anahtarlar askıya alınmıştı"
 
-#: includes/class-fast-index-admin.php:290
+#: includes/class-fast-index-admin.php:314
 msgid "Not sent: OpenSSL is missing"
 msgstr "Gönderilmedi: OpenSSL eksik"
 
-#: includes/class-fast-index-admin.php:294
+#: includes/class-fast-index-admin.php:318
 #: includes/class-fast-index-help-content.php:481
 msgid "No answer from Google"
 msgstr "Google'dan yanıt gelmedi"
 
-#: includes/class-fast-index-admin.php:307
+#: includes/class-fast-index-admin.php:347
 msgid "Fast Index tries again when a key is ready."
 msgstr "Fast Index, bir anahtar hazır olduğunda yeniden dener."
 
-#: includes/class-fast-index-admin.php:323
+#: includes/class-fast-index-admin.php:363
 msgid ""
 "IndexNow could not verify the key: open the key file address on the settings "
 "screen and check that it shows the key."
@@ -153,14 +153,14 @@ msgstr ""
 "IndexNow anahtarı doğrulayamadı: ayarlar ekranındaki anahtar dosyası "
 "adresini açın ve anahtarı gösterdiğini denetleyin."
 
-#: includes/class-fast-index-admin.php:325
+#: includes/class-fast-index-admin.php:365
 msgid ""
 "IndexNow refused the address: it does not belong to the host of the key."
 msgstr ""
 "IndexNow adresi reddetti: adres, anahtarın ait olduğu ana makineye (host) "
 "ait değil."
 
-#: includes/class-fast-index-admin.php:327
+#: includes/class-fast-index-admin.php:367
 msgid ""
 "IndexNow received too many requests from this site and treats them as "
 "possible spam. Send fewer addresses at once."
@@ -168,7 +168,7 @@ msgstr ""
 "IndexNow bu siteden çok fazla istek aldı ve bunları olası spam sayıyor. Bir "
 "seferde daha az adres gönderin."
 
-#: includes/class-fast-index-admin.php:334
+#: includes/class-fast-index-admin.php:374
 msgid ""
 "Daily quota reached: every key is paused until Google resets the quota at "
 "midnight Pacific Time."
@@ -177,13 +177,13 @@ msgstr ""
 "kadar tüm anahtarlar askıya alındı."
 
 #. translators: %s: date and time.
-#: includes/class-fast-index-admin.php:348
+#: includes/class-fast-index-admin.php:388
 #, php-format
 msgid "Paused until %s"
 msgstr "%s tarihine kadar askıda"
 
-#: includes/class-fast-index-admin.php:411
-#: includes/class-fast-index-help.php:110
+#: includes/class-fast-index-admin.php:451
+#: includes/class-fast-index-help.php:111
 #: includes/premium/class-fast-index-premium-backlog.php:201
 msgid "Sorry, you are not allowed to access this page."
 msgstr "Üzgünüz, bu sayfaya erişmenize izin verilmiyor."
@@ -469,15 +469,15 @@ msgstr ""
 "gösterilmez."
 
 #: includes/class-fast-index-help-content.php:205
-#: includes/class-fast-index-help-content.php:344 view/settings.php:205
+#: includes/class-fast-index-help-content.php:344 view/settings.php:201
 msgid "Upload Google Service Account Key"
 msgstr "Google hizmet hesabı anahtarını yükle"
 
-#: includes/class-fast-index-help-content.php:206 view/settings.php:258
+#: includes/class-fast-index-help-content.php:206 view/settings.php:254
 msgid "JSON Key File"
 msgstr "JSON anahtar dosyası"
 
-#: includes/class-fast-index-help-content.php:207 view/settings.php:271
+#: includes/class-fast-index-help-content.php:207 view/settings.php:266
 msgid "Upload key"
 msgstr "Anahtarı yükle"
 
@@ -503,7 +503,7 @@ msgstr "Durum"
 
 #: includes/class-fast-index-help-content.php:216
 #: includes/class-fast-index-help-content.php:259
-#: includes/class-fast-index-help.php:176 view/settings.php:61
+#: includes/class-fast-index-help.php:177 view/settings.php:61
 msgid "Active"
 msgstr "Etkin"
 
@@ -512,7 +512,7 @@ msgstr "Etkin"
 msgid "Post Types"
 msgstr "Yazı türleri"
 
-#: includes/class-fast-index-help-content.php:218 view/settings.php:197
+#: includes/class-fast-index-help-content.php:218 view/settings.php:194
 msgid "Save"
 msgstr "Kaydet"
 
@@ -592,7 +592,7 @@ msgstr ""
 
 #: includes/class-fast-index-help-content.php:272
 #: includes/class-fast-index-help-content.php:655
-#: includes/premium/view-settings-rows.php:14 view/settings.php:153
+#: includes/premium/view-settings-rows.php:14 view/settings.php:156
 msgid "Daily Limit for Old Posts"
 msgstr "Eski yazılar için günlük sınır"
 
@@ -624,7 +624,7 @@ msgstr ""
 "Google'ın günlük kotası içinde yeni yazılara da yer kalacak kadar düşük "
 "tutun (bkz. SSS)."
 
-#: includes/class-fast-index-help-content.php:281 view/settings.php:90
+#: includes/class-fast-index-help-content.php:281 view/settings.php:92
 msgid "Post Events"
 msgstr "Yazı olayları"
 
@@ -655,7 +655,7 @@ msgstr ""
 "gönderdiğinizde Google, adresin zaten 404 ya da 410 döndürmesini veya "
 "noindex etiketi taşımasını ister."
 
-#: includes/class-fast-index-help-content.php:289 view/settings.php:108
+#: includes/class-fast-index-help-content.php:289 view/settings.php:112
 msgid "Supported Pages Only"
 msgstr "Yalnızca desteklenen sayfalar"
 
@@ -728,7 +728,7 @@ msgstr ""
 "değil, her tür sayfayı kabul eder."
 
 #: includes/class-fast-index-help-content.php:309
-#: includes/premium/view-settings-rows.php:67 view/settings.php:159
+#: includes/premium/view-settings-rows.php:67 view/settings.php:160
 msgid "Exclude Categories"
 msgstr "Kategorileri hariç tut"
 
@@ -1565,11 +1565,11 @@ msgstr ""
 "gösterilirken eklediği veri görülmez; geliştiriciler bunu "
 "fast_index_is_eligible süzgeciyle ekleyebilir."
 
-#: includes/class-fast-index-help-content.php:620 view/history.php:140
+#: includes/class-fast-index-help-content.php:620 view/history.php:145
 msgid "Eligible for Google Indexing API"
 msgstr "Google Indexing API için uygun"
 
-#: includes/class-fast-index-help-content.php:621 view/settings.php:114
+#: includes/class-fast-index-help-content.php:621 view/settings.php:118
 msgid "Send to Google only pages with JobPosting or BroadcastEvent data"
 msgstr ""
 "Google'a yalnızca JobPosting ya da BroadcastEvent verisi olan sayfaları "
@@ -1870,7 +1870,7 @@ msgstr ""
 "Geçmiş, yanıtları IndexNow kanalında listeler. Fast Index, Bing Webmaster "
 "API'yi kullanmaz. Bkz. %3$s."
 
-#: includes/class-fast-index-help-content.php:712 view/settings.php:130
+#: includes/class-fast-index-help-content.php:712 view/settings.php:134
 msgid "Also send to IndexNow"
 msgstr "IndexNow'a da gönder"
 
@@ -1964,7 +1964,7 @@ msgstr ""
 "ücretsiz olanı devre dışı bırakır. Ayarlarınız, anahtarlarınız ve geçmişiniz "
 "korunur. WordPress.org'daki ücretsiz sürüm hiçbir zaman premium kodu içermez."
 
-#: includes/class-fast-index-help-content.php:740 view/settings.php:331
+#: includes/class-fast-index-help-content.php:740 view/settings.php:329
 msgid "Upgrade to Premium"
 msgstr "Premium'a yükselt"
 
@@ -2099,7 +2099,7 @@ msgstr ""
 msgid "About this screen"
 msgstr "Bu ekran hakkında"
 
-#: includes/class-fast-index-help-content.php:805 view/settings.php:289
+#: includes/class-fast-index-help-content.php:805 view/settings.php:286
 msgid "Open Help & FAQ"
 msgstr "Yardım ve SSS'yi aç"
 
@@ -2116,11 +2116,11 @@ msgstr "Destek forumu"
 msgid "(external link, opens in a new tab)"
 msgstr "(harici bağlantı, yeni sekmede açılır)"
 
-#: includes/class-fast-index-help.php:95
+#: includes/class-fast-index-help.php:96
 msgid "System info copied."
 msgstr "Sistem bilgisi kopyalandı."
 
-#: includes/class-fast-index-help.php:96
+#: includes/class-fast-index-help.php:97
 msgid ""
 "System info is selected in the box above. Press Ctrl+C (Cmd+C on a Mac) to "
 "copy it."
@@ -2128,105 +2128,105 @@ msgstr ""
 "Sistem bilgisi yukarıdaki kutuda seçildi. Kopyalamak için Ctrl+C'ye (Mac'te "
 "Cmd+C) basın."
 
-#: includes/class-fast-index-help.php:138
+#: includes/class-fast-index-help.php:139
 msgid "Yes"
 msgstr "Evet"
 
-#: includes/class-fast-index-help.php:139
+#: includes/class-fast-index-help.php:140
 msgid "No"
 msgstr "Hayır"
 
-#: includes/class-fast-index-help.php:143
+#: includes/class-fast-index-help.php:144
 msgid "Fast Index version"
 msgstr "Fast Index sürümü"
 
-#: includes/class-fast-index-help.php:147
+#: includes/class-fast-index-help.php:148
 msgid "WordPress version"
 msgstr "WordPress sürümü"
 
-#: includes/class-fast-index-help.php:151
+#: includes/class-fast-index-help.php:152
 msgid "PHP version"
 msgstr "PHP sürümü"
 
-#: includes/class-fast-index-help.php:155
+#: includes/class-fast-index-help.php:156
 msgid "Multisite"
 msgstr "Çoklu site"
 
-#: includes/class-fast-index-help.php:159
+#: includes/class-fast-index-help.php:160
 msgid "Site language"
 msgstr "Site dili"
 
-#: includes/class-fast-index-help.php:163
+#: includes/class-fast-index-help.php:164
 msgid "OpenSSL available"
 msgstr "OpenSSL kullanılabilir"
 
-#: includes/class-fast-index-help.php:167
+#: includes/class-fast-index-help.php:168
 msgid "WP-Cron disabled (DISABLE_WP_CRON)"
 msgstr "WP-Cron devre dışı (DISABLE_WP_CRON)"
 
-#: includes/class-fast-index-help.php:171
+#: includes/class-fast-index-help.php:172
 msgid "Premium plan features loaded"
 msgstr "Premium plan özellikleri yüklendi"
 
-#: includes/class-fast-index-help.php:175
+#: includes/class-fast-index-help.php:176
 msgid "Status setting"
 msgstr "Durum ayarı"
 
-#: includes/class-fast-index-help.php:176 view/settings.php:62
+#: includes/class-fast-index-help.php:177 view/settings.php:62
 msgid "Passive"
 msgstr "Pasif"
 
-#: includes/class-fast-index-help.php:179
+#: includes/class-fast-index-help.php:180
 msgid "Post types enabled"
 msgstr "Etkin yazı türleri"
 
-#: includes/class-fast-index-help.php:183
+#: includes/class-fast-index-help.php:184
 msgid "Stored service account keys"
 msgstr "Kayıtlı hizmet hesabı anahtarları"
 
-#: includes/class-fast-index-help.php:187
+#: includes/class-fast-index-help.php:188
 msgid "Keys available now (not paused)"
 msgstr "Şu anda kullanılabilir anahtarlar (askıda olmayan)"
 
-#: includes/class-fast-index-help.php:191
+#: includes/class-fast-index-help.php:192
 msgid "Last answer for each key"
 msgstr "Her anahtarın son yanıtı"
 
-#: includes/class-fast-index-help.php:195
+#: includes/class-fast-index-help.php:196
 msgid "Next hourly task"
 msgstr "Sonraki saatlik görev"
 
-#: includes/class-fast-index-help.php:196
+#: includes/class-fast-index-help.php:197
 msgid "Not scheduled"
 msgstr "Zamanlanmadı"
 
-#: includes/class-fast-index-help.php:199
+#: includes/class-fast-index-help.php:200
 msgid "Sent in the last 24 hours"
 msgstr "Son 24 saatte gönderilen"
 
-#: includes/class-fast-index-help.php:203
+#: includes/class-fast-index-help.php:204
 msgid "Posts waiting"
 msgstr "Bekleyen yazılar"
 
-#: includes/class-fast-index-help.php:207
+#: includes/class-fast-index-help.php:208
 msgid "Notifications waiting for a key"
 msgstr "Anahtar bekleyen bildirimler"
 
-#: includes/class-fast-index-help.php:211
+#: includes/class-fast-index-help.php:212
 msgid "Last notification"
 msgstr "Son bildirim"
 
 #. translators: 1: number of the key in the list, 2: last answer from Google.
-#: includes/class-fast-index-help.php:251
+#: includes/class-fast-index-help.php:252
 #, php-format
 msgid "Key %1$d: %2$s"
 msgstr "%1$d. anahtar: %2$s"
 
-#: includes/class-fast-index-help.php:253 view/settings.php:235
+#: includes/class-fast-index-help.php:254 view/settings.php:226
 msgid "Not used yet"
 msgstr "Henüz kullanılmadı"
 
-#: includes/class-fast-index-help.php:269 view/history.php:127
+#: includes/class-fast-index-help.php:270 view/history.php:132
 msgid "Nothing was sent yet."
 msgstr "Henüz hiçbir şey gönderilmedi."
 
@@ -2336,7 +2336,7 @@ msgstr ""
 "oluşturmanızı ve eskisini iptal etmenizi öneririz."
 
 #: includes/class-fast-index-notices.php:271
-#: includes/class-fast-index-upgrade.php:257 view/history.php:59
+#: includes/class-fast-index-upgrade.php:257 view/history.php:61
 msgid "Do not show this again"
 msgstr "Bunu bir daha gösterme"
 
@@ -2448,7 +2448,7 @@ msgstr ""
 "Fast Index işinize yarıyorsa WordPress.org'da yazacağınız bir değerlendirme, "
 "diğer site sahiplerinin onu bulmasına yardımcı olur."
 
-#: includes/class-fast-index-upgrade.php:246 view/settings.php:190
+#: includes/class-fast-index-upgrade.php:246 view/settings.php:289
 msgid "Rate Fast Index on WordPress.org"
 msgstr "Fast Index'i WordPress.org'da değerlendir"
 
@@ -2742,7 +2742,7 @@ msgstr ""
 
 #: includes/premium/class-fast-index-premium-inspection.php:568
 #: includes/premium/class-fast-index-premium-inspection.php:694
-#: view/history.php:68
+#: view/history.php:80
 msgid "Index Status"
 msgstr "Dizin durumu"
 
@@ -2857,7 +2857,7 @@ msgstr ""
 msgid "[%s] Fast Index weekly report"
 msgstr "[%s] Fast Index haftalık raporu"
 
-#: includes/premium/view-run.php:16
+#: includes/premium/view-run.php:14
 msgid ""
 "Sends one batch of old posts now, within the daily limit set on the settings "
 "screen. The same batch also runs every hour."
@@ -2897,7 +2897,7 @@ msgstr "Raporu şu adrese gönder: %s"
 msgid "Select the categories to exclude."
 msgstr "Hariç tutulacak kategorileri seçin."
 
-#: view/help.php:18
+#: view/help.php:16
 msgid ""
 "Everything you need to set up Fast Index and to solve the most common "
 "problems. Read it before you write to support: the answer is most often here."
@@ -2905,48 +2905,48 @@ msgstr ""
 "Fast Index'i kurmak ve en sık karşılaşılan sorunları çözmek için gereken her "
 "şey burada. Desteğe yazmadan önce okuyun: yanıt çoğunlukla burada."
 
-#: view/help.php:20
+#: view/help.php:18
 msgid "Help sections"
 msgstr "Yardım bölümleri"
 
-#: view/help.php:56 view/help.php:65
+#: view/help.php:54 view/help.php:63
 msgid "Setting"
 msgstr "Ayar"
 
-#: view/help.php:57 view/help.php:66
+#: view/help.php:55 view/help.php:64
 msgid "What it does"
 msgstr "Ne yapar"
 
-#: view/help.php:58 view/help.php:73
+#: view/help.php:56 view/help.php:71
 msgid "Default"
 msgstr "Varsayılan"
 
-#: view/help.php:59 view/help.php:74
+#: view/help.php:57 view/help.php:72
 msgid "Change it when"
 msgstr "Ne zaman değiştirilir"
 
-#: view/help.php:86
+#: view/help.php:84
 msgid "Find what you see, then read why it happens and what to do."
 msgstr ""
 "Gördüğünüz durumu bulun, ardından neden olduğunu ve ne yapacağınızı okuyun."
 
-#: view/help.php:92
+#: view/help.php:90
 msgid "Why it happens:"
 msgstr "Neden oluyor:"
 
-#: view/help.php:93
+#: view/help.php:91
 msgid "What to do:"
 msgstr "Ne yapmalı:"
 
-#: view/help.php:117
+#: view/help.php:115
 msgid "Before you write to support, go through this list:"
 msgstr "Desteğe yazmadan önce bu listeyi gözden geçirin:"
 
-#: view/help.php:124
+#: view/help.php:122
 msgid "System info"
 msgstr "Sistem bilgisi"
 
-#: view/help.php:125
+#: view/help.php:123
 msgid ""
 "Read-only facts about your site that help us answer. They contain no keys "
 "and no email addresses."
@@ -2954,11 +2954,11 @@ msgstr ""
 "Yanıt vermemize yardımcı olan, sitenizle ilgili salt okunur bilgiler. "
 "Anahtar ya da e-posta adresi içermez."
 
-#: view/help.php:138
+#: view/help.php:136
 msgid "Copy system info"
 msgstr "Sistem bilgisini kopyala"
 
-#: view/help.php:143
+#: view/help.php:141
 msgid "Open the Fast Index support forum on WordPress.org"
 msgstr "WordPress.org'daki Fast Index destek forumunu açın"
 
@@ -2970,77 +2970,87 @@ msgstr "Güncellendi"
 msgid "Deleted"
 msgstr "Silindi"
 
-#: view/history.php:27
+#: view/history.php:32
 msgid "Summary"
 msgstr "Özet"
 
-#: view/history.php:32
+#: view/history.php:35
 msgid "Total Sent"
 msgstr "Toplam gönderilen"
 
-#: view/history.php:33
+#: view/history.php:39
 msgid "Total Waiting"
 msgstr "Toplam bekleyen"
 
-#: view/history.php:34
+#: view/history.php:43
 msgid "Sent Today"
 msgstr "Bugün gönderilen"
 
-#: view/history.php:36
+#: view/history.php:48
 msgid "Sent to IndexNow Today"
 msgstr "Bugün IndexNow'a gönderilen"
 
-#: view/history.php:76
+#: view/history.php:88
 msgctxt "History filter: every channel"
 msgid "All"
 msgstr "Tümü"
 
-#: view/history.php:91
+#: view/history.php:102
 msgid "Date"
 msgstr "Tarih"
 
-#: view/history.php:92
+#: view/history.php:103
 msgid "Channel"
 msgstr "Kanal"
 
-#: view/history.php:93
+#: view/history.php:104
 msgid "Send Status"
 msgstr "Gönderim durumu"
 
-#: view/history.php:94
+#: view/history.php:105
 msgid "Post"
 msgstr "Yazı"
 
-#: view/history.php:115 view/history.php:131
+#: view/history.php:120 view/history.php:136
 msgid "Title"
 msgstr "Başlık"
 
-#: view/history.php:142
+#: view/history.php:147
 msgid "Show more details"
 msgstr "Daha fazla ayrıntı göster"
 
-#: view/history.php:173
+#: view/history.php:178
 msgid "View Post"
 msgstr "Yazıyı görüntüle"
 
-#: view/history.php:179
+#: view/history.php:185
 msgid "Pagination"
 msgstr "Sayfalama"
 
-#: view/history.php:182
+#: view/history.php:188
 msgid "Previous"
 msgstr "Önceki"
 
-#: view/history.php:185
+#: view/history.php:191
 msgid "Next"
 msgstr "Sonraki"
 
-#: view/settings.php:32
+#: view/partial-band.php:20
+msgctxt "Plan name in the page header"
+msgid "Premium"
+msgstr "Premium"
+
+#: view/partial-band.php:22
+msgctxt "Plan name in the page header"
+msgid "Free"
+msgstr "Ücretsiz"
+
+#: view/settings.php:17
 msgctxt "Heading of the Fast Index settings screen"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: view/settings.php:36
+#: view/settings.php:38
 msgid ""
 "Some of your settings belong to the premium plan. They are kept, but this "
 "version does not use them. They are used again when the premium package is "
@@ -3054,25 +3064,25 @@ msgstr ""
 msgid "Switch sending on or off."
 msgstr "Göndermeyi aç ya da kapat."
 
-#: view/settings.php:91
+#: view/settings.php:93
 msgid "Choose when Google is notified."
 msgstr "Google'a ne zaman bildirileceğini seçin."
 
-#: view/settings.php:109
+#: view/settings.php:113
 msgid "Pages that Google supports in the Indexing API."
 msgstr "Google'ın Indexing API'de desteklediği sayfalar."
 
-#: view/settings.php:125
+#: view/settings.php:129
 msgid "Search engines other than Google."
 msgstr "Google dışındaki arama motorları."
 
 #. translators: %s: address of the IndexNow key file.
-#: view/settings.php:140
+#: view/settings.php:144
 #, php-format
 msgid "Key file: %s"
 msgstr "Anahtar dosyası: %s"
 
-#: view/settings.php:178
+#: view/settings.php:182
 msgid ""
 "Delete all plugin data (settings, keys and history) when the plugin is "
 "deleted. This cannot be undone."
@@ -3081,34 +3091,34 @@ msgstr ""
 "sil. Bu işlem geri alınamaz."
 
 #. translators: %s: ID of the service account key.
-#: view/settings.php:225
+#: view/settings.php:221
 #, php-format
 msgid "Key ID: %s"
 msgstr "Anahtar kimliği: %s"
 
-#: view/settings.php:231
+#: view/settings.php:228
 msgid "Used for sending"
 msgstr "Gönderim için kullanılıyor"
 
-#: view/settings.php:231
+#: view/settings.php:228
 msgid "Kept, not used by this version"
 msgstr "Korunuyor, bu sürüm kullanmıyor"
 
-#: view/settings.php:233
+#: view/settings.php:230
 msgid "Main key"
 msgstr "Ana anahtar"
 
-#: view/settings.php:233
+#: view/settings.php:230
 msgid "Backup key: used only when Google rejects the key before it"
 msgstr ""
 "Yedek anahtar: yalnızca Google kendinden önceki anahtarı reddettiğinde "
 "kullanılır"
 
-#: view/settings.php:243
+#: view/settings.php:239
 msgid "Delete"
 msgstr "Sil"
 
-#: view/settings.php:261
+#: view/settings.php:257
 msgid ""
 "The key file is read and stored in the database; it is not saved in the "
 "uploads folder. Only the email address and the key ID are shown here."
@@ -3116,11 +3126,11 @@ msgstr ""
 "Anahtar dosyası okunur ve veritabanına kaydedilir; uploads klasörüne "
 "kaydedilmez. Burada yalnızca e-posta adresi ve anahtar kimliği gösterilir."
 
-#: view/settings.php:263
+#: view/settings.php:259
 msgid "A new key replaces the key that is used for sending."
 msgstr "Yeni bir anahtar, gönderim için kullanılan anahtarın yerini alır."
 
-#: view/settings.php:287
+#: view/settings.php:279
 msgid ""
 "Setting up for the first time, or something does not work? Step-by-step "
 "instructions, an explanation of every setting, solutions to common problems "
@@ -3130,7 +3140,7 @@ msgstr ""
 "ayarın açıklaması, sık karşılaşılan sorunların çözümleri ve sık sorulan "
 "sorulara yanıtlar Yardım ve SSS ekranında."
 
-#: view/settings.php:296
+#: view/settings.php:288
 msgid ""
 "Fast Index sends your addresses to the Google Indexing API. A 200 answer "
 "means Google accepted the notification; Google does not promise to index the "
@@ -3140,33 +3150,33 @@ msgstr ""
 "Google'ın bildirimi kabul ettiği anlamına gelir; Google sayfayı dizine "
 "ekleyeceğine söz vermez."
 
-#: view/settings.php:301
+#: view/settings.php:298
 msgctxt "Heading of the box about the premium plan"
 msgid "Premium"
 msgstr "Premium"
 
-#: view/settings.php:302
+#: view/settings.php:299
 msgid "The premium plan is a separate package. What each version does:"
 msgstr "Premium plan ayrı bir pakettir. Her sürümün yaptıkları:"
 
-#: view/settings.php:306
+#: view/settings.php:304
 msgid "Feature"
 msgstr "Özellik"
 
-#: view/settings.php:307
+#: view/settings.php:305
 msgctxt "Column of the comparison table"
 msgid "Free"
 msgstr "Ücretsiz"
 
-#: view/settings.php:308
+#: view/settings.php:306
 msgctxt "Column of the comparison table"
 msgid "Premium"
 msgstr "Premium"
 
-#: view/settings.php:318
+#: view/settings.php:316
 msgid "Included"
 msgstr "Dahil"
 
-#: view/settings.php:320
+#: view/settings.php:318
 msgid "Not included"
 msgstr "Dahil değil"

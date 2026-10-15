@@ -79,8 +79,9 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 		$html = self::render( 'render_settings' );
 		$rows = Fast_Index_Upgrade::comparison();
 
-		$this->assertSame( 1, substr_count( $html, 'class="fi-compare"' ) );
-		$this->assertSame( count( $rows ), substr_count( $html, '<th scope="row">' ) );
+		$this->assertSame( 1, substr_count( $html, 'class="fi-compare cdo-compare"' ) );
+		$this->assertSame( 1, preg_match( '/<table class="fi-compare cdo-compare">.*?<\/table>/s', $html, $table ) );
+		$this->assertSame( count( $rows ), substr_count( $table[0], '<th scope="row">' ) );
 		$this->assertTrue( $rows[0]['free'], 'Publishing is part of the free version.' );
 		$this->assertContains( false, wp_list_pluck( $rows, 'free' ) );
 		$this->assertNotContains( false, wp_list_pluck( $rows, 'premium' ) );
@@ -101,7 +102,7 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 		$html = self::render( 'render_settings' );
 
 		// Old posts, excluded categories and backup keys: a name and a badge each, never a field.
-		$this->assertSame( 3, substr_count( $html, '<details class="fi-premium-hint">' ) );
+		$this->assertSame( 3, substr_count( $html, '<details class="fi-premium-hint cdo-hint">' ) );
 		$this->assertSame( 2, substr_count( $html, 'class="fi-premium-row"' ) );
 		foreach ( array( 'old_posts', 'exclude_category', 'keys' ) as $section ) {
 			$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( $section ) ), $html, $section );
@@ -111,7 +112,7 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 
 		// History: the index status badge, next to the heading; no column without data.
 		$history = self::render( 'render_history' );
-		$this->assertSame( 1, substr_count( $history, '<details class="fi-premium-hint">' ) );
+		$this->assertSame( 1, substr_count( $history, '<details class="fi-premium-hint cdo-hint">' ) );
 		$this->assertStringContainsString( esc_html( Fast_Index_Upgrade::hint( 'index_status' ) ), $history );
 		$this->assertStringNotContainsString( 'column-fi-index', $history );
 

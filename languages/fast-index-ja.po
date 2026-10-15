@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-15T03:22:09+00:00\n"
+"POT-Creation-Date: 2026-10-15T09:09:05+00:00\n"
 "PO-Revision-Date: 2026-10-15 03:41+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Japanese\n"
@@ -89,7 +89,7 @@ msgstr "%1$s：%2$s"
 #: includes/class-fast-index-manual.php:312
 #: includes/class-fast-index-upgrade.php:249
 #: includes/class-fast-index-upgrade.php:254
-#: includes/class-fast-index-upgrade.php:376 view/history.php:57
+#: includes/class-fast-index-upgrade.php:376 view/history.php:59
 msgid "See the premium plan"
 msgstr "プレミアムプランを見る"
 
@@ -103,49 +103,49 @@ msgstr "%sのキーを保存しました。"
 msgid "Sorry, you are not allowed to do that."
 msgstr "この操作を行う権限がありません。"
 
-#: includes/class-fast-index-admin.php:64
-#: includes/class-fast-index-manual.php:305
+#: includes/class-fast-index-admin.php:69
+#: includes/class-fast-index-manual.php:305 view/partial-band.php:18
 msgid "Fast Index"
 msgstr "Fast Index"
 
-#: includes/class-fast-index-admin.php:65
-#: includes/class-fast-index-help-content.php:226 view/history.php:64
+#: includes/class-fast-index-admin.php:70
+#: includes/class-fast-index-help-content.php:226 view/history.php:21
 msgid "History"
 msgstr "履歴"
 
-#: includes/class-fast-index-admin.php:75
+#: includes/class-fast-index-admin.php:80
 #: includes/class-fast-index-help-content.php:816 view/help.php:16
-#: view/settings.php:284
+#: view/settings.php:277
 msgid "Help & FAQ"
 msgstr "ヘルプとFAQ"
 
-#: includes/class-fast-index-admin.php:278
+#: includes/class-fast-index-admin.php:302
 #: includes/class-fast-index-help-content.php:560
 msgid "No answer from IndexNow"
 msgstr "IndexNowから応答がありません"
 
-#: includes/class-fast-index-admin.php:282
+#: includes/class-fast-index-admin.php:306
 msgid "Not sent: no service account key"
 msgstr "未送信：サービスアカウントのキーがありません"
 
-#: includes/class-fast-index-admin.php:286
+#: includes/class-fast-index-admin.php:310
 msgid "Not sent: every key was paused"
 msgstr "未送信：すべてのキーが一時停止中でした"
 
-#: includes/class-fast-index-admin.php:290
+#: includes/class-fast-index-admin.php:314
 msgid "Not sent: OpenSSL is missing"
 msgstr "未送信：OpenSSLがありません"
 
-#: includes/class-fast-index-admin.php:294
+#: includes/class-fast-index-admin.php:318
 #: includes/class-fast-index-help-content.php:481
 msgid "No answer from Google"
 msgstr "Googleから応答がありません"
 
-#: includes/class-fast-index-admin.php:307
+#: includes/class-fast-index-admin.php:347
 msgid "Fast Index tries again when a key is ready."
 msgstr "キーが使えるようになると、Fast Indexが再試行します。"
 
-#: includes/class-fast-index-admin.php:323
+#: includes/class-fast-index-admin.php:363
 msgid ""
 "IndexNow could not verify the key: open the key file address on the settings "
 "screen and check that it shows the key."
@@ -153,13 +153,13 @@ msgstr ""
 "IndexNowがキーを確認できませんでした。設定画面にあるキーファイルのアドレスを"
 "開き、キーが表示されることを確認してください。"
 
-#: includes/class-fast-index-admin.php:325
+#: includes/class-fast-index-admin.php:365
 msgid ""
 "IndexNow refused the address: it does not belong to the host of the key."
 msgstr ""
 "IndexNowがアドレスを拒否しました。アドレスがキーのホストに属していません。"
 
-#: includes/class-fast-index-admin.php:327
+#: includes/class-fast-index-admin.php:367
 msgid ""
 "IndexNow received too many requests from this site and treats them as "
 "possible spam. Send fewer addresses at once."
@@ -167,7 +167,7 @@ msgstr ""
 "IndexNowはこのサイトから多すぎるリクエストを受け取り、スパムの可能性があると"
 "みなしています。一度に送信するアドレスを減らしてください。"
 
-#: includes/class-fast-index-admin.php:334
+#: includes/class-fast-index-admin.php:374
 msgid ""
 "Daily quota reached: every key is paused until Google resets the quota at "
 "midnight Pacific Time."
@@ -176,13 +176,13 @@ msgstr ""
 "るまで、すべてのキーが一時停止されます。"
 
 #. translators: %s: date and time.
-#: includes/class-fast-index-admin.php:348
+#: includes/class-fast-index-admin.php:388
 #, php-format
 msgid "Paused until %s"
 msgstr "%sまで一時停止"
 
-#: includes/class-fast-index-admin.php:411
-#: includes/class-fast-index-help.php:110
+#: includes/class-fast-index-admin.php:451
+#: includes/class-fast-index-help.php:111
 #: includes/premium/class-fast-index-premium-backlog.php:201
 msgid "Sorry, you are not allowed to access this page."
 msgstr "このページにアクセスする権限がありません。"
@@ -463,15 +463,15 @@ msgstr ""
 "されます。秘密鍵はデータベースに保存され、表示されることはありません。"
 
 #: includes/class-fast-index-help-content.php:205
-#: includes/class-fast-index-help-content.php:344 view/settings.php:205
+#: includes/class-fast-index-help-content.php:344 view/settings.php:201
 msgid "Upload Google Service Account Key"
 msgstr "Googleサービスアカウントのキーをアップロード"
 
-#: includes/class-fast-index-help-content.php:206 view/settings.php:258
+#: includes/class-fast-index-help-content.php:206 view/settings.php:254
 msgid "JSON Key File"
 msgstr "JSONキーファイル"
 
-#: includes/class-fast-index-help-content.php:207 view/settings.php:271
+#: includes/class-fast-index-help-content.php:207 view/settings.php:266
 msgid "Upload key"
 msgstr "キーをアップロード"
 
@@ -496,7 +496,7 @@ msgstr "ステータス"
 
 #: includes/class-fast-index-help-content.php:216
 #: includes/class-fast-index-help-content.php:259
-#: includes/class-fast-index-help.php:176 view/settings.php:61
+#: includes/class-fast-index-help.php:177 view/settings.php:61
 msgid "Active"
 msgstr "有効"
 
@@ -505,7 +505,7 @@ msgstr "有効"
 msgid "Post Types"
 msgstr "投稿タイプ"
 
-#: includes/class-fast-index-help-content.php:218 view/settings.php:197
+#: includes/class-fast-index-help-content.php:218 view/settings.php:194
 msgid "Save"
 msgstr "保存"
 
@@ -582,7 +582,7 @@ msgstr ""
 
 #: includes/class-fast-index-help-content.php:272
 #: includes/class-fast-index-help-content.php:655
-#: includes/premium/view-settings-rows.php:14 view/settings.php:153
+#: includes/premium/view-settings-rows.php:14 view/settings.php:156
 msgid "Daily Limit for Old Posts"
 msgstr "過去の投稿の1日の上限"
 
@@ -613,7 +613,7 @@ msgstr ""
 "の分が残るように、Googleの1日の割り当ての範囲内で上限を低めにしてください"
 "（FAQを参照）。"
 
-#: includes/class-fast-index-help-content.php:281 view/settings.php:90
+#: includes/class-fast-index-help-content.php:281 view/settings.php:92
 msgid "Post Events"
 msgstr "投稿のイベント"
 
@@ -644,7 +644,7 @@ msgstr ""
 "そのアドレスがすでに404または410を返すか、noindexタグが付いていることを求めて"
 "います。"
 
-#: includes/class-fast-index-help-content.php:289 view/settings.php:108
+#: includes/class-fast-index-help-content.php:289 view/settings.php:112
 msgid "Supported Pages Only"
 msgstr "対応ページのみ"
 
@@ -716,7 +716,7 @@ msgstr ""
 "す。"
 
 #: includes/class-fast-index-help-content.php:309
-#: includes/premium/view-settings-rows.php:67 view/settings.php:159
+#: includes/premium/view-settings-rows.php:67 view/settings.php:160
 msgid "Exclude Categories"
 msgstr "除外するカテゴリー"
 
@@ -1548,11 +1548,11 @@ msgstr ""
 "にだけ追加するデータは検出されません。開発者はfast_index_is_eligibleフィル"
 "ターで追加できます。"
 
-#: includes/class-fast-index-help-content.php:620 view/history.php:140
+#: includes/class-fast-index-help-content.php:620 view/history.php:145
 msgid "Eligible for Google Indexing API"
 msgstr "Google Indexing APIの対象"
 
-#: includes/class-fast-index-help-content.php:621 view/settings.php:114
+#: includes/class-fast-index-help-content.php:621 view/settings.php:118
 msgid "Send to Google only pages with JobPosting or BroadcastEvent data"
 msgstr "JobPostingまたはBroadcastEventのデータがあるページだけをGoogleに送信"
 
@@ -1845,7 +1845,7 @@ msgstr ""
 "たアドレスが含まれます。履歴のIndexNowチャネルに応答が表示されます。Fast "
 "IndexはBing Webmaster APIを使いません。%3$sをご覧ください。"
 
-#: includes/class-fast-index-help-content.php:712 view/settings.php:130
+#: includes/class-fast-index-help-content.php:712 view/settings.php:134
 msgid "Also send to IndexNow"
 msgstr "IndexNowにも送信"
 
@@ -1940,7 +1940,7 @@ msgstr ""
 "効化します。設定、キー、履歴はそのまま残ります。WordPress.orgの無料版にプレミ"
 "アムのコードが含まれることはありません。"
 
-#: includes/class-fast-index-help-content.php:740 view/settings.php:331
+#: includes/class-fast-index-help-content.php:740 view/settings.php:329
 msgid "Upgrade to Premium"
 msgstr "プレミアムにアップグレード"
 
@@ -2076,7 +2076,7 @@ msgstr ""
 msgid "About this screen"
 msgstr "この画面について"
 
-#: includes/class-fast-index-help-content.php:805 view/settings.php:289
+#: includes/class-fast-index-help-content.php:805 view/settings.php:286
 msgid "Open Help & FAQ"
 msgstr "「ヘルプとFAQ」を開く"
 
@@ -2093,11 +2093,11 @@ msgstr "サポートフォーラム"
 msgid "(external link, opens in a new tab)"
 msgstr "（外部リンク、新しいタブで開きます）"
 
-#: includes/class-fast-index-help.php:95
+#: includes/class-fast-index-help.php:96
 msgid "System info copied."
 msgstr "システム情報をコピーしました。"
 
-#: includes/class-fast-index-help.php:96
+#: includes/class-fast-index-help.php:97
 msgid ""
 "System info is selected in the box above. Press Ctrl+C (Cmd+C on a Mac) to "
 "copy it."
@@ -2105,105 +2105,105 @@ msgstr ""
 "システム情報は上のボックスで選択されています。Ctrl+C（Macの場合はCmd+C）を押"
 "してコピーしてください。"
 
-#: includes/class-fast-index-help.php:138
+#: includes/class-fast-index-help.php:139
 msgid "Yes"
 msgstr "はい"
 
-#: includes/class-fast-index-help.php:139
+#: includes/class-fast-index-help.php:140
 msgid "No"
 msgstr "いいえ"
 
-#: includes/class-fast-index-help.php:143
+#: includes/class-fast-index-help.php:144
 msgid "Fast Index version"
 msgstr "Fast Indexのバージョン"
 
-#: includes/class-fast-index-help.php:147
+#: includes/class-fast-index-help.php:148
 msgid "WordPress version"
 msgstr "WordPressのバージョン"
 
-#: includes/class-fast-index-help.php:151
+#: includes/class-fast-index-help.php:152
 msgid "PHP version"
 msgstr "PHPのバージョン"
 
-#: includes/class-fast-index-help.php:155
+#: includes/class-fast-index-help.php:156
 msgid "Multisite"
 msgstr "マルチサイト"
 
-#: includes/class-fast-index-help.php:159
+#: includes/class-fast-index-help.php:160
 msgid "Site language"
 msgstr "サイトの言語"
 
-#: includes/class-fast-index-help.php:163
+#: includes/class-fast-index-help.php:164
 msgid "OpenSSL available"
 msgstr "OpenSSLが利用可能"
 
-#: includes/class-fast-index-help.php:167
+#: includes/class-fast-index-help.php:168
 msgid "WP-Cron disabled (DISABLE_WP_CRON)"
 msgstr "WP-Cronの無効化（DISABLE_WP_CRON）"
 
-#: includes/class-fast-index-help.php:171
+#: includes/class-fast-index-help.php:172
 msgid "Premium plan features loaded"
 msgstr "プレミアムプランの機能を読み込み済み"
 
-#: includes/class-fast-index-help.php:175
+#: includes/class-fast-index-help.php:176
 msgid "Status setting"
 msgstr "ステータス設定"
 
-#: includes/class-fast-index-help.php:176 view/settings.php:62
+#: includes/class-fast-index-help.php:177 view/settings.php:62
 msgid "Passive"
 msgstr "停止"
 
-#: includes/class-fast-index-help.php:179
+#: includes/class-fast-index-help.php:180
 msgid "Post types enabled"
 msgstr "有効な投稿タイプ"
 
-#: includes/class-fast-index-help.php:183
+#: includes/class-fast-index-help.php:184
 msgid "Stored service account keys"
 msgstr "保存済みのサービスアカウントキー"
 
-#: includes/class-fast-index-help.php:187
+#: includes/class-fast-index-help.php:188
 msgid "Keys available now (not paused)"
 msgstr "現在利用可能なキー（一時停止中ではないもの）"
 
-#: includes/class-fast-index-help.php:191
+#: includes/class-fast-index-help.php:192
 msgid "Last answer for each key"
 msgstr "各キーの最新の応答"
 
-#: includes/class-fast-index-help.php:195
+#: includes/class-fast-index-help.php:196
 msgid "Next hourly task"
 msgstr "次回の毎時タスク"
 
-#: includes/class-fast-index-help.php:196
+#: includes/class-fast-index-help.php:197
 msgid "Not scheduled"
 msgstr "スケジュールされていません"
 
-#: includes/class-fast-index-help.php:199
+#: includes/class-fast-index-help.php:200
 msgid "Sent in the last 24 hours"
 msgstr "直近24時間の送信数"
 
-#: includes/class-fast-index-help.php:203
+#: includes/class-fast-index-help.php:204
 msgid "Posts waiting"
 msgstr "待機中の投稿"
 
-#: includes/class-fast-index-help.php:207
+#: includes/class-fast-index-help.php:208
 msgid "Notifications waiting for a key"
 msgstr "キーを待っている通知"
 
-#: includes/class-fast-index-help.php:211
+#: includes/class-fast-index-help.php:212
 msgid "Last notification"
 msgstr "最新の通知"
 
 #. translators: 1: number of the key in the list, 2: last answer from Google.
-#: includes/class-fast-index-help.php:251
+#: includes/class-fast-index-help.php:252
 #, php-format
 msgid "Key %1$d: %2$s"
 msgstr "キー%1$d：%2$s"
 
-#: includes/class-fast-index-help.php:253 view/settings.php:235
+#: includes/class-fast-index-help.php:254 view/settings.php:226
 msgid "Not used yet"
 msgstr "未使用"
 
-#: includes/class-fast-index-help.php:269 view/history.php:127
+#: includes/class-fast-index-help.php:270 view/history.php:132
 msgid "Nothing was sent yet."
 msgstr "まだ何も送信されていません。"
 
@@ -2304,7 +2304,7 @@ msgstr ""
 "を作成し、古いキーを取り消すことをおすすめします。"
 
 #: includes/class-fast-index-notices.php:271
-#: includes/class-fast-index-upgrade.php:257 view/history.php:59
+#: includes/class-fast-index-upgrade.php:257 view/history.php:61
 msgid "Do not show this again"
 msgstr "今後表示しない"
 
@@ -2418,7 +2418,7 @@ msgstr ""
 "Fast Indexがお役に立っている場合は、WordPress.orgでレビューを書いていただく"
 "と、ほかのサイト運営者が見つけやすくなります。"
 
-#: includes/class-fast-index-upgrade.php:246 view/settings.php:190
+#: includes/class-fast-index-upgrade.php:246 view/settings.php:289
 msgid "Rate Fast Index on WordPress.org"
 msgstr "Fast IndexをWordPress.orgで評価する"
 
@@ -2696,7 +2696,7 @@ msgstr ""
 
 #: includes/premium/class-fast-index-premium-inspection.php:568
 #: includes/premium/class-fast-index-premium-inspection.php:694
-#: view/history.php:68
+#: view/history.php:80
 msgid "Index Status"
 msgstr "インデックス状況"
 
@@ -2811,7 +2811,7 @@ msgstr ""
 msgid "[%s] Fast Index weekly report"
 msgstr "[%s] Fast Index週次レポート"
 
-#: includes/premium/view-run.php:16
+#: includes/premium/view-run.php:14
 msgid ""
 "Sends one batch of old posts now, within the daily limit set on the settings "
 "screen. The same batch also runs every hour."
@@ -2851,7 +2851,7 @@ msgstr "%sにレポートを送信"
 msgid "Select the categories to exclude."
 msgstr "除外するカテゴリーを選択してください。"
 
-#: view/help.php:18
+#: view/help.php:16
 msgid ""
 "Everything you need to set up Fast Index and to solve the most common "
 "problems. Read it before you write to support: the answer is most often here."
@@ -2859,47 +2859,47 @@ msgstr ""
 "Fast Indexのセットアップと、よくある問題の解決に必要な情報をまとめています。"
 "サポートに問い合わせる前にお読みください。答えはたいていここにあります。"
 
-#: view/help.php:20
+#: view/help.php:18
 msgid "Help sections"
 msgstr "ヘルプのセクション"
 
-#: view/help.php:56 view/help.php:65
+#: view/help.php:54 view/help.php:63
 msgid "Setting"
 msgstr "設定"
 
-#: view/help.php:57 view/help.php:66
+#: view/help.php:55 view/help.php:64
 msgid "What it does"
 msgstr "内容"
 
-#: view/help.php:58 view/help.php:73
+#: view/help.php:56 view/help.php:71
 msgid "Default"
 msgstr "デフォルト"
 
-#: view/help.php:59 view/help.php:74
+#: view/help.php:57 view/help.php:72
 msgid "Change it when"
 msgstr "変更するとき"
 
-#: view/help.php:86
+#: view/help.php:84
 msgid "Find what you see, then read why it happens and what to do."
 msgstr "表示されている内容を探して、その原因と対処法をお読みください。"
 
-#: view/help.php:92
+#: view/help.php:90
 msgid "Why it happens:"
 msgstr "原因："
 
-#: view/help.php:93
+#: view/help.php:91
 msgid "What to do:"
 msgstr "対処方法："
 
-#: view/help.php:117
+#: view/help.php:115
 msgid "Before you write to support, go through this list:"
 msgstr "サポートに問い合わせる前に、次のリストをご確認ください。"
 
-#: view/help.php:124
+#: view/help.php:122
 msgid "System info"
 msgstr "システム情報"
 
-#: view/help.php:125
+#: view/help.php:123
 msgid ""
 "Read-only facts about your site that help us answer. They contain no keys "
 "and no email addresses."
@@ -2907,11 +2907,11 @@ msgstr ""
 "サイトに関する読み取り専用の情報で、回答の参考になります。キーとメールアドレ"
 "スは含まれません。"
 
-#: view/help.php:138
+#: view/help.php:136
 msgid "Copy system info"
 msgstr "システム情報をコピー"
 
-#: view/help.php:143
+#: view/help.php:141
 msgid "Open the Fast Index support forum on WordPress.org"
 msgstr "WordPress.orgのFast Indexサポートフォーラムを開く"
 
@@ -2923,77 +2923,87 @@ msgstr "更新済み"
 msgid "Deleted"
 msgstr "削除済み"
 
-#: view/history.php:27
+#: view/history.php:32
 msgid "Summary"
 msgstr "概要"
 
-#: view/history.php:32
+#: view/history.php:35
 msgid "Total Sent"
 msgstr "送信済みの合計"
 
-#: view/history.php:33
+#: view/history.php:39
 msgid "Total Waiting"
 msgstr "待機中の合計"
 
-#: view/history.php:34
+#: view/history.php:43
 msgid "Sent Today"
 msgstr "本日の送信数"
 
-#: view/history.php:36
+#: view/history.php:48
 msgid "Sent to IndexNow Today"
 msgstr "本日のIndexNowへの送信数"
 
-#: view/history.php:76
+#: view/history.php:88
 msgctxt "History filter: every channel"
 msgid "All"
 msgstr "すべて"
 
-#: view/history.php:91
+#: view/history.php:102
 msgid "Date"
 msgstr "日付"
 
-#: view/history.php:92
+#: view/history.php:103
 msgid "Channel"
 msgstr "チャネル"
 
-#: view/history.php:93
+#: view/history.php:104
 msgid "Send Status"
 msgstr "送信ステータス"
 
-#: view/history.php:94
+#: view/history.php:105
 msgid "Post"
 msgstr "投稿"
 
-#: view/history.php:115 view/history.php:131
+#: view/history.php:120 view/history.php:136
 msgid "Title"
 msgstr "タイトル"
 
-#: view/history.php:142
+#: view/history.php:147
 msgid "Show more details"
 msgstr "詳細を表示"
 
-#: view/history.php:173
+#: view/history.php:178
 msgid "View Post"
 msgstr "投稿を表示"
 
-#: view/history.php:179
+#: view/history.php:185
 msgid "Pagination"
 msgstr "ページ送り"
 
-#: view/history.php:182
+#: view/history.php:188
 msgid "Previous"
 msgstr "前へ"
 
-#: view/history.php:185
+#: view/history.php:191
 msgid "Next"
 msgstr "次へ"
 
-#: view/settings.php:32
+#: view/partial-band.php:20
+msgctxt "Plan name in the page header"
+msgid "Premium"
+msgstr "プレミアム"
+
+#: view/partial-band.php:22
+msgctxt "Plan name in the page header"
+msgid "Free"
+msgstr "無料版"
+
+#: view/settings.php:17
 msgctxt "Heading of the Fast Index settings screen"
 msgid "Settings"
 msgstr "設定"
 
-#: view/settings.php:36
+#: view/settings.php:38
 msgid ""
 "Some of your settings belong to the premium plan. They are kept, but this "
 "version does not use them. They are used again when the premium package is "
@@ -3007,25 +3017,25 @@ msgstr ""
 msgid "Switch sending on or off."
 msgstr "送信のオンとオフを切り替えます。"
 
-#: view/settings.php:91
+#: view/settings.php:93
 msgid "Choose when Google is notified."
 msgstr "Googleに通知するタイミングを選んでください。"
 
-#: view/settings.php:109
+#: view/settings.php:113
 msgid "Pages that Google supports in the Indexing API."
 msgstr "GoogleがIndexing APIで対応しているページです。"
 
-#: view/settings.php:125
+#: view/settings.php:129
 msgid "Search engines other than Google."
 msgstr "Google以外の検索エンジンです。"
 
 #. translators: %s: address of the IndexNow key file.
-#: view/settings.php:140
+#: view/settings.php:144
 #, php-format
 msgid "Key file: %s"
 msgstr "キーファイル：%s"
 
-#: view/settings.php:178
+#: view/settings.php:182
 msgid ""
 "Delete all plugin data (settings, keys and history) when the plugin is "
 "deleted. This cannot be undone."
@@ -3034,32 +3044,32 @@ msgstr ""
 "す。この操作は元に戻せません。"
 
 #. translators: %s: ID of the service account key.
-#: view/settings.php:225
+#: view/settings.php:221
 #, php-format
 msgid "Key ID: %s"
 msgstr "キーID：%s"
 
-#: view/settings.php:231
+#: view/settings.php:228
 msgid "Used for sending"
 msgstr "送信に使用中"
 
-#: view/settings.php:231
+#: view/settings.php:228
 msgid "Kept, not used by this version"
 msgstr "保持中（このバージョンでは未使用）"
 
-#: view/settings.php:233
+#: view/settings.php:230
 msgid "Main key"
 msgstr "メインキー"
 
-#: view/settings.php:233
+#: view/settings.php:230
 msgid "Backup key: used only when Google rejects the key before it"
 msgstr "予備のキー：Googleが前のキーを拒否したときにだけ使われます"
 
-#: view/settings.php:243
+#: view/settings.php:239
 msgid "Delete"
 msgstr "削除"
 
-#: view/settings.php:261
+#: view/settings.php:257
 msgid ""
 "The key file is read and stored in the database; it is not saved in the "
 "uploads folder. Only the email address and the key ID are shown here."
@@ -3067,11 +3077,11 @@ msgstr ""
 "キーファイルは読み取られてデータベースに保存され、uploadsフォルダーには保存さ"
 "れません。ここに表示されるのはメールアドレスとキーIDだけです。"
 
-#: view/settings.php:263
+#: view/settings.php:259
 msgid "A new key replaces the key that is used for sending."
 msgstr "新しいキーは、送信に使用中のキーと置き換わります。"
 
-#: view/settings.php:287
+#: view/settings.php:279
 msgid ""
 "Setting up for the first time, or something does not work? Step-by-step "
 "instructions, an explanation of every setting, solutions to common problems "
@@ -3081,7 +3091,7 @@ msgstr ""
 "べての設定の説明、よくある問題の解決策、よくある質問への回答が「ヘルプとFAQ」"
 "にあります。"
 
-#: view/settings.php:296
+#: view/settings.php:288
 msgid ""
 "Fast Index sends your addresses to the Google Indexing API. A 200 answer "
 "means Google accepted the notification; Google does not promise to index the "
@@ -3091,33 +3101,33 @@ msgstr ""
 "通知を受け付けたことを意味します。Googleがページをインデックスすることを約束"
 "するものではありません。"
 
-#: view/settings.php:301
+#: view/settings.php:298
 msgctxt "Heading of the box about the premium plan"
 msgid "Premium"
 msgstr "プレミアム"
 
-#: view/settings.php:302
+#: view/settings.php:299
 msgid "The premium plan is a separate package. What each version does:"
 msgstr "プレミアムプランは別パッケージです。各バージョンでできること："
 
-#: view/settings.php:306
+#: view/settings.php:304
 msgid "Feature"
 msgstr "機能"
 
-#: view/settings.php:307
+#: view/settings.php:305
 msgctxt "Column of the comparison table"
 msgid "Free"
 msgstr "無料版"
 
-#: view/settings.php:308
+#: view/settings.php:306
 msgctxt "Column of the comparison table"
 msgid "Premium"
 msgstr "プレミアム"
 
-#: view/settings.php:318
+#: view/settings.php:316
 msgid "Included"
 msgstr "あり"
 
-#: view/settings.php:320
+#: view/settings.php:318
 msgid "Not included"
 msgstr "なし"

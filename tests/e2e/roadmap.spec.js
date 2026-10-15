@@ -250,7 +250,7 @@ test.describe( 'Fast Index 3.0.0', () => {
 		// History: a Channel column and a filter per channel.
 		await page.goto( HISTORY );
 		await expect( rows( page, 'E2E roadmap on ' + STAMP ) ).toHaveCount( 2 );
-		await expect( page.locator( '#fi table' ).first().locator( 'tbody td' ) ).toHaveCount( 4 );
+		await expect( page.locator( '#fi .fi-summary .cdo-stat' ) ).toHaveCount( 4 );
 		await expect( page.locator( '.fi-channel-filter a' ) ).toHaveCount( 3 );
 		await page.locator( '.fi-channel-filter a[href*="channel=indexnow"]' ).click();
 		await expect( page ).toHaveURL( /channel=indexnow/ );

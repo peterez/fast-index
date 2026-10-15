@@ -37,7 +37,7 @@ test.describe( 'Fast Index admin', () => {
 		// Language-neutral checks: the sites run in English, Turkish and Arabic (wording lives in i18n.spec.js).
 		const screens = [
 			[ SETTINGS, '#fast-index-status' ],
-			[ HISTORY, '#fi nav .pagination' ],
+			[ HISTORY, '#fi table.fi-history' ],
 		];
 		if ( PREMIUM ) {
 			screens.push( [ RUN, '#fi input[name="action"][value="fast_index_run_backlog"]' ] );
@@ -45,7 +45,7 @@ test.describe( 'Fast Index admin', () => {
 		for ( const [ path, marker ] of screens ) {
 			const res = await page.goto( path );
 			expect( res.status(), path ).toBe( 200 );
-			await expect( page.locator( '#fi h1.title' ).first() ).toBeVisible();
+			await expect( page.locator( '#fi h1.cdo-band__title' ) ).toBeVisible();
 			await expect( page.locator( marker ) ).toHaveCount( 1 );
 		}
 	} );
@@ -139,12 +139,12 @@ test.describe( 'Fast Index admin', () => {
 		wp( [ 'eval', 'for ( $i = 0; $i < 25; $i++ ) { Fast_Index_Log::add( 0, home_url( "/e2e-history-" . $i . "/" ), 0 === $i % 5 ? 429 : 200, "URL_UPDATED" ); }' ] );
 
 		await page.goto( HISTORY );
-		await expect( page.locator( '#fi table' ).nth( 1 ).locator( 'tbody tr' ) ).toHaveCount( 20 );
+		await expect( page.locator( '#fi table.fi-history tbody tr' ) ).toHaveCount( 20 );
 		await expect( page.locator( '#fi' ) ).toContainText( '429 Too Many Requests' );
 
 		await page.click( '.pagination a[href*="pn=1"]' );
 		await expect( page ).toHaveURL( /pn=1/ );
-		await expect( page.locator( '#fi table' ).nth( 1 ).locator( 'tbody tr' ).first() ).toBeVisible();
+		await expect( page.locator( '#fi table.fi-history tbody tr' ).first() ).toBeVisible();
 		await expect( page.locator( '.pagination a[href*="pn=0"]' ) ).toBeVisible();
 
 		await page.click( '.pagination a[href*="pn=0"]' );
@@ -158,7 +158,7 @@ test.describe( 'Fast Index admin', () => {
 		const note = wp( [ 'eval', 'echo Fast_Index_Admin::retry_note();' ] );
 		// Runs the queued notification of a post at once, as WP-Cron would.
 		const runQueued = ( id ) => wp( [ 'eval', '$a = array( get_permalink( ' + id + ' ), "URL_UPDATED", ' + id + ' ); $t = wp_next_scheduled( Fast_Index_Cron::SUBMIT_HOOK, $a ); if ( $t ) { wp_unschedule_event( $t, Fast_Index_Cron::SUBMIT_HOOK, $a ); } do_action_ref_array( Fast_Index_Cron::SUBMIT_HOOK, $a );' ] );
-		const row = ( title ) => page.locator( '#fi table' ).nth( 1 ).locator( 'tbody tr', { hasText: title } );
+		const row = ( title ) => page.locator( '#fi table.fi-history tbody tr', { hasText: title } );
 		const stamp = Date.now();
 
 		wp( [ 'option', 'update', 'fast_index_options', '{"status":"1","post_type":{"post":"1"},"post_status":{"publish":"1"}}', '--format=json' ] );

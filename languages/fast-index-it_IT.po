@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fast Index 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fast-index\n"
-"POT-Creation-Date: 2026-10-15T03:22:09+00:00\n"
+"POT-Creation-Date: 2026-10-15T09:09:05+00:00\n"
 "PO-Revision-Date: 2026-10-15 03:41+0000\n"
 "Last-Translator: Fast Index project\n"
 "Language-Team: Italian\n"
@@ -90,7 +90,7 @@ msgstr "%1$s: %2$s"
 #: includes/class-fast-index-manual.php:312
 #: includes/class-fast-index-upgrade.php:249
 #: includes/class-fast-index-upgrade.php:254
-#: includes/class-fast-index-upgrade.php:376 view/history.php:57
+#: includes/class-fast-index-upgrade.php:376 view/history.php:59
 msgid "See the premium plan"
 msgstr "Scopri il piano Premium"
 
@@ -104,49 +104,49 @@ msgstr "La chiave di %s è stata salvata."
 msgid "Sorry, you are not allowed to do that."
 msgstr "Non hai il permesso di farlo."
 
-#: includes/class-fast-index-admin.php:64
-#: includes/class-fast-index-manual.php:305
+#: includes/class-fast-index-admin.php:69
+#: includes/class-fast-index-manual.php:305 view/partial-band.php:18
 msgid "Fast Index"
 msgstr "Fast Index"
 
-#: includes/class-fast-index-admin.php:65
-#: includes/class-fast-index-help-content.php:226 view/history.php:64
+#: includes/class-fast-index-admin.php:70
+#: includes/class-fast-index-help-content.php:226 view/history.php:21
 msgid "History"
 msgstr "Cronologia"
 
-#: includes/class-fast-index-admin.php:75
+#: includes/class-fast-index-admin.php:80
 #: includes/class-fast-index-help-content.php:816 view/help.php:16
-#: view/settings.php:284
+#: view/settings.php:277
 msgid "Help & FAQ"
 msgstr "Aiuto e FAQ"
 
-#: includes/class-fast-index-admin.php:278
+#: includes/class-fast-index-admin.php:302
 #: includes/class-fast-index-help-content.php:560
 msgid "No answer from IndexNow"
 msgstr "Nessuna risposta da IndexNow"
 
-#: includes/class-fast-index-admin.php:282
+#: includes/class-fast-index-admin.php:306
 msgid "Not sent: no service account key"
 msgstr "Non inviata: nessuna chiave dell’account di servizio"
 
-#: includes/class-fast-index-admin.php:286
+#: includes/class-fast-index-admin.php:310
 msgid "Not sent: every key was paused"
 msgstr "Non inviata: tutte le chiavi erano in pausa"
 
-#: includes/class-fast-index-admin.php:290
+#: includes/class-fast-index-admin.php:314
 msgid "Not sent: OpenSSL is missing"
 msgstr "Non inviata: OpenSSL mancante"
 
-#: includes/class-fast-index-admin.php:294
+#: includes/class-fast-index-admin.php:318
 #: includes/class-fast-index-help-content.php:481
 msgid "No answer from Google"
 msgstr "Nessuna risposta da Google"
 
-#: includes/class-fast-index-admin.php:307
+#: includes/class-fast-index-admin.php:347
 msgid "Fast Index tries again when a key is ready."
 msgstr "Fast Index riprova quando una chiave è pronta."
 
-#: includes/class-fast-index-admin.php:323
+#: includes/class-fast-index-admin.php:363
 msgid ""
 "IndexNow could not verify the key: open the key file address on the settings "
 "screen and check that it shows the key."
@@ -155,13 +155,13 @@ msgstr ""
 "della chiave indicato nella schermata delle impostazioni e controlla che "
 "mostri la chiave."
 
-#: includes/class-fast-index-admin.php:325
+#: includes/class-fast-index-admin.php:365
 msgid ""
 "IndexNow refused the address: it does not belong to the host of the key."
 msgstr ""
 "IndexNow ha rifiutato l’indirizzo: non appartiene all’host della chiave."
 
-#: includes/class-fast-index-admin.php:327
+#: includes/class-fast-index-admin.php:367
 msgid ""
 "IndexNow received too many requests from this site and treats them as "
 "possible spam. Send fewer addresses at once."
@@ -169,7 +169,7 @@ msgstr ""
 "IndexNow ha ricevuto troppe richieste da questo sito e le considera "
 "possibile spam. Invia meno indirizzi alla volta."
 
-#: includes/class-fast-index-admin.php:334
+#: includes/class-fast-index-admin.php:374
 msgid ""
 "Daily quota reached: every key is paused until Google resets the quota at "
 "midnight Pacific Time."
@@ -178,13 +178,13 @@ msgstr ""
 "la quota a mezzanotte, ora del Pacifico."
 
 #. translators: %s: date and time.
-#: includes/class-fast-index-admin.php:348
+#: includes/class-fast-index-admin.php:388
 #, php-format
 msgid "Paused until %s"
 msgstr "In pausa fino a %s"
 
-#: includes/class-fast-index-admin.php:411
-#: includes/class-fast-index-help.php:110
+#: includes/class-fast-index-admin.php:451
+#: includes/class-fast-index-help.php:111
 #: includes/premium/class-fast-index-premium-backlog.php:201
 msgid "Sorry, you are not allowed to access this page."
 msgstr "Non hai il permesso di accedere a questa pagina."
@@ -471,15 +471,15 @@ msgstr ""
 "mai mostrata."
 
 #: includes/class-fast-index-help-content.php:205
-#: includes/class-fast-index-help-content.php:344 view/settings.php:205
+#: includes/class-fast-index-help-content.php:344 view/settings.php:201
 msgid "Upload Google Service Account Key"
 msgstr "Carica la chiave dell’account di servizio Google"
 
-#: includes/class-fast-index-help-content.php:206 view/settings.php:258
+#: includes/class-fast-index-help-content.php:206 view/settings.php:254
 msgid "JSON Key File"
 msgstr "File chiave JSON"
 
-#: includes/class-fast-index-help-content.php:207 view/settings.php:271
+#: includes/class-fast-index-help-content.php:207 view/settings.php:266
 msgid "Upload key"
 msgstr "Carica chiave"
 
@@ -504,7 +504,7 @@ msgstr "Stato"
 
 #: includes/class-fast-index-help-content.php:216
 #: includes/class-fast-index-help-content.php:259
-#: includes/class-fast-index-help.php:176 view/settings.php:61
+#: includes/class-fast-index-help.php:177 view/settings.php:61
 msgid "Active"
 msgstr "Attivo"
 
@@ -513,7 +513,7 @@ msgstr "Attivo"
 msgid "Post Types"
 msgstr "Tipi di contenuto"
 
-#: includes/class-fast-index-help-content.php:218 view/settings.php:197
+#: includes/class-fast-index-help-content.php:218 view/settings.php:194
 msgid "Save"
 msgstr "Salva"
 
@@ -596,7 +596,7 @@ msgstr ""
 
 #: includes/class-fast-index-help-content.php:272
 #: includes/class-fast-index-help-content.php:655
-#: includes/premium/view-settings-rows.php:14 view/settings.php:153
+#: includes/premium/view-settings-rows.php:14 view/settings.php:156
 msgid "Daily Limit for Old Posts"
 msgstr "Limite giornaliero per i vecchi articoli"
 
@@ -628,7 +628,7 @@ msgstr ""
 "il limite abbastanza basso da lasciare spazio ai nuovi articoli entro la "
 "quota giornaliera di Google (vedi le FAQ)."
 
-#: includes/class-fast-index-help-content.php:281 view/settings.php:90
+#: includes/class-fast-index-help-content.php:281 view/settings.php:92
 msgid "Post Events"
 msgstr "Eventi dell’articolo"
 
@@ -660,7 +660,7 @@ msgstr ""
 "Google chiede che l’indirizzo restituisca già 404 o 410, oppure abbia un tag "
 "noindex, quando invii una rimozione."
 
-#: includes/class-fast-index-help-content.php:289 view/settings.php:108
+#: includes/class-fast-index-help-content.php:289 view/settings.php:112
 msgid "Supported Pages Only"
 msgstr "Solo pagine supportate"
 
@@ -734,7 +734,7 @@ msgstr ""
 "di lavoro e dirette video."
 
 #: includes/class-fast-index-help-content.php:309
-#: includes/premium/view-settings-rows.php:67 view/settings.php:159
+#: includes/premium/view-settings-rows.php:67 view/settings.php:160
 msgid "Exclude Categories"
 msgstr "Escludi categorie"
 
@@ -1602,11 +1602,11 @@ msgstr ""
 "viene mostrata, e non nel contenuto salvato, non vengono rilevati; gli "
 "sviluppatori possono aggiungerli con il filtro fast_index_is_eligible."
 
-#: includes/class-fast-index-help-content.php:620 view/history.php:140
+#: includes/class-fast-index-help-content.php:620 view/history.php:145
 msgid "Eligible for Google Indexing API"
 msgstr "Idonea per la Google Indexing API"
 
-#: includes/class-fast-index-help-content.php:621 view/settings.php:114
+#: includes/class-fast-index-help-content.php:621 view/settings.php:118
 msgid "Send to Google only pages with JobPosting or BroadcastEvent data"
 msgstr "Invia a Google solo le pagine con dati JobPosting o BroadcastEvent"
 
@@ -1913,7 +1913,7 @@ msgstr ""
 "modificati. La Cronologia elenca le risposte nel canale IndexNow. Fast Index "
 "non usa la Bing Webmaster API. Vedi %3$s."
 
-#: includes/class-fast-index-help-content.php:712 view/settings.php:130
+#: includes/class-fast-index-help-content.php:712 view/settings.php:134
 msgid "Also send to IndexNow"
 msgstr "Invia anche a IndexNow"
 
@@ -2009,7 +2009,7 @@ msgstr ""
 "cronologia vengono mantenute. La versione gratuita di WordPress.org non "
 "contiene mai il codice Premium."
 
-#: includes/class-fast-index-help-content.php:740 view/settings.php:331
+#: includes/class-fast-index-help-content.php:740 view/settings.php:329
 msgid "Upgrade to Premium"
 msgstr "Passa a Premium"
 
@@ -2151,7 +2151,7 @@ msgstr ""
 msgid "About this screen"
 msgstr "Informazioni su questa schermata"
 
-#: includes/class-fast-index-help-content.php:805 view/settings.php:289
+#: includes/class-fast-index-help-content.php:805 view/settings.php:286
 msgid "Open Help & FAQ"
 msgstr "Apri l’aiuto e le FAQ"
 
@@ -2168,11 +2168,11 @@ msgstr "Forum di supporto"
 msgid "(external link, opens in a new tab)"
 msgstr "(link esterno, si apre in una nuova scheda)"
 
-#: includes/class-fast-index-help.php:95
+#: includes/class-fast-index-help.php:96
 msgid "System info copied."
 msgstr "Informazioni di sistema copiate."
 
-#: includes/class-fast-index-help.php:96
+#: includes/class-fast-index-help.php:97
 msgid ""
 "System info is selected in the box above. Press Ctrl+C (Cmd+C on a Mac) to "
 "copy it."
@@ -2180,105 +2180,105 @@ msgstr ""
 "Le informazioni di sistema sono selezionate nella casella qui sopra. Premi "
 "Ctrl+C (Cmd+C su Mac) per copiarle."
 
-#: includes/class-fast-index-help.php:138
+#: includes/class-fast-index-help.php:139
 msgid "Yes"
 msgstr "Sì"
 
-#: includes/class-fast-index-help.php:139
+#: includes/class-fast-index-help.php:140
 msgid "No"
 msgstr "No"
 
-#: includes/class-fast-index-help.php:143
+#: includes/class-fast-index-help.php:144
 msgid "Fast Index version"
 msgstr "Versione di Fast Index"
 
-#: includes/class-fast-index-help.php:147
+#: includes/class-fast-index-help.php:148
 msgid "WordPress version"
 msgstr "Versione di WordPress"
 
-#: includes/class-fast-index-help.php:151
+#: includes/class-fast-index-help.php:152
 msgid "PHP version"
 msgstr "Versione di PHP"
 
-#: includes/class-fast-index-help.php:155
+#: includes/class-fast-index-help.php:156
 msgid "Multisite"
 msgstr "Multisito"
 
-#: includes/class-fast-index-help.php:159
+#: includes/class-fast-index-help.php:160
 msgid "Site language"
 msgstr "Lingua del sito"
 
-#: includes/class-fast-index-help.php:163
+#: includes/class-fast-index-help.php:164
 msgid "OpenSSL available"
 msgstr "OpenSSL disponibile"
 
-#: includes/class-fast-index-help.php:167
+#: includes/class-fast-index-help.php:168
 msgid "WP-Cron disabled (DISABLE_WP_CRON)"
 msgstr "WP-Cron disattivato (DISABLE_WP_CRON)"
 
-#: includes/class-fast-index-help.php:171
+#: includes/class-fast-index-help.php:172
 msgid "Premium plan features loaded"
 msgstr "Funzioni del piano Premium caricate"
 
-#: includes/class-fast-index-help.php:175
+#: includes/class-fast-index-help.php:176
 msgid "Status setting"
 msgstr "Impostazione Stato"
 
-#: includes/class-fast-index-help.php:176 view/settings.php:62
+#: includes/class-fast-index-help.php:177 view/settings.php:62
 msgid "Passive"
 msgstr "Passivo"
 
-#: includes/class-fast-index-help.php:179
+#: includes/class-fast-index-help.php:180
 msgid "Post types enabled"
 msgstr "Tipi di contenuto abilitati"
 
-#: includes/class-fast-index-help.php:183
+#: includes/class-fast-index-help.php:184
 msgid "Stored service account keys"
 msgstr "Chiavi dell’account di servizio memorizzate"
 
-#: includes/class-fast-index-help.php:187
+#: includes/class-fast-index-help.php:188
 msgid "Keys available now (not paused)"
 msgstr "Chiavi disponibili ora (non in pausa)"
 
-#: includes/class-fast-index-help.php:191
+#: includes/class-fast-index-help.php:192
 msgid "Last answer for each key"
 msgstr "Ultima risposta per ogni chiave"
 
-#: includes/class-fast-index-help.php:195
+#: includes/class-fast-index-help.php:196
 msgid "Next hourly task"
 msgstr "Prossima attività oraria"
 
-#: includes/class-fast-index-help.php:196
+#: includes/class-fast-index-help.php:197
 msgid "Not scheduled"
 msgstr "Non pianificata"
 
-#: includes/class-fast-index-help.php:199
+#: includes/class-fast-index-help.php:200
 msgid "Sent in the last 24 hours"
 msgstr "Inviate nelle ultime 24 ore"
 
-#: includes/class-fast-index-help.php:203
+#: includes/class-fast-index-help.php:204
 msgid "Posts waiting"
 msgstr "Articoli in attesa"
 
-#: includes/class-fast-index-help.php:207
+#: includes/class-fast-index-help.php:208
 msgid "Notifications waiting for a key"
 msgstr "Notifiche in attesa di una chiave"
 
-#: includes/class-fast-index-help.php:211
+#: includes/class-fast-index-help.php:212
 msgid "Last notification"
 msgstr "Ultima notifica"
 
 #. translators: 1: number of the key in the list, 2: last answer from Google.
-#: includes/class-fast-index-help.php:251
+#: includes/class-fast-index-help.php:252
 #, php-format
 msgid "Key %1$d: %2$s"
 msgstr "Chiave %1$d: %2$s"
 
-#: includes/class-fast-index-help.php:253 view/settings.php:235
+#: includes/class-fast-index-help.php:254 view/settings.php:226
 msgid "Not used yet"
 msgstr "Non ancora usata"
 
-#: includes/class-fast-index-help.php:269 view/history.php:127
+#: includes/class-fast-index-help.php:270 view/history.php:132
 msgid "Nothing was sent yet."
 msgstr "Non è ancora stato inviato nulla."
 
@@ -2393,7 +2393,7 @@ msgstr ""
 "revocare quella vecchia."
 
 #: includes/class-fast-index-notices.php:271
-#: includes/class-fast-index-upgrade.php:257 view/history.php:59
+#: includes/class-fast-index-upgrade.php:257 view/history.php:61
 msgid "Do not show this again"
 msgstr "Non mostrare più"
 
@@ -2508,7 +2508,7 @@ msgstr ""
 "Se Fast Index ti è utile, una recensione su WordPress.org aiuta altri "
 "proprietari di siti a trovarlo."
 
-#: includes/class-fast-index-upgrade.php:246 view/settings.php:190
+#: includes/class-fast-index-upgrade.php:246 view/settings.php:289
 msgid "Rate Fast Index on WordPress.org"
 msgstr "Valuta Fast Index su WordPress.org"
 
@@ -2811,7 +2811,7 @@ msgstr ""
 
 #: includes/premium/class-fast-index-premium-inspection.php:568
 #: includes/premium/class-fast-index-premium-inspection.php:694
-#: view/history.php:68
+#: view/history.php:80
 msgid "Index Status"
 msgstr "Stato di indicizzazione"
 
@@ -2926,7 +2926,7 @@ msgstr ""
 msgid "[%s] Fast Index weekly report"
 msgstr "[%s] Report settimanale di Fast Index"
 
-#: includes/premium/view-run.php:16
+#: includes/premium/view-run.php:14
 msgid ""
 "Sends one batch of old posts now, within the daily limit set on the settings "
 "screen. The same batch also runs every hour."
@@ -2967,7 +2967,7 @@ msgstr "Invia il report a %s"
 msgid "Select the categories to exclude."
 msgstr "Seleziona le categorie da escludere."
 
-#: view/help.php:18
+#: view/help.php:16
 msgid ""
 "Everything you need to set up Fast Index and to solve the most common "
 "problems. Read it before you write to support: the answer is most often here."
@@ -2976,47 +2976,47 @@ msgstr ""
 "comuni. Leggi qui prima di scrivere al supporto: la risposta è quasi sempre "
 "qui."
 
-#: view/help.php:20
+#: view/help.php:18
 msgid "Help sections"
 msgstr "Sezioni della guida"
 
-#: view/help.php:56 view/help.php:65
+#: view/help.php:54 view/help.php:63
 msgid "Setting"
 msgstr "Impostazione"
 
-#: view/help.php:57 view/help.php:66
+#: view/help.php:55 view/help.php:64
 msgid "What it does"
 msgstr "Che cosa fa"
 
-#: view/help.php:58 view/help.php:73
+#: view/help.php:56 view/help.php:71
 msgid "Default"
 msgstr "Predefinito"
 
-#: view/help.php:59 view/help.php:74
+#: view/help.php:57 view/help.php:72
 msgid "Change it when"
 msgstr "Cambiala quando"
 
-#: view/help.php:86
+#: view/help.php:84
 msgid "Find what you see, then read why it happens and what to do."
 msgstr "Trova ciò che vedi, poi leggi perché succede e cosa fare."
 
-#: view/help.php:92
+#: view/help.php:90
 msgid "Why it happens:"
 msgstr "Perché succede:"
 
-#: view/help.php:93
+#: view/help.php:91
 msgid "What to do:"
 msgstr "Cosa fare:"
 
-#: view/help.php:117
+#: view/help.php:115
 msgid "Before you write to support, go through this list:"
 msgstr "Prima di scrivere al supporto, controlla questo elenco:"
 
-#: view/help.php:124
+#: view/help.php:122
 msgid "System info"
 msgstr "Informazioni di sistema"
 
-#: view/help.php:125
+#: view/help.php:123
 msgid ""
 "Read-only facts about your site that help us answer. They contain no keys "
 "and no email addresses."
@@ -3024,11 +3024,11 @@ msgstr ""
 "Dati di sola lettura sul tuo sito che ci aiutano a rispondere. Non "
 "contengono chiavi né indirizzi email."
 
-#: view/help.php:138
+#: view/help.php:136
 msgid "Copy system info"
 msgstr "Copia le informazioni di sistema"
 
-#: view/help.php:143
+#: view/help.php:141
 msgid "Open the Fast Index support forum on WordPress.org"
 msgstr "Apri il forum di supporto di Fast Index su WordPress.org"
 
@@ -3040,77 +3040,87 @@ msgstr "Aggiornato"
 msgid "Deleted"
 msgstr "Eliminato"
 
-#: view/history.php:27
+#: view/history.php:32
 msgid "Summary"
 msgstr "Riepilogo"
 
-#: view/history.php:32
+#: view/history.php:35
 msgid "Total Sent"
 msgstr "Totale inviati"
 
-#: view/history.php:33
+#: view/history.php:39
 msgid "Total Waiting"
 msgstr "Totale in attesa"
 
-#: view/history.php:34
+#: view/history.php:43
 msgid "Sent Today"
 msgstr "Inviati oggi"
 
-#: view/history.php:36
+#: view/history.php:48
 msgid "Sent to IndexNow Today"
 msgstr "Inviati a IndexNow oggi"
 
-#: view/history.php:76
+#: view/history.php:88
 msgctxt "History filter: every channel"
 msgid "All"
 msgstr "Tutti"
 
-#: view/history.php:91
+#: view/history.php:102
 msgid "Date"
 msgstr "Data"
 
-#: view/history.php:92
+#: view/history.php:103
 msgid "Channel"
 msgstr "Canale"
 
-#: view/history.php:93
+#: view/history.php:104
 msgid "Send Status"
 msgstr "Stato dell’invio"
 
-#: view/history.php:94
+#: view/history.php:105
 msgid "Post"
 msgstr "Articolo"
 
-#: view/history.php:115 view/history.php:131
+#: view/history.php:120 view/history.php:136
 msgid "Title"
 msgstr "Titolo"
 
-#: view/history.php:142
+#: view/history.php:147
 msgid "Show more details"
 msgstr "Mostra più dettagli"
 
-#: view/history.php:173
+#: view/history.php:178
 msgid "View Post"
 msgstr "Visualizza articolo"
 
-#: view/history.php:179
+#: view/history.php:185
 msgid "Pagination"
 msgstr "Paginazione"
 
-#: view/history.php:182
+#: view/history.php:188
 msgid "Previous"
 msgstr "Precedente"
 
-#: view/history.php:185
+#: view/history.php:191
 msgid "Next"
 msgstr "Successivo"
 
-#: view/settings.php:32
+#: view/partial-band.php:20
+msgctxt "Plan name in the page header"
+msgid "Premium"
+msgstr "Premium"
+
+#: view/partial-band.php:22
+msgctxt "Plan name in the page header"
+msgid "Free"
+msgstr "Gratuita"
+
+#: view/settings.php:17
 msgctxt "Heading of the Fast Index settings screen"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: view/settings.php:36
+#: view/settings.php:38
 msgid ""
 "Some of your settings belong to the premium plan. They are kept, but this "
 "version does not use them. They are used again when the premium package is "
@@ -3124,25 +3134,25 @@ msgstr ""
 msgid "Switch sending on or off."
 msgstr "Attiva o disattiva l’invio."
 
-#: view/settings.php:91
+#: view/settings.php:93
 msgid "Choose when Google is notified."
 msgstr "Scegli quando avvisare Google."
 
-#: view/settings.php:109
+#: view/settings.php:113
 msgid "Pages that Google supports in the Indexing API."
 msgstr "Pagine che Google supporta nell’Indexing API."
 
-#: view/settings.php:125
+#: view/settings.php:129
 msgid "Search engines other than Google."
 msgstr "Motori di ricerca diversi da Google."
 
 #. translators: %s: address of the IndexNow key file.
-#: view/settings.php:140
+#: view/settings.php:144
 #, php-format
 msgid "Key file: %s"
 msgstr "File della chiave: %s"
 
-#: view/settings.php:178
+#: view/settings.php:182
 msgid ""
 "Delete all plugin data (settings, keys and history) when the plugin is "
 "deleted. This cannot be undone."
@@ -3151,33 +3161,33 @@ msgstr ""
 "il plugin viene eliminato. L’operazione non può essere annullata."
 
 #. translators: %s: ID of the service account key.
-#: view/settings.php:225
+#: view/settings.php:221
 #, php-format
 msgid "Key ID: %s"
 msgstr "ID chiave: %s"
 
-#: view/settings.php:231
+#: view/settings.php:228
 msgid "Used for sending"
 msgstr "Usata per l’invio"
 
-#: view/settings.php:231
+#: view/settings.php:228
 msgid "Kept, not used by this version"
 msgstr "Conservata, non usata da questa versione"
 
-#: view/settings.php:233
+#: view/settings.php:230
 msgid "Main key"
 msgstr "Chiave principale"
 
-#: view/settings.php:233
+#: view/settings.php:230
 msgid "Backup key: used only when Google rejects the key before it"
 msgstr ""
 "Chiave di riserva: usata solo quando Google rifiuta la chiave precedente"
 
-#: view/settings.php:243
+#: view/settings.php:239
 msgid "Delete"
 msgstr "Elimina"
 
-#: view/settings.php:261
+#: view/settings.php:257
 msgid ""
 "The key file is read and stored in the database; it is not saved in the "
 "uploads folder. Only the email address and the key ID are shown here."
@@ -3186,11 +3196,11 @@ msgstr ""
 "nella cartella degli upload. Qui vengono mostrati solo l’indirizzo email e "
 "l’ID della chiave."
 
-#: view/settings.php:263
+#: view/settings.php:259
 msgid "A new key replaces the key that is used for sending."
 msgstr "Una nuova chiave sostituisce la chiave usata per l’invio."
 
-#: view/settings.php:287
+#: view/settings.php:279
 msgid ""
 "Setting up for the first time, or something does not work? Step-by-step "
 "instructions, an explanation of every setting, solutions to common problems "
@@ -3200,7 +3210,7 @@ msgstr ""
 "spiegazione di ogni impostazione, soluzioni ai problemi comuni e risposte "
 "alle domande frequenti si trovano in Aiuto e FAQ."
 
-#: view/settings.php:296
+#: view/settings.php:288
 msgid ""
 "Fast Index sends your addresses to the Google Indexing API. A 200 answer "
 "means Google accepted the notification; Google does not promise to index the "
@@ -3210,33 +3220,33 @@ msgstr ""
 "significa che Google ha accettato la notifica; Google non promette di "
 "indicizzare la pagina."
 
-#: view/settings.php:301
+#: view/settings.php:298
 msgctxt "Heading of the box about the premium plan"
 msgid "Premium"
 msgstr "Premium"
 
-#: view/settings.php:302
+#: view/settings.php:299
 msgid "The premium plan is a separate package. What each version does:"
 msgstr "Il piano Premium è un pacchetto separato. Cosa fa ciascuna versione:"
 
-#: view/settings.php:306
+#: view/settings.php:304
 msgid "Feature"
 msgstr "Funzione"
 
-#: view/settings.php:307
+#: view/settings.php:305
 msgctxt "Column of the comparison table"
 msgid "Free"
 msgstr "Gratuita"
 
-#: view/settings.php:308
+#: view/settings.php:306
 msgctxt "Column of the comparison table"
 msgid "Premium"
 msgstr "Premium"
 
-#: view/settings.php:318
+#: view/settings.php:316
 msgid "Included"
 msgstr "Inclusa"
 
-#: view/settings.php:320
+#: view/settings.php:318
 msgid "Not included"
 msgstr "Non inclusa"

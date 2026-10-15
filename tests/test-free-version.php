@@ -103,7 +103,7 @@ class Fast_Index_Test_Free_Version extends Fast_Index_Test_Case {
 		( new Fast_Index_Admin() )->render_settings();
 		$html = (string) ob_get_clean();
 
-		$this->assertSame( 1, substr_count( $html, 'class="fi-premium-card"' ) );
+		$this->assertSame( 1, preg_match_all( '/class="[^"]*\bfi-premium-card\b/', $html ) );
 		$this->assertStringContainsString( esc_url( admin_url( 'admin.php?page=fast-index-pricing' ) ), $html );
 		$this->assertSame( count( Fast_Index_Settings::post_type_choices() ), preg_match_all( '/name="fast_index_options\[post_type\]\[/', $html ) );
 		$this->assertStringContainsString( 'name="fast_index_options[post_type][page]"', $html );

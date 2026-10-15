@@ -86,8 +86,8 @@ class Fast_Index_Test_Eligibility extends Fast_Index_Test_Case {
 		( new Fast_Index_Admin() )->render_history();
 		$html = (string) ob_get_clean();
 
-		$this->assertSame( 1, substr_count( $html, 'class="fi-eligible"' ) );
-		$this->assertMatchesRegularExpression( '/Job page<\/a>\s*<\/strong>\s*<span class="fi-eligible">Eligible for Google Indexing API<\/span>/', $html );
+		$this->assertSame( 1, preg_match_all( '/class="fi-eligible\b/', $html ) );
+		$this->assertMatchesRegularExpression( '/Job page<\/a>\s*<\/strong>\s*<br><span class="fi-eligible[^"]*">Eligible for Google Indexing API<\/span>/', $html );
 		$this->assertSame( array(), $this->requests );
 	}
 

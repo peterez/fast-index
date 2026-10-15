@@ -152,7 +152,7 @@ test.describe( 'Fast Index premium plan', () => {
 		wp( [ 'eval', 'global $wpdb; $wpdb->update( $wpdb->posts, array( "post_status" => "publish" ), array( "ID" => ' + postId + ' ) ); clean_post_cache( ' + postId + ' ); delete_transient( "fast_index_stats" );' ] );
 
 		await page.goto( HISTORY );
-		const waiting = ( await page.locator( '#fi table' ).first().locator( 'tbody td' ).nth( 1 ).innerText() ).trim();
+		const waiting = ( await page.locator( '#fi .fi-summary .cdo-stat__value' ).nth( 1 ).innerText() ).trim();
 		expect( Number( waiting.replace( /\D/g, '' ) ) ).toBeGreaterThan( 0 );
 		const line = page.locator( '.fi-upgrade-line[data-notice="history_waiting"]' );
 		await expect( line ).toBeVisible();

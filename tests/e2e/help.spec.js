@@ -210,17 +210,21 @@ test.describe( 'Fast Index help', () => {
 		expect( html ).not.toContain( 'BEGIN PRIVATE KEY' );
 	} );
 
-	test( 'help assets load on the help page only', async ( { page } ) => {
+	test( 'help assets load on the help page only, the design language on every Fast Index screen', async ( { page } ) => {
 		await page.goto( HELP );
-		await expect( page.locator( 'link[href*="fast-index-help.css"]' ) ).toHaveCount( 1 );
+		await expect( page.locator( 'link[href*="fast-index/assets/css/cdo-ui.css"]' ) ).toHaveCount( 1 );
 		expect( await page.content() ).toContain( 'fast-index-help.js' );
 
-		for ( const path of PREMIUM ? [ SETTINGS, HISTORY, RUN, admin( '' ) ] : [ SETTINGS, HISTORY, admin( '' ) ] ) {
+		for ( const path of PREMIUM ? [ SETTINGS, HISTORY, RUN ] : [ SETTINGS, HISTORY ] ) {
 			await page.goto( path );
-			const html = await page.content();
-			expect( html, path ).not.toContain( 'fast-index-help.css' );
-			expect( html, path ).not.toContain( 'fast-index-help.js' );
+			await expect( page.locator( 'link[href*="fast-index/assets/css/cdo-ui.css"]' ), path ).toHaveCount( 1 );
+			expect( await page.content(), path ).not.toContain( 'fast-index-help.js' );
 		}
+
+		await page.goto( admin( '' ) );
+		const dashboard = await page.content();
+		expect( dashboard ).not.toContain( 'cdo-ui.css' );
+		expect( dashboard ).not.toContain( 'fast-index-help.js' );
 	} );
 
 	test( 'a published post is sent (Google answers are stubbed) and shown in History', async ( { page } ) => {

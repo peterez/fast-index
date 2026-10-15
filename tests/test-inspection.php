@@ -433,7 +433,7 @@ class Fast_Index_Test_Inspection extends Fast_Index_Test_Case {
 		( new Fast_Index_Admin() )->render_history();
 		$html = (string) ob_get_clean();
 
-		$this->assertMatchesRegularExpression( '/<dt>Accepted by Google, last 30 days<\/dt><dd>3<\/dd>.*<dt>Checked in Search Console<\/dt><dd>2<\/dd>.*<dt>Indexed<\/dt><dd>1<\/dd>/s', $html );
+		$this->assertMatchesRegularExpression( '/<dt[^>]*>Accepted by Google, last 30 days<\/dt><dd[^>]*>3<\/dd>.*<dt[^>]*>Checked in Search Console<\/dt><dd[^>]*>2<\/dd>.*<dt[^>]*>Indexed<\/dt><dd[^>]*>1<\/dd>/s', $html );
 	}
 
 	/**

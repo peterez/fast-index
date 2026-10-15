@@ -121,7 +121,7 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 
 		$html = self::render_help();
 
-		$this->assertStringContainsString( '<h1>Help &amp; FAQ</h1>', $html );
+		$this->assertStringContainsString( '<h1 class="cdo-band__title">Help &amp; FAQ</h1>', $html );
 		$this->assertStringNotContainsString( '<iframe', $html );
 		$this->assertStringNotContainsString( '<script', $html );
 		$this->assertStringNotContainsString( '<form', $html );
@@ -214,11 +214,11 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 
 		$help->enqueue_assets( 'index.php' );
 		$this->assertFalse( wp_script_is( 'fast-index-help', 'enqueued' ) );
-		$this->assertFalse( wp_style_is( 'fast-index-help', 'enqueued' ) );
+		$this->assertFalse( wp_style_is( Fast_Index_Admin::UI_HANDLE, 'enqueued' ) );
 
 		$help->enqueue_assets( get_plugin_page_hookname( Fast_Index_Help::SLUG, Fast_Index_Admin::SLUG ) );
 		$this->assertTrue( wp_script_is( 'fast-index-help', 'enqueued' ) );
-		$this->assertTrue( wp_style_is( 'fast-index-help', 'enqueued' ) );
+		$this->assertTrue( wp_style_is( Fast_Index_Admin::UI_HANDLE, 'enqueued' ) );
 		$this->assertStringContainsString( 'window.fastIndexHelp', implode( '', (array) wp_scripts()->get_data( 'fast-index-help', 'before' ) ) );
 	}
 
@@ -379,6 +379,6 @@ class Fast_Index_Test_Help extends Fast_Index_Test_Case {
 	public function test_copy_fallback_field_is_named() {
 		$this->login_as( 'administrator' );
 
-		$this->assertMatchesRegularExpression( '/<textarea id="fi-help-system-info" class="fi-help-sysinfo-source"[^>]*aria-labelledby="fi-help-system-info-title"[^>]*aria-hidden="true">/', self::render_help() );
+		$this->assertMatchesRegularExpression( '/<textarea id="fi-help-system-info" class="fi-help-sysinfo-source cdo-sysinfo-source"[^>]*aria-labelledby="fi-help-system-info-title"[^>]*aria-hidden="true">/', self::render_help() );
 	}
 }

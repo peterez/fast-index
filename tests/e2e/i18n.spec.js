@@ -147,7 +147,7 @@ async function checkScreen( page, locale, view, po, projectName, prefix ) {
 	const screen = SCREENS[ view ];
 	const res = await page.goto( screen.path );
 	expect( res.status(), locale + ' ' + view ).toBe( 200 );
-	await expect( page.locator( '#fi h1.title, .fast-index-help h1' ).first() ).toBeVisible();
+	await expect( page.locator( '.cdo-ui h1.cdo-band__title' ).first() ).toBeVisible();
 
 	// Direction and language of the page.
 	const dir = RTL.includes( locale ) ? 'rtl' : 'ltr';
