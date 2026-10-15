@@ -27,6 +27,10 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 		</div>
 	<?php endforeach; ?>
 
+	<div class="cdo-intro fi-intro">
+		<p class="cdo-intro__lead"><?php esc_html_e( 'This screen decides what Fast Index sends to Google and when. Upload your Google key, choose the content to send and save; after that every new post is sent on its own.', 'fast-index' ); ?></p>
+	</div>
+
 	<div class="cdo-layout">
 
 		<div class="cdo-main cdo-stack">
@@ -55,12 +59,15 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<th scope="row">
 								<label for="fast-index-status"><?php esc_html_e( 'Status', 'fast-index' ); ?></label>
 								<span class="cdo-field-hint"><?php esc_html_e( 'Switch sending on or off.', 'fast-index' ); ?></span>
+								<?php Fast_Index_Admin::render_whatis( 'status' ); ?>
 							</th>
 							<td>
+								<div class="cdo-select">
 								<select id="fast-index-status" name="fast_index_options[status]">
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_ACTIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_ACTIVE ); ?>><?php esc_html_e( 'Active', 'fast-index' ); ?></option>
 									<option value="<?php echo esc_attr( Fast_Index_Settings::STATUS_PASSIVE ); ?>" <?php selected( $fast_index_settings['status'], Fast_Index_Settings::STATUS_PASSIVE ); ?>><?php esc_html_e( 'Passive', 'fast-index' ); ?></option>
 								</select>
+								</div>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'status' ) as $fast_index_note ) : ?>
 									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
 								<?php endforeach; ?>
@@ -71,12 +78,13 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<th scope="row">
 								<?php esc_html_e( 'Post Types', 'fast-index' ); ?>
 								<span class="cdo-field-hint"><?php esc_html_e( 'Select at least one post type.', 'fast-index' ); ?></span>
+								<?php Fast_Index_Admin::render_whatis( 'post_type' ); ?>
 							</th>
 							<td>
 								<div class="cdo-choices">
 									<?php foreach ( $fast_index_view['post_types'] as $fast_index_name => $fast_index_label ) : ?>
 										<label class="fast-index-choice">
-											<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_type][' . $fast_index_name . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_type'][ $fast_index_name ] ) ); ?> />
+											<input class="cdo-check__input" type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_type][' . $fast_index_name . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_type'][ $fast_index_name ] ) ); ?> />
 											<?php echo esc_html( $fast_index_label ); ?>
 										</label>
 									<?php endforeach; ?>
@@ -91,12 +99,13 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<th scope="row">
 								<?php esc_html_e( 'Post Events', 'fast-index' ); ?>
 								<span class="cdo-field-hint"><?php esc_html_e( 'Choose when Google is notified.', 'fast-index' ); ?></span>
+								<?php Fast_Index_Admin::render_whatis( 'post_status' ); ?>
 							</th>
 							<td>
 								<div class="cdo-choices">
 									<?php foreach ( $fast_index_view['events'] as $fast_index_event => $fast_index_label ) : ?>
 										<label class="fast-index-choice">
-											<input type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_status][' . $fast_index_event . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_status'][ $fast_index_event ] ) ); ?> />
+											<input class="cdo-check__input" type="checkbox" name="<?php echo esc_attr( 'fast_index_options[post_status][' . $fast_index_event . ']' ); ?>" value="1" <?php checked( isset( $fast_index_settings['post_status'][ $fast_index_event ] ) ); ?> />
 											<?php echo esc_html( $fast_index_label ); ?>
 										</label>
 									<?php endforeach; ?>
@@ -111,10 +120,11 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<th scope="row">
 								<?php esc_html_e( 'Supported Pages Only', 'fast-index' ); ?>
 								<span class="cdo-field-hint"><?php esc_html_e( 'Pages that Google supports in the Indexing API.', 'fast-index' ); ?></span>
+								<?php Fast_Index_Admin::render_whatis( 'eligible_only' ); ?>
 							</th>
 							<td>
 								<label class="fast-index-choice cdo-choice">
-									<input id="fast-index-eligible-only" type="checkbox" name="fast_index_options[eligible_only]" value="1" <?php checked( $fast_index_settings['eligible_only'] ); ?> />
+									<input id="fast-index-eligible-only" class="cdo-check__input" type="checkbox" name="fast_index_options[eligible_only]" value="1" <?php checked( $fast_index_settings['eligible_only'] ); ?> />
 									<span><?php esc_html_e( 'Send to Google only pages with JobPosting or BroadcastEvent data', 'fast-index' ); ?></span>
 								</label>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'eligible_only' ) as $fast_index_note ) : ?>
@@ -127,10 +137,11 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 							<th scope="row">
 								<?php echo esc_html( 'IndexNow' ); ?>
 								<span class="cdo-field-hint"><?php esc_html_e( 'Search engines other than Google.', 'fast-index' ); ?></span>
+								<?php Fast_Index_Admin::render_whatis( 'indexnow' ); ?>
 							</th>
 							<td>
 								<label class="fast-index-choice cdo-choice">
-									<input id="fast-index-indexnow" type="checkbox" name="fast_index_options[indexnow]" value="1" <?php checked( $fast_index_settings['indexnow'] ); ?> />
+									<input id="fast-index-indexnow" class="cdo-check__input" type="checkbox" name="fast_index_options[indexnow]" value="1" <?php checked( $fast_index_settings['indexnow'] ); ?> />
 									<span><?php esc_html_e( 'Also send to IndexNow', 'fast-index' ); ?></span>
 								</label>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'indexnow' ) as $fast_index_note ) : ?>
@@ -175,10 +186,11 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 						<tr class="cdo-row--danger">
 							<th scope="row">
 								<label for="fast-index-delete-data"><?php esc_html_e( 'Delete data on uninstall', 'fast-index' ); ?></label>
+								<?php Fast_Index_Admin::render_whatis( 'delete_data' ); ?>
 							</th>
 							<td>
 								<label class="cdo-choice">
-									<input id="fast-index-delete-data" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
+									<input id="fast-index-delete-data" class="cdo-check__input" type="checkbox" name="fast_index_options[delete_data]" value="1" <?php checked( $fast_index_settings['delete_data'] ); ?> />
 									<span><?php esc_html_e( 'Delete all plugin data (settings, keys and history) when the plugin is deleted. This cannot be undone.', 'fast-index' ); ?></span>
 								</label>
 								<?php foreach ( Fast_Index_Help_Content::field_notes( 'delete_data' ) as $fast_index_note ) : ?>
@@ -236,7 +248,7 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 										<input type="hidden" name="action" value="<?php echo esc_attr( Fast_Index_Admin_Actions::DELETE ); ?>" />
 										<input type="hidden" name="fast_index_account" value="<?php echo esc_attr( $fast_index_account['id'] ); ?>" />
 										<input type="hidden" name="<?php echo esc_attr( Fast_Index_Admin_Actions::NONCE_FIELD ); ?>" value="<?php echo esc_attr( wp_create_nonce( Fast_Index_Admin_Actions::DELETE ) ); ?>" />
-										<button type="submit" class="button-link button-link-delete"><?php esc_html_e( 'Delete', 'fast-index' ); ?></button>
+										<button type="submit" class="button-link button-link-delete" data-cdo-confirm-danger data-cdo-confirm-title="<?php esc_attr_e( 'Delete this key?', 'fast-index' ); ?>" data-cdo-confirm="<?php esc_attr_e( 'Fast Index stops using this key. If it is your only key, nothing is sent to Google until you upload another one.', 'fast-index' ); ?>" data-cdo-confirm-ok="<?php esc_attr_e( 'Delete key', 'fast-index' ); ?>" data-cdo-confirm-cancel="<?php esc_attr_e( 'Keep it', 'fast-index' ); ?>"><?php esc_html_e( 'Delete', 'fast-index' ); ?></button>
 									</form>
 								</td>
 							</tr>
@@ -251,7 +263,7 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 					<table class="form-table cdo-form-table" role="presentation">
 						<tbody>
 						<tr>
-							<th scope="row"><label for="fast-index-key-files"><?php esc_html_e( 'JSON Key File', 'fast-index' ); ?></label></th>
+							<th scope="row"><label for="fast-index-key-files"><?php esc_html_e( 'JSON Key File', 'fast-index' ); ?></label><?php Fast_Index_Admin::render_whatis( 'service_account' ); ?></th>
 							<td>
 								<input id="fast-index-key-files" class="jsonFileUpload" type="file" accept=".json,application/json" name="fast_index_key_files[]" <?php echo $fast_index_view['several_keys'] ? 'multiple' : ''; ?> />
 								<p class="description"><?php esc_html_e( 'The key file is read and stored in the database; it is not saved in the uploads folder. Only the email address and the key ID are shown here.', 'fast-index' ); ?></p>

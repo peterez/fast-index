@@ -140,9 +140,49 @@ class Fast_Index_Admin {
 			// The CultDevOps design language (the same file in every CultDevOps plugin), then the few Fast Index rules.
 			wp_enqueue_style( self::UI_HANDLE, FAST_INDEX_URL . 'assets/css/cdo-ui.css', array(), FAST_INDEX_VERSION );
 			wp_enqueue_style( 'fast-index-admin', FAST_INDEX_URL . 'assets/fi-css.css', array( self::UI_HANDLE ), FAST_INDEX_VERSION );
+			self::enqueue_ui_script();
 		}
 
 		wp_enqueue_script( 'fast-index-admin', FAST_INDEX_URL . 'assets/fast-index-admin.js', array(), FAST_INDEX_VERSION, true );
+	}
+
+	/**
+	 * Loads the behaviour of the shared CultDevOps design library (assets/js/cdo-ui.js, the same file in every
+	 * CultDevOps plugin): "What is this?" popovers, confirm dialogs, keyboard support. Its own sentences are
+	 * translated from languages/fast-index-<locale>-<md5 of assets/js/cdo-ui.js>.json.
+	 *
+	 * @return void
+	 */
+	public static function enqueue_ui_script() {
+		wp_enqueue_script( self::UI_HANDLE, FAST_INDEX_URL . 'assets/js/cdo-ui.js', array( 'wp-i18n', 'wp-a11y' ), FAST_INDEX_VERSION, true );
+		wp_add_inline_script( self::UI_HANDLE, 'window.cdoUiConfig = ' . wp_json_encode( array( 'textdomain' => 'fast-index' ) ) . ';', 'before' );
+		wp_set_script_translations( self::UI_HANDLE, 'fast-index', FAST_INDEX_PATH . 'languages' );
+	}
+
+	/**
+	 * Prints the "What is this?" popover of a setting: what it does and when to change it, the same text as the
+	 * settings table of Help & FAQ.
+	 *
+	 * @param string $field Setting ID, as in Fast_Index_Help_Content::settings().
+	 * @return void
+	 */
+	public static function render_whatis( $field ) {
+		foreach ( Fast_Index_Help_Content::settings() as $row ) {
+			if ( $field !== $row['id'] ) {
+				continue;
+			}
+			?>
+			<details class="cdo-popover fi-whatis">
+				<summary class="cdo-popover__toggle"><?php esc_html_e( 'What is this?', 'fast-index' ); ?></summary>
+				<div class="cdo-popover__panel">
+					<strong class="cdo-popover__title"><?php echo esc_html( $row['name'] ); ?></strong>
+					<p><strong><?php esc_html_e( 'What it does', 'fast-index' ); ?></strong><br><?php echo wp_kses( $row['what'], Fast_Index_Help_Content::allowed_html() ); ?></p>
+					<p><strong><?php esc_html_e( 'When to change it', 'fast-index' ); ?></strong><br><?php echo wp_kses( $row['when'], Fast_Index_Help_Content::allowed_html() ); ?></p>
+				</div>
+			</details>
+			<?php
+			return;
+		}
 	}
 
 	/**

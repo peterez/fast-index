@@ -113,7 +113,8 @@ test.describe( 'Fast Index help', () => {
 		await expect( box ).toHaveAttribute( 'readonly', 'readonly' );
 
 		const text = await box.inputValue();
-		expect( text ).toContain( '3.0.0' );
+		// The plugin version as the main file states it, so the test follows every release.
+		expect( text ).toContain( wp( [ 'eval', 'echo FAST_INDEX_VERSION;' ] ) );
 		expect( text ).toContain( wp( [ 'core', 'version' ] ) );
 		expect( text ).toMatch( /\d+\.\d+\.\d+/ );
 		expect( text ).toContain( wp( [ 'eval', 'echo get_locale();' ] ) );

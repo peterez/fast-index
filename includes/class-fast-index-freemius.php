@@ -186,16 +186,30 @@ class Fast_Index_Freemius {
 	}
 
 	/**
-	 * Hides the advertising notices of the SDK.
+	 * Hides the advertising notices of the SDK and keeps its other notices on the Fast Index screens and the Plugins
+	 * screen, off the dashboard and the screens of other plugins and of WordPress.
 	 *
 	 * @param bool  $show    Whether the notice is shown.
 	 * @param array $message Notice data; its id names the notice.
 	 * @return bool
 	 */
 	public static function show_admin_notice( $show, $message ) {
-		$id = is_array( $message ) && isset( $message['id'] ) ? (string) $message['id'] : '';
+		$id   = is_array( $message ) && isset( $message['id'] ) ? (string) $message['id'] : '';
+		$type = is_array( $message ) && isset( $message['type'] ) ? (string) $message['type'] : '';
 
-		return in_array( $id, self::HIDDEN_NOTICES, true ) ? false : (bool) $show;
+		if ( in_array( $id, self::HIDDEN_NOTICES, true ) || 'promotion' === $type ) {
+			return false;
+		}
+
+		// The SDK's notices ("Premium activated", the connectivity retry, the opt-in reminder) belong to the Fast
+		// Index screens and the Plugins screen; they stay off the dashboard and the screens of other plugins.
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		if ( $screen instanceof WP_Screen && ! Fast_Index_Admin::is_plugin_screen( $screen->id ) && ! in_array( $screen->id, array( 'plugins', 'plugins-network' ), true ) ) {
+			return false;
+		}
+
+		return (bool) $show;
 	}
 
 	/**

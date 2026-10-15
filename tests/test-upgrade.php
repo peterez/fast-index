@@ -463,6 +463,16 @@ class Fast_Index_Test_Upgrade extends Fast_Index_Test_Case {
 		$this->assertFalse( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'affiliate_program' ) ) );
 		$this->assertTrue( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'activation_complete' ) ) );
 
+		// Other notices of the SDK stay on the Fast Index screens and the Plugins screen.
+		set_current_screen( 'dashboard' );
+		$this->assertFalse( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'activation_complete' ) ), 'Not on the dashboard.' );
+		set_current_screen( 'edit-post' );
+		$this->assertFalse( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'activation_complete' ) ), 'Not on the screens of WordPress or other plugins.' );
+		set_current_screen( 'plugins' );
+		$this->assertTrue( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'activation_complete' ) ), 'On the Plugins screen.' );
+		$this->assertFalse( Fast_Index_Freemius::show_admin_notice( true, array( 'id' => 'any', 'type' => 'promotion' ) ), 'Promotions nowhere.' );
+		set_current_screen( 'front' );
+
 		global $fs_text_overrides;
 		Fast_Index_Freemius::translate_texts();
 		$this->assertSame( 'Upgrade', $fs_text_overrides['fast-index']['upgrade'] );

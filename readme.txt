@@ -3,7 +3,7 @@ Contributors: cultdevops
 Tags: indexing api, instant indexing, google indexing, search console, seo
 Requires at least: 5.6
 Tested up to: 7.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,9 @@ What leaves your site is described under External services: post addresses and s
 
 == Changelog ==
 
+= 3.0.1 =
+* Changed: the settings screen explains itself: a short introduction, a "What is this?" button next to each setting that says what it does and when to change it, and a confirmation before a key is deleted. Fields, check boxes and the status menu use the CultDevOps UI 2.0 design, with larger touch targets on phones.
+
 = 3.0.0 =
 * Changed: the admin screens have the design that all CultDevOps plugins share: a header with the plugin name, the plan and a link to Help & FAQ, cards, status badges and a summary of the History.
 * Security: settings, key uploads and data deletion now require the right capability and a nonce, database queries use prepared statements, output is escaped, and the override that allowed unfiltered uploads is gone. Service account keys are no longer stored in a public folder.
@@ -277,6 +280,9 @@ What leaves your site is described under External services: post addresses and s
 * Versions 1.0 to 1.10 added the first release, more languages, category exclusion, a manual cron trigger, a license key manager, a new post status and PHP 8 fixes.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Clearer settings screen: every setting explains itself, and deleting a key asks first.
 
 = 3.0.0 =
 Security release: keys move from a public uploads folder to the database; create a new Google key and delete the old one. Pages, custom post types, edits, deletions, IndexNow and sending by hand are now free. Old-post batches and the other premium options need the premium package.

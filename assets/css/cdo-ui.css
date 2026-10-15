@@ -1,16 +1,23 @@
 /*
- * CultDevOps UI, design language v1.
+ * CultDevOps UI 2.0.0
  *
- * The same file ships, byte for byte, in every CultDevOps plugin (Fast Index, LLMs.txt Generator, XML Sitemap
- * Generator). Each plugin loads it under its own handle, only on its own admin screens. Every rule is scoped to the
- * .cdo-ui wrapper and every class starts with cdo-, so nothing reaches WordPress core or another plugin.
+ * The shared design library of the CultDevOps plugin family. The same file ships, byte for byte, in every CultDevOps
+ * plugin; the single source is tools/cdo-ui/ in the CultDevOps workspace, copied with tools/cdo-ui/sync.sh. Each
+ * plugin loads it under its own handle, only on its own admin screens. Every rule is scoped to the .cdo-ui wrapper and
+ * every class starts with cdo-, so nothing reaches WordPress core or another plugin.
  *
  * Brand colour lives in one place: the header band (ink background, family stripe, mark). Buttons, links, focus
- * rings and active states follow the person's admin colour scheme (--wp-admin-theme-color). Fonts are the WordPress
- * system stack; no font file, no CDN. Spacing sits on the 4 px grid. Logical properties keep right-to-left screens
- * correct without a second file.
+ * rings, selected options and active states follow the person's admin colour scheme (--wp-admin-theme-color). Fonts
+ * are the WordPress system stack; no font file, no icon font, no CDN. Icons are Dashicons or inline SVG data in this
+ * file. Spacing sits on the 4 px grid. Logical properties keep right-to-left screens correct without a second file.
  *
- * Design notes and decisions: docs/theProject/project/TASARIM_DILI.md in the CultDevOps workspace.
+ * Version 2 keeps every class of version 1 and adds the form controls (select, searchable combobox, input, textarea,
+ * switch, checkbox, radio, option card, segment, stepper, copy field), guidance (tooltip, "What is this?" popover,
+ * explain box, intro, setup wizard, checklist), states (notice, skeleton, busy button, confirm dialog) and structure
+ * (tabs, accordion, table to cards). Behaviour lives in cdo-ui.js; every control works without it.
+ *
+ * Guide (markup, states, accessibility, writing): tools/cdo-ui/CSS_GUIDE.md. Decisions: docs/theProject/KARARLAR.md
+ * (23) and (25); design notes: docs/theProject/project/TASARIM_DILI.md.
  */
 
 /* ------------------------------------------------------------------ Tokens */
@@ -24,6 +31,15 @@
 	--cdo-accent-fast-index: #f5b82e;
 	--cdo-accent-llms: #4fd1c5;
 	--cdo-accent-xml-sitemap: #8bd56b;
+	/* The eight plugins from MagicBox (KARARLAR (26)); on ink 7.25:1 to 11:1. */
+	--cdo-accent-login-security: #ffa39a;
+	--cdo-accent-redirects: #7cc8ff;
+	--cdo-accent-forms: #a9bdff;
+	--cdo-accent-cookie: #ffb27d;
+	--cdo-accent-admin: #cdb0ff;
+	--cdo-accent-speed: #e8ec6e;
+	--cdo-accent-popups: #ff9fd6;
+	--cdo-accent-backup: #7debb0;
 	--cdo-accent: var(--cdo-on-ink-muted);
 
 	/* Interaction: the admin colour scheme the person chose. */
@@ -84,6 +100,32 @@
 
 	/* Motion. */
 	--cdo-duration: 150ms;
+	--cdo-ease: cubic-bezier(0.2, 0, 0, 1);
+
+	/* v2: interaction tints. The RGB triple comes from WordPress (5.7+); the fallback is the default scheme. */
+	--cdo-action-rgb: var(--wp-admin-theme-color--rgb, 34, 113, 177);
+	--cdo-action-tint: rgba(var(--cdo-action-rgb), 0.08);
+	--cdo-action-tint-strong: rgba(var(--cdo-action-rgb), 0.16);
+
+	/* v2: form controls. Border 3.2:1 on white (WCAG 1.4.11 asks 3:1), placeholder 5.5:1, text 15.9:1. */
+	--cdo-control-height: 40px;
+	--cdo-control-radius: 4px;
+	--cdo-control-bg: #fff;
+	--cdo-control-border: #8c8f94;
+	--cdo-control-border-hover: #50575e;
+	--cdo-control-disabled-bg: #f0f0f1;
+	--cdo-control-disabled-text: #646970;
+	--cdo-placeholder: #646970;
+	--cdo-control-max: 32rem;
+	--cdo-ring: 0 0 0 var(--cdo-focus-width) var(--cdo-action);
+
+	/* v2: touch target on phones (WCAG 2.5.5); 24 px everywhere else (WCAG 2.2, 2.5.8). */
+	--cdo-hit: 24px;
+
+	/* v2: floating layers. A popup sits above the page; a dialog above the admin bar and menu, like the media modal. */
+	--cdo-shadow-pop: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.1);
+	--cdo-z-pop: 1000;
+	--cdo-z-dialog: 160000;
 
 	color: var(--cdo-text);
 	font-family: inherit;
@@ -99,6 +141,38 @@
 
 .cdo-ui--xml-sitemap {
 	--cdo-accent: var(--cdo-accent-xml-sitemap);
+}
+
+.cdo-ui--login-security {
+	--cdo-accent: var(--cdo-accent-login-security);
+}
+
+.cdo-ui--redirects {
+	--cdo-accent: var(--cdo-accent-redirects);
+}
+
+.cdo-ui--forms {
+	--cdo-accent: var(--cdo-accent-forms);
+}
+
+.cdo-ui--cookie {
+	--cdo-accent: var(--cdo-accent-cookie);
+}
+
+.cdo-ui--admin {
+	--cdo-accent: var(--cdo-accent-admin);
+}
+
+.cdo-ui--speed {
+	--cdo-accent: var(--cdo-accent-speed);
+}
+
+.cdo-ui--popups {
+	--cdo-accent: var(--cdo-accent-popups);
+}
+
+.cdo-ui--backup {
+	--cdo-accent: var(--cdo-accent-backup);
 }
 
 .cdo-ui *,
@@ -221,7 +295,10 @@
 	box-shadow: none;
 }
 
-/* The mark: three stepped bars, one per family plugin. The bar of the current plugin carries its accent. */
+/*
+ * The mark: three stepped bars, the family sign. The bar of the current plugin carries its accent: the three original
+ * plugins by name, every newer plugin with cdo-mark__bar--current on the bar it chooses (the top one by default).
+ */
 .cdo-ui .cdo-mark {
 	display: block;
 	flex: 0 0 auto;
@@ -240,12 +317,18 @@
 
 .cdo-ui--fast-index .cdo-mark__bar--fast-index,
 .cdo-ui--llms .cdo-mark__bar--llms,
-.cdo-ui--xml-sitemap .cdo-mark__bar--xml-sitemap {
+.cdo-ui--xml-sitemap .cdo-mark__bar--xml-sitemap,
+.cdo-ui .cdo-mark__bar--current {
 	fill: var(--cdo-accent);
 	opacity: 1;
 }
 
-/* The stripe along the bottom edge: the three family colours, the current plugin's segment the widest. */
+/*
+ * The stripe along the bottom edge, in the accent of the current plugin. Version 1 drew the three family colours;
+ * with eleven plugins a stripe of every colour says nothing, so since 2.0.0 the stripe is one colour, the plugin's own
+ * (the band and the mark say "family"). The coloured spans of version 1 markup are left out; new screens print an
+ * empty <span class="cdo-band__stripe" aria-hidden="true"></span>.
+ */
 .cdo-ui .cdo-band__stripe {
 	position: absolute;
 	inset-inline: 0;
@@ -253,10 +336,12 @@
 	display: flex;
 	height: 4px;
 	border-radius: 0 0 var(--cdo-radius-l) var(--cdo-radius-l);
+	background: var(--cdo-accent);
 	overflow: hidden;
 }
 
 .cdo-ui .cdo-band__stripe span {
+	display: none;
 	flex: 1 1 0;
 }
 
@@ -840,7 +925,7 @@
 .cdo-ui .cdo-busy {
 	position: fixed;
 	inset: 0;
-	z-index: 10;
+	z-index: var(--cdo-z-dialog);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -1312,7 +1397,7 @@
 .cdo-ui .cdo-dialog {
 	position: fixed;
 	inset: 0;
-	z-index: 10;
+	z-index: var(--cdo-z-dialog);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -1474,6 +1559,2674 @@
 	margin-block-start: auto;
 	padding-block-start: var(--cdo-space-2);
 }
+
+/* ================================================================== Version 2 components */
+
+/* ------------------------------------------------------------------ v2: icons */
+
+/* Icons are SVG shapes in this file, painted with the text colour (mask), so they follow states and RTL needs nothing. */
+.cdo-ui {
+	--cdo-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M8.1 14.6 3.5 10l1.4-1.4 3.2 3.2 7-7L16.5 6z'/%3E%3C/svg%3E");
+	--cdo-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 13.4 4.6 8 6 6.6l4 4 4-4L15.4 8z'/%3E%3C/svg%3E");
+	--cdo-icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='m10 8.6 4.6-4.6 1.4 1.4-4.6 4.6 4.6 4.6-1.4 1.4-4.6-4.6-4.6 4.6-1.4-1.4 4.6-4.6L4 5.4 5.4 4z'/%3E%3C/svg%3E");
+	--cdo-icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm1 12H9V9h2zm0-7H9V5h2z'/%3E%3C/svg%3E");
+	--cdo-icon-success: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-1.2 11.6-3.5-3.5 1.4-1.4 2.1 2.1 4.5-4.5 1.4 1.4z'/%3E%3C/svg%3E");
+	--cdo-icon-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 1.5 .8 18h18.4zM11 15H9v-2h2zm0-3.5H9V7h2z'/%3E%3C/svg%3E");
+	--cdo-icon-error: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M6.7 2h6.6L18 6.7v6.6L13.3 18H6.7L2 13.3V6.7zM9 5v6h2V5zm0 8v2h2v-2z'/%3E%3C/svg%3E");
+	--cdo-icon-help: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm1 13H9v-2h2zm1.6-6.4c-.4.6-1.6 1.2-1.6 2.4H9c0-1.9 1.3-2.6 1.8-3.1.3-.3.4-.6.4-.9 0-.6-.5-1-1.2-1-.7 0-1.2.5-1.3 1.2l-1.9-.2C7 5.6 8.3 4.6 10 4.6c1.9 0 3.1 1.1 3.1 2.6 0 .5-.2 1-.5 1.4z'/%3E%3C/svg%3E");
+	--cdo-icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M8.5 3a5.5 5.5 0 0 1 4.4 8.8l3.8 3.8-1.4 1.4-3.8-3.8A5.5 5.5 0 1 1 8.5 3zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z'/%3E%3C/svg%3E");
+	--cdo-icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M7 2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v9h9V4zM2 7h2v9h9v2H4a2 2 0 0 1-2-2z'/%3E%3C/svg%3E");
+	--cdo-icon-minus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M4 9h12v2H4z'/%3E%3C/svg%3E");
+	--cdo-icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M9 4h2v5h5v2h-5v5H9v-5H4V9h5z'/%3E%3C/svg%3E");
+	--cdo-icon-clock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zM9 6v5l3.9 2.3 1-1.7L11 9.9V6z'/%3E%3C/svg%3E");
+	--cdo-icon-bulb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 1.5a6 6 0 0 0-3.5 10.9V15h7v-2.6A6 6 0 0 0 10 1.5zM7 16.2h6V18.5H7z'/%3E%3C/svg%3E");
+	--cdo-icon-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M5 9h10v2H5z'/%3E%3C/svg%3E");
+}
+
+.cdo-ui .cdo-icon,
+.cdo-ui .cdo-notice__icon,
+.cdo-ui .cdo-field__message::before,
+.cdo-ui .cdo-select::after,
+.cdo-ui .cdo-combobox__toggle::before,
+.cdo-ui .cdo-combobox__option::before,
+.cdo-ui .cdo-chip__remove::before,
+.cdo-ui .cdo-input__clear::before,
+.cdo-ui .cdo-stepper__button::before,
+.cdo-ui .cdo-popover__toggle::before,
+.cdo-ui .cdo-tooltip__toggle::before,
+.cdo-ui .cdo-notice__dismiss::before,
+.cdo-ui .cdo-explain__item > dt::before,
+.cdo-ui .cdo-checklist__mark::before,
+.cdo-ui .cdo-wizard__dot::before,
+.cdo-ui .cdo-copy__button::before,
+.cdo-ui .cdo-accordion__item > summary::after {
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+
+.cdo-ui .cdo-icon {
+	display: inline-block;
+	flex: 0 0 auto;
+	width: 20px;
+	height: 20px;
+	background: currentColor;
+	vertical-align: middle;
+	-webkit-mask-image: var(--cdo-icon, var(--cdo-icon-info));
+	mask-image: var(--cdo-icon, var(--cdo-icon-info));
+}
+
+.cdo-ui .cdo-icon--check { --cdo-icon: var(--cdo-icon-check); }
+.cdo-ui .cdo-icon--info { --cdo-icon: var(--cdo-icon-info); }
+.cdo-ui .cdo-icon--success { --cdo-icon: var(--cdo-icon-success); }
+.cdo-ui .cdo-icon--warning { --cdo-icon: var(--cdo-icon-warning); }
+.cdo-ui .cdo-icon--error { --cdo-icon: var(--cdo-icon-error); }
+.cdo-ui .cdo-icon--help { --cdo-icon: var(--cdo-icon-help); }
+.cdo-ui .cdo-icon--search { --cdo-icon: var(--cdo-icon-search); }
+.cdo-ui .cdo-icon--copy { --cdo-icon: var(--cdo-icon-copy); }
+.cdo-ui .cdo-icon--clock { --cdo-icon: var(--cdo-icon-clock); }
+.cdo-ui .cdo-icon--bulb { --cdo-icon: var(--cdo-icon-bulb); }
+
+/* Inside the library, hidden means hidden, even on elements that core styles with a display value (.button). */
+.cdo-ui [hidden][hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	word-wrap: normal;
+}
+
+/* ------------------------------------------------------------------ v2: screen intro */
+
+/* The first block of a screen: one sentence that says what this screen is for and the steps to use it. */
+.cdo-ui .cdo-intro {
+	margin: 0 0 var(--cdo-gap);
+	padding: var(--cdo-space-4) var(--cdo-space-5);
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-intro__lead {
+	max-width: 75ch;
+	margin: 0;
+	font-size: var(--cdo-text-m);
+}
+
+.cdo-ui .cdo-intro__steps {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-2) var(--cdo-space-5);
+	margin: var(--cdo-space-3) 0 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: cdo-intro;
+}
+
+.cdo-ui .cdo-intro__steps > li {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-2);
+	margin: 0;
+	counter-increment: cdo-intro;
+}
+
+.cdo-ui .cdo-intro__steps > li::before {
+	content: counter(cdo-intro);
+	flex: 0 0 auto;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+	font-size: var(--cdo-text-xs);
+	font-weight: var(--cdo-weight-strong);
+	line-height: 22px;
+	text-align: center;
+}
+
+/* ------------------------------------------------------------------ v2: field (label, help, control, message) */
+
+.cdo-ui .cdo-field + .cdo-field {
+	margin-block-start: var(--cdo-space-5);
+}
+
+.cdo-ui .cdo-fields > .cdo-field + .cdo-field {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-field__optional {
+	color: var(--cdo-text-muted);
+	font-weight: 400;
+}
+
+.cdo-ui .cdo-field__required {
+	color: var(--cdo-error-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* Help sits between the label and the control, so it is read before the person types. */
+.cdo-ui .cdo-field__help {
+	max-width: 70ch;
+	margin: calc(-1 * var(--cdo-space-1)) 0 var(--cdo-space-2);
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+}
+
+.cdo-ui .cdo-field__label + .cdo-popover,
+.cdo-ui .cdo-field__label .cdo-popover,
+.cdo-ui .cdo-field__label .cdo-tooltip {
+	margin-inline-start: var(--cdo-space-1);
+}
+
+.cdo-ui .cdo-field__row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-2) var(--cdo-space-3);
+}
+
+.cdo-ui .cdo-field__message {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-1);
+	max-width: 70ch;
+	margin: var(--cdo-space-2) 0 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+}
+
+.cdo-ui .cdo-field__message:empty,
+.cdo-ui .cdo-field__message[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-field__message::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 16px;
+	height: 16px;
+	margin-block-start: 2px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-info);
+	mask-image: var(--cdo-icon-info);
+}
+
+.cdo-ui .cdo-field--error .cdo-field__message,
+.cdo-ui .cdo-field__message--error {
+	color: var(--cdo-error-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-field--error .cdo-field__message::before,
+.cdo-ui .cdo-field__message--error::before {
+	-webkit-mask-image: var(--cdo-icon-error);
+	mask-image: var(--cdo-icon-error);
+}
+
+.cdo-ui .cdo-field--success .cdo-field__message,
+.cdo-ui .cdo-field__message--success {
+	color: var(--cdo-success-text);
+}
+
+.cdo-ui .cdo-field--success .cdo-field__message::before,
+.cdo-ui .cdo-field__message--success::before {
+	-webkit-mask-image: var(--cdo-icon-success);
+	mask-image: var(--cdo-icon-success);
+}
+
+.cdo-ui .cdo-field__counter {
+	margin: var(--cdo-space-1) 0 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-xs);
+	font-variant-numeric: tabular-nums;
+	text-align: end;
+}
+
+.cdo-ui .cdo-field__counter.is-near {
+	color: var(--cdo-warning-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-field__counter.is-over {
+	color: var(--cdo-error-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* ------------------------------------------------------------------ v2: text input, textarea, select */
+
+/* A bare control: <input class="cdo-control">, <textarea class="cdo-control">, <select class="cdo-control">. */
+.cdo-ui .cdo-control,
+.cdo-ui .cdo-input,
+.cdo-ui .cdo-select,
+.cdo-ui .cdo-combobox {
+	width: 100%;
+	max-width: var(--cdo-control-max);
+}
+
+.cdo-ui .cdo-control,
+.cdo-ui .cdo-input {
+	min-height: var(--cdo-control-height);
+	margin: 0;
+	border: 1px solid var(--cdo-control-border);
+	border-radius: var(--cdo-control-radius);
+	background-color: var(--cdo-control-bg);
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-m);
+	line-height: 1.4;
+	box-shadow: none;
+	transition: border-color var(--cdo-duration) var(--cdo-ease), box-shadow var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-control {
+	padding: var(--cdo-space-2) var(--cdo-space-3);
+}
+
+.cdo-ui textarea.cdo-control {
+	display: block;
+	min-height: 96px;
+	resize: vertical;
+}
+
+/* Inside a .cdo-field the column sets the width (as in v1); in a form table a control stops at 32rem. */
+.cdo-ui .cdo-field .cdo-control,
+.cdo-ui .cdo-field .cdo-input,
+.cdo-ui .cdo-field .cdo-select,
+.cdo-ui .cdo-field .cdo-combobox,
+.cdo-ui .cdo-control--full,
+.cdo-ui .cdo-input--full,
+.cdo-ui .cdo-select--full,
+.cdo-ui .cdo-combobox--full {
+	max-width: none;
+}
+
+.cdo-ui .cdo-control--short,
+.cdo-ui .cdo-input--short,
+.cdo-ui .cdo-select--short {
+	max-width: 12rem;
+}
+
+.cdo-ui .cdo-control:hover,
+.cdo-ui .cdo-input:hover,
+.cdo-ui .cdo-combobox__field:hover {
+	border-color: var(--cdo-control-border-hover);
+}
+
+.cdo-ui .cdo-control:focus,
+.cdo-ui .cdo-input:focus-within {
+	border-color: var(--cdo-action);
+	box-shadow: var(--cdo-ring);
+	/* Visible in Windows high contrast mode, where box-shadow is not drawn. */
+	outline: 2px solid transparent;
+}
+
+.cdo-ui .cdo-control::placeholder,
+.cdo-ui .cdo-input__control::placeholder,
+.cdo-ui .cdo-combobox__input::placeholder {
+	color: var(--cdo-placeholder);
+	opacity: 1;
+}
+
+.cdo-ui .cdo-control:disabled,
+.cdo-ui .cdo-input.is-disabled,
+.cdo-ui .cdo-input:has(.cdo-input__control:disabled) {
+	border-color: var(--cdo-border);
+	background-color: var(--cdo-control-disabled-bg);
+	color: var(--cdo-control-disabled-text);
+	cursor: not-allowed;
+}
+
+.cdo-ui .cdo-control[readonly] {
+	background-color: var(--cdo-surface-muted);
+}
+
+/* Error and success: border colour plus the message under the control; never colour alone. */
+.cdo-ui .cdo-control[aria-invalid="true"],
+.cdo-ui .cdo-field--error .cdo-control,
+.cdo-ui .cdo-field--error .cdo-input,
+.cdo-ui .cdo-field--error .cdo-combobox__field,
+.cdo-ui .cdo-input:has([aria-invalid="true"]),
+.cdo-ui .cdo-combobox.is-invalid .cdo-combobox__field {
+	border-color: var(--cdo-error);
+	box-shadow: inset 0 0 0 1px var(--cdo-error);
+}
+
+.cdo-ui .cdo-field--success .cdo-control,
+.cdo-ui .cdo-field--success .cdo-input {
+	border-color: var(--cdo-success);
+}
+
+.cdo-ui .cdo-control[aria-invalid="true"]:focus,
+.cdo-ui .cdo-field--error .cdo-control:focus,
+.cdo-ui .cdo-field--error .cdo-input:focus-within,
+.cdo-ui .cdo-field--error .cdo-combobox__field:focus-within {
+	border-color: var(--cdo-error);
+	box-shadow: 0 0 0 var(--cdo-focus-width) var(--cdo-error);
+}
+
+/* Input group: prefix, control, clear button, suffix share one border. */
+.cdo-ui .cdo-input {
+	display: flex;
+	align-items: stretch;
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-input .cdo-input__control,
+.cdo-ui .cdo-input .cdo-input__control:focus {
+	flex: 1 1 auto;
+	min-width: 0;
+	min-height: calc(var(--cdo-control-height) - 2px);
+	margin: 0;
+	padding: 0 var(--cdo-space-3);
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: inherit;
+	box-shadow: none;
+	outline: 0;
+}
+
+.cdo-ui .cdo-input__affix {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	padding-inline: var(--cdo-space-3);
+	background: var(--cdo-surface-muted);
+	color: var(--cdo-text-muted);
+	white-space: nowrap;
+}
+
+.cdo-ui .cdo-input__affix:first-child {
+	border-inline-end: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-input__affix:last-child {
+	border-inline-start: 1px solid var(--cdo-border);
+}
+
+/* Code-like values (addresses, keys) keep left to right inside a right-to-left screen. */
+.cdo-ui .cdo-input--ltr,
+.cdo-ui .cdo-control--ltr {
+	direction: ltr;
+}
+
+.cdo-ui .cdo-input__clear {
+	display: inline-flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--cdo-text-muted);
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-input__clear[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-input__clear::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-close);
+	mask-image: var(--cdo-icon-close);
+}
+
+.cdo-ui .cdo-input__clear:hover {
+	color: var(--cdo-text);
+}
+
+.cdo-ui .cdo-input__clear:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -4px;
+}
+
+/* Select: the native element, restyled, with our chevron. Works with no script; the multiple variant has no chevron. */
+.cdo-ui .cdo-select {
+	position: relative;
+	display: block;
+}
+
+.cdo-ui .cdo-select > select,
+.cdo-ui .cdo-select > select:focus {
+	width: 100%;
+	max-width: none;
+	min-height: var(--cdo-control-height);
+	margin: 0;
+	padding-block: 0;
+	padding-inline: var(--cdo-space-3) 40px;
+	border-radius: var(--cdo-control-radius);
+	background-image: none;
+	line-height: calc(var(--cdo-control-height) - 2px);
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-select > select:not(:focus) {
+	border: 1px solid var(--cdo-control-border);
+}
+
+.cdo-ui .cdo-select > select:hover {
+	border-color: var(--cdo-control-border-hover);
+}
+
+.cdo-ui .cdo-select::after {
+	content: "";
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-end: var(--cdo-space-3);
+	width: 20px;
+	height: 20px;
+	margin-block-start: -10px;
+	background: var(--cdo-text-muted);
+	-webkit-mask-image: var(--cdo-icon-chevron);
+	mask-image: var(--cdo-icon-chevron);
+	pointer-events: none;
+}
+
+.cdo-ui .cdo-select--multiple::after {
+	content: none;
+}
+
+.cdo-ui .cdo-select--multiple > select,
+.cdo-ui .cdo-select--multiple > select:focus {
+	padding: var(--cdo-space-1);
+	line-height: 1.5;
+}
+
+.cdo-ui .cdo-select > select:disabled {
+	background-color: var(--cdo-control-disabled-bg);
+	color: var(--cdo-control-disabled-text);
+	cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------ v2: combobox (searchable dropdown, single or multiple) */
+
+/*
+ * Built by cdo-ui.js from <select data-cdo-combobox> (WAI-ARIA 1.2 combobox with a listbox popup). The select stays in
+ * the form, hidden, and is the value that is submitted; without the script the select itself is shown.
+ */
+.cdo-ui .cdo-combobox {
+	position: relative;
+}
+
+.cdo-ui .cdo-combobox__native,
+.cdo-ui select.cdo-combobox__native {
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	width: 1px;
+	height: 1px;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	opacity: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	pointer-events: none;
+}
+
+.cdo-ui .cdo-combobox__field {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	min-height: var(--cdo-control-height);
+	padding-block: 3px;
+	padding-inline: var(--cdo-space-1) 40px;
+	border: 1px solid var(--cdo-control-border);
+	border-radius: var(--cdo-control-radius);
+	background: var(--cdo-control-bg);
+	cursor: text;
+	transition: border-color var(--cdo-duration) var(--cdo-ease), box-shadow var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-combobox__field:focus-within {
+	border-color: var(--cdo-action);
+	box-shadow: var(--cdo-ring);
+	outline: 2px solid transparent;
+}
+
+.cdo-ui .cdo-combobox.is-disabled .cdo-combobox__field {
+	border-color: var(--cdo-border);
+	background: var(--cdo-control-disabled-bg);
+	cursor: not-allowed;
+}
+
+.cdo-ui .cdo-combobox .cdo-combobox__input,
+.cdo-ui .cdo-combobox .cdo-combobox__input:focus {
+	flex: 1 1 6em;
+	min-width: 5em;
+	min-height: 32px;
+	margin: 0;
+	padding: 0 var(--cdo-space-2);
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-m);
+	box-shadow: none;
+	outline: 0;
+}
+
+.cdo-ui .cdo-combobox__toggle {
+	position: absolute;
+	inset-block: 0;
+	inset-inline-end: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--cdo-text-muted);
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-combobox__toggle::before {
+	content: "";
+	width: 20px;
+	height: 20px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-chevron);
+	mask-image: var(--cdo-icon-chevron);
+	transition: transform var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-combobox.is-open .cdo-combobox__toggle::before {
+	transform: rotate(180deg);
+}
+
+/* Chips: one per selected value in a multiple combobox. */
+.cdo-ui .cdo-combobox__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-1);
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cdo-ui .cdo-combobox__chips:empty {
+	display: none;
+}
+
+.cdo-ui .cdo-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	max-width: 100%;
+	min-height: 28px;
+	margin: 0;
+	padding-inline: var(--cdo-space-2) 2px;
+	border: 1px solid var(--cdo-action-tint-strong);
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-action-tint);
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-s);
+	line-height: 1.3;
+}
+
+.cdo-ui .cdo-chip__text,
+.cdo-ui .cdo-combobox__option-text {
+	min-width: 0;
+	overflow-wrap: anywhere;
+	/* Each label keeps its own direction (an address inside an Arabic list stays left to right). */
+	unicode-bidi: plaintext;
+}
+
+.cdo-ui .cdo-chip__remove {
+	display: inline-flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: none;
+	color: var(--cdo-text-muted);
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-chip__remove::before {
+	content: "";
+	width: 14px;
+	height: 14px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-close);
+	mask-image: var(--cdo-icon-close);
+}
+
+.cdo-ui .cdo-chip__remove:hover {
+	background: var(--cdo-action-tint-strong);
+	color: var(--cdo-text);
+}
+
+.cdo-ui .cdo-chip__remove:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 0;
+}
+
+/* The popup: below the field, or above it when the screen has no room below (cdo-combobox--up). */
+.cdo-ui .cdo-combobox__popup {
+	position: absolute;
+	inset-inline: 0;
+	inset-block-start: calc(100% + var(--cdo-space-1));
+	z-index: var(--cdo-z-pop);
+	min-width: 12rem;
+	padding: var(--cdo-space-1);
+	border: 1px solid var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	box-shadow: var(--cdo-shadow-pop);
+}
+
+.cdo-ui .cdo-combobox__popup[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-combobox--up .cdo-combobox__popup {
+	inset-block: auto calc(100% + var(--cdo-space-1));
+}
+
+.cdo-ui .cdo-combobox__listbox {
+	max-height: 280px;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.cdo-ui .cdo-combobox__group-label {
+	margin: 0;
+	padding: var(--cdo-space-2) var(--cdo-space-3) var(--cdo-space-1);
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-xs);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-combobox__option {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 36px;
+	margin: 0;
+	padding-block: var(--cdo-space-2);
+	padding-inline: 36px var(--cdo-space-3);
+	border-radius: var(--cdo-radius-m);
+	color: var(--cdo-text);
+	cursor: pointer;
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-combobox__option[hidden],
+.cdo-ui .cdo-combobox__group[hidden] {
+	display: none;
+}
+
+/* The tick: shown on selected options, in single and multiple mode. */
+.cdo-ui .cdo-combobox__option::before {
+	content: "";
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-start: var(--cdo-space-2);
+	width: 20px;
+	height: 20px;
+	margin-block-start: -10px;
+	background: var(--cdo-action);
+	-webkit-mask-image: var(--cdo-icon-check);
+	mask-image: var(--cdo-icon-check);
+	opacity: 0;
+}
+
+/* In a multiple combobox every option shows a box, so it reads as "tick as many as you like". */
+.cdo-ui .cdo-combobox--multi .cdo-combobox__option::after {
+	content: "";
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-start: var(--cdo-space-2);
+	width: 18px;
+	height: 18px;
+	margin-block-start: -9px;
+	margin-inline-start: 1px;
+	border: 1px solid var(--cdo-control-border);
+	border-radius: var(--cdo-radius-s);
+}
+
+.cdo-ui .cdo-combobox--multi .cdo-combobox__option[aria-selected="true"]::after {
+	border-color: var(--cdo-action);
+	background: var(--cdo-action);
+}
+
+.cdo-ui .cdo-combobox--multi .cdo-combobox__option::before {
+	z-index: 1;
+	background: #fff;
+}
+
+.cdo-ui .cdo-combobox__option[aria-selected="true"] {
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-combobox__option[aria-selected="true"]::before {
+	opacity: 1;
+}
+
+.cdo-ui .cdo-combobox__option:hover {
+	background: var(--cdo-surface-muted);
+}
+
+/* The active option (keyboard or pointer): tint plus a 2 px ring in the scheme colour (3:1 against white). */
+.cdo-ui .cdo-combobox__option.is-active {
+	background: var(--cdo-action-tint);
+	box-shadow: inset 0 0 0 2px var(--cdo-action);
+}
+
+.cdo-ui .cdo-combobox__option[aria-disabled="true"] {
+	color: var(--cdo-control-disabled-text);
+	cursor: not-allowed;
+}
+
+.cdo-ui .cdo-combobox__option-desc {
+	display: block;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-xs);
+	font-weight: 400;
+}
+
+.cdo-ui .cdo-combobox__match {
+	padding: 0;
+	background: none;
+	color: inherit;
+	font-weight: 700;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.cdo-ui .cdo-combobox__empty {
+	margin: 0;
+	padding: var(--cdo-space-3);
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-combobox__empty[hidden] {
+	display: none;
+}
+
+/* ------------------------------------------------------------------ v2: switch */
+
+.cdo-ui .cdo-switch {
+	position: relative;
+	display: inline-flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-3);
+	min-height: var(--cdo-hit);
+	margin: 0;
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-switch__input,
+.cdo-ui input[type="checkbox"].cdo-switch__input {
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	width: 40px;
+	height: 24px;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-switch__track {
+	position: relative;
+	flex: 0 0 auto;
+	width: 40px;
+	height: 24px;
+	border: 2px solid var(--cdo-control-border-hover);
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-surface);
+	transition: background-color var(--cdo-duration) var(--cdo-ease), border-color var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-switch__track::before {
+	content: "";
+	position: absolute;
+	inset-block-start: 2px;
+	inset-inline-start: 2px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--cdo-control-border-hover);
+	transition: transform var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-switch__input:checked + .cdo-switch__track {
+	border-color: var(--cdo-action);
+	background: var(--cdo-action);
+}
+
+.cdo-ui .cdo-switch__input:checked + .cdo-switch__track::before {
+	background: #fff;
+	transform: translateX(16px);
+}
+
+[dir="rtl"] .cdo-ui .cdo-switch__input:checked + .cdo-switch__track::before,
+.cdo-ui[dir="rtl"] .cdo-switch__input:checked + .cdo-switch__track::before {
+	transform: translateX(-16px);
+}
+
+.cdo-ui .cdo-switch__input:focus-visible + .cdo-switch__track {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+}
+
+.cdo-ui .cdo-switch__input:disabled + .cdo-switch__track {
+	border-color: var(--cdo-border-strong);
+	background: var(--cdo-control-disabled-bg);
+}
+
+.cdo-ui .cdo-switch__input:disabled ~ .cdo-switch__text {
+	color: var(--cdo-control-disabled-text);
+}
+
+.cdo-ui .cdo-switch__text {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	padding-block-start: 2px;
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* ------------------------------------------------------------------ v2: checkbox and radio */
+
+.cdo-ui .cdo-check {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-2);
+	min-height: var(--cdo-hit);
+	margin: 0;
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-check + .cdo-check {
+	margin-block-start: var(--cdo-space-2);
+}
+
+.cdo-ui input[type="checkbox"].cdo-check__input,
+.cdo-ui input[type="radio"].cdo-check__input {
+	flex: 0 0 auto;
+	width: 20px;
+	height: 20px;
+	min-width: 20px;
+	margin: 2px 0 0;
+	padding: 0;
+	border: 1px solid var(--cdo-control-border-hover);
+	border-radius: var(--cdo-radius-s);
+	background: var(--cdo-control-bg);
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	transition: background-color var(--cdo-duration) var(--cdo-ease), border-color var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui input[type="radio"].cdo-check__input {
+	border-radius: 50%;
+}
+
+/* Core draws its own tick and dot with ::before; ours are a background image or a thick border. */
+.cdo-ui input.cdo-check__input::before {
+	content: none;
+}
+
+.cdo-ui input[type="checkbox"].cdo-check__input:checked {
+	border-color: var(--cdo-action);
+	background: var(--cdo-action) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23fff' d='M8.1 14.6 3.5 10l1.4-1.4 3.2 3.2 7-7L16.5 6z'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+
+.cdo-ui input[type="checkbox"].cdo-check__input:indeterminate {
+	border-color: var(--cdo-action);
+	background: var(--cdo-action) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23fff' d='M5 9h10v2H5z'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+
+.cdo-ui input[type="radio"].cdo-check__input:checked {
+	border: 6px solid var(--cdo-action);
+	background: #fff;
+}
+
+.cdo-ui input.cdo-check__input:hover {
+	border-color: var(--cdo-text);
+}
+
+.cdo-ui input.cdo-check__input:checked:hover {
+	border-color: var(--cdo-action-strong);
+}
+
+.cdo-ui input.cdo-check__input:focus {
+	outline: 2px solid transparent;
+	box-shadow: none;
+}
+
+.cdo-ui input.cdo-check__input:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+}
+
+.cdo-ui input.cdo-check__input:disabled {
+	border-color: var(--cdo-border-strong);
+	background-color: var(--cdo-control-disabled-bg);
+	cursor: not-allowed;
+}
+
+.cdo-ui input.cdo-check__input[aria-invalid="true"] {
+	border-color: var(--cdo-error);
+	box-shadow: 0 0 0 1px var(--cdo-error);
+}
+
+.cdo-ui .cdo-check__label {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	padding-block-start: 1px;
+}
+
+.cdo-ui .cdo-check__desc,
+.cdo-ui .cdo-switch__desc,
+.cdo-ui .cdo-option-card__desc {
+	display: block;
+	margin-block-start: 2px;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+	font-weight: 400;
+}
+
+/* A group of checks or radios: a fieldset with a visible legend; columns when there is room. */
+.cdo-ui .cdo-checks {
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.cdo-ui .cdo-checks__legend {
+	margin: 0 0 var(--cdo-space-2);
+	padding: 0;
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-checks__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+	gap: var(--cdo-space-2) var(--cdo-space-5);
+}
+
+.cdo-ui .cdo-checks__list > .cdo-check + .cdo-check {
+	margin: 0;
+}
+
+/* Option card: a radio or checkbox with a title and a sentence, for choices that need explaining. */
+.cdo-ui .cdo-option-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+	gap: var(--cdo-space-3);
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.cdo-ui .cdo-option-card {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-3);
+	min-width: 0;
+	margin: 0;
+	padding: var(--cdo-space-4);
+	border: 1px solid var(--cdo-control-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	cursor: pointer;
+	transition: border-color var(--cdo-duration) var(--cdo-ease), background-color var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-option-card:hover {
+	border-color: var(--cdo-control-border-hover);
+}
+
+.cdo-ui .cdo-option-card:has(.cdo-check__input:checked),
+.cdo-ui .cdo-option-card.is-checked {
+	border-color: var(--cdo-action);
+	background: var(--cdo-action-tint);
+	box-shadow: inset 0 0 0 1px var(--cdo-action);
+}
+
+.cdo-ui .cdo-option-card:has(.cdo-check__input:disabled) {
+	border-color: var(--cdo-border);
+	background: var(--cdo-surface-muted);
+	cursor: not-allowed;
+}
+
+.cdo-ui .cdo-option-card__body {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-option-card__title {
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-option-card__badge {
+	align-self: flex-start;
+	margin-block-start: var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-option-card__icon.dashicons {
+	flex: 0 0 auto;
+	width: 24px;
+	height: 24px;
+	color: var(--cdo-text-muted);
+	font-size: 24px;
+}
+
+/* ------------------------------------------------------------------ v2: segment (one of a few, side by side) */
+
+.cdo-ui .cdo-segment {
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.cdo-ui .cdo-segment__legend {
+	margin: 0 0 var(--cdo-space-2);
+	padding: 0;
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-segment__options {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 2px;
+	max-width: 100%;
+	padding: 2px;
+	border: 1px solid var(--cdo-control-border);
+	border-radius: calc(var(--cdo-control-radius) + 2px);
+	background: var(--cdo-surface-muted);
+}
+
+.cdo-ui .cdo-segment__option {
+	position: relative;
+	display: flex;
+	flex: 1 1 auto;
+	margin: 0;
+}
+
+.cdo-ui input.cdo-segment__input {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-segment__label {
+	display: flex;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-content: center;
+	gap: var(--cdo-space-1);
+	min-height: calc(var(--cdo-control-height) - 6px);
+	padding: var(--cdo-space-1) var(--cdo-space-4);
+	border-radius: var(--cdo-control-radius);
+	color: var(--cdo-text);
+	font-weight: var(--cdo-weight-strong);
+	text-align: center;
+	transition: background-color var(--cdo-duration) var(--cdo-ease), color var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-segment__input:hover + .cdo-segment__label {
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-segment__input:checked + .cdo-segment__label {
+	background: var(--cdo-action);
+	color: #fff;
+}
+
+.cdo-ui .cdo-segment__input:focus-visible + .cdo-segment__label {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+}
+
+.cdo-ui .cdo-segment__input:disabled + .cdo-segment__label {
+	color: var(--cdo-control-disabled-text);
+	cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------ v2: number stepper */
+
+.cdo-ui .cdo-stepper {
+	display: inline-flex;
+	align-items: stretch;
+	max-width: 100%;
+	border: 1px solid var(--cdo-control-border);
+	border-radius: var(--cdo-control-radius);
+	background: var(--cdo-control-bg);
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-stepper:focus-within {
+	border-color: var(--cdo-action);
+	box-shadow: var(--cdo-ring);
+}
+
+.cdo-ui .cdo-stepper .cdo-stepper__input,
+.cdo-ui .cdo-stepper .cdo-stepper__input:focus {
+	width: 6em;
+	min-height: calc(var(--cdo-control-height) - 2px);
+	margin: 0;
+	padding: 0 var(--cdo-space-2);
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	outline: 0;
+	font-variant-numeric: tabular-nums;
+	text-align: center;
+	-moz-appearance: textfield;
+}
+
+.cdo-js .cdo-ui .cdo-stepper .cdo-stepper__input::-webkit-inner-spin-button,
+.cdo-js .cdo-ui .cdo-stepper .cdo-stepper__input::-webkit-outer-spin-button {
+	margin: 0;
+	-webkit-appearance: none;
+}
+
+.cdo-ui .cdo-stepper__button {
+	display: inline-flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: var(--cdo-surface-muted);
+	color: var(--cdo-text);
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-stepper__button::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-minus);
+	mask-image: var(--cdo-icon-minus);
+}
+
+.cdo-ui .cdo-stepper__button--up::before {
+	-webkit-mask-image: var(--cdo-icon-plus);
+	mask-image: var(--cdo-icon-plus);
+}
+
+.cdo-ui .cdo-stepper__button:hover {
+	background: var(--cdo-action-tint-strong);
+}
+
+.cdo-ui .cdo-stepper__button:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -3px;
+}
+
+.cdo-ui .cdo-stepper__button:disabled {
+	color: var(--cdo-border-strong);
+	cursor: not-allowed;
+}
+
+.cdo-ui .cdo-stepper__button:first-child {
+	border-inline-end: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-stepper__button:last-child {
+	border-inline-start: 1px solid var(--cdo-border);
+}
+
+/* ------------------------------------------------------------------ v2: copy field */
+
+.cdo-ui .cdo-copy {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-2);
+	max-width: 40rem;
+}
+
+.cdo-ui .cdo-copy .cdo-copy__input {
+	flex: 1 1 14rem;
+	min-width: 0;
+	max-width: none;
+	font-family: Consolas, Monaco, monospace;
+	font-size: var(--cdo-text-s);
+	direction: ltr;
+}
+
+.cdo-ui .cdo-copy__button {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-1);
+}
+
+.cdo-ui .button.cdo-copy__button::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-copy);
+	mask-image: var(--cdo-icon-copy);
+}
+
+.cdo-ui .cdo-copy__status {
+	flex-basis: 100%;
+	min-height: 1.5em;
+	margin: 0;
+	color: var(--cdo-success-text);
+	font-size: var(--cdo-text-s);
+}
+
+.cdo-ui .cdo-copy__status.is-error {
+	color: var(--cdo-error-text);
+}
+
+/* ------------------------------------------------------------------ v2: tooltip (hover or focus, short text) */
+
+.cdo-ui .cdo-tooltip {
+	position: relative;
+	display: inline-flex;
+	vertical-align: middle;
+}
+
+.cdo-ui .cdo-tooltip__toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: none;
+	color: var(--cdo-text-muted);
+	cursor: help;
+}
+
+.cdo-ui .cdo-tooltip__toggle::before {
+	content: "";
+	width: 18px;
+	height: 18px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-help);
+	mask-image: var(--cdo-icon-help);
+}
+
+.cdo-ui .cdo-tooltip__toggle:hover {
+	color: var(--cdo-action);
+}
+
+.cdo-ui .cdo-tooltip__toggle:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 0;
+}
+
+.cdo-ui .cdo-tooltip__bubble {
+	position: absolute;
+	inset-block-end: calc(100% + 6px);
+	inset-inline-start: -8px;
+	z-index: var(--cdo-z-pop);
+	display: none;
+	width: max-content;
+	max-width: min(18rem, calc(100vw - 32px));
+	padding: var(--cdo-space-2) var(--cdo-space-3);
+	border-radius: var(--cdo-radius-m);
+	background: var(--cdo-text);
+	color: #fff;
+	font-size: var(--cdo-text-s);
+	font-weight: 400;
+	line-height: 1.45;
+	text-align: start;
+	white-space: normal;
+}
+
+/* WCAG 1.4.13: the bubble stays while the pointer is on it, and Escape hides it (cdo-ui.js adds is-dismissed). */
+.cdo-ui .cdo-tooltip:hover .cdo-tooltip__bubble,
+.cdo-ui .cdo-tooltip:focus-within .cdo-tooltip__bubble {
+	display: block;
+}
+
+.cdo-ui .cdo-tooltip.is-dismissed .cdo-tooltip__bubble {
+	display: none;
+}
+
+.cdo-ui .cdo-tooltip--end .cdo-tooltip__bubble {
+	inset-inline: auto -8px;
+}
+
+.cdo-ui .cdo-tooltip--below .cdo-tooltip__bubble {
+	inset-block: calc(100% + 6px) auto;
+}
+
+/* ------------------------------------------------------------------ v2: popover ("What is this?" — click to open) */
+
+/* A <details>, so it opens with a click, Enter or Space even without the script; cdo-ui.js adds Escape and outside click. */
+.cdo-ui .cdo-popover {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.cdo-ui .cdo-popover__toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	min-height: var(--cdo-hit);
+	border-radius: var(--cdo-radius-m);
+	color: var(--cdo-action);
+	font-size: var(--cdo-text-s);
+	font-weight: 400;
+	cursor: pointer;
+	list-style: none;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	text-underline-offset: 3px;
+}
+
+.cdo-ui .cdo-popover__toggle::-webkit-details-marker {
+	display: none;
+}
+
+.cdo-ui .cdo-popover__toggle::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-help);
+	mask-image: var(--cdo-icon-help);
+}
+
+.cdo-ui .cdo-popover__toggle:hover {
+	color: var(--cdo-action-strong);
+	text-decoration-style: solid;
+}
+
+.cdo-ui .cdo-popover__toggle:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-popover__toggle:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 2px;
+}
+
+/* Icon only: the visible text is for screen readers (class screen-reader-text inside the summary). */
+.cdo-ui .cdo-popover--icon .cdo-popover__toggle {
+	justify-content: center;
+	width: 24px;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-popover--icon .cdo-popover__toggle:hover,
+.cdo-ui .cdo-popover--icon[open] .cdo-popover__toggle {
+	color: var(--cdo-action);
+}
+
+.cdo-ui .cdo-popover__panel {
+	position: absolute;
+	inset-block-start: calc(100% + 6px);
+	inset-inline-start: 0;
+	z-index: var(--cdo-z-pop);
+	width: max-content;
+	max-width: min(24rem, calc(100vw - 32px));
+	padding: var(--cdo-space-3) var(--cdo-space-4);
+	border: 1px solid var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	box-shadow: var(--cdo-shadow-pop);
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-s);
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: start;
+	white-space: normal;
+}
+
+.cdo-ui .cdo-popover--end .cdo-popover__panel {
+	inset-inline: auto 0;
+}
+
+.cdo-ui .cdo-popover--up .cdo-popover__panel {
+	inset-block: auto calc(100% + 6px);
+}
+
+.cdo-ui .cdo-popover__panel > :first-child {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-popover__panel > :last-child {
+	margin-block-end: 0;
+}
+
+.cdo-ui .cdo-popover__panel p {
+	margin: 0 0 var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-popover__title {
+	display: block;
+	margin-block-end: var(--cdo-space-1);
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* ------------------------------------------------------------------ v2: explain box (what it does, when to use it, example) */
+
+.cdo-ui .cdo-explain {
+	margin: var(--cdo-space-3) 0 0;
+	padding: var(--cdo-space-4);
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface-muted);
+}
+
+.cdo-ui .cdo-explain__title {
+	margin: 0 0 var(--cdo-space-3);
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-explain__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+	gap: var(--cdo-space-4) var(--cdo-space-5);
+	margin: 0;
+}
+
+.cdo-ui .cdo-explain__item {
+	min-width: 0;
+}
+
+.cdo-ui .cdo-explain__item > dt {
+	display: flex;
+	align-items: center;
+	gap: var(--cdo-space-2);
+	margin: 0 0 var(--cdo-space-1);
+	color: var(--cdo-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-explain__item > dt::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	background: var(--cdo-ink);
+	-webkit-mask-image: var(--cdo-icon-info);
+	mask-image: var(--cdo-icon-info);
+}
+
+.cdo-ui .cdo-explain__item--when > dt::before {
+	-webkit-mask-image: var(--cdo-icon-clock);
+	mask-image: var(--cdo-icon-clock);
+}
+
+.cdo-ui .cdo-explain__item--example > dt::before {
+	-webkit-mask-image: var(--cdo-icon-bulb);
+	mask-image: var(--cdo-icon-bulb);
+}
+
+.cdo-ui .cdo-explain__item > dd {
+	margin: 0;
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-explain__item code {
+	color: var(--cdo-text);
+}
+
+/* ------------------------------------------------------------------ v2: notice */
+
+/* Our own notice inside a screen. Core .notice stays for messages WordPress moves under the band. */
+.cdo-ui .cdo-notice {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--cdo-space-3);
+	margin: 0 0 var(--cdo-space-4);
+	padding: var(--cdo-space-3) var(--cdo-space-4);
+	border: 1px solid var(--cdo-info);
+	border-inline-start-width: 4px;
+	border-radius: var(--cdo-radius-m);
+	background: var(--cdo-info-bg);
+	color: var(--cdo-text);
+}
+
+.cdo-ui .cdo-notice[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-notice__icon {
+	flex: 0 0 auto;
+	width: 20px;
+	height: 20px;
+	margin-block-start: 1px;
+	background: var(--cdo-info-text);
+	-webkit-mask-image: var(--cdo-icon-info);
+	mask-image: var(--cdo-icon-info);
+}
+
+.cdo-ui .cdo-notice__body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-notice__body > * {
+	margin: 0;
+}
+
+.cdo-ui .cdo-notice__body > * + * {
+	margin-block-start: var(--cdo-space-1);
+}
+
+.cdo-ui .cdo-notice__title {
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-notice__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cdo-space-2);
+	padding-block-start: var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-notice__dismiss {
+	display: inline-flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	margin: -6px;
+	margin-inline-start: 0;
+	padding: 0;
+	border: 0;
+	border-radius: var(--cdo-radius-m);
+	background: none;
+	color: var(--cdo-text-muted);
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-notice__dismiss::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-close);
+	mask-image: var(--cdo-icon-close);
+}
+
+.cdo-ui .cdo-notice__dismiss:hover {
+	color: var(--cdo-text);
+}
+
+.cdo-ui .cdo-notice__dismiss:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -2px;
+}
+
+.cdo-ui .cdo-notice--success {
+	border-color: var(--cdo-success);
+	background: var(--cdo-success-bg);
+}
+
+.cdo-ui .cdo-notice--success .cdo-notice__icon {
+	background: var(--cdo-success-text);
+	-webkit-mask-image: var(--cdo-icon-success);
+	mask-image: var(--cdo-icon-success);
+}
+
+.cdo-ui .cdo-notice--warning {
+	border-color: var(--cdo-warning);
+	background: var(--cdo-warning-bg);
+}
+
+.cdo-ui .cdo-notice--warning .cdo-notice__icon {
+	background: var(--cdo-warning-text);
+	-webkit-mask-image: var(--cdo-icon-warning);
+	mask-image: var(--cdo-icon-warning);
+}
+
+.cdo-ui .cdo-notice--error {
+	border-color: var(--cdo-error);
+	background: var(--cdo-error-bg);
+}
+
+.cdo-ui .cdo-notice--error .cdo-notice__icon {
+	background: var(--cdo-error-text);
+	-webkit-mask-image: var(--cdo-icon-error);
+	mask-image: var(--cdo-icon-error);
+}
+
+/* ------------------------------------------------------------------ v2: loading (skeleton, busy button) */
+
+.cdo-ui .cdo-skeleton {
+	display: flex;
+	flex-direction: column;
+	gap: var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-skeleton__line {
+	display: block;
+	width: 100%;
+	height: 12px;
+	border-radius: var(--cdo-radius-m);
+	background: linear-gradient(90deg, #f0f0f1 0%, #e2e4e7 40%, #f0f0f1 80%) 0 0 / 300% 100%;
+	animation: cdo-shimmer 1.4s linear infinite;
+}
+
+.cdo-ui .cdo-skeleton__line--title {
+	width: 40%;
+	height: 18px;
+}
+
+.cdo-ui .cdo-skeleton__line--short {
+	width: 60%;
+}
+
+.cdo-ui .cdo-skeleton__block {
+	display: block;
+	height: 96px;
+	border-radius: var(--cdo-radius-l);
+	background: linear-gradient(90deg, #f0f0f1 0%, #e2e4e7 40%, #f0f0f1 80%) 0 0 / 300% 100%;
+	animation: cdo-shimmer 1.4s linear infinite;
+}
+
+@keyframes cdo-shimmer {
+	from {
+		background-position: 100% 0;
+	}
+	to {
+		background-position: 0 0;
+	}
+}
+
+/* A button that is working: a spinner before the label; cdo-ui.js (CDOUI.busy) sets aria-disabled and the text. */
+.cdo-ui .button.cdo-is-busy {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-2);
+	pointer-events: none;
+}
+
+.cdo-ui .button.cdo-is-busy::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 14px;
+	height: 14px;
+	border: 2px solid currentColor;
+	border-inline-end-color: transparent;
+	border-radius: 50%;
+	animation: cdo-spin 0.7s linear infinite;
+}
+
+@keyframes cdo-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* ------------------------------------------------------------------ v2: dialog sizes and confirm */
+
+.cdo-ui .cdo-dialog--small .cdo-dialog__panel,
+.cdo-ui .cdo-dialog--confirm .cdo-dialog__panel {
+	max-width: 480px;
+}
+
+.cdo-ui .cdo-dialog--confirm .cdo-dialog__header {
+	border-block-end: 0;
+	padding-block-end: 0;
+}
+
+.cdo-ui .cdo-dialog--confirm .cdo-dialog__footer {
+	border-block-start: 0;
+	flex-wrap: wrap;
+}
+
+.cdo-ui .cdo-dialog__title {
+	display: flex;
+	align-items: center;
+	gap: var(--cdo-space-2);
+}
+
+.cdo-ui .cdo-dialog--danger .cdo-dialog__title::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 22px;
+	height: 22px;
+	background: var(--cdo-error-text);
+	-webkit-mask-image: var(--cdo-icon-warning);
+	mask-image: var(--cdo-icon-warning);
+}
+
+.cdo-ui .cdo-dialog__close::before {
+	content: "";
+	width: 20px;
+	height: 20px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-close);
+	mask-image: var(--cdo-icon-close);
+}
+
+/* v1 dialogs put a Dashicon in the close button; then the drawn cross stays out. */
+.cdo-ui .cdo-dialog__close:has(.dashicons)::before {
+	content: none;
+}
+
+.cdo-ui .cdo-dialog__body > :first-child {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-dialog__body > :last-child {
+	margin-block-end: 0;
+}
+
+html.cdo-dialog-open,
+html.cdo-dialog-open body {
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ v2: setup wizard */
+
+.cdo-ui .cdo-wizard {
+	padding: var(--cdo-space-5);
+	border: 1px solid var(--cdo-border);
+	border-block-start: 4px solid var(--cdo-ink);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-wizard__steps {
+	display: flex;
+	gap: var(--cdo-space-2);
+	margin: 0 0 var(--cdo-space-5);
+	padding: 0;
+	list-style: none;
+	counter-reset: cdo-wizard;
+}
+
+.cdo-ui .cdo-wizard__step {
+	position: relative;
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	min-width: 0;
+	margin: 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+	text-align: center;
+	counter-increment: cdo-wizard;
+}
+
+/* The line between two step dots. */
+.cdo-ui .cdo-wizard__step:not(:first-child)::before {
+	content: "";
+	position: absolute;
+	inset-block-start: 15px;
+	inset-inline: calc(-50% + 20px) calc(50% + 20px);
+	height: 2px;
+	background: var(--cdo-border);
+}
+
+.cdo-ui .cdo-wizard__step.is-done:not(:first-child)::before,
+.cdo-ui .cdo-wizard__step[aria-current="step"]:not(:first-child)::before {
+	background: var(--cdo-action);
+}
+
+.cdo-ui .cdo-wizard__dot {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: 2px solid var(--cdo-border-strong);
+	border-radius: 50%;
+	background: var(--cdo-surface);
+	color: var(--cdo-text-muted);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-wizard__dot::after {
+	content: counter(cdo-wizard);
+}
+
+.cdo-ui .cdo-wizard__step[aria-current="step"] {
+	color: var(--cdo-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-wizard__step[aria-current="step"] .cdo-wizard__dot {
+	border-color: var(--cdo-action);
+	background: var(--cdo-action);
+	color: #fff;
+}
+
+.cdo-ui .cdo-wizard__step.is-done .cdo-wizard__dot {
+	border-color: var(--cdo-action);
+	color: var(--cdo-action);
+}
+
+.cdo-ui .cdo-wizard__step.is-done .cdo-wizard__dot::after {
+	content: none;
+}
+
+.cdo-ui .cdo-wizard__step.is-done .cdo-wizard__dot::before {
+	content: "";
+	width: 18px;
+	height: 18px;
+	background: currentColor;
+	-webkit-mask-image: var(--cdo-icon-check);
+	mask-image: var(--cdo-icon-check);
+}
+
+.cdo-ui .cdo-wizard__name {
+	overflow-wrap: anywhere;
+}
+
+.cdo-ui .cdo-wizard__count {
+	margin: 0 0 var(--cdo-space-2);
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-wizard__count:empty {
+	display: none;
+}
+
+.cdo-ui .cdo-wizard__panel {
+	min-width: 0;
+}
+
+.cdo-ui .cdo-wizard__panel + .cdo-wizard__panel {
+	margin-block-start: var(--cdo-space-6);
+	padding-block-start: var(--cdo-space-5);
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-js .cdo-ui .cdo-wizard__panel + .cdo-wizard__panel {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.cdo-ui .cdo-wizard__panel[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-wizard__title {
+	margin: 0 0 var(--cdo-space-2);
+	padding: 0;
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-wizard__title:focus {
+	outline: none;
+}
+
+.cdo-ui .cdo-wizard__lead {
+	max-width: 70ch;
+	margin: 0 0 var(--cdo-space-5);
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-wizard__nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--cdo-space-2);
+	margin-block-start: var(--cdo-space-5);
+	padding-block-start: var(--cdo-space-4);
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-wizard__nav .button {
+	margin: 0;
+}
+
+.cdo-ui .cdo-wizard__nav .button[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-wizard__spacer {
+	flex: 1 1 auto;
+}
+
+.cdo-ui .cdo-wizard__saved {
+	margin: 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+}
+
+/* ------------------------------------------------------------------ v2: checklist and progress */
+
+.cdo-ui .cdo-progress {
+	display: block;
+	width: 100%;
+	height: 8px;
+	margin: var(--cdo-space-2) 0 var(--cdo-space-4);
+	border: 0;
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-border);
+	color: var(--cdo-action);
+	overflow: hidden;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.cdo-ui .cdo-progress::-webkit-progress-bar {
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-border);
+}
+
+.cdo-ui .cdo-progress::-webkit-progress-value {
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-action);
+}
+
+.cdo-ui .cdo-progress::-moz-progress-bar {
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-action);
+}
+
+.cdo-ui .cdo-checklist__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--cdo-space-1) var(--cdo-space-4);
+}
+
+.cdo-ui .cdo-checklist__title {
+	margin: 0;
+	font-size: var(--cdo-text-l);
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-checklist__count {
+	margin: 0;
+	color: var(--cdo-text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.cdo-ui .cdo-checklist__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cdo-ui .cdo-checklist__item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: var(--cdo-space-2) var(--cdo-space-3);
+	margin: 0;
+	padding-block: var(--cdo-space-3);
+}
+
+.cdo-ui .cdo-checklist__item + .cdo-checklist__item {
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-checklist__mark {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border: 2px solid var(--cdo-border-strong);
+	border-radius: 50%;
+}
+
+.cdo-ui .cdo-checklist__item.is-done .cdo-checklist__mark {
+	border-color: var(--cdo-success);
+	background: var(--cdo-success);
+}
+
+.cdo-ui .cdo-checklist__item.is-done .cdo-checklist__mark::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	-webkit-mask-image: var(--cdo-icon-check);
+	mask-image: var(--cdo-icon-check);
+}
+
+.cdo-ui .cdo-checklist__item.is-current .cdo-checklist__mark {
+	border-color: var(--cdo-action);
+	box-shadow: inset 0 0 0 4px var(--cdo-surface), inset 0 0 0 12px var(--cdo-action);
+}
+
+.cdo-ui .cdo-checklist__body {
+	flex: 1 1 14rem;
+	min-width: 0;
+}
+
+.cdo-ui .cdo-checklist__name {
+	margin: 2px 0 0;
+	font-weight: var(--cdo-weight-strong);
+}
+
+.cdo-ui .cdo-checklist__item.is-done .cdo-checklist__name {
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-checklist__desc {
+	margin: var(--cdo-space-1) 0 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-s);
+}
+
+.cdo-ui .cdo-checklist__action {
+	flex: 0 0 auto;
+	margin-inline-start: auto;
+}
+
+/* ------------------------------------------------------------------ v2: empty state, refined */
+
+.cdo-ui .cdo-empty--card {
+	border: 1px dashed var(--cdo-border-strong);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+}
+
+.cdo-ui .cdo-empty__icon.dashicons {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: var(--cdo-surface-muted);
+	font-size: 28px;
+	line-height: 56px;
+}
+
+.cdo-ui .cdo-empty__icon.dashicons::before {
+	line-height: 56px;
+}
+
+.cdo-ui .cdo-empty__next {
+	max-width: 60ch;
+	margin: var(--cdo-space-2) auto 0;
+	color: var(--cdo-text);
+	font-weight: var(--cdo-weight-strong);
+}
+
+/* ------------------------------------------------------------------ v2: tabs */
+
+/*
+ * Without the script: a list of links to sections that are all shown. cdo-ui.js turns it into WAI-ARIA tabs
+ * (arrow keys, Home, End) and shows one panel at a time.
+ */
+.cdo-ui .cdo-tabs__list {
+	display: flex;
+	gap: var(--cdo-space-1);
+	margin: 0 0 var(--cdo-space-5);
+	padding: 0;
+	border-block-end: 1px solid var(--cdo-border);
+	list-style: none;
+	overflow-x: auto;
+	scrollbar-width: thin;
+}
+
+.cdo-ui .cdo-tabs__list > li {
+	flex: 0 0 auto;
+	margin: 0;
+}
+
+.cdo-ui .cdo-tabs__tab {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cdo-space-1);
+	min-height: 40px;
+	margin: 0;
+	padding: var(--cdo-space-2) var(--cdo-space-4);
+	border: 0;
+	border-radius: var(--cdo-radius-m) var(--cdo-radius-m) 0 0;
+	background: none;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.cdo-ui .cdo-tabs__tab:hover {
+	color: var(--cdo-text);
+	background: var(--cdo-surface-muted);
+}
+
+.cdo-ui .cdo-tabs__tab[aria-selected="true"] {
+	color: var(--cdo-text);
+}
+
+.cdo-ui .cdo-tabs__tab[aria-selected="true"]::after {
+	content: "";
+	position: absolute;
+	inset-inline: var(--cdo-space-2);
+	inset-block-end: -1px;
+	height: 3px;
+	border-radius: 3px 3px 0 0;
+	background: var(--cdo-action);
+}
+
+.cdo-ui .cdo-tabs__tab:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.cdo-ui .cdo-tabs__tab:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -2px;
+}
+
+.cdo-ui .cdo-tabs__count {
+	min-width: 20px;
+	padding-inline: 6px;
+	border-radius: var(--cdo-radius-pill);
+	background: var(--cdo-surface-muted);
+	color: var(--cdo-text);
+	font-size: var(--cdo-text-xs);
+	line-height: 20px;
+	text-align: center;
+}
+
+.cdo-ui .cdo-tabs__panel + .cdo-tabs__panel {
+	margin-block-start: var(--cdo-space-6);
+}
+
+.cdo-ui .cdo-tabs.is-ready .cdo-tabs__panel + .cdo-tabs__panel {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-tabs__panel[hidden] {
+	display: none;
+}
+
+.cdo-ui .cdo-tabs__panel:focus {
+	outline: none;
+}
+
+.cdo-ui .cdo-tabs__panel:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: 4px;
+}
+
+/* ------------------------------------------------------------------ v2: accordion */
+
+.cdo-ui .cdo-accordion {
+	border: 1px solid var(--cdo-border);
+	border-radius: var(--cdo-radius-l);
+	background: var(--cdo-surface);
+	overflow: hidden;
+}
+
+.cdo-ui .cdo-accordion__item + .cdo-accordion__item {
+	border-block-start: 1px solid var(--cdo-border);
+}
+
+.cdo-ui .cdo-accordion__item > summary {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--cdo-space-3);
+	min-height: 48px;
+	padding-block: var(--cdo-space-3);
+	padding-inline: var(--cdo-space-4) 48px;
+	font-size: var(--cdo-text-m);
+	font-weight: var(--cdo-weight-strong);
+	cursor: pointer;
+	list-style: none;
+}
+
+.cdo-ui .cdo-accordion__item > summary::-webkit-details-marker {
+	display: none;
+}
+
+.cdo-ui .cdo-accordion__item > summary::after {
+	content: "";
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-end: var(--cdo-space-4);
+	width: 20px;
+	height: 20px;
+	margin-block-start: -10px;
+	background: var(--cdo-text-muted);
+	-webkit-mask-image: var(--cdo-icon-chevron);
+	mask-image: var(--cdo-icon-chevron);
+	transition: transform var(--cdo-duration) var(--cdo-ease);
+}
+
+.cdo-ui .cdo-accordion__item[open] > summary::after {
+	transform: rotate(180deg);
+}
+
+.cdo-ui .cdo-accordion__item > summary:hover {
+	background: var(--cdo-surface-muted);
+}
+
+.cdo-ui .cdo-accordion__item > summary:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.cdo-ui .cdo-accordion__item > summary:focus-visible {
+	outline: var(--cdo-focus-width) solid var(--cdo-action);
+	outline-offset: -2px;
+}
+
+.cdo-ui .cdo-accordion__meta {
+	margin-inline-start: auto;
+	color: var(--cdo-text-muted);
+	font-weight: 400;
+}
+
+.cdo-ui .cdo-accordion__body {
+	padding: 0 var(--cdo-space-4) var(--cdo-space-4);
+}
+
+.cdo-ui .cdo-accordion__body > :first-child {
+	margin-block-start: 0;
+}
+
+.cdo-ui .cdo-accordion__body > :last-child {
+	margin-block-end: 0;
+}
+
+/* ------------------------------------------------------------------ v2: badge and statistic additions */
+
+.cdo-ui .cdo-badge--premium {
+	border-color: var(--cdo-ink);
+	background: var(--cdo-ink);
+	color: var(--cdo-on-ink);
+}
+
+.cdo-ui .cdo-badge--premium::before {
+	background: var(--cdo-accent);
+}
+
+.cdo-ui .cdo-badge--neutral {
+	border-color: var(--cdo-border-strong);
+	background: var(--cdo-surface);
+	color: var(--cdo-text-muted);
+}
+
+.cdo-ui .cdo-stat__note {
+	order: -1;
+	margin: 0;
+	color: var(--cdo-text-muted);
+	font-size: var(--cdo-text-xs);
+}
+
+/* ------------------------------------------------------------------ v2: table that turns into cards on a phone */
+
+.cdo-ui .cdo-table__actions {
+	white-space: nowrap;
+}
+
+.cdo-ui .cdo-table__actions .button {
+	margin-block: 2px;
+}
+
+/* ------------------------------------------------------------------ v2: phones and the WordPress mobile breakpoint */
+
+@media screen and (max-width: 782px) {
+	.cdo-ui {
+		--cdo-control-height: 44px;
+		--cdo-hit: 44px;
+	}
+
+	.cdo-ui .cdo-intro {
+		padding: var(--cdo-space-3) var(--cdo-space-4);
+	}
+
+	.cdo-ui .cdo-intro__steps {
+		flex-direction: column;
+	}
+
+	.cdo-ui .cdo-control,
+	.cdo-ui .cdo-input,
+	.cdo-ui .cdo-select,
+	.cdo-ui .cdo-combobox {
+		max-width: none;
+	}
+
+	/* 16 px text in fields keeps phone browsers from zooming in on focus. */
+	.cdo-ui .cdo-control,
+	.cdo-ui .cdo-input__control,
+	.cdo-ui .cdo-combobox__input,
+	.cdo-ui .cdo-select > select {
+		font-size: var(--cdo-text-l);
+	}
+
+	.cdo-ui .cdo-combobox__option {
+		min-height: 44px;
+	}
+
+	.cdo-ui .cdo-combobox__listbox {
+		max-height: 50vh;
+	}
+
+	.cdo-ui .cdo-chip {
+		min-height: 36px;
+	}
+
+	.cdo-ui .cdo-chip__remove {
+		width: 32px;
+		height: 32px;
+	}
+
+	.cdo-ui .cdo-input__clear,
+	.cdo-ui .cdo-stepper__button {
+		width: 44px;
+	}
+
+	.cdo-ui .cdo-switch__input,
+	.cdo-ui input[type="checkbox"].cdo-switch__input {
+		width: 100%;
+		height: 100%;
+	}
+
+	.cdo-ui .cdo-switch__track,
+	.cdo-ui .cdo-check input.cdo-check__input {
+		margin-block-start: 10px;
+	}
+
+	.cdo-ui .cdo-switch__text,
+	.cdo-ui .cdo-check__label {
+		padding-block-start: 10px;
+	}
+
+	.cdo-ui .cdo-segment__options {
+		display: flex;
+	}
+
+	.cdo-ui .cdo-tooltip__toggle,
+	.cdo-ui .cdo-popover--icon .cdo-popover__toggle {
+		width: 44px;
+		height: 44px;
+	}
+
+	/* On a phone the popover opens in the flow of the page, full width, instead of floating. */
+	.cdo-ui .cdo-popover[open] {
+		display: block;
+	}
+
+	.cdo-ui .cdo-popover__panel,
+	.cdo-ui .cdo-popover--end .cdo-popover__panel,
+	.cdo-ui .cdo-popover--up .cdo-popover__panel {
+		position: static;
+		width: auto;
+		max-width: none;
+		margin-block: var(--cdo-space-1) var(--cdo-space-2);
+		box-shadow: none;
+	}
+
+	.cdo-ui .cdo-notice__dismiss {
+		width: 44px;
+		height: 44px;
+		margin: -12px;
+		margin-inline-start: 0;
+	}
+
+	.cdo-ui .cdo-actions .button,
+	.cdo-ui .cdo-wizard__nav .button,
+	.cdo-ui .cdo-dialog__footer .button,
+	.cdo-ui .cdo-notice__actions .button,
+	.cdo-ui .cdo-checklist__action.button,
+	.cdo-ui .cdo-copy__button.button {
+		min-height: 44px;
+		line-height: 1.3;
+		padding-block: var(--cdo-space-2);
+	}
+
+	.cdo-ui .cdo-wizard {
+		padding: var(--cdo-space-4);
+	}
+
+	/* Step names would be one word per line; the counter line ("Step 2 of 4") says where the person is. */
+	.cdo-ui .cdo-wizard__name {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.cdo-ui .cdo-wizard__step[aria-current="step"] .cdo-wizard__name {
+		position: static;
+		width: auto;
+		height: auto;
+		overflow: visible;
+		clip-path: none;
+		white-space: normal;
+	}
+
+	.cdo-ui .cdo-wizard__nav {
+		flex-direction: column-reverse;
+		align-items: stretch;
+	}
+
+	.cdo-ui .cdo-wizard__spacer {
+		display: none;
+	}
+
+	.cdo-ui .cdo-checklist__action {
+		flex-basis: calc(100% - 36px);
+		margin-inline-start: 36px;
+		text-align: center;
+	}
+
+	.cdo-ui .cdo-tabs__tab {
+		min-height: 44px;
+	}
+
+	/* Table to cards: every row becomes a card, every cell a label–value line (labels from data-label). */
+	.cdo-ui .cdo-table--cards,
+	.cdo-ui .cdo-table--cards > tbody,
+	.cdo-ui .cdo-table--cards > tbody > tr,
+	.cdo-ui .cdo-table--cards > tbody > tr > td,
+	.cdo-ui .cdo-table--cards > tbody > tr > th {
+		display: block;
+		width: auto;
+	}
+
+	.cdo-ui .cdo-table--cards {
+		border: 0;
+		background: none;
+		box-shadow: none;
+	}
+
+	.cdo-ui .cdo-table--cards > thead {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr {
+		margin: 0 0 var(--cdo-space-3);
+		padding: var(--cdo-space-3) var(--cdo-space-4);
+		border: 1px solid var(--cdo-border);
+		border-radius: var(--cdo-radius-l);
+		background: var(--cdo-surface);
+	}
+
+	.cdo-ui .cdo-table--cards.striped > tbody > :nth-child(odd) {
+		background: var(--cdo-surface);
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr > td,
+	.cdo-ui .cdo-table--cards > tbody > tr > th {
+		display: grid;
+		grid-template-columns: minmax(6rem, 38%) minmax(0, 1fr);
+		justify-items: start;
+		gap: var(--cdo-space-3);
+		padding: var(--cdo-space-2) 0;
+		border: 0;
+		text-align: start;
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr > td + td,
+	.cdo-ui .cdo-table--cards > tbody > tr > th + td {
+		border-block-start: 1px solid var(--cdo-border);
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr > td::before,
+	.cdo-ui .cdo-table--cards > tbody > tr > th::before {
+		content: attr(data-label);
+		color: var(--cdo-text-muted);
+		font-size: var(--cdo-text-s);
+		font-weight: var(--cdo-weight-strong);
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr > .cdo-table__primary {
+		display: block;
+		padding-block-start: 0;
+		font-size: var(--cdo-text-m);
+		font-weight: var(--cdo-weight-strong);
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr > .cdo-table__primary::before,
+	.cdo-ui .cdo-table--cards > tbody > tr > .cdo-table__actions::before {
+		content: none;
+	}
+
+	.cdo-ui .cdo-table--cards > tbody > tr > .cdo-table__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--cdo-space-2);
+		white-space: normal;
+	}
+
+	.cdo-ui .cdo-table--cards .cdo-num {
+		text-align: start;
+	}
+
+	.cdo-ui .cdo-card--flush .cdo-table--cards {
+		padding: var(--cdo-space-3);
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.cdo-ui .cdo-band__meta {
+		flex-basis: 100%;
+		margin-inline-start: 0;
+	}
+}
+
+/* ------------------------------------------------------------------ v2: high contrast and reduced motion */
+
+@media (forced-colors: active) {
+	.cdo-ui .cdo-icon,
+	.cdo-ui .cdo-notice__icon,
+	.cdo-ui .cdo-field__message::before,
+	.cdo-ui .cdo-select::after,
+	.cdo-ui .cdo-combobox__toggle::before,
+	.cdo-ui .cdo-combobox__option::before,
+	.cdo-ui .cdo-chip__remove::before,
+	.cdo-ui .cdo-input__clear::before,
+	.cdo-ui .cdo-stepper__button::before,
+	.cdo-ui .cdo-popover__toggle::before,
+	.cdo-ui .cdo-tooltip__toggle::before,
+	.cdo-ui .cdo-notice__dismiss::before,
+	.cdo-ui .cdo-explain__item > dt::before,
+	.cdo-ui .cdo-checklist__mark::before,
+	.cdo-ui .cdo-wizard__dot::before,
+	.cdo-ui .cdo-copy__button::before,
+	.cdo-ui .cdo-accordion__item > summary::after,
+	.cdo-ui .cdo-dialog__close::before,
+	.cdo-ui .cdo-dialog__title::before {
+		background: CanvasText;
+		forced-color-adjust: none;
+	}
+
+	.cdo-ui .cdo-combobox__option.is-active {
+		outline: 2px solid Highlight;
+	}
+
+	.cdo-ui .cdo-switch__track::before {
+		background: CanvasText;
+	}
+
+	.cdo-ui .cdo-segment__input:checked + .cdo-segment__label {
+		outline: 2px solid Highlight;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cdo-ui .cdo-skeleton__line,
+	.cdo-ui .cdo-skeleton__block,
+	.cdo-ui .button.cdo-is-busy::before {
+		animation: none;
+	}
+
+	.cdo-ui .button.cdo-is-busy::before {
+		border-inline-end-color: currentColor;
+		opacity: 0.6;
+	}
+}
+
 
 /* ------------------------------------------------------------------ Breakpoints */
 

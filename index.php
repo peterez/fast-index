@@ -9,7 +9,7 @@
  * @wordpress-plugin
  * Plugin Name:       Fast Index for Google Indexing API
  * Description:       Sends new, updated and deleted posts to the Google Indexing API so Google can crawl them sooner.
- * Version:           3.0.0
+ * Version:           3.0.1
  * Requires at least: 5.6
  * Requires PHP:      7.4
  * Author:            Samet AKIN
@@ -32,7 +32,7 @@ if ( function_exists( 'figi_fs' ) ) {
 	return;
 }
 
-define( 'FAST_INDEX_VERSION', '3.0.0' );
+define( 'FAST_INDEX_VERSION', '3.0.1' );
 define( 'FAST_INDEX_DB_VERSION', '3.0.0' ); // Data version: raised only when stored data changes.
 define( 'FAST_INDEX_FILE', __FILE__ );
 define( 'FAST_INDEX_PATH', plugin_dir_path( __FILE__ ) );
