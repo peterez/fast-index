@@ -139,7 +139,9 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 
 		$this->seed( true );
 		$reflection = new ReflectionProperty( 'Fast_Index_Uninstaller', 'done' );
-		$reflection->setAccessible( true );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$reflection->setAccessible( true ); // Needed before PHP 8.1 only; deprecated since PHP 8.5.
+		}
 		$reflection->setValue( null, false );
 
 		do_action( 'uninstall_' . $basename ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core hook that WordPress fires when the plugin is deleted.
@@ -164,7 +166,9 @@ class Fast_Index_Test_Uninstall extends Fast_Index_Test_Case {
 	public function test_uninstall_waits_while_the_other_copy_is_active() {
 		$this->seed( true );
 		$reflection = new ReflectionProperty( 'Fast_Index_Uninstaller', 'done' );
-		$reflection->setAccessible( true );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$reflection->setAccessible( true ); // Needed before PHP 8.1 only; deprecated since PHP 8.5.
+		}
 		$reflection->setValue( null, false );
 
 		$active = get_option( 'active_plugins' );

@@ -158,7 +158,9 @@ class Fast_Index_Test_Eligibility extends Fast_Index_Test_Case {
 		$this->add_account();
 		$this->fake_google();
 		$method = new ReflectionMethod( 'Fast_Index_Premium_Backlog', 'send' );
-		$method->setAccessible( true );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$method->setAccessible( true ); // Needed before PHP 8.1 only; deprecated since PHP 8.5.
+		}
 		$results = $method->invoke( null, array( $word, $job ) );
 
 		$this->assertSame( array( $job ), wp_list_pluck( $results, 'post_id' ) );

@@ -169,6 +169,10 @@ WP_TESTS_DIR=/path/to/wordpress-tests-lib WP_MULTISITE=1 vendor/bin/phpunit
 Premium tests replace the Freemius instance with `tests/class-fast-index-test-freemius.php` and load the module
 with `Fast_Index_Test_Case::with_premium()`.
 
+The suite passes on WordPress 5.6, 6.9 and 7.1 and on PHP 7.4 to 8.5. The test library of WordPress 5.6 works with
+PHPUnit 7.x only: run it with a separate PHPUnit 7.5 install (the Yoast polyfills 1.x work with it). The library
+installs WordPress in a child process: set `WP_PHP_BINARY` in `wp-tests-config.php` to the PHP that runs the tests.
+
 ## Release order
 
 1. `composer package`.

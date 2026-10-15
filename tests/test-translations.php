@@ -18,9 +18,9 @@ class Fast_Index_Test_Translations extends Fast_Index_Test_Case {
 	private $pack = '';
 
 	/**
-	 * Text domain registry before the test.
+	 * Text domain registry before the test; null before WordPress 6.1, which has no registry.
 	 *
-	 * @var WP_Textdomain_Registry
+	 * @var WP_Textdomain_Registry|null
 	 */
 	private $registry;
 
@@ -31,7 +31,7 @@ class Fast_Index_Test_Translations extends Fast_Index_Test_Case {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->registry = clone $GLOBALS['wp_textdomain_registry'];
+		$this->registry = isset( $GLOBALS['wp_textdomain_registry'] ) ? clone $GLOBALS['wp_textdomain_registry'] : null;
 	}
 
 	/**
@@ -41,7 +41,9 @@ class Fast_Index_Test_Translations extends Fast_Index_Test_Case {
 	 */
 	public function tear_down() {
 		restore_current_locale();
-		$GLOBALS['wp_textdomain_registry'] = $this->registry; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Restores the test state.
+		if ( null !== $this->registry ) {
+			$GLOBALS['wp_textdomain_registry'] = $this->registry; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Restores the test state.
+		}
 		if ( '' !== $this->pack && file_exists( $this->pack ) ) {
 			unlink( $this->pack ); // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- Test file.
 		}
@@ -73,7 +75,9 @@ class Fast_Index_Test_Translations extends Fast_Index_Test_Case {
 
 		// As after a language pack update: WordPress looks in the languages folder again.
 		wp_cache_delete( md5( WP_LANG_DIR . '/plugins/' ), 'translation_files' );
-		$GLOBALS['wp_textdomain_registry']->set( 'fast-index', $locale, WP_LANG_DIR . '/plugins' );
+		if ( isset( $GLOBALS['wp_textdomain_registry'] ) ) {
+			$GLOBALS['wp_textdomain_registry']->set( 'fast-index', $locale, WP_LANG_DIR . '/plugins' );
+		}
 	}
 
 	/**
