@@ -38,6 +38,7 @@ the Edit and Trash events itself):
 | `fast_index_default_settings` | filter | settings used while they were never saved (Posts; Publish and Edit) |
 | `fast_index_send_to_google` | filter | whether a notification goes to Google; IndexNow is decided by its setting |
 | `fast_index_is_eligible` | filter | whether a post has JobPosting or BroadcastEvent data (saved content and WP Job Manager by default) |
+| `fast_index_history_retention_days` | filter | days History keeps its entries (default 90, 0 keeps everything); the daily event `fast_index_prune_history` removes older ones except the newest accepted Google entry of each post and entries that wait for a key |
 
 ## Queue
 

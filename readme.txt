@@ -38,7 +38,7 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 * History marks pages with JobPosting or BroadcastEvent data, the kinds Google supports, as Eligible for Google Indexing API. An option sends only those pages to Google; IndexNow still gets the others.
 * Sending by hand: a Notify search engines row action and bulk action in the post lists, up to 100 items at a time, with the result on the same screen.
 * Background sending through WP-Cron, with a time limit for each request.
-* History screen with a summary (sent in total, waiting, sent today) and every answer of Google and IndexNow, with a Channel column and a filter for each channel.
+* History screen with a summary (sent in total, waiting, sent today) and every answer of Google and IndexNow, with a Channel column and a filter for each channel. History keeps the entries of the last 90 days and removes older ones once a day; the newest accepted entry of each post stays.
 * When Google rejects the key (401 or 403), it is paused for six hours. When the daily quota is used up (429), every key is paused until Google resets the quota at midnight Pacific Time, and no other key is tried.
 * A notification that cannot be sent is listed in History as Not sent. Without a key or without OpenSSL it is only recorded; while the key is paused it waits and is sent when the key is ready again.
 * The service account key is stored in the database, never in a file. The screens show only the email address and the key ID.
@@ -250,7 +250,7 @@ What leaves your site is described under External services: post addresses and s
 * New: History marks pages with JobPosting or BroadcastEvent data as Eligible for Google Indexing API, found in the saved content without any request. The option Supported Pages Only (off by default) sends only those pages to Google.
 * New (premium package): index status from the Search Console URL Inspection API in History, with a Check button, automatic checks 24 and 72 hours after sending, a card of the indexed addresses and a daily counter that stops at 2,000 checks per property.
 * New (premium package): a weekly email report with the numbers of History, in the language of the recipient, that can be turned off.
-* Changed: failed attempts are recorded in History too.
+* Changed: failed attempts are recorded in History too. History keeps 90 days of entries (filter `fast_index_history_retention_days`); a daily scheduled task removes older ones, except the newest accepted entry of each post and entries that wait for a key.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).
 * Changed: deactivating the plugin only removes its scheduled tasks. A new uninstall routine keeps your data by default and deletes it, on every site of a network, when Delete data on uninstall is on. It runs through the uninstall hook of WordPress, so Freemius can record the uninstall.

@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) || exit;
  *   fast_index_hourly action (the premium module sends its batch of old posts there). The event name is the
  *   one of the 2.x old-post batch, so existing schedules keep working.
  * - fast_index_retry: notifications that wait for a resting key (single event, Fast_Index_Retry).
+ * - fast_index_prune_history: daily removal of old History entries (Fast_Index_Log::prune()).
  */
 class Fast_Index_Cron {
 
@@ -40,6 +41,11 @@ class Fast_Index_Cron {
 	const REPORT_HOOK = 'fast_index_weekly_report';
 
 	/**
+	 * Daily event that removes old History entries.
+	 */
+	const PRUNE_HOOK = 'fast_index_prune_history';
+
+	/**
 	 * Recurrence of the hourly event (core schedule).
 	 */
 	const HOURLY_RECURRENCE = 'hourly';
@@ -53,6 +59,7 @@ class Fast_Index_Cron {
 		add_action( self::SUBMIT_HOOK, array( $this, 'run_submit' ), 10, 3 );
 		add_action( Fast_Index_Queue::HOOK, array( 'Fast_Index_Queue', 'run' ) );
 		add_action( self::HOURLY_HOOK, array( $this, 'run_hourly' ) );
+		add_action( self::PRUNE_HOOK, array( 'Fast_Index_Log', 'prune' ), 10, 0 );
 		add_action( Fast_Index_Retry::HOOK, array( 'Fast_Index_Retry', 'run' ) );
 	}
 
@@ -67,9 +74,22 @@ class Fast_Index_Cron {
 			wp_schedule_event( time() + 5 * MINUTE_IN_SECONDS, self::HOURLY_RECURRENCE, self::HOURLY_HOOK );
 		}
 
+		self::schedule_prune();
+
 		Fast_Index_Retry::resume();
 		Fast_Index_Queue::adopt_legacy_events();
 		Fast_Index_Queue::resume();
+	}
+
+	/**
+	 * Plans the daily History clean-up once, at a quiet moment: an hour from now, then every day.
+	 *
+	 * @return void
+	 */
+	public static function schedule_prune() {
+		if ( ! wp_next_scheduled( self::PRUNE_HOOK ) ) {
+			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', self::PRUNE_HOOK );
+		}
 	}
 
 	/**
@@ -81,6 +101,7 @@ class Fast_Index_Cron {
 		wp_unschedule_hook( self::SUBMIT_HOOK );
 		wp_unschedule_hook( Fast_Index_Queue::HOOK );
 		wp_unschedule_hook( self::HOURLY_HOOK );
+		wp_unschedule_hook( self::PRUNE_HOOK );
 		wp_unschedule_hook( Fast_Index_Retry::HOOK );
 		wp_unschedule_hook( self::REPORT_HOOK );
 		wp_unschedule_hook( self::LEGACY_HOOK );
@@ -121,6 +142,8 @@ class Fast_Index_Cron {
 		Fast_Index_Retry::maintain();
 		Fast_Index_Queue::adopt_legacy_events();
 		Fast_Index_Queue::resume();
+		// Sites that were set up before the daily clean-up existed get it here.
+		self::schedule_prune();
 
 		/**
 		 * Fires once an hour, after the notifications that wait for a key were checked.

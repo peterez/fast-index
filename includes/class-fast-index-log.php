@@ -84,6 +84,21 @@ class Fast_Index_Log {
 	const STATS_TRANSIENT = 'fast_index_stats';
 
 	/**
+	 * Days History keeps its entries (filter fast_index_history_retention_days; 0 keeps them for ever).
+	 */
+	const RETENTION_DAYS = 90;
+
+	/**
+	 * Entries removed per query by prune().
+	 */
+	const PRUNE_BATCH = 500;
+
+	/**
+	 * Seconds one prune() run may spend.
+	 */
+	const PRUNE_BUDGET = 20;
+
+	/**
 	 * Registers the log post types. Runs on init.
 	 *
 	 * @return void
@@ -491,6 +506,95 @@ class Fast_Index_Log {
 		);
 
 		return (int) $count;
+	}
+
+	/**
+	 * Days History keeps its entries.
+	 *
+	 * @return int 0 when entries are kept for ever.
+	 */
+	public static function retention_days() {
+		/**
+		 * Filters how many days History keeps its entries. Older entries are removed once a day, except the newest
+		 * accepted Google entry of each post (it marks the post as sent) and entries that wait for a key. 0 keeps
+		 * every entry.
+		 *
+		 * @param int $days Days; default 90.
+		 */
+		return max( 0, (int) apply_filters( 'fast_index_history_retention_days', self::RETENTION_DAYS ) );
+	}
+
+	/**
+	 * Removes the History entries older than retention_days(), of both channels, with their meta. Kept: the newest
+	 * accepted Google entry of each post (the counters and the old-post batches read "sent" from it, and the premium
+	 * index status is stored on it) and entries that wait for a key. Runs once a day (Fast_Index_Cron::PRUNE_HOOK).
+	 *
+	 * @param int $now Unix time; 0 for now.
+	 * @return int Number of entries removed.
+	 */
+	public static function prune( $now = 0 ) {
+		global $wpdb;
+
+		$days = self::retention_days();
+
+		if ( 0 === $days ) {
+			return 0;
+		}
+
+		$before   = gmdate( 'Y-m-d H:i:s', ( $now > 0 ? (int) $now : time() ) - $days * DAY_IN_SECONDS );
+		$deadline = time() + self::PRUNE_BUDGET;
+		$removed  = 0;
+
+		do {
+			$ids = array_map(
+				'absint',
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Daily clean-up of the plugin's own log rows; NOT EXISTS has no WP_Query equivalent, every value is a placeholder.
+				(array) $wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT l.ID FROM {$wpdb->posts} AS l
+						WHERE l.post_type IN ( %s, %s ) AND l.post_date_gmt < %s
+						AND NOT ( l.post_type = %s AND l.post_status = %s AND l.post_parent > 0
+							AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS n WHERE n.post_parent = l.post_parent AND n.post_type = %s AND n.post_status = %s AND n.ID > l.ID ) )
+						AND NOT EXISTS ( SELECT 1 FROM {$wpdb->postmeta} AS r WHERE r.post_id = l.ID AND r.meta_key = %s )
+						ORDER BY l.ID ASC
+						LIMIT %d",
+						self::POST_TYPE,
+						self::INDEXNOW_POST_TYPE,
+						$before,
+						self::POST_TYPE,
+						self::STATUS_SENT,
+						self::POST_TYPE,
+						self::STATUS_SENT,
+						self::META_RETRY,
+						self::PRUNE_BATCH
+					)
+				)
+			);
+
+			if ( array() === $ids ) {
+				break;
+			}
+
+			$list = implode( ', ', array_fill( 0, count( $ids ), '%d' ) );
+
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- One statement per batch instead of a wp_delete_post() call per entry; $list holds only %d placeholders.
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE post_id IN ( {$list} )", $ids ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- See above.
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE ID IN ( {$list} )", $ids ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- See above.
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+
+			foreach ( $ids as $id ) {
+				clean_post_cache( $id );
+			}
+
+			$found    = count( $ids );
+			$removed += $found;
+		} while ( self::PRUNE_BATCH === $found && time() < $deadline );
+
+		if ( $removed > 0 ) {
+			self::flush_stats();
+		}
+
+		return $removed;
 	}
 
 	/**

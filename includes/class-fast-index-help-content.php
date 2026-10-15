@@ -799,10 +799,30 @@ class Fast_Index_Help_Content {
 			'help'     => __( 'Step-by-step setup, an explanation of every setting, troubleshooting, frequently asked questions and the system information to include when you ask for support.', 'fast-index' ),
 		);
 		$text  = isset( $texts[ $screen ] ) ? $texts[ $screen ] : $texts['help'];
+		$more  = 'history' === $screen ? self::retention_note() : '';
 
 		return array(
 			'title'   => __( 'About this screen', 'fast-index' ),
-			'content' => '<p>' . esc_html( $text ) . '</p>' . ( 'help' === $screen ? '' : '<p>' . self::page_link( Fast_Index_Help::SLUG, __( 'Open Help & FAQ', 'fast-index' ) ) . '</p>' ),
+			'content' => '<p>' . esc_html( $text ) . '</p>' . ( '' === $more ? '' : '<p>' . esc_html( $more ) . '</p>' ) . ( 'help' === $screen ? '' : '<p>' . self::page_link( Fast_Index_Help::SLUG, __( 'Open Help & FAQ', 'fast-index' ) ) . '</p>' ),
+		);
+	}
+
+	/**
+	 * How long History keeps its entries, as one sentence (plain text).
+	 *
+	 * @return string Empty when entries are kept for ever.
+	 */
+	public static function retention_note() {
+		$days = Fast_Index_Log::retention_days();
+
+		if ( 0 === $days ) {
+			return '';
+		}
+
+		return sprintf(
+			/* translators: %s: number of days. */
+			_n( 'History keeps the entries of the last %s day and removes older ones once a day. The newest accepted entry of each post stays, so the post does not count as waiting again.', 'History keeps the entries of the last %s days and removes older ones once a day. The newest accepted entry of each post stays, so the post does not count as waiting again.', $days, 'fast-index' ),
+			number_format_i18n( $days )
 		);
 	}
 
