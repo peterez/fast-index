@@ -100,6 +100,13 @@ class Fast_Index_Installer {
 
 		wp_unschedule_hook( self::NETWORK_HOOK );
 
+		if ( wp_is_large_network() ) {
+			// Too many sites for one request, as on activation. The events left on the sites find no handler while
+			// the plugin is inactive; activating again keeps them (no duplicates), and deleting the plugin removes
+			// them on every site.
+			return;
+		}
+
 		$offset = 0;
 
 		do {

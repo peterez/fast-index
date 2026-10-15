@@ -178,7 +178,7 @@ class Fast_Index_Submitter {
 			$result = ( new Fast_Index_Google_Client( $account ) )->publish( $url, $type );
 
 			if ( ! is_wp_error( $result ) ) {
-				Fast_Index_Accounts::set_status( $id, 200 );
+				Fast_Index_Accounts::mark_working( $id );
 				return 200;
 			}
 

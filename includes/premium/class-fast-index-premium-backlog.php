@@ -65,7 +65,8 @@ class Fast_Index_Premium_Backlog {
 	public static function run() {
 		$settings = Fast_Index_Settings::get();
 
-		if ( ! Fast_Index_Settings::is_active( $settings ) ) {
+		// No daily limit set: nothing to count or look up.
+		if ( ! Fast_Index_Settings::is_active( $settings ) || (int) $settings['old_post_number'] <= 0 ) {
 			return array();
 		}
 
@@ -241,6 +242,9 @@ class Fast_Index_Premium_Backlog {
 		$deadline  = time() + self::TIME_BUDGET;
 		$results   = array();
 		$settings  = Fast_Index_Settings::get();
+
+		// One query for the posts and their terms (permalinks may contain a category) instead of one per post.
+		_prime_post_caches( array_map( 'absint', $post_ids ), true, false );
 
 		foreach ( $post_ids as $post_id ) {
 			$url = get_permalink( $post_id );

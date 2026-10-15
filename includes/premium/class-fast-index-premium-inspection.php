@@ -93,6 +93,17 @@ class Fast_Index_Premium_Inspection {
 	const META_RUNS = '_fast_index_inspect_runs';
 
 	/**
+	 * Seconds after which a check that is still due is dropped: when more addresses are accepted than the automatic
+	 * checks can take, the oldest would otherwise pile up for ever.
+	 */
+	const STALE_AFTER = 3 * DAY_IN_SECONDS;
+
+	/**
+	 * Stale checks dropped per hourly run.
+	 */
+	const DROP_BATCH = 500;
+
+	/**
 	 * Per-site option: inspections of the current Pacific day, per property (autoload off).
 	 */
 	const USAGE_OPTION = 'fast_index_inspection_usage';
@@ -502,11 +513,42 @@ class Fast_Index_Premium_Inspection {
 	}
 
 	/**
+	 * Drops the automatic checks that have been due for more than STALE_AFTER. The entry keeps its last result; the
+	 * Check button still works.
+	 *
+	 * @param int $now Unix time; 0 for now.
+	 * @return int Number of checks dropped.
+	 */
+	public static function drop_stale( $now = 0 ) {
+		global $wpdb;
+
+		$cutoff = ( $now > 0 ? (int) $now : time() ) - self::STALE_AFTER;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Hourly clean-up of the plugin's own meta rows; the meta_key index finds them.
+		$ids = array_map( 'absint', (array) $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND CAST( meta_value AS UNSIGNED ) < %d LIMIT %d", self::META_DUE, $cutoff, self::DROP_BATCH ) ) );
+
+		if ( array() === $ids ) {
+			return 0;
+		}
+
+		$list = implode( ', ', array_fill( 0, count( $ids ), '%d' ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- One statement for the batch; $list holds only %d placeholders.
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id IN ( {$list} )", array_merge( array( self::META_DUE ), $ids ) ) );
+
+		foreach ( $ids as $id ) {
+			wp_cache_delete( $id, 'post_meta' );
+		}
+
+		return count( $ids );
+	}
+
+	/**
 	 * Hourly run: the automatic checks that are due, within their share of the quota and the time budget.
 	 *
 	 * @return int Number of checks made.
 	 */
 	public static function run_due() {
+		self::drop_stale();
+
 		if ( ! Fast_Index_Settings::is_active( Fast_Index_Settings::get() ) ) {
 			return 0;
 		}
@@ -652,10 +694,12 @@ class Fast_Index_Premium_Inspection {
 	/**
 	 * Numbers of the card: different addresses Google accepted since a moment, of them checked, of them indexed.
 	 *
-	 * @param int $since Unix time.
+	 * @param int      $since    Unix time.
+	 * @param int|null $accepted Accepted addresses when the caller knows them already (the History counters), null to
+	 *                           count them.
 	 * @return int[] Keys: accepted, checked, indexed.
 	 */
-	public static function counts( $since ) {
+	public static function counts( $since, $accepted = null ) {
 		global $wpdb;
 
 		$after = gmdate( 'Y-m-d H:i:s', (int) $since );
@@ -669,7 +713,7 @@ class Fast_Index_Premium_Inspection {
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 
 		return array(
-			'accepted' => Fast_Index_Log::count_accepted_addresses( (int) $since ),
+			'accepted' => null === $accepted ? Fast_Index_Log::count_accepted_addresses( (int) $since ) : (int) $accepted,
 			'checked'  => $checked,
 			'indexed'  => $indexed,
 		);
@@ -681,8 +725,10 @@ class Fast_Index_Premium_Inspection {
 	 * @return void
 	 */
 	public static function render_card() {
-		$counts   = self::counts( time() - 30 * DAY_IN_SECONDS );
 		$settings = Fast_Index_Settings::get();
+		// The History counters (cached) already hold the accepted addresses of the last 30 days.
+		$stats    = Fast_Index_Log::stats( $settings );
+		$counts   = self::counts( time() - 30 * DAY_IN_SECONDS, $stats['accepted_30d'] );
 		$property = '' !== $settings['sc_property'] ? $settings['sc_property'] : (string) get_transient( self::PROPERTY_TRANSIENT );
 		$cells    = array(
 			__( 'Accepted by Google, last 30 days', 'fast-index' ) => $counts['accepted'],

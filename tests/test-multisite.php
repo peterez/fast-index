@@ -118,6 +118,35 @@ class Fast_Index_Test_Multisite extends Fast_Index_Test_Case {
 	}
 
 	/**
+	 * PERF-FI-09: a large network is not walked site by site in the deactivation request.
+	 *
+	 * @return void
+	 */
+	public function test_large_network_deactivation_does_not_walk_the_sites() {
+		$blog_id = self::factory()->blog->create();
+
+		self::network_activate();
+		Fast_Index_Installer::activate( true );
+
+		add_filter( 'wp_is_large_network', '__return_true' );
+		$switched = 0;
+		$count    = function () use ( &$switched ) {
+			++$switched;
+		};
+		add_action( 'switch_blog', $count );
+
+		Fast_Index_Installer::deactivate( true );
+
+		remove_action( 'switch_blog', $count );
+		remove_filter( 'wp_is_large_network', '__return_true' );
+
+		$this->assertSame( 0, $switched );
+		switch_to_blog( $blog_id );
+		$this->assertNotFalse( wp_next_scheduled( Fast_Index_Cron::HOURLY_HOOK ), 'Left for the uninstall routine.' );
+		restore_current_blog();
+	}
+
+	/**
 	 * Keys and settings of one site are invisible to another.
 	 *
 	 * @return void

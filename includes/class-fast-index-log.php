@@ -84,6 +84,11 @@ class Fast_Index_Log {
 	const STATS_TRANSIENT = 'fast_index_stats';
 
 	/**
+	 * Seconds the History counters are cached.
+	 */
+	const STATS_TTL = 300;
+
+	/**
 	 * Days History keeps its entries (filter fast_index_history_retention_days; 0 keeps them for ever).
 	 */
 	const RETENTION_DAYS = 90;
@@ -198,7 +203,12 @@ class Fast_Index_Log {
 			true
 		);
 
-		delete_transient( self::STATS_TRANSIENT );
+		// An entry written while someone works in the admin (an action by hand) shows on the next History view. Entries
+		// written by scheduled tasks leave the cached counters alone until they expire: on a busy site every History
+		// view would otherwise count the whole log again.
+		if ( ! wp_doing_cron() ) {
+			self::flush_stats();
+		}
 
 		return is_wp_error( $log_id ) ? 0 : (int) $log_id;
 	}
@@ -367,7 +377,7 @@ class Fast_Index_Log {
 	}
 
 	/**
-	 * Counters for the history page, cached for ten minutes.
+	 * Counters for the history page, cached for STATS_TTL seconds.
 	 *
 	 * @param array $settings Clean settings.
 	 * @return int[] Keys: sent, waiting, today (Google), indexnow_today (IndexNow successes of the last 24 hours),
@@ -397,7 +407,7 @@ class Fast_Index_Log {
 		$filtered = apply_filters( 'fast_index_history_stats', $stats, $settings );
 		$stats    = is_array( $filtered ) ? array_map( 'intval', array_merge( $stats, array_intersect_key( $filtered, $stats ) ) ) : $stats;
 
-		set_transient( self::STATS_TRANSIENT, $stats, 10 * MINUTE_IN_SECONDS );
+		set_transient( self::STATS_TRANSIENT, $stats, self::STATS_TTL );
 
 		return $stats;
 	}
