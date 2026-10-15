@@ -602,7 +602,8 @@
 	font-weight: var(--cdo-weight-strong);
 	line-height: 20px;
 	vertical-align: middle;
-	overflow-wrap: anywhere;
+	/* break-word, not anywhere: a long label wraps between words and never sets a column to one letter wide. */
+	overflow-wrap: break-word;
 }
 
 .cdo-ui .cdo-badge::before {
@@ -1405,6 +1406,14 @@
 	overflow-x: auto;
 	direction: ltr;
 	resize: vertical;
+}
+
+/* A <code> inside the block takes the block's look; core's inline code background would stripe every line. */
+.cdo-ui .cdo-code code {
+	margin: 0;
+	padding: 0;
+	background: none;
+	font: inherit;
 }
 
 /* ------------------------------------------------------------------ Feature tiles (a home screen's entry points) */
