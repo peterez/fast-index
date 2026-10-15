@@ -50,10 +50,12 @@ class Fast_Index_Premium {
 		require_once __DIR__ . '/class-fast-index-premium-features.php';
 		require_once __DIR__ . '/class-fast-index-premium-backlog.php';
 		require_once __DIR__ . '/class-fast-index-premium-inspection.php';
+		require_once __DIR__ . '/class-fast-index-premium-report.php';
 
 		Fast_Index_Premium_Features::register_hooks();
 		Fast_Index_Premium_Backlog::register_hooks();
 		Fast_Index_Premium_Inspection::register_hooks();
+		Fast_Index_Premium_Report::register_hooks();
 
 		/**
 		 * Fires once the premium module has added its hooks.

@@ -263,7 +263,7 @@ class Fast_Index_Upgrade {
 	 * @return string
 	 */
 	public static function summary() {
-		return __( 'The premium plan adds the index status of every address from Search Console, hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.', 'fast-index' );
+		return __( 'The premium plan adds the index status of every address from Search Console, a weekly email report, hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.', 'fast-index' );
 	}
 
 	/**
@@ -324,6 +324,11 @@ class Fast_Index_Upgrade {
 			),
 			array(
 				'label'   => __( 'Index status from Search Console, with checks 24 and 72 hours after sending', 'fast-index' ),
+				'free'    => false,
+				'premium' => true,
+			),
+			array(
+				'label'   => __( 'Weekly email report', 'fast-index' ),
 				'free'    => false,
 				'premium' => true,
 			),

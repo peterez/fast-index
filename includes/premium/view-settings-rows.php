@@ -44,6 +44,25 @@ defined( 'ABSPATH' ) || exit;
 </tr>
 
 <tr>
+	<td scope="row">
+		<b><?php esc_html_e( 'Weekly Email Report', 'fast-index' ); ?></b> <br>
+		<small><?php esc_html_e( 'A summary of the week, once a week.', 'fast-index' ); ?></small>
+	</td>
+	<td>
+		<label class="fast-index-choice">
+			<input id="fast-index-weekly-report" type="checkbox" name="fast_index_options[weekly_report]" value="1" <?php checked( $fast_index_settings['weekly_report'] ); ?> />
+			<?php
+			/* translators: %s: the site's administration email address. */
+			echo esc_html( sprintf( __( 'Send the report to %s', 'fast-index' ), (string) get_option( 'admin_email' ) ) );
+			?>
+		</label>
+		<?php foreach ( Fast_Index_Help_Content::field_notes( 'weekly_report' ) as $fast_index_note ) : ?>
+			<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+		<?php endforeach; ?>
+	</td>
+</tr>
+
+<tr>
 	<td scope="row" colspan="2">
 		<b><?php esc_html_e( 'Exclude Categories', 'fast-index' ); ?></b> <br>
 		<small><?php esc_html_e( 'Select the categories to exclude.', 'fast-index' ); ?></small>

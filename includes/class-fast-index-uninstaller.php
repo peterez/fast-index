@@ -50,7 +50,7 @@ class Fast_Index_Uninstaller {
 	 * @return string[]
 	 */
 	public static function cron_hooks() {
-		return array( 'fast_index_submit_url', 'fast_index_process_backlog', 'fast_index_retry', 'fast_index_upgrade_network', 'fiDailyCronHook' );
+		return array( 'fast_index_submit_url', 'fast_index_process_backlog', 'fast_index_retry', 'fast_index_upgrade_network', 'fast_index_weekly_report', 'fiDailyCronHook' );
 	}
 
 	/**

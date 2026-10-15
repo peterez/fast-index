@@ -54,6 +54,7 @@ The free version is not limited in time or in the number of notifications, and i
 * Categories whose posts are never sent.
 * Backup service account keys, used only when Google rejects the main key (401 or 403). They are never used to get past the daily quota.
 * Index status from Google Search Console (URL Inspection API) in a History column: Indexed; Crawled, not indexed; Discovered, not indexed; or Unknown to Google, with the last crawl date. A Check button checks one address now, every accepted address is checked again 24 and 72 hours after sending, and a card counts the indexed addresses of the last 30 days.
+* A weekly email report to the administration address of the site, in the language of the recipient, sent with WordPress's own email function. It can be turned off.
 
 To get it, open Fast Index > Upgrade, or click Upgrade to Premium in the Premium box of the settings screen; on a network activation the plans page is in the network admin. After the purchase Freemius emails you the premium package (a .zip file) and a license key. Upload the package under Plugins > Add New > Upload Plugin, activate it and enter the key; Freemius deactivates the free version. Your settings, keys and history are kept. Settings of these options that an earlier version saved are kept by the free version, unused, and the premium package uses them again.
 
@@ -141,7 +142,7 @@ Yes, through IndexNow, which is off by default. Turn it on with Also send to Ind
 
 The free version is not limited in time or in the number of notifications. It notifies Google when content of any public post type is published, updated, trashed or deleted, keeps a History of Google's answers and includes Help & FAQ.
 
-The premium plan adds the index status of every address from Search Console, hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.
+The premium plan adds the index status of every address from Search Console, a weekly email report, hourly batches of old posts within a daily limit you set, excluded categories and backup service account keys.
 
 The premium plan is a separate package, sold through Freemius. The Premium box on the settings screen compares both versions, and Upgrade in the Fast Index menu shows the plans and prices.
 
@@ -223,7 +224,7 @@ Fast Index includes the Freemius SDK (version 2.13.4), which sells the premium p
 
 == Privacy ==
 
-Fast Index stores your settings, the service account keys you upload (in the database, not in a file) and a History of notifications (post title, address, time and the answer of Google or IndexNow) in your own database. It collects nothing about your visitors, sets no cookies and shows nothing on the public side of your site. It does not add text to the privacy policy of your site.
+Fast Index stores your settings, the service account keys you upload (in the database, not in a file) and a History of notifications (post title, address, time and the answer of Google or IndexNow) in your own database. It collects nothing about your visitors, sets no cookies and shows nothing on the public side of your site, apart from the IndexNow key file when you turn IndexNow on. The premium package can email a weekly report to the administration address of your site with WordPress's own email function. It does not add text to the privacy policy of your site.
 
 What leaves your site is described under External services: post addresses and signed requests go to Google, post addresses go to IndexNow only if you turn it on, and the Freemius SDK contacts Freemius only after one of the choices described there. Deleting the plugin removes temporary data and, if you turned on Delete data on uninstall, your settings, keys and history. Records kept by Freemius are not touched, and a key stays valid in Google Cloud until you delete it there.
 
@@ -245,6 +246,7 @@ What leaves your site is described under External services: post addresses and s
 * New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen.
 * New: History marks pages with JobPosting or BroadcastEvent data as Eligible for Google Indexing API, found in the saved content without any request. The option Supported Pages Only (off by default) sends only those pages to Google.
 * New (premium package): index status from the Search Console URL Inspection API in History, with a Check button, automatic checks 24 and 72 hours after sending, a card of the indexed addresses and a daily counter that stops at 2,000 checks per property.
+* New (premium package): a weekly email report with the numbers of History, in the language of the recipient, that can be turned off.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).

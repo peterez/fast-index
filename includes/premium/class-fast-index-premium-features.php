@@ -77,6 +77,7 @@ class Fast_Index_Premium_Features {
 		$clean['old_post_number']  = isset( $input['old_post_number'] ) && is_scalar( $input['old_post_number'] ) ? min( Fast_Index_Settings::MAX_OLD_POSTS, absint( $input['old_post_number'] ) ) : 0;
 		$clean['exclude_category'] = self::existing_categories( $ids );
 		$clean['sc_property']      = Fast_Index_Settings::search_console_property( isset( $input['sc_property'] ) ? $input['sc_property'] : '' );
+		$clean['weekly_report']    = ! empty( $input['weekly_report'] );
 
 		if ( isset( $clean['sc_property'], $stored['sc_property'] ) && $clean['sc_property'] !== $stored['sc_property'] ) {
 			Fast_Index_Premium_Inspection::forget_property();

@@ -34,6 +34,11 @@ class Fast_Index_Cron {
 	const LEGACY_HOOK = 'fiDailyCronHook';
 
 	/**
+	 * Weekly event of the premium module's email report. Removed with the other events on deactivation.
+	 */
+	const REPORT_HOOK = 'fast_index_weekly_report';
+
+	/**
 	 * Recurrence of the hourly event (core schedule).
 	 */
 	const HOURLY_RECURRENCE = 'hourly';
@@ -72,6 +77,7 @@ class Fast_Index_Cron {
 		wp_unschedule_hook( self::SUBMIT_HOOK );
 		wp_unschedule_hook( self::HOURLY_HOOK );
 		wp_unschedule_hook( Fast_Index_Retry::HOOK );
+		wp_unschedule_hook( self::REPORT_HOOK );
 		wp_unschedule_hook( self::LEGACY_HOOK );
 	}
 

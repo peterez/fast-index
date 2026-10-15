@@ -323,6 +323,15 @@ class Fast_Index_Help_Content {
 				'when'    => esc_html__( 'Set it if the site belongs to several properties, or if the automatic choice is wrong.', 'fast-index' ),
 			),
 			array(
+				'id'      => 'weekly_report',
+				'name'    => __( 'Weekly Email Report', 'fast-index' ),
+				'short'   => self::field_description( 'weekly_report' ),
+				'what'    => esc_html__( 'Once a week WordPress emails a short summary to the administration email address of the site: addresses accepted by Google, refused or not sent, accepted by IndexNow, checked in Search Console and indexed, and the published posts that Google has not accepted yet. The numbers are those of History. The email uses the language of the user who has that address, or the site language, and is sent with the site\'s own email function, not through an outside service.', 'fast-index' ),
+				'note'    => self::premium_note( 'weekly_report' ),
+				'default' => __( 'On', 'fast-index' ),
+				'when'    => esc_html__( 'Turn it off if you do not want the email; the link at its end opens this screen.', 'fast-index' ),
+			),
+			array(
 				'id'      => 'delete_data',
 				'name'    => __( 'Delete data on uninstall', 'fast-index' ),
 				'short'   => self::field_description( 'delete_data' ),
@@ -395,6 +404,8 @@ class Fast_Index_Help_Content {
 				return __( 'Off by default: deleting the plugin keeps your settings, keys and history, so a reinstall continues where you left off.', 'fast-index' );
 			case 'indexnow':
 				return __( 'Off by default. When on, each address also goes to api.indexnow.org, which shares it with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines.', 'fast-index' );
+			case 'weekly_report':
+				return __( 'Accepted, refused and indexed addresses of the last seven days, in the language of the recipient. Weeks without any notification send nothing.', 'fast-index' );
 			case 'sc_property':
 				return __( 'Leave it empty to find it automatically: Fast Index asks Search Console which properties the service account can read and takes the one that covers this site.', 'fast-index' );
 			case 'eligible_only':
@@ -416,6 +427,7 @@ class Fast_Index_Help_Content {
 			case 'old_post_number':
 			case 'exclude_category':
 			case 'sc_property':
+			case 'weekly_report':
 				return __( 'This setting is part of the premium plan, a separate package.', 'fast-index' );
 			case 'service_account':
 				return __( 'The free version uses one key, and a new upload replaces it. Backup keys are part of the premium plan, a separate package.', 'fast-index' );
