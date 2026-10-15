@@ -55,4 +55,10 @@
 	.cdo-ui .fi-history .column-primary .toggle-row {
 		top: 6px;
 	}
+
+	/* Core writes each cell's column name in front of it on a phone; the title cell is a td here (core uses a th),
+	   so its "Title" label would sit on top of the title. Specific enough to win over the core rule. */
+	.cdo-ui .fi-history tr:not(.no-items) td.column-primary:not(.check-column)::before {
+		content: none;
+	}
 }
