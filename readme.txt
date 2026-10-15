@@ -222,7 +222,7 @@ What leaves your site is described under External services: post addresses and s
 * Changed: an invalid setting is rejected with an error instead of being saved.
 * New: Help & FAQ screen with the Google Cloud setup, an explanation of every setting, troubleshooting and system information. The embedded video was replaced by a link.
 * New: multisite support: network activation, setup of sites created later, and settings, keys and history for each site.
-* New: translations into 10 languages.
+* New: translations into 10 languages. When an older language pack from translate.wordpress.org is installed, the bundled translation fills the strings it lacks.
 * Fixed: PHP 8 errors and notices, the daily time window of old-post batches, and the list of post types.
 * Fixed: scripts and styles load only on the plugin screens, and no request is made on page load.
 * Requires WordPress 5.6 and PHP 7.4. Tested with WordPress 7.1.

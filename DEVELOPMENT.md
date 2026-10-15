@@ -66,6 +66,15 @@ first accepted notification (with a review request, no reward) and an offer noti
 Each notice is shown until the user dismisses it (user meta `fast_index_dismissed_notices`). No discount text: add
 one only for a real Freemius coupon.
 
+## Translations
+
+`languages/` holds the `.po`, `.mo` and `.l10n.php` files of 10 locales. When a language pack from
+translate.wordpress.org is installed (`wp-content/languages/plugins/`), WordPress loads only the pack, and a pack made
+for an older release shows the newer strings in English (the Dutch pack has 9 strings of version 2.x).
+`Fast_Index_Plugin::add_bundled_translation()` (on `init` and `change_locale`) loads the bundled file after the pack:
+the pack's strings win, the bundled file fills the rest. A translation editor of a locale can import the bundled
+`.po` file on translate.wordpress.org so the packs catch up.
+
 ## Building the release packages
 
 ```bash
