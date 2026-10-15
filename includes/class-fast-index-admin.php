@@ -46,6 +46,7 @@ class Fast_Index_Admin {
 
 		( new Fast_Index_Help() )->register_hooks();
 		( new Fast_Index_Admin_Actions() )->register_hooks();
+		( new Fast_Index_Manual() )->register_hooks();
 		( new Fast_Index_Notices() )->register_hooks();
 		( new Fast_Index_Upgrade() )->register_hooks();
 	}

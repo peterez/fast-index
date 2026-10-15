@@ -587,6 +587,16 @@ class Fast_Index_Help_Content {
 				),
 			),
 			array(
+				'id'       => 'by-hand',
+				'question' => __( 'Can I send posts by hand?', 'fast-index' ),
+				'answer'   => sprintf(
+					/* translators: 1: action name "Notify search engines", 2: most items sent at a time. */
+					esc_html__( 'Yes. In the list of posts, pages or another post type that Fast Index sends, hover over a published item and click %1$s, or select up to %2$s items, choose %1$s under Bulk actions and click Apply. Fast Index sends them to Google right away, and to IndexNow when it is on, and shows the result on the same screen; History lists each answer. You need permission to edit each item, and Status must be Active. Every address counts against Google\'s daily quota.', 'fast-index' ),
+					self::strong( __( 'Notify search engines', 'fast-index' ) ),
+					esc_html( number_format_i18n( Fast_Index_Manual::MAX ) )
+				),
+			),
+			array(
 				'id'       => 'old-posts',
 				'question' => __( 'Can Fast Index send my old posts?', 'fast-index' ),
 				'answer'   => sprintf(

@@ -34,6 +34,7 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 
 * Notifications for every public post type (posts, pages, custom post types such as products or job listings): URL_UPDATED when content is published or updated, URL_DELETED when it is trashed or deleted. You choose the post types and the events.
 * IndexNow, off by default: the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and the other search engines that take part. Fast Index creates the key and answers the key file itself, without a file on disk.
+* Sending by hand: a Notify search engines row action and bulk action in the post lists, up to 100 items at a time, with the result on the same screen.
 * Background sending through WP-Cron, with a time limit for each request.
 * History screen with a summary (sent in total, waiting, sent today) and every answer of Google and IndexNow, with a Channel column and a filter for each channel.
 * When Google rejects the key (401 or 403), it is paused for six hours. When the daily quota is used up (429), every key is paused until Google resets the quota at midnight Pacific Time, and no other key is tried.
@@ -87,6 +88,10 @@ Fast Index sends published content of the post types checked in the settings; dr
 = What happens when I trash or delete a post? =
 
 If Trash is checked in the settings, a published post that is moved to the trash, or deleted without the trash, is reported as URL_DELETED with the address it had before. Deleting it later from the trash sends nothing more. Changing a published post to draft or private is not reported. Google asks that the address returns 404 or 410, or carries a noindex tag, when you send a removal.
+
+= Can I send posts by hand? =
+
+Yes. In the list of posts, pages or another post type that Fast Index sends, hover over a published item and click Notify search engines, or select up to 100 items, choose Notify search engines under Bulk actions and click Apply. Fast Index sends them to Google right away, and to IndexNow when it is on, and shows the result on the same screen; History lists each answer. You need permission to edit each item, and Status must be Active. Every address counts against Google's daily quota.
 
 = Can Fast Index send my old posts? =
 
@@ -218,6 +223,7 @@ What leaves your site is described under External services: post addresses and s
 * Changed: trashing or deleting a published post sends URL_DELETED when the Trash event is checked.
 * Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
 * New: IndexNow, off by default. When you turn it on, the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines. Fast Index creates a key for each site and answers the key file at /{key}.txt without a file. History has a Channel column and a filter.
+* New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).

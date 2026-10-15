@@ -54,6 +54,50 @@ class Fast_Index_Notifier {
 	}
 
 	/**
+	 * Sends notifications chosen by hand. Google gets them one by one within a time budget; what is left is queued
+	 * for the next scheduled-task run (both channels). IndexNow gets the addresses handled now in one request.
+	 *
+	 * @param array[] $items  Each: url, type, post_id.
+	 * @param int     $budget Seconds the Google requests may take.
+	 * @return array Keys: google (accepted, failed: counts), queued (count), indexnow (result of
+	 *               Fast_Index_IndexNow::submit(), null when IndexNow is off or nothing was handled now).
+	 */
+	public static function deliver_many( array $items, $budget ) {
+		$settings = Fast_Index_Settings::get();
+		$deadline = time() + (int) $budget;
+		$now      = array();
+		$result   = array(
+			'google'   => array(
+				'accepted' => 0,
+				'failed'   => 0,
+			),
+			'queued'   => 0,
+			'indexnow' => null,
+		);
+
+		foreach ( $items as $item ) {
+			if ( time() >= $deadline ) {
+				Fast_Index_Cron::queue_submission( $item['url'], $item['type'], $item['post_id'] );
+				++$result['queued'];
+				continue;
+			}
+
+			$now[] = $item;
+
+			if ( self::wants_google( $settings, $item['post_id'] ) ) {
+				$sent = Fast_Index_Retry::deliver( $item['url'], $item['type'], $item['post_id'] );
+				++$result['google'][ 200 === $sent['code'] ? 'accepted' : 'failed' ];
+			}
+		}
+
+		if ( array() !== $now && Fast_Index_IndexNow::is_enabled( $settings ) ) {
+			$result['indexnow'] = Fast_Index_IndexNow::submit( $now );
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Whether a notification goes to Google.
 	 *
 	 * @param array $settings Clean settings.

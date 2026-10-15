@@ -248,6 +248,15 @@ class Fast_Index_Upgrade {
 	}
 
 	/**
+	 * The line after a bulk action that selected more items than are sent at a time.
+	 *
+	 * @return string
+	 */
+	public static function limit_line() {
+		return __( 'The premium plan also sends published posts that Google has not accepted yet in hourly batches, within a daily limit you set.', 'fast-index' );
+	}
+
+	/**
 	 * Rows of the Free / Premium comparison in the Premium box.
 	 *
 	 * @return array[] Each: label, free, premium. A value is a string, or true / false for included / not included.
@@ -268,6 +277,11 @@ class Fast_Index_Upgrade {
 				'label'   => __( 'History of Google\'s answers, Help & FAQ', 'fast-index' ),
 				'free'    => true,
 				'premium' => true,
+			),
+			array(
+				'label'   => __( 'Sending by hand from the post lists (row action and bulk action)', 'fast-index' ),
+				'free'    => __( 'Up to 100 at a time', 'fast-index' ),
+				'premium' => __( 'Up to 100 at a time, plus hourly batches of old posts', 'fast-index' ),
 			),
 			array(
 				'label'   => __( 'Old posts in hourly batches, within a daily limit you set', 'fast-index' ),
