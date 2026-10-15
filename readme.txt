@@ -186,7 +186,7 @@ Fast Index connects to the services below. It sends nothing to Google until you 
 **Google Indexing API** (https://indexing.googleapis.com/v3/urlNotifications:publish)
 
 * What it is used for: to tell Google that a page was updated or removed.
-* When: after a post is published, and, if the options are on, after it is edited, trashed or deleted, and for each post of an old-posts batch.
+* When: after a post is published, edited, trashed or deleted, as the settings say, when you send posts by hand from a post list, and in the premium package for each post of an old-posts batch.
 * Data sent: the address (URL) of the post, the kind of notification (URL_UPDATED or URL_DELETED) and the access token. Titles, content and visitor data are not sent. Google also receives the IP address of your server.
 * Why: this is the purpose of the plugin.
 * Terms of Service: https://policies.google.com/terms and https://developers.google.com/terms
@@ -204,7 +204,7 @@ Fast Index connects to the services below. It sends nothing to Google until you 
 **IndexNow** (https://api.indexnow.org/indexnow)
 
 * What it is used for: to tell the search engines that take part in IndexNow, such as Bing, Yandex, Naver, Seznam.cz and Yep, that a page was added, updated or removed. api.indexnow.org shares each submission with all of them.
-* When: only after you turn on Also send to IndexNow on the settings screen (it is off by default), after a post is published, updated, trashed or deleted. While IndexNow is off, no request is made and no key file is answered.
+* When: only after you turn on Also send to IndexNow on the settings screen (it is off by default), after a post is published, updated, trashed or deleted, and when you send posts by hand from a post list. While IndexNow is off, no request is made and no key file is answered.
 * Data sent: the host name of your site, the IndexNow key that Fast Index created for the site, the address of the key file and the addresses (URLs) of the changed posts. The search engines then read the key file from your site. Titles, content and visitor data are not sent. The receiving servers also get the IP address of your server.
 * Why: so that search engines other than Google hear about your changes.
 * Terms of Service: https://www.indexnow.org/terms
