@@ -131,6 +131,7 @@ class Fast_Index_Settings {
 			'exclude_category' => array(),
 			'delete_data'      => false,
 			'indexnow'         => false,
+			'eligible_only'    => false,
 		);
 
 		/**
@@ -212,6 +213,7 @@ class Fast_Index_Settings {
 			'exclude_category' => isset( $raw['exclude_category'] ) && is_array( $raw['exclude_category'] ) ? self::id_map( $raw['exclude_category'] ) : array(),
 			'delete_data'      => ! empty( $raw['delete_data'] ),
 			'indexnow'         => ! empty( $raw['indexnow'] ),
+			'eligible_only'    => ! empty( $raw['eligible_only'] ),
 		);
 	}
 
@@ -228,11 +230,12 @@ class Fast_Index_Settings {
 		$stored = self::get();
 		$clean  = $stored;
 
-		$clean['status']      = isset( $input['status'] ) && is_scalar( $input['status'] ) ? (string) $input['status'] : self::STATUS_ACTIVE;
-		$clean['delete_data'] = ! empty( $input['delete_data'] );
-		$clean['indexnow']    = ! empty( $input['indexnow'] );
-		$clean['post_type']   = self::merge_choices( $stored['post_type'], $input, 'post_type', array_keys( self::post_type_choices() ) );
-		$clean['post_status'] = self::merge_choices( $stored['post_status'], $input, 'post_status', array_keys( self::event_choices() ) );
+		$clean['status']        = isset( $input['status'] ) && is_scalar( $input['status'] ) ? (string) $input['status'] : self::STATUS_ACTIVE;
+		$clean['delete_data']   = ! empty( $input['delete_data'] );
+		$clean['indexnow']      = ! empty( $input['indexnow'] );
+		$clean['eligible_only'] = ! empty( $input['eligible_only'] );
+		$clean['post_type']     = self::merge_choices( $stored['post_type'], $input, 'post_type', array_keys( self::post_type_choices() ) );
+		$clean['post_status']   = self::merge_choices( $stored['post_status'], $input, 'post_status', array_keys( self::event_choices() ) );
 
 		/**
 		 * Filters the settings about to be saved from the settings form.

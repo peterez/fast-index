@@ -112,6 +112,9 @@ $fast_index_types = array(
 							<?php echo esc_html( $fast_index_entry['title'] ); ?>
 						<?php endif; ?>
 					</strong>
+					<?php if ( $fast_index_entry['eligible'] ) : ?>
+						<span class="fi-eligible"><?php esc_html_e( 'Eligible for Google Indexing API', 'fast-index' ); ?></span>
+					<?php endif; ?>
 					<button type="button" class="toggle-row"><span class="screen-reader-text"><?php esc_html_e( 'Show more details', 'fast-index' ); ?></span></button>
 				</td>
 				<td class="date column-date" data-colname="<?php echo esc_attr( $fast_index_columns['date'] ); ?>">

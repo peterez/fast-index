@@ -105,6 +105,22 @@ $fast_index_help_url = admin_url( 'admin.php?page=' . Fast_Index_Help::SLUG );
 
 						<tr>
 							<td scope="row">
+								<b><?php esc_html_e( 'Supported Pages Only', 'fast-index' ); ?></b> <br>
+								<small><?php esc_html_e( 'Pages that Google supports in the Indexing API.', 'fast-index' ); ?></small>
+							</td>
+							<td>
+								<label class="fast-index-choice">
+									<input id="fast-index-eligible-only" type="checkbox" name="fast_index_options[eligible_only]" value="1" <?php checked( $fast_index_settings['eligible_only'] ); ?> />
+									<?php esc_html_e( 'Send to Google only pages with JobPosting or BroadcastEvent data', 'fast-index' ); ?>
+								</label>
+								<?php foreach ( Fast_Index_Help_Content::field_notes( 'eligible_only' ) as $fast_index_note ) : ?>
+									<p class="description"><?php echo esc_html( $fast_index_note ); ?></p>
+								<?php endforeach; ?>
+							</td>
+						</tr>
+
+						<tr>
+							<td scope="row">
 								<b><?php echo esc_html( 'IndexNow' ); ?></b> <br>
 								<small><?php esc_html_e( 'Search engines other than Google.', 'fast-index' ); ?></small>
 							</td>

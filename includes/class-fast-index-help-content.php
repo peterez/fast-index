@@ -285,6 +285,14 @@ class Fast_Index_Help_Content {
 				'when'    => esc_html__( 'Turn on Edit if changed content should be recrawled. Turn on Trash if removed pages should be reported; Google asks that the address already returns 404 or 410, or has a noindex tag, when you send a removal.', 'fast-index' ),
 			),
 			array(
+				'id'      => 'eligible_only',
+				'name'    => __( 'Supported Pages Only', 'fast-index' ),
+				'short'   => self::field_description( 'eligible_only' ),
+				'what'    => esc_html__( 'Google supports the Indexing API only for pages with JobPosting data, or with BroadcastEvent data in a VideoObject. Fast Index looks for these types in the saved content of each post (JSON-LD or microdata) and in the job listings of WP Job Manager, without any outside request, and marks the History entries of such pages with "Eligible for Google Indexing API". When this option is checked, only those pages go to Google: new, changed, removed, sent by hand or in an old-post batch. Data that a theme or another plugin adds only when the page is shown is not seen.', 'fast-index' ),
+				'default' => __( 'Off', 'fast-index' ),
+				'when'    => esc_html__( 'Check it if your site has job postings or livestreams and you want Google\'s quota for those pages only. Leave it off if you want every page sent.', 'fast-index' ),
+			),
+			array(
 				'id'      => 'indexnow',
 				'name'    => 'IndexNow',
 				'short'   => self::field_description( 'indexnow' ),
@@ -378,6 +386,8 @@ class Fast_Index_Help_Content {
 				return __( 'Off by default: deleting the plugin keeps your settings, keys and history, so a reinstall continues where you left off.', 'fast-index' );
 			case 'indexnow':
 				return __( 'Off by default. When on, each address also goes to api.indexnow.org, which shares it with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines.', 'fast-index' );
+			case 'eligible_only':
+				return __( 'Off by default. When on, other pages are not sent to Google; IndexNow still gets them when it is on. Fast Index looks for the data in the saved content of each post.', 'fast-index' );
 			default:
 				return '';
 		}
@@ -489,7 +499,7 @@ class Fast_Index_Help_Content {
 			array(
 				'id'      => 'nothing-in-history',
 				'symptom' => __( 'A post is missing from History', 'fast-index' ),
-				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written.', 'fast-index' ),
+				'cause'   => esc_html__( 'Fast Index skips a post when Status is Passive, when its post type or the event (Publish, Edit, Trash) is not checked, when it is in a category excluded by the premium plan, or when it is not published. Nothing is written to History then. While IndexNow is on and no Google key is stored, only IndexNow entries are written, and while Supported Pages Only is checked, pages without JobPosting or BroadcastEvent data get no Google entry.', 'fast-index' ),
 				'fix'     => esc_html__( 'Check the settings above. Changing a setting does not send earlier saves: after you fix the cause, save the post again to send it. If old-post sending is on, posts that never reached Google are also picked up by the hourly batches.', 'fast-index' ),
 			),
 			array(
@@ -569,6 +579,16 @@ class Fast_Index_Help_Content {
 					__( 'No, and Fast Index cannot promise it. Google says: %1$s For other pages, such as ordinary posts or products, Google may accept the notification and answer 200, but its documentation does not promise that the page will be crawled or indexed, or that this happens sooner. A 200 only means that, in Google\'s words, it "may try to recrawl this URL soon". Google also checks every submission for spam and may revoke access for abuse. Keep your sitemap and Search Console as they are. Details: %2$s.', 'fast-index' ),
 					'<em>' . esc_html__( '"The Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject."', 'fast-index' ) . '</em>',
 					self::ext( self::URL_USING_API, __( 'Using the Indexing API', 'fast-index' ) )
+				),
+			),
+			array(
+				'id'       => 'eligible',
+				'question' => __( 'How do I know which pages Google supports?', 'fast-index' ),
+				'answer'   => sprintf(
+					/* translators: 1: mark in History "Eligible for Google Indexing API", 2: option name. */
+					esc_html__( 'Fast Index looks at the saved content of each post for structured data of the types JobPosting or BroadcastEvent (JSON-LD or microdata), and at the job listings of WP Job Manager, without any outside request. History marks such entries with %1$s. If you check %2$s in the settings, only those pages go to Google; the others still go to IndexNow when it is on. Data that a theme or another plugin adds only when the page is shown, and not in the saved content, is not seen; developers can add it with the fast_index_is_eligible filter.', 'fast-index' ),
+					self::strong( __( 'Eligible for Google Indexing API', 'fast-index' ) ),
+					self::strong( __( 'Send to Google only pages with JobPosting or BroadcastEvent data', 'fast-index' ) )
 				),
 			),
 			array(

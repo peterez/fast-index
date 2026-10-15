@@ -34,6 +34,7 @@ Fast Index tells the Google Indexing API when a post is published, updated or re
 
 * Notifications for every public post type (posts, pages, custom post types such as products or job listings): URL_UPDATED when content is published or updated, URL_DELETED when it is trashed or deleted. You choose the post types and the events.
 * IndexNow, off by default: the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and the other search engines that take part. Fast Index creates the key and answers the key file itself, without a file on disk.
+* History marks pages with JobPosting or BroadcastEvent data, the kinds Google supports, as Eligible for Google Indexing API. An option sends only those pages to Google; IndexNow still gets the others.
 * Sending by hand: a Notify search engines row action and bulk action in the post lists, up to 100 items at a time, with the result on the same screen.
 * Background sending through WP-Cron, with a time limit for each request.
 * History screen with a summary (sent in total, waiting, sent today) and every answer of Google and IndexNow, with a Channel column and a filter for each channel.
@@ -80,6 +81,10 @@ Only the address (URL) of a post and the kind of notification: URL_UPDATED when 
 = Will Google index every page I publish right away? =
 
 No, and Fast Index cannot promise it. Google says: "The Indexing API can only be used to crawl pages with either JobPosting or BroadcastEvent embedded in a VideoObject." For other pages, such as ordinary posts or products, Google may accept the notification and answer 200, but its documentation does not promise that the page will be crawled or indexed, or that this happens sooner. A 200 only means that, in Google's words, it "may try to recrawl this URL soon". Google also checks every submission for spam and may revoke access for abuse. Keep your sitemap and Search Console as they are. Details: https://developers.google.com/search/apis/indexing-api/v3/using-api
+
+= How do I know which pages Google supports? =
+
+Fast Index looks at the saved content of each post for structured data of the types JobPosting or BroadcastEvent (JSON-LD or microdata), and at the job listings of WP Job Manager, without any outside request. History marks such entries with Eligible for Google Indexing API. If you check Send to Google only pages with JobPosting or BroadcastEvent data in the settings, only those pages go to Google; the others still go to IndexNow when it is on. Data that a theme or another plugin adds only when the page is shown, and not in the saved content, is not seen; developers can add it with the fast_index_is_eligible filter.
 
 = Which post types does Fast Index send? =
 
@@ -224,6 +229,7 @@ What leaves your site is described under External services: post addresses and s
 * Changed: when Google rejects a key (401 or 403), the key is paused for six hours and a backup key of the premium package is tried. When Google answers 429 (daily quota used up), every key is paused until the quota resets at midnight Pacific Time and no other key is tried: Google does not allow several accounts to get past the quota.
 * New: IndexNow, off by default. When you turn it on, the same addresses also go to api.indexnow.org, which shares them with Bing, Yandex, Naver, Seznam.cz, Yep and other search engines. Fast Index creates a key for each site and answers the key file at /{key}.txt without a file. History has a Channel column and a filter.
 * New: a Notify search engines row action and bulk action in the post lists send up to 100 published items at a time, checked against the right to edit each item, and show the result on the same screen.
+* New: History marks pages with JobPosting or BroadcastEvent data as Eligible for Google Indexing API, found in the saved content without any request. The option Supported Pages Only (off by default) sends only those pages to Google.
 * Changed: failed attempts are recorded in History too.
 * New: a notification that cannot be sent shows as Not sent in History. Without a key or without OpenSSL it is only recorded. While every key is paused it waits and is sent when the first key is ready again, or soon after you upload a key (the newest event for each address, up to 200, for up to three days).
 * Changed: old posts are sent hourly in small batches under the daily limit (premium package).

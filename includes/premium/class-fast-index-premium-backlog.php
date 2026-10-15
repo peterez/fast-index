@@ -114,7 +114,7 @@ class Fast_Index_Premium_Backlog {
 			return array();
 		}
 
-		$values = array_merge( $types, array( Fast_Index_Log::POST_TYPE, Fast_Index_Log::STATUS_SENT ), $terms, array( $limit ) );
+		$values = array_merge( $types, array( Fast_Index_Log::POST_TYPE, Fast_Index_Log::STATUS_SENT ), $terms, Fast_Index_Eligibility::sql_values( $settings ), array( $limit ) );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- NOT EXISTS over the log has no WP_Query equivalent; runs in cron or after an admin action, every value is a placeholder.
 		$ids = $wpdb->get_col(
@@ -124,6 +124,7 @@ class Fast_Index_Premium_Backlog {
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )
+				AND ( %d = 0 OR p.post_content LIKE %s OR p.post_content LIKE %s )
 				ORDER BY p.ID DESC
 				LIMIT %d',
 				$values
@@ -149,7 +150,7 @@ class Fast_Index_Premium_Backlog {
 			return 0;
 		}
 
-		$values = array_merge( $types, array( Fast_Index_Log::POST_TYPE, Fast_Index_Log::STATUS_SENT ), $terms );
+		$values = array_merge( $types, array( Fast_Index_Log::POST_TYPE, Fast_Index_Log::STATUS_SENT ), $terms, Fast_Index_Eligibility::sql_values( $settings ) );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Same query as ids(); the result is cached by Fast_Index_Log::stats().
 		$count = $wpdb->get_var(
@@ -158,7 +159,8 @@ class Fast_Index_Premium_Backlog {
 				WHERE p.post_status = 'publish'
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
 				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
-				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )',
+				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->term_relationships} AS tr WHERE tr.object_id = p.ID AND tr.term_taxonomy_id IN ( " . implode( ', ', array_fill( 0, count( $terms ), '%d' ) ) . ' ) )
+				AND ( %d = 0 OR p.post_content LIKE %s OR p.post_content LIKE %s )',
 				$values
 			)
 		);
@@ -236,11 +238,13 @@ class Fast_Index_Premium_Backlog {
 		$submitter = new Fast_Index_Submitter();
 		$deadline  = time() + self::TIME_BUDGET;
 		$results   = array();
+		$settings  = Fast_Index_Settings::get();
 
 		foreach ( $post_ids as $post_id ) {
 			$url = get_permalink( $post_id );
 
-			if ( ! Fast_Index_Post_Watcher::is_http_url( $url ) ) {
+			// The SQL filter only finds the words; a page without supported data is not sent to Google.
+			if ( ! Fast_Index_Post_Watcher::is_http_url( $url ) || ( ! empty( $settings['eligible_only'] ) && ! Fast_Index_Eligibility::is_eligible( $post_id ) ) ) {
 				continue;
 			}
 

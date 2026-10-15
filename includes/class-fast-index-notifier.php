@@ -13,8 +13,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * Google is left out, without a History entry, when
  * - IndexNow is on and no Google key is stored: the site uses IndexNow only;
- * - "Send to Google only pages it supports" is on and the post has no JobPosting or BroadcastEvent data
- *   (Fast_Index_Eligibility).
+ * - "Send to Google only pages it supports" (eligible_only) is on and the post has no JobPosting or BroadcastEvent
+ *   data in its saved content (Fast_Index_Eligibility). IndexNow still gets it when it is on.
  */
 class Fast_Index_Notifier {
 
@@ -106,6 +106,10 @@ class Fast_Index_Notifier {
 	 */
 	public static function wants_google( array $settings, $post_id ) {
 		if ( Fast_Index_IndexNow::is_enabled( $settings ) && array() === Fast_Index_Accounts::all() ) {
+			return false;
+		}
+
+		if ( ! empty( $settings['eligible_only'] ) && ( 0 === absint( $post_id ) || ! Fast_Index_Eligibility::is_eligible( absint( $post_id ) ) ) ) {
 			return false;
 		}
 

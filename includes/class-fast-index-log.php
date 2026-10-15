@@ -211,6 +211,10 @@ class Fast_Index_Log {
 			Fast_Index_Upgrade::remember_success();
 		}
 
+		if ( $post_id > 0 && Fast_Index_Eligibility::is_eligible( $post_id ) ) {
+			update_post_meta( $log_id, Fast_Index_Eligibility::META, '1' );
+		}
+
 		self::supersede( $post_id, esc_url_raw( $url ), $log_id, Fast_Index_Submitter::is_not_sent( $code ) );
 
 		/**
@@ -469,7 +473,8 @@ class Fast_Index_Log {
 			return 0;
 		}
 
-		$values = array_merge( $types, array( self::POST_TYPE, self::STATUS_SENT ) );
+		// While only supported pages go to Google, only they can wait for Google (Fast_Index_Eligibility::sql_values()).
+		$values = array_merge( $types, array( self::POST_TYPE, self::STATUS_SENT ), Fast_Index_Eligibility::sql_values( $settings ) );
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- NOT EXISTS over the log has no WP_Query equivalent; the result is cached by stats(), every value is a placeholder.
 		$count = $wpdb->get_var(
@@ -477,7 +482,8 @@ class Fast_Index_Log {
 				"SELECT COUNT(*) FROM {$wpdb->posts} AS p
 				WHERE p.post_status = 'publish'
 				AND p.post_type IN ( " . implode( ', ', array_fill( 0, count( $types ), '%s' ) ) . " )
-				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )",
+				AND NOT EXISTS ( SELECT 1 FROM {$wpdb->posts} AS l WHERE l.post_parent = p.ID AND l.post_type = %s AND l.post_status = %s )
+				AND ( %d = 0 OR p.post_content LIKE %s OR p.post_content LIKE %s )",
 				$values
 			)
 		);
@@ -557,6 +563,7 @@ class Fast_Index_Log {
 			'code'      => '' === $code ? 200 : (int) $code,
 			'type'      => '' === $type ? Fast_Index_Google_Client::TYPE_UPDATED : (string) $type,
 			'retry'     => '' !== get_post_meta( $post->ID, self::META_RETRY, true ),
+			'eligible'  => '1' === get_post_meta( $post->ID, Fast_Index_Eligibility::META, true ),
 		);
 	}
 }

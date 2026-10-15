@@ -232,3 +232,15 @@
 		}
 
 	}
+
+	/* History: the page has data that Google supports in the Indexing API. */
+	#fi .fi-eligible {
+		display: inline-block;
+		margin-top: 2px;
+		padding: 0 6px;
+		border: 1px solid #00a32a;
+		border-radius: 3px;
+		color: #007017;
+		font-size: 11px;
+		line-height: 18px;
+	}
