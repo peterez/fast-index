@@ -1,5 +1,5 @@
 /*!
- * CultDevOps UI 2.0.0
+ * CultDevOps UI 2.0.1
  *
  * Behaviour for the CultDevOps design library (cdo-ui.css). No dependency; wp.i18n and wp.a11y are used when the page
  * has them. One global: window.CDOUI. Components start by themselves from data-cdo-* attributes when the page loads;
@@ -12,7 +12,7 @@
 ( function ( window, document ) {
 	'use strict';
 
-	var VERSION = '2.0.0';
+	var VERSION = '2.0.1';
 
 	if ( window.CDOUI && window.CDOUI.version ) {
 		return;
@@ -1612,7 +1612,7 @@
 				var shown = invalid.cdoCombobox ? invalid.cdoCombobox.input : invalid;
 				setFieldState( shown, 'error', invalid.getAttribute( 'data-cdo-required-message' ) || invalid.validationMessage );
 				shown.focus();
-				announce( __( 'Please fix the marked field, then go on.' ), 'assertive' );
+				announce( __( 'Fix the marked field, then continue.' ), 'assertive' );
 				return false;
 			}
 			return true;

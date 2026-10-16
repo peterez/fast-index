@@ -1,5 +1,5 @@
 /*
- * CultDevOps UI 2.0.0
+ * CultDevOps UI 2.0.1
  *
  * The shared design library of the CultDevOps plugin family. The same file ships, byte for byte, in every CultDevOps
  * plugin; the single source is tools/cdo-ui/ in the CultDevOps workspace, copied with tools/cdo-ui/sync.sh. Each
@@ -740,6 +740,12 @@
 	border-radius: var(--cdo-radius-l);
 	background: var(--cdo-surface);
 	overflow: hidden;
+}
+
+/* Text right after the ledger (a note under the numbers) keeps a gap. */
+.cdo-ui .cdo-stats + *,
+.cdo-ui .cdo-stats + .cdo-field__help {
+	margin-block-start: var(--cdo-space-3);
 }
 
 .cdo-ui .cdo-stat {
@@ -1723,6 +1729,11 @@
 	margin: calc(-1 * var(--cdo-space-1)) 0 var(--cdo-space-2);
 	color: var(--cdo-text-muted);
 	font-size: var(--cdo-text-s);
+}
+
+/* Help under a row of buttons explains what they do: it keeps its distance from them. */
+.cdo-ui .cdo-actions + .cdo-field__help {
+	margin-block-start: var(--cdo-space-2);
 }
 
 .cdo-ui .cdo-field__label + .cdo-popover,
